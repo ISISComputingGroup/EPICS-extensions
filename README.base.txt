@@ -1,1 +1,1 @@
-EPICS base R3.14.12.2
+The base directory contains EPICS base R3.14.12.2

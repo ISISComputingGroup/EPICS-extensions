@@ -33,14 +33,14 @@ REM   ---------------- make and perl ---------------------
 REM ======================================================
 
 REM   --------------- ActiveState perl -------------------
-set PATH=C:\Perl\bin;%PATH%
+set PATH=C:\strawberry\Perl\bin;%PATH%
 
 REM    --------------- mingw make ------------------------
 REM set PATH=C:\mingw-make\bin;%PATH%
 REM set PATH=C:\mingw-make82-3\bin;%PATH%
 
 REM   --------------- gnuwin32 make ----------------------
-set PATH=C:\gnuwin32\bin;%PATH%
+set PATH=C:\development\EPICS\utils_win32;%PATH%
 
 REM ======================================================
 REM ---------------- cygwin tools ------------------------
@@ -73,17 +73,17 @@ REM set     LIB=C:\Program Files\Microsoft SDKs\Windows\v7.0\lib;%LIB%
 
 REM    ----- Visual Studion 2010 -----
 REM --  windows-x64 ---
-REM call "C:\Program files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x64
+call "C:\Program files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x64
 REM --  win32-x86 ---
-call "C:\Program files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
+REM call "C:\Program files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
 
 REM ======================================================
 REM --------------- EPICS --------------------------------
 REM ======================================================
-REM set EPICS_HOST_ARCH=windows-x64
-set EPICS_HOST_ARCH=win32-x86
-set PATH=%PATH%;G:\epics\base\bin\%EPICS_HOST_ARCH%
-set PATH=%PATH%;G:\epics\extensions\bin\%EPICS_HOST_ARCH%
+set EPICS_HOST_ARCH=windows-x64
+REM set EPICS_HOST_ARCH=win32-x86
+set PATH=%PATH%;C:\development\EPICS\base\bin\%EPICS_HOST_ARCH%
+set PATH=%PATH%;C:\development\EPICS\extensions\bin\%EPICS_HOST_ARCH%
 
 REM ======================================================
 REM ------- OPTIONAL ENVIRONMENT VARIABLES FOLLOW --------
