@@ -25,7 +25,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=C:/development/EPICS/base
+EPICS_BASE=$(TOP)/../../base
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:
@@ -34,3 +34,4 @@ EPICS_BASE=C:/development/EPICS/base
 ASYN=$(EPICS_BASE)/../modules/soft/asyn
 PCRE=$(EPICS_BASE)/../modules/soft
 #EUROTHERM2K=$(EPICS_BASE)/../modules/soft/euro2kdata
+-include $(TOP)/configure/EPICS_BASE.$(EPICS_HOST_ARCH)

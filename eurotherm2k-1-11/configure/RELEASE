@@ -21,7 +21,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #EUROTHERM2K=$(EPICS_BASE)/../eurotherm2k-1-11
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=c:/development/EPICS/base
+EPICS_BASE=$(TOP)/../base
 
 #Capfast users may need the following definitions
 #CAPFAST_TEMPLATES=
