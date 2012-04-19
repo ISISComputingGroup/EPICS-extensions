@@ -19,9 +19,10 @@
 *                                                              *
 ***************************************************************/
 
-#include <devStream.h>
+#include "devStream.h"
 #include <mbbiRecord.h>
 #include <string.h>
+#include <epicsExport.h>
 
 static long readData (dbCommon *record, format_t *format)
 {
@@ -44,13 +45,13 @@ static long readData (dbCommon *record, format_t *format)
                     return OK;
                 }
             }
-            mbbi->val = val;
+            mbbi->val = (short)val;
             return DO_NOT_CONVERT;
         }
         case DBF_ENUM:
         {
             if (streamScanf (record, format, &val)) return ERROR;
-            mbbi->val = val;
+            mbbi->val = (short)val;
             return DO_NOT_CONVERT;
         }
         case DBF_STRING:
@@ -62,7 +63,7 @@ static long readData (dbCommon *record, format_t *format)
             {
                 if (strcmp ((&mbbi->zrst)[val], buffer) == 0)
                 {
-                    mbbi->val = val;
+                    mbbi->val = (short)val;
                     return DO_NOT_CONVERT;
                 }
             }
@@ -113,7 +114,8 @@ static long initRecord (dbCommon *record)
     mbbiRecord *mbbi = (mbbiRecord *) record;
 
     mbbi->mask <<= mbbi->shft;
-    return streamInitRecord (record, &mbbi->inp, readData, writeData);
+    return streamInitRecord (record, &mbbi->inp, readData, writeData) == ERROR ?
+        ERROR : OK;
 }
 
 struct {

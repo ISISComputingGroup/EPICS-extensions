@@ -24,9 +24,6 @@
 #include "StreamBuffer.h"
 #include <stdio.h>
 
-#define cr  '\r'
-#define lf  '\n'
-
 enum FormatType {NoFormat, ScanFormat, PrintFormat};
 
 class StreamProtocolParser
@@ -35,7 +32,7 @@ public:
 
     enum Codes
     {
-        eos = 0, skip, format, format_field, last_function_code
+        eos = 0, skip, whitespace, format, format_field, last_function_code
     };
 
     class Client;
@@ -67,20 +64,17 @@ public:
 
         const StreamBuffer filename;
 
-        const StreamBuffer* getValue(const char* varname);
         bool getNumberVariable(const char* varname, unsigned long& value,
             unsigned long max = 0xFFFFFFFF);
         bool getEnumVariable(const char* varname, unsigned short& value,
             const char ** enumstrings);
-        bool getStringVariable(const char* varname,StreamBuffer& value);
+        bool getStringVariable(const char* varname,StreamBuffer& value, bool* defined = NULL);
         bool getCommands(const char* handlername, StreamBuffer& code, Client*);
         bool compileNumber(unsigned long& number, const char*& source,
             unsigned long max = 0xFFFFFFFF);
         bool compileString(StreamBuffer& buffer, const char*& source,
             FormatType formatType = NoFormat, Client* = NULL, int quoted = false);
         bool checkUnused();
-        void errorMsg(int line, const char* fmt, ...)
-            __attribute__ ((format(printf,3,4)));
         ~Protocol();
         void report();
     };
@@ -93,6 +87,8 @@ public:
         virtual bool getFieldAddress(const char* fieldname,
             StreamBuffer& address) = 0;
         virtual const char* name() = 0;
+    public:
+        virtual ~Client();
     };
 
 private:
@@ -117,8 +113,6 @@ private:
         const char* specialchars = NULL, bool eofAllowed = false);
     bool parseAssignment(const char* variable, Protocol&);
     bool parseValue(StreamBuffer& buffer, bool lazy = false);
-    void errorMsg(const char* fmt, ...)
-        __attribute__ ((format(printf,2,3)));
 
 protected: 
     ~StreamProtocolParser(); // get rid of cygnus-2.7.2 compiler warning
@@ -128,7 +122,6 @@ public:
         const StreamBuffer& protocolAndParams);
     static void free();
     static const char* path;
-    static const char* formatTypeStr(int type);
     static const char* printString(StreamBuffer&, const char* string);
     void report();
 };

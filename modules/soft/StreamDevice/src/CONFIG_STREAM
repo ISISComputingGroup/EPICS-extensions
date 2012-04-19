@@ -1,14 +1,5 @@
 # Want debugging?
-HOST_OPT = NO
-
-# Do you have asynDriver? Which version?
-# For new versions of asyn try setting  ASYN_COMPAT_*
-# and check compatibility.
-ASYN_VERS = 4-5
-
-#Is a version of asynDriver compatible to some older version?
-ASYN_COMPAT_4-4 = 4-3
-ASYN_COMPAT_4-5 = 4-3
+# HOST_OPT = NO
 
 # You may add more record interfaces
 # This requires the naming conventions
@@ -22,6 +13,7 @@ RECORDS += longout longin
 RECORDS += stringout stringin
 RECORDS += waveform
 RECORDS += calcout
+RECORDS += aai aao
 
 # Do you have synApps and want support for scalcout?
 # Then define CALC or SYNAPPS in your RELEASE file
@@ -29,33 +21,54 @@ RECORDS += calcout
 # Due to strange cross dependencies in synApps
 # you have to build the 'sscan' and 'genSub'
 # modules before building 'calc'.
+# See doc/scalcout.html for a required fix in scalcout.
 
 SYNAPPS_RECORDS += scalcout
 
 # You may add more bus interfaces
-# This requires the naming conventions
+# This requires the naming convention
 # $(BUS)Interface.cc
 # asynDriver interface is added automatically
-# if ASYN_VERS is defined.
+# if ASYN is defined in your RELEASE file.
 
-# BUSSES += Debug
+BUSSES += Debug
+BUSSES += Dummy
 
 # You may add more format converters
+# This requires the naming convention
 # $(FORMAT)Converter.cc
 
 FORMATS += Enum
 FORMATS += BCD
 FORMATS += Raw
+FORMATS += RawFloat
 FORMATS += Binary
 FORMATS += Checksum
+FORMATS += MantissaExponent
+FORMATS += Timestamp
+
+# Want Perl regular expression matching?
+# If PCRE is installed at the same location for all
+# architectures, define the following variable in your
+# RELEASE file. If the PCRE installation is different
+# (or even missing) for some architectures, use
+# separate RELEASE.Common.<arch> files.
+# If PCRE is an EPICS-like project define
+# PCRE=<location of the PCRE project>
+# Else define
+# PCRE_INCLUDE=<location of the pcre.h file>
+# PCRE_LIB=<location of the PCRE library>
+
+ifneq ($(words $(PCRE) $(PCRE_LIB) $(PCRE_INCLUDE)),0)
+FORMATS += Regexp
+endif
 
 # Want a loadable module? 
 # For Tornado 2.0.2, a fix is needed in the
 # registerRecordDeviceDriver.pl script in base:
 # at the end replace the line "IoccrfReg iocshReg;"
 # by "static IoccrfReg iocshReg;"
-
-# LOADABLE_MODULE=YES
+# LOADABLE_MODULE = YES
 
 # Sources of Stream Kernel
 # Do not modify

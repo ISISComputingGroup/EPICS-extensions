@@ -21,22 +21,28 @@
 #define StreamError_h
 
 #include <stdio.h>
+#include <stdarg.h>
 
 #ifndef __GNUC__
 #define __attribute__(x)
 #endif
 
-#ifdef STREAM_EXPORTS
-#define STREAM_DLL_EXPORT __declspec(dllexport)
-#else
-#define STREAM_DLL_EXPORT __declspec(dllimport)
-#endif
-STREAM_DLL_EXPORT extern int streamDebug;
-STREAM_DLL_EXPORT extern FILE* StreamDebugFile;
-STREAM_DLL_EXPORT extern void (*StreamPrintTimestampFunction)(FILE* file);
+extern int streamDebug;
+extern void (*StreamPrintTimestampFunction)(char* buffer, int size);
+
+void StreamError(int line, const char* file, const char* fmt, ...)
+__attribute__ ((format(printf,3,4)));
+
+void StreamVError(int line, const char* file, const char* fmt, va_list args)
+__attribute__ ((format(printf,3,0)));
 
 void StreamError(const char* fmt, ...)
 __attribute__ ((format(printf,1,2)));
+
+inline void StreamVError(const char* fmt, va_list args)
+{
+    StreamVError(0, NULL, fmt, args); 
+}
 
 class StreamDebugClass
 {

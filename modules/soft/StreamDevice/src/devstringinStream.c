@@ -18,8 +18,9 @@
 *                                                              *
 ***************************************************************/
 
-#include <devStream.h>
+#include "devStream.h"
 #include <stringinRecord.h>
+#include <epicsExport.h>
 
 static long readData (dbCommon *record, format_t *format)
 {
@@ -47,7 +48,8 @@ static long initRecord (dbCommon *record)
 {
     stringinRecord *si = (stringinRecord *) record;
 
-    return streamInitRecord (record, &si->inp, readData, writeData);
+    return streamInitRecord (record, &si->inp, readData, writeData) == ERROR ?
+        ERROR : OK;
 }
 
 struct {

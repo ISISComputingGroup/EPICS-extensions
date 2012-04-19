@@ -23,12 +23,14 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-enum Commands { end_cmd, in_cmd, out_cmd, wait_cmd, event_cmd, exec_cmd };
-const char* commandStr[] = { "end", "in", "out", "wait", "event", "exec" };
+enum Commands { end_cmd, in_cmd, out_cmd, wait_cmd, event_cmd, exec_cmd,
+    connect_cmd, disconnect_cmd };
+const char* commandStr[] = { "end", "in", "out", "wait", "event", "exec",
+    "connect", "disconnect" };
 
 inline const char* commandName(unsigned char i)
 {
-    return i > exec_cmd ? "invalid" : commandStr[i];
+    return i >= sizeof(commandStr)/sizeof(char*) ? "invalid" : commandStr[i];
 }
 
 /// debug functions /////////////////////////////////////////////
@@ -37,7 +39,6 @@ static char* printCommands(StreamBuffer& buffer, const char* c)
 {
     unsigned long timeout;
     unsigned long eventnumber;
-    unsigned short cmdlen;
     while (1)
     {
         switch(*c++)
@@ -56,18 +57,24 @@ static char* printCommands(StreamBuffer& buffer, const char* c)
                 break;
             case wait_cmd:
                 timeout = extract<unsigned long>(c);
-                buffer.printf("    wait %ld;\n", timeout);
+                buffer.printf("    wait %ld;\n # ms", timeout);
                 break;
             case event_cmd:
                 eventnumber = extract<unsigned long>(c);
                 timeout = extract<unsigned long>(c);
-                buffer.printf ("    event(%ld) %ld;\n", eventnumber, timeout);
+                buffer.printf("    event(%ld) %ld; # ms\n", eventnumber, timeout);
                 break;
             case exec_cmd:
                 buffer.append("    exec \"");
-                cmdlen = extract<unsigned short>(c);
                 c = StreamProtocolParser::printString(buffer, c);
                 buffer.append("\";\n");
+                break;
+            case connect_cmd:
+                timeout = extract<unsigned long>(c);
+                buffer.printf("    connect %ld; # ms\n", timeout);
+                break;
+            case disconnect_cmd:
+                buffer.append("    disconnect;\n");
                 break;
             default:
                 buffer.append("\033[31;1mGARBAGE: ");
@@ -136,7 +143,7 @@ StreamCore()
 StreamCore::
 ~StreamCore()
 {
-    debug("~StreamCore(%s) %p\n", name(), this);
+    debug("~StreamCore(%s) %p\n", name(), (void*)this);
     releaseBus();
     // remove myself from list of all streams
     StreamCore** pstream;
@@ -162,7 +169,7 @@ attachBus(const char* busname, int addr, const char* param)
         return false;
     }
     debug("StreamCore::attachBus(busname=\"%s\", addr=%i, param=\"%s\") businterface=%p\n",
-        busname, addr, param, businterface);
+        busname, addr, param, (void*)businterface);
     return true;
 }
 
@@ -233,6 +240,8 @@ compile(StreamProtocolParser::Protocol* protocol)
     writeTimeout = 100;
     maxInput = 0;
     pollPeriod = 1000;
+    inTerminatorDefined = false;
+    outTerminatorDefined = false;
     
     unsigned short ignoreExtraInput = false;
     if (!protocol->getEnumVariable("extrainput", ignoreExtraInput,
@@ -252,10 +261,10 @@ compile(StreamProtocolParser::Protocol* protocol)
     {
         return false;
     }
-    if (!(protocol->getStringVariable("terminator", inTerminator) &&
-        protocol->getStringVariable("terminator", outTerminator) &&
-        protocol->getStringVariable("interminator", inTerminator) &&
-        protocol->getStringVariable("outterminator", outTerminator) &&
+    if (!(protocol->getStringVariable("terminator", inTerminator, &inTerminatorDefined) &&
+        protocol->getStringVariable("terminator", outTerminator, &outTerminatorDefined) &&
+        protocol->getStringVariable("interminator", inTerminator, &inTerminatorDefined) &&
+        protocol->getStringVariable("outterminator", outTerminator, &outTerminatorDefined) &&
         protocol->getStringVariable("separator", separator)))
     {
         return false;
@@ -314,7 +323,7 @@ compileCommand(StreamProtocolParser::Protocol* protocol,
     {
         if (!busSupportsEvent())
         {
-            protocol->errorMsg(getLineNumber(command),
+            error(getLineNumber(command), protocol->filename(),
                     "Events not supported by businterface.\n");
             return false;
         }
@@ -328,7 +337,7 @@ compileCommand(StreamProtocolParser::Protocol* protocol,
             }
             if (*args != ')')
             {
-                protocol->errorMsg(getLineNumber(command),
+                error(getLineNumber(command), protocol->filename(),
                     "Expect ')' instead of: '%s'\n", args);
                 return false;
             }
@@ -349,19 +358,51 @@ compileCommand(StreamProtocolParser::Protocol* protocol,
     {
         buffer.append(exec_cmd);
         if (!protocol->compileString(buffer, args,
-            NoFormat, this))
+            PrintFormat, this))
         {
             return false;
         }
         buffer.append(StreamProtocolParser::eos);
         return true;
     }
-    protocol->errorMsg(getLineNumber(command),
+    if (strcmp(command, commandStr[connect_cmd]) == 0)
+    {
+        buffer.append(connect_cmd);
+        if (!protocol->compileNumber(timeout, args))
+        {
+            return false;
+        }
+        buffer.append(&timeout, sizeof(timeout));
+        return true;
+    }
+    if (strcmp(command, commandStr[disconnect_cmd]) == 0)
+    {
+        buffer.append(disconnect_cmd);
+        return true;
+    }
+    
+    error(getLineNumber(command), protocol->filename(),
         "Unknown command name '%s'\n", command);
     return false;
 }
 
 // Run the protocol
+
+// Input and events may come asynchonously from the bus driver
+// Especially in the sequence 'out "request"; in "reply";' the
+// reply can come before the 'in' command has actually started.
+// For asyncronous protocols, input can come at any time.
+// Thus, we must always accept input and event while the protocol
+// is running or when asyncronous mode is active.
+// Early input and event must be buffered until 'in' or 'event'
+// start. An 'out' command must discard any early input to avoid
+// problems with late input from aborted protocols.
+// Async mode ends on Abort or Error or if another command comes
+// after the asynchronous 'in' command.
+// Input can be discarded when it is not accepted any more, i.e.
+// at the end of syncronous protocols and when an asynchronous
+// mode ends (but not when 'in'-only protocol finishes normally).
+
 
 bool StreamCore::
 startProtocol(StartMode startMode)
@@ -400,7 +441,6 @@ startProtocol(StartMode startMode)
     }
     commandIndex = (startMode == StartInit) ? onInit() : commands();
     runningHandler = Success;
-    busSetEos(inTerminator(), inTerminator.length());
     protocolStartHook();
     return evalCommand();
 }
@@ -417,7 +457,7 @@ finishProtocol(ProtocolResult status)
             flags & WaitPending ? "timerCallback()" : "");
         status = Fault;
     }
-    flags &= ~(AcceptInput|AcceptEvent);
+////    flags &= ~(AcceptInput|AcceptEvent);
     if (runningHandler)
     {
         // get original error status
@@ -425,10 +465,15 @@ finishProtocol(ProtocolResult status)
     }
     else
     {
+        // save original error status
+        runningHandler = status;
         // look for error handler
         char* handler;
         switch (status)
         {
+            case Success:
+                handler = NULL;
+                break;
             case WriteTimeout:
                 handler = onWriteTimeout();
                 break;
@@ -438,18 +483,32 @@ finishProtocol(ProtocolResult status)
             case ReadTimeout:
                 handler = onReadTimeout();
                 break;
-            case Abort:
-                // cancel anything running
-            case Fault:
-                // get rid of all the rubbish whe might have collected
-                inputBuffer.clear();
+            case ScanError:
+                handler = onMismatch();
+                /* reparse old input if first command in handler is 'in' */
+                if (*handler == in_cmd)
+                {
+                    debug("reparsing input \"%s\"\n",
+                        inputLine.expand()());
+                    commandIndex = handler + 1;
+                    if (matchInput())
+                    {
+                        evalCommand();
+                        return;
+                    }
+                    handler = NULL;
+                    break;
+                }
+                break;
             default:
+                // get rid of all the rubbish whe might have collected
+                unparsedInput = false;
+                inputBuffer.clear();
                 handler = NULL;
         }
         if (handler)
         {
-            // save original error status
-            runningHandler = status;
+            debug("starting exception handler\n");
             // execute handler
             commandIndex = handler;
             evalCommand();
@@ -473,6 +532,8 @@ finishProtocol(ProtocolResult status)
         busUnlock();
         flags &= ~BusOwner;
     }
+    busFinish();
+    flags &= ~(AcceptInput|AcceptEvent);
     protocolFinishHook(status);
 }
 
@@ -494,22 +555,26 @@ evalCommand()
     switch (*commandIndex++)
     {
         case out_cmd:
-            flags &= ~(AcceptInput|AcceptEvent);
+            //// flags &= ~(AcceptInput|AcceptEvent);
             return evalOut();
         case in_cmd:
-            flags &= ~AcceptEvent;
+            //// flags &= ~AcceptEvent;
             return evalIn();
         case wait_cmd:
-            flags &= ~(AcceptInput|AcceptEvent);
+            //// flags &= ~(AcceptInput|AcceptEvent);
             return evalWait();
         case event_cmd:
-            flags &= ~AcceptInput;
+            //// flags &= ~AcceptInput;
             return evalEvent();
         case exec_cmd:
             return evalExec();
         case end_cmd:
             finishProtocol(Success);
             return true;
+        case connect_cmd:
+            return evalConnect();
+        case disconnect_cmd:
+            return evalDisconnect();
         default:
             error("INTERNAL ERROR (%s): illegal command code 0x%02x\n",
                 name(), *activeCommand);
@@ -524,9 +589,9 @@ evalCommand()
 bool StreamCore::
 evalOut()
 {
-    inputBuffer.clear(); // flush all unread input
+    // flush all unread input
     unparsedInput = false;
-    outputLine.clear();
+    inputBuffer.clear();
     if (!formatOutput())
     {
         finishProtocol(FormatError);
@@ -567,33 +632,50 @@ formatOutput()
     char command;
     const char* fieldName = NULL;
     const char* formatstring;
+    int formatstringlen;
+    
+    outputLine.clear();
     while ((command = *commandIndex++) != StreamProtocolParser::eos)
     {
         switch (command)
         {
             case StreamProtocolParser::format_field:
             {
-                debug("StreamCore::formatOutput(%s): StreamProtocolParser::format_field\n",
+                debug("StreamCore::formatOutput(%s): StreamProtocolParser::redirect_format\n",
                     name());
                 // code layout:
-                // field <StreamProtocolParser::eos> addrlen AddressStructure formatstring <StreamProtocolParser::eos> StreamFormat [info]
+                // field <eos> addrlen AddressStructure formatstring <eos> StreamFormat [info]
                 fieldName = commandIndex;
                 commandIndex += strlen(commandIndex)+1;
                 unsigned short addrlen = extract<unsigned short>(commandIndex);
                 fieldAddress.set(commandIndex, addrlen);
                 commandIndex += addrlen;
+                goto normal_format;
             }
             case StreamProtocolParser::format:
             {
+                fieldAddress.clear();
+normal_format:
                 // code layout:
-                // formatstring <StreamProtocolParser::eos> StreamFormat [info]
+                // formatstring <eos> StreamFormat [info]
                 formatstring = commandIndex;
-                while (*commandIndex++); // jump after <StreamProtocolParser::eos>
+                // jump after <eos>
+                while (*commandIndex)
+                {
+                    if (*commandIndex == esc) commandIndex++;
+                    commandIndex++;
+                }
+                formatstringlen = commandIndex-formatstring;
+                commandIndex++;
+                
                 StreamFormat fmt = extract<StreamFormat>(commandIndex);
                 fmt.info = commandIndex; // point to info string
                 commandIndex += fmt.infolen;
+#ifndef NO_TEMPORARY
                 debug("StreamCore::formatOutput(%s): format = %%%s\n",
-                    name(), formatstring);
+                    name(), StreamBuffer(formatstring, formatstringlen).expand()());
+#endif
+
                 if (fmt.type == pseudo_format)
                 {
                     if (!StreamFormatConverter::find(fmt.conv)->
@@ -608,18 +690,21 @@ formatOutput()
                 flags &= ~Separator;
                 if (!formatValue(fmt, fieldAddress ? fieldAddress() : NULL))
                 {
-                    if (fieldName)
-                        error("%s: Can't format field '%s' with '%%%s'\n",
-                            name(), fieldName, formatstring);
+                    StreamBuffer formatstr(formatstring, formatstringlen);
+                    if (fieldAddress)
+                        error("%s: Cannot format field '%s' with '%%%s'\n",
+                            name(), fieldName, formatstr.expand()());
                     else
-                        error("%s: Can't format value with '%%%s'\n",
-                            name(), formatstring);
+                        error("%s: Cannot format value with '%%%s'\n",
+                            name(), formatstr.expand()());
                     return false;
                 }
-                fieldAddress.clear();
-                fieldName = NULL;
                 continue;
             }
+            case StreamProtocolParser::whitespace:
+                outputLine.append(' ');
+            case StreamProtocolParser::skip:
+                continue;
             case esc:
                 // escaped literal byte
                 command = *commandIndex++;
@@ -641,12 +726,21 @@ printSeparator()
     }
     if (!separator) return;
     long i = 0;
-    if (separator[0] == ' ') i++; // ignore leading space
     for (; i < separator.length(); i++)
     {
-        if (separator[i] == StreamProtocolParser::skip) continue; // wildcard
-        if (separator[i] == esc) i++;       // escaped literal byte
-        outputLine.append(separator[i]);
+        switch (separator[i])
+        {
+            case StreamProtocolParser::whitespace:
+                outputLine.append(' '); // print single space
+            case StreamProtocolParser::skip:
+                continue;
+            case esc:
+                // escaped literal byte
+                i++;
+            default:
+                // literal byte
+                outputLine.append(separator[i]);
+        }
     }
 }
 
@@ -660,8 +754,16 @@ printValue(const StreamFormat& fmt, long value)
         return false;
     }
     printSeparator();
-    return StreamFormatConverter::find(fmt.conv)->
-        printLong(fmt, outputLine, value);
+    if (!StreamFormatConverter::find(fmt.conv)->
+        printLong(fmt, outputLine, value))
+    {
+        error("%s: Formatting value %li failed\n",
+            name(), value);
+        return false;
+    }
+    debug("StreamCore::printValue(%s, long): \"%s\"\n",
+        name(), outputLine.expand()());
+    return true;
 }
 
 bool StreamCore::
@@ -674,8 +776,16 @@ printValue(const StreamFormat& fmt, double value)
         return false;
     }
     printSeparator();
-    return StreamFormatConverter::find(fmt.conv)->
-        printDouble(fmt, outputLine, value);
+    if (!StreamFormatConverter::find(fmt.conv)->
+        printDouble(fmt, outputLine, value))
+    {
+        error("%s: Formatting value %#g failed\n",
+            name(), value);
+        return false;
+    }
+    debug("StreamCore::printValue(%s, double): \"%s\"\n",
+        name(), outputLine.expand()());
+    return true;
 }
 
 bool StreamCore::
@@ -688,12 +798,21 @@ printValue(const StreamFormat& fmt, char* value)
         return false;
     }
     printSeparator();
-    return StreamFormatConverter::find(fmt.conv)->
-        printString(fmt, outputLine, value);
+    if (!StreamFormatConverter::find(fmt.conv)->
+        printString(fmt, outputLine, value))
+    {
+        StreamBuffer buffer(value);
+        error("%s: Formatting value \"%s\" failed\n",
+            name(), buffer.expand()());
+        return false;
+    }
+    debug("StreamCore::printValue(%s, char*): \"%s\"\n",
+        name(), outputLine.expand()());
+    return true;
 }
 
 void StreamCore::
-lockCallback(StreamBusInterface::IoStatus status)
+lockCallback(StreamIoStatus status)
 {
     MutexLock lock(this);
     debug("StreamCore::lockCallback(%s, status=%s)\n",
@@ -706,10 +825,16 @@ lockCallback(StreamBusInterface::IoStatus status)
     }
     flags &= ~LockPending;
     flags |= BusOwner;
-    if (status != StreamBusInterface::ioSuccess)
+    switch (status)
     {
-        finishProtocol(LockTimeout);
-        return;
+        case StreamIoSuccess:
+            break;
+        case StreamIoTimeout:
+            finishProtocol(LockTimeout);
+            return;
+        default:
+            finishProtocol(Fault);
+            return;
     }
     flags |= WritePending;
     if (!busWriteRequest(outputLine(), outputLine.length(), writeTimeout))
@@ -719,7 +844,7 @@ lockCallback(StreamBusInterface::IoStatus status)
 }
 
 void StreamCore::
-writeCallback(StreamBusInterface::IoStatus status)
+writeCallback(StreamIoStatus status)
 {
     MutexLock lock(this);
     debug("StreamCore::writeCallback(%s, status=%s)\n",
@@ -731,12 +856,27 @@ writeCallback(StreamBusInterface::IoStatus status)
         return;
     }
     flags &= ~WritePending;
-    if (status != StreamBusInterface::ioSuccess)
+    if (status != StreamIoSuccess)
     {
         finishProtocol(WriteTimeout);
         return;
     }
     evalCommand();
+}
+
+const char* StreamCore::
+getOutTerminator(size_t& length)
+{
+    if (outTerminatorDefined)
+    {
+        length = outTerminator.length();
+        return outTerminator();
+    }
+    else
+    {
+        length = 0;
+        return NULL;
+    }
 }
 
 // Handle 'in' command
@@ -748,7 +888,7 @@ evalIn()
     long expectedInput;
 
     expectedInput = maxInput;
-    if (inputBuffer && unparsedInput)
+    if (unparsedInput)
     {
         // handle early input
         debug("StreamCore::evalIn(%s): early input: %s\n",
@@ -781,48 +921,54 @@ evalIn()
 }
 
 long StreamCore::
-readCallback(StreamBusInterface::IoStatus status,
+readCallback(StreamIoStatus status,
     const void* input, long size)
 // returns number of bytes to read additionally
 
 {
+    if (status < 0 || status > StreamIoFault)
+    {
+        error("StreamCore::readCallback(%s) called with illegal StreamIoStatus %d\n",
+            name(), status);
+        return 0;
+    }
     MutexLock lock(this);
     lastInputStatus = status;
 
 #ifndef NO_TEMPORARY
     debug("StreamCore::readCallback(%s, status=%s input=\"%s\", size=%ld)\n",
-        name(),
-        status == 0 ? "ioSuccess" :
-        status == 1 ? "ioTimeout" :
-        status == 2 ? "ioNoReply" :
-        status == 3 ? "ioEnd" :
-        status == 4 ? "ioFault" : "Invalid",
+        name(), StreamIoStatusStr[status],
         StreamBuffer(input, size).expand()(), size);
 #endif
 
     if (!(flags & AcceptInput))
     {
-        error("StreamCore::readCallback(%s) called unexpectedly\n",
-            name());
+#ifdef NO_TEMPORARY
+        error("StreamCore::readCallback(%s, %s) called unexpectedly\n",
+            name(), StreamIoStatusStr[status]);
+#else
+        error("StreamCore::readCallback(%s, %s, \"%s\") called unexpectedly\n",
+            name(), StreamIoStatusStr[status],
+            StreamBuffer(input, size).expand()());
+#endif
         return 0;
     }
-    flags &= ~AcceptInput;
-    unparsedInput = false;
+////    flags &= ~AcceptInput;
     switch (status)
     {
-        case StreamBusInterface::ioTimeout:
+        case StreamIoTimeout:
             // timeout is valid end if we have no terminator
             // and number of input bytes is not limited
             if (!inTerminator && !maxInput)
             {
-                status = StreamBusInterface::ioEnd;
+                status = StreamIoEnd;
             }
             // else timeout might be ok if we find a terminator
             break;
-        case StreamBusInterface::ioSuccess:
-        case StreamBusInterface::ioEnd:
+        case StreamIoSuccess:
+        case StreamIoEnd:
             break;
-        case StreamBusInterface::ioNoReply:
+        case StreamIoNoReply:
             if (flags & AsyncMode)
             {
                 // just restart in asyn mode
@@ -836,8 +982,12 @@ readCallback(StreamBusInterface::IoStatus status,
             inputBuffer.clear();
             finishProtocol(ReplyTimeout);
             return 0;
-        case StreamBusInterface::ioFault:
-            error("%s: I/O error from device\n", name());
+        case StreamIoFault:
+            error("%s: I/O error after reading %ld byte%s: \"%s%s\"\n",
+                name(),
+                inputBuffer.length(), inputBuffer.length()==1 ? "" : "s",
+                inputBuffer.length() > 20 ? "..." : "",
+                inputBuffer.expand(-20,20)());
             finishProtocol(Fault);
             return 0;
     }
@@ -860,12 +1010,38 @@ readCallback(StreamBusInterface::IoStatus status,
     if (inTerminator)
     {
         // look for terminator
-        end = inputBuffer.find(inTerminator);
-        if (end >= 0) termlen = inTerminator.length();
-        debug("StreamCore::readCallback(%s) inTerminator %sfound\n",
-            name(), end >= 0 ? "" : "not ");
+        // performance issue for long inputs that come in chunks:
+        // do not parse old chunks again or performance decreases to O(n^2)
+        // but make sure to get all terminators in multi-line input
+
+        long start;
+        if (unparsedInput)
+        {
+            // multi-line input sets 'unparsedInput' and removes the line
+            // remaining unparsed lines are left at start of inputBuffer
+            start = 0;
+        }
+        else
+        {
+            // long line does not set 'unparsedInput' but keeps
+            // already parsed chunks in inputBuffer
+            // start parsing at beginning of new data
+            // but beware of split terminators
+            start = inputBuffer.length() - size - inTerminator.length();
+            if (start < 0) start = 0;
+        }
+        end = inputBuffer.find(inTerminator, start);
+        if (end >= 0)
+        {
+            termlen = inTerminator.length();
+            debug("StreamCore::readCallback(%s) inTerminator %s at position %ld\n",
+                name(), inTerminator.expand()(), end);
+        } else {
+            debug("StreamCore::readCallback(%s) inTerminator %s not found\n",
+                name(), inTerminator.expand()());
+        }
     }
-    if (status == StreamBusInterface::ioEnd && end < 0)
+    if (status == StreamIoEnd && end < 0)
     {
         // no terminator but end flag
         debug("StreamCore::readCallback(%s) end flag received\n",
@@ -885,10 +1061,16 @@ readCallback(StreamBusInterface::IoStatus status,
         end = maxInput;
         termlen = 0;
     }
+    if (end >= 0)
+    {
+        // be forgiving with timeout because end is found
+        if (status == StreamIoTimeout)
+            status = StreamIoEnd;
+    }
     if (end < 0)
     {
         // no end found
-        if (status != StreamBusInterface::ioTimeout)
+        if (status != StreamIoTimeout)
         {
             // input is incomplete - wait for more
             debug("StreamCore::readCallback(%s) wait for more input\n",
@@ -901,22 +1083,42 @@ readCallback(StreamBusInterface::IoStatus status,
         }
         // try to parse what we got
         end = inputBuffer.length();
-        if (!(flags & AsyncMode))
+        if (flags & AsyncMode)
         {
-            error("%s: Timeout after reading %ld bytes \"%s%s\"\n",
-                name(), end, end > 20 ? "..." : "",
+            debug("StreamCore::readCallback(%s) async timeout: just restart\n",
+                name());
+            unparsedInput = false;
+            inputBuffer.clear();
+            commandIndex = commandStart;
+            evalIn();
+            return 0;
+        }
+        else
+        {
+            error("%s: Timeout after reading %ld byte%s \"%s%s\"\n",
+                name(), end, end==1 ? "" : "s", end > 20 ? "..." : "",
                 inputBuffer.expand(-20)());
         }
     }
 
     inputLine.set(inputBuffer(), end);
+    debug("StreamCore::readCallback(%s) input line: \"%s\"\n",
+        name(), inputLine.expand()());
     bool matches = matchInput();
     inputBuffer.remove(end + termlen);
-    if (inputBuffer) unparsedInput = true;
-
+    if (inputBuffer)
+    {
+        debug("StreamCore::readCallback(%s) unpared input left: \"%s\"\n",
+            name(), inputBuffer.expand()());
+        unparsedInput = true;
+    }
+    else
+    {
+        unparsedInput = false;
+    }
     if (!matches)
     {
-        if (status == StreamBusInterface::ioTimeout)
+        if (status == StreamIoTimeout)
         {
             // we have not forgotten the timeout
             finishProtocol(ReadTimeout);
@@ -935,14 +1137,14 @@ readCallback(StreamBusInterface::IoStatus status,
         finishProtocol(ScanError);
         return 0;
     }
-    if (status == StreamBusInterface::ioTimeout)
+    if (status == StreamIoTimeout)
     {
         // we have not forgotten the timeout
         finishProtocol(ReadTimeout);
         return 0;
     }
     // end input mode and do next command
-    flags &= ~(AsyncMode|AcceptInput);
+    //// flags &= ~(AsyncMode|AcceptInput);
     // -- should we tell someone that input has finished? --
     evalCommand();
     return 0;
@@ -951,8 +1153,14 @@ readCallback(StreamBusInterface::IoStatus status,
 bool StreamCore::
 matchInput()
 {
+    /* Don't write messages about matching errors if either in asynchronous
+       mode (then we just wait for new matching input) or if @mismatch handler
+       is installed and starts with 'in' (then we reparse the input).
+    */
     char command;
+    const char* fieldName = NULL;
     const char* formatstring;
+    int formatstringlen;
     
     consumedInput = 0;
     
@@ -964,22 +1172,38 @@ matchInput()
             {
                 // code layout:
                 // field <StreamProtocolParser::eos> addrlen AddressStructure formatstring <StreamProtocolParser::eos> StreamFormat [info]
+                fieldName = commandIndex;
                 commandIndex += strlen(commandIndex)+1;
                 unsigned short addrlen = extract<unsigned short>(commandIndex);
                 fieldAddress.set(commandIndex, addrlen);
                 commandIndex += addrlen;
+                goto normal_format;
             }
             case StreamProtocolParser::format:
             {
+                fieldAddress.clear();
+normal_format:
                 int consumed;
                 // code layout:
                 // formatstring <eos> StreamFormat [info]
                 formatstring = commandIndex;
-                while (*commandIndex++ != StreamProtocolParser::eos); // jump after <eos>
+                // jump after <eos>
+                while (*commandIndex)
+                {
+                    if (*commandIndex == esc) commandIndex++;
+                    commandIndex++;
+                }
+                formatstringlen = commandIndex-formatstring;
+                commandIndex++;
                 
                 StreamFormat fmt = extract<StreamFormat>(commandIndex);
-                fmt.info = commandIndex;
+                fmt.info = commandIndex; // point to info string
                 commandIndex += fmt.infolen;
+#ifndef NO_TEMPORARY
+                debug("StreamCore::matchInput(%s): format = %%%s\n",
+                    name(), StreamBuffer(formatstring, formatstringlen).expand()());
+#endif
+
                 if (fmt.flags & skip_flag || fmt.type == pseudo_format)
                 {
                     long ldummy;
@@ -1011,22 +1235,79 @@ matchInput()
                     }
                     if (consumed < 0)
                     {
-                        if (!(flags & AsyncMode))
+                        if (fmt.flags & default_flag)
                         {
-                            error("%s: Input \"%s%s\" does not match format %%%s\n",
-                                name(), inputLine.expand(consumedInput, 20)(),
-                                inputLine.length()-consumedInput > 20 ? "..." : "",
-                                formatstring);
+                            consumed = 0;
+                        }
+                        else
+                        {
+                            if (!(flags & AsyncMode) && onMismatch[0] != in_cmd)
+                            {
+                                error("%s: Input \"%s%s\" does not match format %%%s\n",
+                                    name(), inputLine.expand(consumedInput, 20)(),
+                                    inputLine.length()-consumedInput > 20 ? "..." : "",
+                                    formatstring);
+                            }
+                            return false;
+                        }
+                    }
+                    consumedInput += consumed;
+                    break;
+                }
+                if (fmt.flags & compare_flag)
+                {
+                    outputLine.clear();
+                    flags &= ~Separator;
+                    if (!formatValue(fmt, fieldAddress ? fieldAddress() : NULL))
+                    {
+                        StreamBuffer formatstr(formatstring, formatstringlen);
+                        if (fieldAddress)
+                            error("%s: Cannot format field '%s' with '%%%s'\n",
+                                name(), fieldName, formatstr.expand()());
+                        else
+                            error("%s: Cannot format value with '%%%s'\n",
+                                name(), formatstr.expand()());
+                        return false;
+                    }
+#ifndef NO_TEMPORARY
+                    debug("StreamCore::matchInput(%s): compare \"%s\" with \"%s\"\n",
+                        name(), inputLine.expand(consumedInput,
+                            outputLine.length())(), outputLine.expand()()); 
+#endif
+                    if (inputLine.length() - consumedInput < outputLine.length())
+                    {
+                        if (!(flags & AsyncMode) && onMismatch[0] != in_cmd)
+                        {
+                            error("%s: Input \"%s%s\" too short."
+                                  " No match for format %%%s (\"%s\")\n",
+                                name(), 
+                                inputLine.length() > 20 ? "..." : "",
+                                inputLine.expand(-20)(),
+                                formatstring,
+                                outputLine.expand()());
                         }
                         return false;
                     }
-                    consumedInput += consumed;
+                    if (!outputLine.startswith(inputLine(consumedInput),outputLine.length()))
+                    {
+                        if (!(flags & AsyncMode) && onMismatch[0] != in_cmd)
+                        {
+                            error("%s: Input \"%s%s\" does not match"
+                                  " format %%%s (\"%s\")\n",
+                                name(), inputLine.expand(consumedInput, 20)(),
+                                inputLine.length()-consumedInput > 20 ? "..." : "",
+                                formatstring,
+                                outputLine.expand()());
+                        }
+                        return false;
+                    }
+                    consumedInput += outputLine.length();
                     break;
                 }
                 flags &= ~Separator;
                 if (!matchValue(fmt, fieldAddress ? fieldAddress() : NULL))
                 {
-                    if (!(flags & AsyncMode))
+                    if (!(flags & AsyncMode) && onMismatch[0] != in_cmd)
                     {
                         if (flags & ScanTried)
                             error("%s: Input \"%s%s\" does not match format %%%s\n",
@@ -1034,18 +1315,21 @@ matchInput()
                                 inputLine.length()-consumedInput > 20 ? "..." : "",
                                 formatstring);
                         else
-                            error("%s: Can't scan value with format %%%s\n",
-                                name(), formatstring);
+                            error("%s: Format %%%s has data type %s which does not match this variable.\n",
+                                name(), formatstring, StreamFormatTypeStr[fmt.type] );
                     }
                     return false;
                 }
                 // matchValue() has already removed consumed bytes from inputBuffer
-                fieldAddress = NULL;
                 break;
             }
             case StreamProtocolParser::skip:
                 // ignore next input byte
                 consumedInput++;
+                break;
+            case StreamProtocolParser::whitespace:
+                // any number of whitespace (including 0)
+                while (isspace(inputLine[consumedInput])) consumedInput++;
                 break;
             case esc:
                 // escaped literal byte
@@ -1054,24 +1338,41 @@ matchInput()
                 // literal byte
                 if (consumedInput >= inputLine.length())
                 {
-                    if (!(flags & AsyncMode))
-                        error("%s: Input \"%s%s\" too short. No match for byte \"%s\"\n",
+                    int i = 0;
+                    while (commandIndex[i] >= ' ') i++;
+                    if (!(flags & AsyncMode) && onMismatch[0] != in_cmd)
+                    {
+                        error("%s: Input \"%s%s\" too short.\n",
                             name(), 
                             inputLine.length() > 20 ? "..." : "",
-                            inputLine.expand(-20)(),
-                            StreamBuffer(&command,1).expand()());
+                            inputLine.expand(-20)());
+#ifndef NO_TEMPORARY
+                        error("No match for \"%s\"\n",
+                            StreamBuffer(commandIndex-1,i+1).expand()());
+#endif
+                    }
                     return false;
                 }
                 if (command != inputLine[consumedInput])
                 {
-                    if (!(flags & AsyncMode))
+                    if (!(flags & AsyncMode) && onMismatch[0] != in_cmd)
                     {
                         int i = 0;
                         while (commandIndex[i] >= ' ') i++;
-                        error("%s: Byte %ld in \"%s\" does not match expected \"%s\"\n",
-                        name(), consumedInput,
-                        inputLine.expand()(),
-                        StreamBuffer(commandIndex-1,i+1).expand()());
+                        error("%s: Input \"%s%s\" mismatch after %ld byte%s\n",
+                            name(),
+                            consumedInput > 10 ? "..." : "",
+                            inputLine.expand(consumedInput > 10 ?
+                                consumedInput-10 : 0,20)(),
+                            consumedInput,
+                            consumedInput==1 ? "" : "s");
+
+#ifndef NO_TEMPORARY
+                        error("%s: got \"%s\" where \"%s\" was expected\n",
+                            name(),
+                            inputLine.expand(consumedInput, 20)(),
+                            StreamBuffer(commandIndex-1,i+1).expand()());
+#endif
                     }
                     return false;
                 }
@@ -1081,11 +1382,24 @@ matchInput()
     long surplus = inputLine.length()-consumedInput;
     if (surplus > 0 && !(flags & IgnoreExtraInput))
     {
-        if (!(flags & AsyncMode))
-            error("%s: %ld bytes surplus input \"%s%s\"\n",
-                name(), surplus,
-                inputLine.expand(consumedInput, 19)(),
+        if (!(flags & AsyncMode) && onMismatch[0] != in_cmd)
+        {
+            error("%s: %ld byte%s surplus input \"%s%s\"\n",
+                name(), surplus, surplus==1 ? "" : "s",
+                inputLine.expand(consumedInput, 20)(),
                 surplus > 20 ? "..." : "");
+                
+            if (consumedInput>20)
+                error("%s: after %ld byte%s \"...%s\"\n",
+                    name(), consumedInput,
+                    consumedInput==1 ? "" : "s",
+                    inputLine.expand(consumedInput-20, 20)());
+            else
+                error("%s: after %ld byte%s: \"%s\"\n",
+                    name(), consumedInput,
+                    consumedInput==1 ? "" : "s",
+                    inputLine.expand(0, consumedInput)());
+        }
         return false;
     }
     return true;
@@ -1094,36 +1408,45 @@ matchInput()
 bool StreamCore::
 matchSeparator()
 {
+    // called before value is read, first value has Separator flag cleared
+    // for second and next value set Separator flag
+
+    if (!separator) {
+        // empty separator matches
+        return true;
+    }
     if (!(flags & Separator))
     {
+        // before first element, don't expect separator yet
         flags |= Separator;
         return true;
     }
-    if (!separator) return true;
-    long i = 0;
-    if (separator[0] == ' ')
+    long i;
+    long j = consumedInput;
+    for (i = 0; i < separator.length(); i++)
     {
-        i++;
-        // skip leading whitespaces
-        while (isspace(inputLine[consumedInput++]));
+        switch (separator[i])
+        {
+            case StreamProtocolParser::skip:
+                j++;
+                continue;
+            case StreamProtocolParser::whitespace:
+                while (isspace(inputLine[j])) j++;
+                continue;
+            case esc:
+                i++;
+            default:
+                if (separator[i] != inputLine[j])
+                {
+                    // no match
+                    // don't complain here, just return false
+                    return false;
+                }
+            j++;
+        }
     }
-    for (; i < separator.length(); i++,consumedInput++)
-    {
-        if (!inputLine[consumedInput]) return false;
-        if (separator[i] == StreamProtocolParser::skip) continue; // wildcard
-        if (separator[i] == esc) i++;       // escaped literal byte
-        if (separator[i] != inputLine[consumedInput]) return false;
-    }
-    return true;
-}
-
-bool StreamCore::
-scanSeparator()
-{
-    // for compatibility only
-    // read and remove separator
-    if (!matchSeparator()) return false;
-    flags &= ~Separator;
+    // separator successfully read
+    consumedInput = j;
     return true;
 }
 
@@ -1142,8 +1465,16 @@ scanValue(const StreamFormat& fmt, long& value)
         scanLong(fmt, inputLine(consumedInput), value);
     debug("StreamCore::scanValue(%s, format=%%%c, long) input=\"%s\"\n",
         name(), fmt.conv, inputLine.expand(consumedInput)());
-    if (consumed < 0 ||
-        consumed > inputLine.length()-consumedInput) return -1;
+    if (consumed < 0)
+    {
+        if (fmt.flags & default_flag)
+        {
+            value = 0;
+            consumed = 0;
+        }
+        else return -1;
+    }
+    if (consumed > inputLine.length()-consumedInput) return -1;
     debug("StreamCore::scanValue(%s) scanned %li\n",
         name(), value);
     flags |= GotValue;
@@ -1164,9 +1495,17 @@ scanValue(const StreamFormat& fmt, double& value)
     long consumed = StreamFormatConverter::find(fmt.conv)->
         scanDouble(fmt, inputLine(consumedInput), value);
     debug("StreamCore::scanValue(%s, format=%%%c, double) input=\"%s\"\n",
-        name(), fmt.conv, inputLine.expand(consumedInput)());
-    if (consumed < 0 ||
-        consumed > inputLine.length()-consumedInput) return -1;
+        name(), fmt.conv, inputLine.expand(consumedInput, 20)());
+    if (consumed < 0)
+    {
+        if (fmt.flags & default_flag)
+        {
+            value = 0.0;
+            consumed = 0;
+        }
+        else return -1;
+    }
+    if (consumed > inputLine.length()-consumedInput) return -1;
     debug("StreamCore::scanValue(%s) scanned %#g\n",
         name(), value);
     flags |= GotValue;
@@ -1189,14 +1528,37 @@ scanValue(const StreamFormat& fmt, char* value, long maxlen)
         scanString(fmt, inputLine(consumedInput), value, maxlen);
     debug("StreamCore::scanValue(%s, format=%%%c, char*, maxlen=%ld) input=\"%s\"\n",
         name(), fmt.conv, maxlen, inputLine.expand(consumedInput)());
-    if (consumed < 0 ||
-        consumed > inputLine.length()-consumedInput) return -1;
+    if (consumed < 0)
+    {
+        if (fmt.flags & default_flag)
+        {
+            value[0] = 0;
+            consumed = 0;
+        }
+        else return -1;
+    }
+    if (consumed > inputLine.length()-consumedInput) return -1;
 #ifndef NO_TEMPORARY
     debug("StreamCore::scanValue(%s) scanned \"%s\"\n",
-        name(), StreamBuffer(value, consumed).expand()());
+        name(), StreamBuffer(value, maxlen).expand()());
 #endif
     flags |= GotValue;
     return consumed;
+}
+
+const char* StreamCore::
+getInTerminator(size_t& length)
+{
+    if (inTerminatorDefined)
+    {
+        length = inTerminator.length();
+        return inTerminator();
+    }
+    else
+    {
+        length = 0;
+        return NULL;
+    }
 }
 
 // Handle 'event' command
@@ -1222,9 +1584,14 @@ evalEvent()
 }
 
 void StreamCore::
-eventCallback(StreamBusInterface::IoStatus status)
+eventCallback(StreamIoStatus status)
 {
-    MutexLock lock(this);
+    if (status < 0 || status > StreamIoFault)
+    {
+        error("StreamCore::eventCallback(%s) called with illegal StreamIoStatus %d\n",
+            name(), status);
+        return;
+    }
     if (!(flags & AcceptEvent))
     {
         error("StreamCore::eventCallback(%s) called unexpectedly\n",
@@ -1232,24 +1599,21 @@ eventCallback(StreamBusInterface::IoStatus status)
         return;
     }
     debug("StreamCore::eventCallback(%s, status=%s)\n",
-        name(),
-        status == 0 ? "ioSuccess" :
-        status == 1 ? "ioTimeout" :
-        status == 2 ? "ioNoReply" :
-        status == 3 ? "ioEnd" :
-        status == 4 ? "ioFault" : "Invalid");
+        name(), StreamIoStatusStr[status]);
+    MutexLock lock(this);
     flags &= ~AcceptEvent;
     switch (status)
     {
-        case StreamBusInterface::ioTimeout:
+        case StreamIoTimeout:
             error("%s: No event from device\n", name());
             finishProtocol(ReplyTimeout);
             return;
-        case StreamBusInterface::ioSuccess:
+        case StreamIoSuccess:
             evalCommand();
             return;
         default:
-            error("%s: Event error from device\n", name());
+            error("%s: Event error from device: %s\n",
+                name(), StreamIoStatusStr[status]);
             finishProtocol(Fault);
             return;
     }
@@ -1285,8 +1649,16 @@ timerCallback()
 bool StreamCore::
 evalExec()
 {
-    outputLine.clear();
     formatOutput();
+    debug ("StreamCore::evalExec: command = \"%s\"\n", outputLine.expand()());
+    // release bus
+    if (flags & BusOwner)
+    {
+        debug("StreamCore::evalExec(%s): unlocking bus\n",
+            name());
+        busUnlock();
+        flags &= ~BusOwner;
+    }
     if (!execute())
     {
         error("%s: executing command \"%s\"\n", name(), outputLine());
@@ -1296,11 +1668,11 @@ evalExec()
 }
 
 void StreamCore::
-execCallback(StreamBusInterface::IoStatus status)
+execCallback(StreamIoStatus status)
 {
     switch (status)
     {
-        case StreamBusInterface::ioSuccess:
+        case StreamIoSuccess:
             evalCommand();
             return;
         default:
@@ -1317,3 +1689,61 @@ bool StreamCore::execute()
         name());
     return false;
 }
+
+bool StreamCore::evalConnect()
+{
+    unsigned long connectTimeout = extract<unsigned long>(commandIndex);
+    if (!busConnectRequest(connectTimeout))
+    {
+        error("%s: Connect not supported for this bus\n",
+            name());
+        return false;
+    }
+    return true;
+}
+
+void StreamCore::
+connectCallback(StreamIoStatus status)
+{
+    switch (status)
+    {
+        case StreamIoSuccess:
+            evalCommand();
+            return;
+        default:
+            error("%s: Connect failed\n",
+                name());
+            finishProtocol(Fault);
+            return;
+    }
+}
+
+bool StreamCore::evalDisconnect()
+{
+    if (!busDisconnect())
+    {
+        error("%s: Cannot disconnect from this bus\n",
+            name());
+        finishProtocol(Fault);
+        return false;
+    }
+    return true;
+}
+
+void StreamCore::
+disconnectCallback(StreamIoStatus status)
+{
+    switch (status)
+    {
+        case StreamIoSuccess:
+            evalCommand();
+            return;
+        default:
+            error("%s: Disconnect failed\n",
+                name());
+            finishProtocol(Fault);
+            return;
+    }
+}
+
+#include "streamReferences"

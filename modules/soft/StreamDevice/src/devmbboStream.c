@@ -19,9 +19,10 @@
 *                                                              *
 ***************************************************************/
 
-#include <devStream.h>
+#include "devStream.h"
 #include <mbboRecord.h>
 #include <string.h>
+#include <epicsExport.h>
 
 static long readData (dbCommon *record, format_t *format)
 {
@@ -45,13 +46,13 @@ static long readData (dbCommon *record, format_t *format)
                     return OK;
                 }
             }
-            mbbo->val = val;
+            mbbo->val = (short)val;
             return DO_NOT_CONVERT;
         }
         case DBF_ENUM:
         {
             if (streamScanf (record, format, &val)) return ERROR;
-            mbbo->val = val;
+            mbbo->val = (short)val;
             return DO_NOT_CONVERT;
         }
         case DBF_STRING:
@@ -63,7 +64,7 @@ static long readData (dbCommon *record, format_t *format)
             {
                 if (strcmp ((&mbbo->zrst)[val], buffer) == 0)
                 {
-                    mbbo->val = val;
+                    mbbo->val = (short)val;
                     return DO_NOT_CONVERT;
                 }
             }

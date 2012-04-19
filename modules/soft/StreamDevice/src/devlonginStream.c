@@ -18,8 +18,9 @@
 *                                                              *
 ***************************************************************/
 
-#include <devStream.h>
+#include "devStream.h"
 #include <longinRecord.h>
+#include <epicsExport.h>
 
 static long readData (dbCommon *record, format_t *format)
 {
@@ -27,7 +28,10 @@ static long readData (dbCommon *record, format_t *format)
 
     if (format->type == DBF_LONG || format->type == DBF_ENUM)
     {
-        return streamScanf (record, format, &li->val);
+        long val;
+        if (streamScanf (record, format, &val)) return ERROR;
+        li->val = val;
+        return OK;
     }
     return ERROR;
 }
@@ -38,7 +42,7 @@ static long writeData (dbCommon *record, format_t *format)
 
     if (format->type == DBF_LONG || format->type == DBF_ENUM)
     {
-        return streamPrintf (record, format, li->val);
+        return streamPrintf (record, format, (long) li->val);
     }
     return ERROR;
 }
@@ -47,7 +51,8 @@ static long initRecord (dbCommon *record)
 {
     longinRecord *li = (longinRecord *) record;
 
-    return streamInitRecord (record, &li->inp, readData, writeData);
+    return streamInitRecord (record, &li->inp, readData, writeData) == ERROR ?
+        ERROR : OK;
 }
 
 struct {

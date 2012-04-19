@@ -18,63 +18,94 @@
 ***************************************************************/
 
 #include "StreamError.h"
-#include <stdarg.h>
 #include <string.h>
 #include <time.h>
 
 int streamDebug = 0;
-FILE* StreamDebugFile = NULL;
+extern "C" {
+#ifdef _WIN32
+__declspec(dllexport)
+#endif
+FILE *StreamDebugFile = NULL;
+}
+
+#ifndef va_copy
+#ifdef __va_copy
+#define va_copy __va_copy
+#endif
+#endif
 
 /* You can globally change the printTimestamp function
    by setting the StreamPrintTimestampFunction variable
    to your own function.
 */
-static void printTimestamp(FILE* file)
+static void printTimestamp(char* buffer, int size)
 {
     time_t t;
-    struct tm tm, *p_tm;
-    char buffer [40];
+    struct tm tm;
     time(&t);
 #ifdef _WIN32
-    p_tm = localtime(&t);
-#else
+    tm = *localtime(&t);
+#else    
     localtime_r(&t, &tm);
-	p_tm = &tm;
-#endif /* _WIN32 */
-    strftime(buffer, 40, "%Y/%m/%d %H:%M:%S ", p_tm);
-    fprintf(file, buffer);
+#endif
+    strftime(buffer, size, "%Y/%m/%d %H:%M:%S", &tm);
 }
 
-void (*StreamPrintTimestampFunction)(FILE* file) = printTimestamp;
+void (*StreamPrintTimestampFunction)(char* buffer, int size) = printTimestamp;
 
 void StreamError(const char* fmt, ...)
 {
     va_list args;
     va_start(args, fmt);
-    fprintf(stderr, "\033[31;1m");
-    StreamPrintTimestampFunction(stderr);
-    vfprintf(stderr, fmt, args);
-    fprintf(stderr, "\033[0m");
+    StreamVError(0, NULL, fmt, args);
     va_end(args);
+}
+
+void StreamError(int line, const char* file, const char* fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    StreamVError(line, file, fmt, args);
+    va_end(args);
+}
+
+void StreamVError(int line, const char* file, const char* fmt, va_list args)
+{
+    char timestamp[40];
+    StreamPrintTimestampFunction(timestamp, 40);
+#ifdef va_copy
     if (StreamDebugFile)
     {
-        va_start(args, fmt);
-        StreamPrintTimestampFunction(StreamDebugFile);
-        vfprintf(StreamDebugFile, fmt, args);
+        va_list args2;
+        va_copy(args2, args);
+        fprintf(StreamDebugFile, "%s ", timestamp);
+        vfprintf(StreamDebugFile, fmt, args2);
         fflush(StreamDebugFile);
-        va_end(args);
+        va_end(args2);
     }
+#endif
+    fprintf(stderr, "\033[31;1m");
+    fprintf(stderr, "%s ", timestamp);
+    if (file)
+    {
+        fprintf(stderr, "%s line %d: ", file, line);
+    }
+    vfprintf(stderr, fmt, args);
+    fprintf(stderr, "\033[0m");
 }
 
 int StreamDebugClass::
 print(const char* fmt, ...)
 {
     va_list args;
+    char timestamp[40];
+    StreamPrintTimestampFunction(timestamp, 40);
     va_start(args, fmt);
     const char* f = strrchr(file, '/');
     if (f) f++; else f = file;
     FILE* fp = StreamDebugFile ? StreamDebugFile : stderr;
-    StreamPrintTimestampFunction(fp);
+    fprintf(fp, "%s ", timestamp);
     fprintf(fp, "%s:%d: ", f, line);
     vfprintf(fp, fmt, args);
     fflush(fp);

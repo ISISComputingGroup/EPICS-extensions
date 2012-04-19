@@ -1,51 +1,127 @@
-## \file
-## Stream Device Protocol for eurotherm 2000 series EI Bisynch
-## \param GAD = First char of address, e.g. address = 1, GAD = 0, address = 12, GAD = 1
-## \param LAD = Second char of address, e.g. address = 1, LAD = 1, address = 12, LAD = 2
+# example stream protocol file
 
-locktimeout = 5000;
+Terminator = CR LF;
+ReplyTimeout = 10000; # 10 sec is very long, for keyboard input
+ReadTimeout = 1000;   # also long for keyboard input
 
-## Unfortunately, this is designed with a checksum terminator.
-OutTerminator   = "";
-replytimeout = 200;
-## Setting a small readtimeout means that we can get data without needing a terminator
-readtimeout  = 100;
-extrainput   = Ignore;
+binary {
+    out "%B\x00\xff";
+}
 
-#STX = "\x02"
-#ETX = "\x03"
-#EOT = "\x04"
-#ENQ = "\x05"
-#ACK = "\x06"
+# note the field access
+ai { 
+    out "%(NAME)s [int] ? ";
+    in "%i";   # read to RVAL and convert
+}
 
-## Read value
-## \code
-## send: [EOT](GAD)(GAD)(LAD)(LAD)(CHAN)(C1)(C2)[ENQ]
-## reply: [STX](CHAN)(C1)(C2)<DATA>[ETX](BCC)
-## \endcode
-## - $1 = GAD
-## - $2 = LAD
-## - $3 = command mnemonic
-#############################################################################
-read { InTerminator = "\x03"; out "\x04\$1\$1\$2\$2\$3\x05"; in "\x02\$3%f"; }
+set-ao {
+    out '%(NAME)s = %f %(EGU)s [0x%04x]';
+}
 
-## Read value, but in hex
-readhex { InTerminator = "\x03"; out "\x04\$1\$1\$2\$2\$3\x05"; in "\x02\$3>%x"; }
+li { 
+    out "%(NAME)s [int] ? ";
+    in "%i";
+}
 
-## NOTE: we rely on readtimeout for the in commands. 
-## Could use maxInput, but that screws up record initialisation (once inTerminator is set it can't be overwritten in the \@init handler)
-##
-## Write value
-## \code
-## send: [EOT](GAD)(GAD)(LAD)(LAD)[STX](CHAN)(C1)(C2)<DATA>[ETX](BCC)
-## reply: [ACK] or [NAK], discarded as no terminator
-## \endcode
-## - $1 = GAD
-## - $2 = LAD
-## - $3 = command mnemonic
-## - $4 = device prefix, \$(P)\$(Q)
-#############################################################################
-write {  InTerminator = ""; out "\x04\$1\$1\$2\$2\x02\$3%f\x03%6<xor>"; in "\x06"; @init{ read; }; @mismatch{ in "%(\$4:ERR.PROC)r"; }; }
+lo { 
+    out '%(NAME)s = %i = %#x = %b(bin) = %D(BCD)';
+}
 
-## Write a value in int rather than float
-writeint {  InTerminator = ""; out "\x04\$1\$1\$2\$2\x02\$3%i\x03%6<xor>"; in "\x06"; @init{ read; }; @mismatch{ in "%(\$4:ERR.PROC)r"; }; }
+bi { 
+    out "%(NAME)s [0 or 1] ? ";
+    in "%i";
+}
+
+# using variables
+s0 = false;
+s1 = true;
+bo { 
+    out '%(NAME)s = %i = %{\${s0}|\${s1}} = "%s"';
+}
+
+enums 
+{
+    out "%{choice0|choice1|choice2} %d %s"; 
+}
+
+checksum {
+    out "%s%<sum> sum";
+    out "%s%<nsum> nsum";
+    out "%s%<-sum> -sum";
+    out "%s%<notsum> notsum";
+    out "%s%<~sum> ~sum";
+    out "%s%<xor> xor";
+    out "%s%<crc8> crc8";
+    out "%s%<ccitt8> ccitt8";
+    out "%s%<sum16> sum16"; 
+    out "%s%<crc16> crc16"; 
+    out "%s%<crc16r> crc16r";
+    out "%s%<ccitt16> ccitt16";
+    out "%s%<ccitt16a> ccitt16 with augment";
+    out "%s%<sum32> sum32";
+    out "%s%<crc32> crc32"; 
+    out "%s%<crc32r> crcr32";
+    out "%s%<jamcrc> jamcrc";
+    out "%s%<adler32> adler32";
+
+    out "%s%0<sum> sum (ASCII)";
+    out "%s%0<nsum> nsum (ASCII)";
+    out "%s%0<-sum> -sum (ASCII)";
+    out "%s%0<notsum> notsum (ASCII)";
+    out "%s%0<~sum> ~sum (ASCII)";
+    out "%s%0<xor> xor (ASCII)";
+    out "%s%0<crc8> crc8 (ASCII)";
+    out "%s%0<ccitt8> ccitt8 (ASCII)";
+    out "%s%0<sum16> sum16 (ASCII)"; 
+    out "%s%0<crc16> crc16 (ASCII)"; 
+    out "%s%0<crc16r> crc16r (ASCII)";
+    out "%s%0<ccitt16> ccitt16 (ASCII)";
+    out "%s%0<ccitt16a> ccitt16 with augment (ASCII)";
+    out "%s%0<sum32> sum32 (ASCII)";
+    out "%s%0<crc32> crc32 (ASCII)"; 
+    out "%s%0<crc32r> crcr32 (ASCII)";
+    out "%s%0<jamcrc> jamcrc (ASCII)";
+    out "%s%0<adler32> adler32 (ASCII)";
+    out "%s%0<hexsum8> hexsum8 (ASCII)";
+}
+
+command {
+    out "%s";
+}
+
+info {
+    out "%s";
+    in "%39c";
+}
+
+read {
+    in "%39c";
+}
+
+spy {
+    extraInput=ignore;
+    PollPeriod = 10;
+    in "%39c";
+}
+
+# accessing fields
+calcout {
+    out "OVAL=%f A=%(A)f B=%(B)f C=%(C)f";
+}
+
+scalcout {
+    out "OVAL=%f SOV=%s A=%(A)f B=%(B)f AA=%(AA)s";
+}
+
+# output an array of strings
+string_wave_out {
+    separator = ", ";
+    out "waveform %(NAME)s = (%s)";
+}
+
+char_wave_in {
+    outterminator = "";
+    out CR LF "Enter String: ";
+    in "%1000c";
+    out 'Got: "%s"' CR LF;
+}

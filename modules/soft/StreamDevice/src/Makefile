@@ -1,45 +1,77 @@
+################################################################
+# StreamDevice Support                                         #
+#                                                              #
+# (C) 1999 Dirk Zimoch (zimoch@delta.uni-dortmund.de)          #
+# (C) 2007 Dirk Zimoch (dirk.zimoch@psi.ch)                    #
+#                                                              #
+# This is the EPICS 3.14 Makefile of StreamDevice.             #
+# Normally it should not be necessary to modify this file.     #
+# All configuration can be done in CONFIG_STREAM               #
+#                                                              #
+# If you do any changes in this file, you are not allowed to   #
+# redistribute it any more. If there is a bug or a missing     #
+# feature, send me an email and/or your patch. If I accept     #
+# your changes, they will go to the next release.              #
+#                                                              #
+# DISCLAIMER: If this software breaks something or harms       #
+# someone, it's your problem.                                  #
+#                                                              #
+################################################################
+
 TOP=../..
 
+# Look if we have EPICS R3.13 or R3.14
+ifeq ($(wildcard $(TOP)/configure),)
+# EPICS R3.13
+include $(TOP)/config/CONFIG_APP
+# The real work is in Makefile.Vx
+include $(TOP)/config/RULES_ARCHS
+else
+
+# EPICS R3.14
 include $(TOP)/configure/CONFIG
 
 -include CONFIG_STREAM
 -include ../CONFIG_STREAM
 
-USR_CXXFLAGS_windows-x64=/DSTREAM_EXPORTS=1
-USR_CFLAGS_windows-x64=/DSTREAM_EXPORTS=1
-
-# For vxWorks, we need an OBJLIB.
-# Otherwise bus and converter registry does not work.
 LIBRARY_DEFAULT = stream
-LIBRARY_vxWorks = -nil-
-OBJLIB_vxWorks = $(LIBRARY_DEFAULT)
-OBJLIB_SRCS = $(SRCS)
 
 DBD += $(LIBRARY_DEFAULT).dbd
 
-ifdef ASYN_VERS
+ifdef ASYN
 LIB_LIBS += asyn
-
-ifeq ($(ASYN_COMPAT_$(ASYN_VERS)),)
-ASYN_COMPAT_$(ASYN_VERS)=$(ASYN_VERS)
+BUSSES += AsynDriver
 endif
 
-BUSSES += AsynDriver$(ASYN_COMPAT_$(ASYN_VERS))
+ifdef T_A
+ifndef BUSSES
+$(error No bus interface defined! Didn't you set ASYN in your RELEASE file?)
+endif
 endif
 
 ifeq ($(LOADABLE_MODULE),YES)
 SRCS += $(LIBRARY_DEFAULT)_registerRecordDeviceDriver.cpp
 endif 
-SRCS += $(STREAM_SRCS)
-SRCS += $(RECORDS:%=dev%Stream.c)
 SRCS += $(BUSSES:%=%Interface.cc)
-SRCS += $(FORMATS:%=%Converter.c)
+SRCS += $(FORMATS:%=%Converter.cc)
+SRCS += $(RECORDS:%=dev%Stream.c)
+SRCS += $(STREAM_SRCS)
 
-LIB_LIBS += Com dbIoc dbStaticIoc registryIoc 
+# find system wide or local PCRE header and library
+ifdef PCRE_INCLUDE
+RegexpConverter_INCLUDES += -I$(PCRE_INCLUDE)
+endif
+ifdef PCRE
+LIB_LIBS += pcre
+else
+ifneq ($(words $(PCRE_LIB) $(PCRE_INCLUDE)),0)
+LIB_SYS_LIBS_DEFAULT += pcre
+LIB_SYS_LIBS_WIN32 += $(PCRE_LIB)\\pcre
+SHRLIB_DEPLIB_DIRS += $(PCRE_LIB)
+endif
+endif
 
-# memguard looks for memory leaks (gcc only)
-# CPPFLAGS += -include ../memguard.h
-# LIB_SRCS += memguard.cc
+LIB_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 INC += devStream.h
 
@@ -50,7 +82,16 @@ include $(TOP)/configure/RULES
 StreamVersion$(OBJ): FORCE
 FORCE:
 
+# Add references to all registrars to main file to avoid
+# missing initialization.
+StreamCore$(OBJ): streamReferences
+
+streamReferences: ../CONFIG_STREAM
+	$(PERL) ../makeref.pl Interface $(BUSSES) > $@
+	$(PERL) ../makeref.pl Converter $(FORMATS) >> $@
+
 # create stream.dbd from all RECORDS
-$(COMMON_DIR)/$(LIBRARY_DEFAULT).dbd:
-	perl -e "foreach $$r(split(/ /,\"$(RECORDS)\")) { print \"device($$r,INST_IO,dev$${r}Stream,\\\"stream\\\")\n\" }" > $@
-	perl -e "print \"driver(stream)\nvariable(streamDebug, int)\nregistrar(streamRegistrar)\n\"" >> $@
+$(COMMON_DIR)/$(LIBRARY_DEFAULT).dbd: ../CONFIG_STREAM
+	$(PERL) ../makedbd.pl $(RECORDS) > $@
+
+endif

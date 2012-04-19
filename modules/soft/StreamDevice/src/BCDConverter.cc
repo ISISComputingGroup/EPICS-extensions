@@ -23,20 +23,20 @@
 
 // packed BCD (0x00 - 0x99)
 
-class StreamBCDConverter : public StreamFormatConverter
+class BCDConverter : public StreamFormatConverter
 {
     int parse (const StreamFormat&, StreamBuffer&, const char*&, bool);
-    int printLong(const StreamFormat&, StreamBuffer&, long);
+    bool printLong(const StreamFormat&, StreamBuffer&, long);
     int scanLong(const StreamFormat&, const char*, long&);
 };
 
-int StreamBCDConverter::
+int BCDConverter::
 parse(const StreamFormat&, StreamBuffer&, const char*&, bool)
 {
     return long_format;
 }
 
-int StreamBCDConverter::
+bool BCDConverter::
 printLong(const StreamFormat& fmt, StreamBuffer& output, long value)
 {
     unsigned char bcd[6]={0,0,0,0,0,0}; // sufficient for 2^32
@@ -87,10 +87,10 @@ printLong(const StreamFormat& fmt, StreamBuffer& output, long value)
         }
         output[firstbyte] |= bcd[5];
     }
-    return width;
+    return true;
 }
 
-int StreamBCDConverter::
+int BCDConverter::
 scanLong(const StreamFormat& fmt, const char* input, long& value)
 {
     int length = 0;
@@ -152,4 +152,4 @@ scanLong(const StreamFormat& fmt, const char* input, long& value)
     return length;
 }
 
-RegisterConverter (StreamBCDConverter, "D");
+RegisterConverter (BCDConverter, "D");

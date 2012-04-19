@@ -17,10 +17,10 @@
 *                                                              *
 ***************************************************************/
 
-#include <devStream.h>
+#include "devStream.h"
+#include <postfix.h>
 #include <calcoutRecord.h>
-
-#if (EPICS_VERSION==3 && EPICS_REVISION>=14)
+#include <epicsExport.h>
 
 static long readData (dbCommon *record, format_t *format)
 {
@@ -68,7 +68,8 @@ static long initRecord (dbCommon *record)
 {
     calcoutRecord *co = (calcoutRecord *) record;
 
-    return streamInitRecord (record, &co->out, readData, writeData);
+    return streamInitRecord (record, &co->out, readData, writeData) == ERROR ?
+        ERROR : OK;
 }
 
 struct {
@@ -90,5 +91,3 @@ struct {
 };
 
 epicsExportAddress(dset,devcalcoutStream);
-
-#endif

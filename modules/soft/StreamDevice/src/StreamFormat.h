@@ -23,12 +23,14 @@
 #define StreamFormat_h
 
 typedef enum {
-    left_flag  = 0x01,
-    sign_flag  = 0x02,
-    space_flag = 0x04,
-    alt_flag   = 0x08,
-    zero_flag  = 0x10,
-    skip_flag  = 0x20
+    left_flag    = 0x01,
+    sign_flag    = 0x02,
+    space_flag   = 0x04,
+    alt_flag     = 0x08,
+    zero_flag    = 0x10,
+    skip_flag    = 0x20,
+    default_flag = 0x40,
+    compare_flag = 0x80
 } StreamFormatFlag;
 
 typedef enum {
@@ -38,6 +40,8 @@ typedef enum {
     string_format = 4,
     pseudo_format = 5
 } StreamFormatType;
+
+extern const char* StreamFormatTypeStr[];
 
 typedef struct StreamFormat
 {

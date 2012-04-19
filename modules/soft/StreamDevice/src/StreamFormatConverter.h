@@ -22,6 +22,7 @@
 
 #include "StreamFormat.h"
 #include "StreamBuffer.h"
+#include "StreamProtocol.h"
 
 #define esc (0x1b)
 
@@ -29,29 +30,31 @@ template <class C>
 class StreamFormatConverterRegistrar
 {
 public:
-    StreamFormatConverterRegistrar(const char* provided) {
+    StreamFormatConverterRegistrar(const char* name, const char* provided) {
         static C prototype;
-        prototype.provides(provided);
+        prototype.provides(name, provided);
     }
 };
 
 class StreamFormatConverter
 {
     static StreamFormatConverter* registered [];
-
+    const char* _name;
 public:
-
-    void provides(const char* provided);
+    virtual ~StreamFormatConverter();
+    static int parseFormat(const char*& source, FormatType, StreamFormat&, StreamBuffer& infoString);
+    const char* name() { return _name; }
+    void provides(const char* name, const char* provided);
     static StreamFormatConverter* find(unsigned char c);
     virtual int parse(const StreamFormat& fmt,
         StreamBuffer& info, const char*& source, bool scanFormat) = 0;
-    virtual int printLong(const StreamFormat& fmt,
+    virtual bool printLong(const StreamFormat& fmt,
         StreamBuffer& output, long value);
-    virtual int printDouble(const StreamFormat& fmt,
+    virtual bool printDouble(const StreamFormat& fmt,
         StreamBuffer& output, double value);
-    virtual int printString(const StreamFormat& fmt,
+    virtual bool printString(const StreamFormat& fmt,
         StreamBuffer& output, const char* value);
-    virtual int printPseudo(const StreamFormat& fmt,
+    virtual bool printPseudo(const StreamFormat& fmt,
         StreamBuffer& output);
     virtual int scanLong(const StreamFormat& fmt,
         const char* input, long& value);
@@ -70,8 +73,9 @@ find(unsigned char c) {
 
 #define RegisterConverter(converter, conversions) \
 template class StreamFormatConverterRegistrar<converter>; \
-static StreamFormatConverterRegistrar<converter> \
-registrar_converter_##converter(conversions)
+StreamFormatConverterRegistrar<converter> \
+registrar_##converter(#converter,conversions); \
+void* ref_##converter = &registrar_##converter\
 
 /****************************************************************************
 * A user defined converter class inherits public from StreamFormatConverter

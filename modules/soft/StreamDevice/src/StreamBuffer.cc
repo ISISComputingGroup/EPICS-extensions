@@ -24,8 +24,8 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-#if defined(__vxworks) || defined(vxWorks)
-// vxWorks has no vsnprintf
+#if defined(__vxworks) || defined(vxWorks) || defined(_WIN32) || defined(__rtems__)
+// These systems have no vsnprintf
 #include <epicsStdio.h>
 #define vsnprintf epicsVsnprintf
 #endif
@@ -46,7 +46,7 @@ init(const void* s, long minsize)
     else
     {
         // clear local buffer
-        memset(buffer+minsize, 0, cap-minsize);
+        memset(buffer, 0, cap);
     }
     if (s) {
         len = minsize;
@@ -54,18 +54,44 @@ init(const void* s, long minsize)
     }
 }
 
+// How the buffer looks like:
+// |----free-----|####used####|-------free-------|
+///|<--- offs -->|<-- len --->|<- cap-offs-len ->|
+// 0            offs      offs+len              cap
+//               |<-------------- minsize --------------->
+
+
 void StreamBuffer::
 grow(long minsize)
 {
     // make space for minsize + 1 (for termination) bytes
     char* newbuffer;
     long newcap;
-    if (minsize > 10000)
+#ifdef EXPLODE
+    if (minsize > 1000000)
     {
         // crude trap against infinite grow
-        error ("StreamBuffer exploded (over 10000 chars). Exiting\n");
+        error ("StreamBuffer exploded growing from %ld to %ld chars. Exiting\n",
+            cap, minsize);
+        int i;
+        char c;
+        fprintf(stderr, "String contents (len=%ld):\n", len);
+        for (i = offs; i < len; i++)
+        {
+            c = buffer[i];
+            if ((c & 0x7f) < 0x20 || (c & 0x7f) == 0x7f)
+            {
+                fprintf(stderr, "<%02x>", c & 0xff);
+            }
+            else
+            {
+                fprintf(stderr, "%c", c);
+            }
+        }
+        fprintf(stderr, "\n");
         abort();
     }
+#endif
     if (minsize < cap)
     {
         // just move contents to start of buffer and clear end
@@ -83,7 +109,7 @@ grow(long minsize)
     memset(newbuffer+len, 0, newcap-len);
     if (buffer != local)
     {
-        delete buffer;
+        delete [] buffer;
     }
     buffer = newbuffer;
     cap = newcap;
@@ -95,13 +121,14 @@ append(const void* s, long size)
 {
     if (size <= 0)
     {
-        // append negative bytes? let's delete some
+        // append negative number of bytes? let's delete some
+        if (size < -len) size = -len;
         memset (buffer+offs+len+size, 0, -size);
     }
     else
     {
         check(size);
-        memcpy(buffer+offs+len, static_cast<const char*>(s), size);
+        memcpy(buffer+offs+len, s, size);
     }
     len += size;
     return *this;
@@ -115,20 +142,20 @@ find(const void* m, long size, long start) const
         start += len;
         if (start < 0) start = 0;
     }
-    if (start >= len-size+1) return -1; // find nothing after end
-    if (!m || size <= 0) return start; // find empty string
+    if (start+size > len) return -1; // find nothing after end
+    if (!m || size <= 0) return start; // find empty string at start
     const char* s = static_cast<const char*>(m);
     char* b = buffer+offs;
     char* p = b+start;
     long i;
     while ((p = static_cast<char*>(memchr(p, s[0], b-p+len-size+1))))
     {
-        i = 1;
-        while (p[i] == s[i])
+        for (i = 1; i < size; i++)
         {
-            if (++i >= size) return p-b;
+            if (p[i] != s[i]) goto next;
         }
-        p++;
+        return p-b;
+next:   p++;
     }
     return -1;
 }
@@ -174,6 +201,7 @@ replace(long remstart, long remlen, const void* ins, long inslen)
     {
         // optimize remove of bufferstart
         offs += remlen;
+        len -= remlen;
         return *this;
     }
     if (inslen < 0) inslen = 0;
@@ -191,7 +219,7 @@ replace(long remstart, long remlen, const void* ins, long inslen)
         memset(newbuffer+newlen, 0, newcap-newlen);
         if (buffer != local)
         {
-            delete buffer;
+            delete [] buffer;
         }
         buffer = newbuffer;
         cap = newcap;
@@ -245,23 +273,34 @@ StreamBuffer StreamBuffer::expand(long start, long length) const
     if (start < 0)
     {
         start += len;
-        if (start < 0) start = 0;
     }
-    end = length >= 0 ? start+length : len;
+    if (length < 0)
+    {
+        start += length;
+        length = -length;
+    }
+    if (start < 0)
+    {
+        length += start;
+        start = 0;
+    }
+    end = start+length;
     if (end > len) end = len;
     StreamBuffer result((end-start)*2);
     start += offs;
     end += offs;
     long i;
+    char c;
     for (i = start; i < end; i++)
     {
-        if ((buffer[i] & 0x7f) < 0x20 || buffer[i] == 0x7f)
+        c = buffer[i];
+        if ((c & 0x7f) < 0x20 || (c & 0x7f) == 0x7f)
         {
-            result.printf("<%02x>", buffer[i] & 0xff);
+            result.printf("<%02x>", c & 0xff);
         }
         else
         {
-            result.append(buffer[i]);
+            result.append(c);
         }
     }
     return result;

@@ -25,6 +25,10 @@
 #include "StreamFormatConverter.h"
 #include "StreamError.h"
 
+const char* StreamFormatTypeStr[] = {
+    "none", "long", "enum", "double", "string", "pseudo"
+};
+
 class StreamProtocolParser::Protocol::Variable
 {
     friend class Protocol;
@@ -48,6 +52,12 @@ StreamProtocolParser* StreamProtocolParser::parsers = NULL;
 const char* StreamProtocolParser::path = ".";
 static const char* specialChars = " ,;{}=()$'\"+-*/";
 
+// Client destructor
+StreamProtocolParser::Client::
+~Client()
+{
+}
+
 // Private constructor
 StreamProtocolParser::
 StreamProtocolParser(FILE* file, const char* filename)
@@ -69,18 +79,6 @@ StreamProtocolParser::
 {
     delete protocols;
     delete next;
-}
-
-void StreamProtocolParser::
-errorMsg(const char* fmt, ...)
-{
-    fprintf(stderr, "\033[31;1mStream protocol file '%s' line %d: ",
-        filename(), line);
-    va_list args;
-    va_start(args, fmt);
-    vfprintf(stderr, fmt, args);
-    va_end(args);
-    fprintf(stderr, "\033[0m");
 }
 
 void StreamProtocolParser::
@@ -108,7 +106,7 @@ getProtocol(const char* filename, const StreamBuffer& protocolAndParams)
     // Have we already seen this file?
     for (parser = parsers; parser; parser = parser->next)
     {
-        if (parser->filename.equals(filename))
+        if (parser->filename.startswith(filename))
         {
             if (!parser->valid)
             {
@@ -156,10 +154,6 @@ StreamProtocolParser* StreamProtocolParser::
 readFile(const char* filename)
 {
     FILE* file;
-	if (StreamDebugFile == NULL)
-	{
-	//StreamDebugFile = stderr; //fopen("c:/faa.log", "w");
-	}
 #ifdef windows
     const char pathseparator = ';';
     const char dirseparator = '\\';
@@ -188,7 +182,7 @@ readFile(const char* filename)
         dir.append(filename);
         // try to read the file
         debug("StreamProtocolParser::readFile: try '%s'\n", dir());
-        file = fopen(dir(), "rb");
+        file = fopen(dir(), "r");
         if (file)
         {
             // file found; create a parser to read it
@@ -228,12 +222,12 @@ getProtocol(const StreamBuffer& protocolAndParams)
     Protocol* protocol;
     for (protocol = protocols; protocol; protocol = protocol->next)
     {
-        if (protocol->protocolname.equals(name()))
+        if (protocol->protocolname.startswith(name()))
         // constructor also replaces parameters
         return new Protocol(*protocol, name, 0);
     }
     error("Protocol '%s' not found in protocol file '%s'\n",
-        name(), filename());
+        protocolAndParams(), filename());
     return NULL;
 }
 
@@ -286,18 +280,18 @@ parseProtocol(Protocol& protocol, StreamBuffer* commands)
                 // end of protocol or handler definition
                 return true;
             }
-            errorMsg("Stray '}' in global context\n");
+            error(line, filename(), "Stray '}' in global context\n");
             return false;
         }
         if (strchr("{=", token[0]))
         {
-            errorMsg("Expect name before '%c'\n", token[0]);
+            error(line, filename(), "Expect name before '%c'\n", token[0]);
             return false;
         }
         do op = readChar(); while (op == ' '); // what comes after token?
         if (op == EOF)
         {
-            errorMsg("Unexpected end of file after: %s\n", token());
+            error(line, filename(), "Unexpected end of file after: %s\n", token());
             return false;
         }
         if (op == '=')
@@ -305,32 +299,32 @@ parseProtocol(Protocol& protocol, StreamBuffer* commands)
             // variable assignment
             if (isHandlerContext(protocol, commands))
             {
-                errorMsg("Variables are not allowed in handlers: %s\n",
+                error(line, filename(), "Variables are not allowed in handlers: %s\n",
                     token());
                 return false;
             }
             if (token[0] == '@' || (token[0] >= '0' && token[0] <= '9'))
             {
-                errorMsg("Variable name cannot start with '%c': %s\n",
+                error(line, filename(), "Variable name cannot start with '%c': %s\n",
                     token[0], token());
                 return false;
             }
             if (!parseAssignment(token(), protocol))
             {
                 line = startline;
-                errorMsg("in variable assignment '%s = ...'\n", token());
+                error(line, filename(), "in variable assignment '%s = ...'\n", token());
                 return false;
             }
             continue;
         }
         if (op == '{') // protocol or handler definition
         {
-            token.truncate(-1-sizeof(int));
+            token.truncate(-1-(int)sizeof(int));
             if (token[0] == '@') // handler
             {
                 if (isHandlerContext(protocol, commands))
                 {
-                    errorMsg("Handlers are not allowed in handlers: %s\n",
+                    error(line, filename(), "Handlers are not allowed in handlers: %s\n",
                         token());
                     return false;
                 }
@@ -339,7 +333,7 @@ parseProtocol(Protocol& protocol, StreamBuffer* commands)
                 if (!parseProtocol(protocol, handler))
                 {
                     line = startline;
-                    errorMsg("in handler '%s'\n", token());
+                    error(line, filename(), "in handler '%s'\n", token());
                     return false;
                 }
                 continue;
@@ -347,33 +341,35 @@ parseProtocol(Protocol& protocol, StreamBuffer* commands)
             // protocol definition
             if (!isGlobalContext(commands))
             {
-                errorMsg("Definition of '%s' not in global context (missing '}' ?)\n",
+                error(line, filename(), "Definition of '%s' not in global context (missing '}' ?)\n",
                     token());
                 return false;
             }
             Protocol** ppP;
             for (ppP = &protocols; *ppP; ppP = &(*ppP)->next)
             {
-                if ((*ppP)->protocolname.equals(token()))
+                if ((*ppP)->protocolname.startswith(token()))
                 {
-                    errorMsg("Protocol '%s' redefined\n", token());
+                    error(line, filename(), "Protocol '%s' redefined\n", token());
                     return false;
                 }
             }
-            // append new protocol to parser
-            *ppP = new Protocol(protocol, token, startline);
-            if (!parseProtocol(**ppP, (*ppP)->commands))
+            Protocol* pP = new Protocol(protocol, token, startline);
+            if (!parseProtocol(*pP, pP->commands))
             {
                 line = startline;
-                errorMsg("in protocol '%s'\n", token());
+                error(line, filename(), "in protocol '%s'\n", token());
+                delete pP;
                 return false;
             }
+            // append new protocol to parser
+            *ppP = pP;
             continue;
         }
         // Must be a command or a protocol reference.
         if (isGlobalContext(commands))
         {
-            errorMsg("Expect '=' or '{' instead of '%c' after '%s'\n",
+            error(line, filename(), "Expect '=' or '{' instead of '%c' after '%s'\n",
                 op, token());
             return false;
         }
@@ -384,7 +380,7 @@ parseProtocol(Protocol& protocol, StreamBuffer* commands)
             Protocol* p;
             for (p = protocols; p; p = p->next)
             {
-                if (p->protocolname.equals(token()))
+                if (p->protocolname.startswith(token()))
                 {
                     commands->append(*p->commands);
                     break;
@@ -398,7 +394,7 @@ parseProtocol(Protocol& protocol, StreamBuffer* commands)
         if (parseValue(*commands, true) == false)
         {
             line = startline;
-            errorMsg("after command '%s'\n", token());
+            error(line, filename(), "after command '%s'\n", token());
             return false;
         }
         debug("parseProtocol: command '%s'\n", (*commands).expand()());
@@ -478,7 +474,7 @@ Each time newline is read, line is incremented.
             c = getc(file);
             if (c != '}')
             {
-                errorMsg("Expect '}' instead of '%c' after: %s\n",
+                error(line, filename(), "Expect '}' instead of '%c' after: %s\n",
                         c, buffer(token));
                 return false;
             }
@@ -487,12 +483,12 @@ Each time newline is read, line is incremented.
         }
         if (c == EOF)
         {
-            errorMsg("Unexpected end of file after '$'\n");
+            error(line, filename(), "Unexpected end of file after '$'\n");
             return false;
         }
         if (strchr (specialchars, c))
         {
-            errorMsg("Unexpected '%c' after '$'\n,", c);
+            error(line, filename(), "Unexpected '%c' after '$'\n,", c);
             return false;
         }
         // variable like $xyz handled as word token
@@ -511,7 +507,7 @@ Each time newline is read, line is incremented.
         {
             if (c == EOF || c == '\n')
             {
-                errorMsg("Unterminated quoted string: %s\n",
+                error(line, filename(), "Unterminated quoted string: %s\n",
                     buffer(token));
                 return false;
             }
@@ -524,7 +520,7 @@ Each time newline is read, line is incremented.
                 break;
             }
             buffer.append(c);
-            if (c == quote && buffer[-1] != '\\')
+            if (c == quote && buffer[-2] != '\\')
             {
                 quote = false;
                 break;
@@ -539,7 +535,7 @@ Each time newline is read, line is incremented.
         // end of file
         if (!eofAllowed)
         {
-            errorMsg("Unexpected end of file\n");
+            error(line, filename(), "Unexpected end of file\n");
             return false;
         }
         buffer.append('\0');
@@ -612,7 +608,7 @@ parseValue(StreamBuffer& buffer, bool lazy)
         }
         if (c == '{' || c == '=')
         {
-            errorMsg("Unexpected '%c' (missing ';' or '\"' ?)\n", c);
+            error(line, filename(), "Unexpected '%c' (missing ';' or '\"' ?)\n", c);
             return false;
         }
         if (strchr (";}", c))
@@ -629,16 +625,6 @@ parseValue(StreamBuffer& buffer, bool lazy)
 }
 
 // tools (static member functions)
-
-const char* StreamProtocolParser::
-formatTypeStr(int type)
-{
-    static const char* str [] = {"none", "long", "double", "string", "pseudo"};
-    static char illegal[20];
-    if (type <= pseudo_format) return str[type];
-    sprintf(illegal, "illegal %d", type);
-    return illegal;
-}
 
 const char* StreamProtocolParser::
 printString(StreamBuffer& buffer, const char* s)
@@ -658,6 +644,9 @@ printString(StreamBuffer& buffer, const char* s)
                 break;
             case skip:
                 buffer.append("\\?");
+                break;
+            case whitespace:
+                buffer.append("\\_");
                 break;
             case '"':
                 buffer.append("\\\"");
@@ -771,18 +760,6 @@ StreamProtocolParser::Protocol::
 }
 
 void StreamProtocolParser::Protocol::
-errorMsg(int l, const char* fmt, ...)
-{
-    va_list args;
-    fprintf(stderr, "\033[31;1mStream protocol file '%s' line %d: ",
-        filename(), l);
-    va_start(args, fmt);
-    vfprintf(stderr, fmt, args);
-    va_end(args);
-    fprintf(stderr, "\033[0m");
-}
-
-void StreamProtocolParser::Protocol::
 report()
 {
     Variable* pV;
@@ -813,7 +790,7 @@ createVariable(const char* name, int linenr)
     Variable** ppV;
     for (ppV = &variables; *ppV; ppV = &(*ppV)->next)
     {
-        if ((*ppV)->name.equals(name))
+        if ((*ppV)->name.startswith(name))
         {
             (*ppV)->line = linenr;
             return &(*ppV)->value;
@@ -831,26 +808,10 @@ getVariable(const char* name)
 
     for (pV = variables; pV; pV = pV->next)
     {
-        if (pV->name.equals(name))
+        if (pV->name.startswith(name))
         {
             pV->used = true;
             return pV;
-        }
-    }
-    return NULL;
-}
-
-const StreamBuffer* StreamProtocolParser::Protocol::
-getValue(const char* varname)
-{
-    Variable* pV;
-
-    for (pV = variables; pV; pV = pV->next)
-    {
-        if (pV->name.equals(varname))
-        {
-            pV->used = true;
-            return &pV->value;
         }
     }
     return NULL;
@@ -865,12 +826,12 @@ getNumberVariable(const char* varname, unsigned long& value, unsigned long max)
     if (!compileNumber(value, source, max))
     {
         int linenr = getLineNumber(source);
-        errorMsg(linenr, "in variable %s\n", varname);
+        error(linenr, filename(), "in variable %s\n", varname);
         return false;
     }
     if (source != pvar->value.end())
     {
-        errorMsg(getLineNumber(source),
+        error(getLineNumber(source), filename(),
             "Garbage in variable '%s' after numeric value %ld: %s\n",
                 varname, value, source);
         return false;
@@ -885,7 +846,7 @@ getEnumVariable(const char* varname, unsigned short& value, const char** enumstr
     if (!pvar) return true;
     for (value = 0; enumstrings[value]; value++)
     {
-        if (pvar->value.equals(enumstrings[value]))
+        if (pvar->value.startswith(enumstrings[value]))
         {
             return true;
         }
@@ -902,12 +863,14 @@ getEnumVariable(const char* varname, unsigned short& value, const char** enumstr
 }
 
 bool StreamProtocolParser::Protocol::
-getStringVariable(const char* varname, StreamBuffer& value)
+getStringVariable(const char* varname, StreamBuffer& value, bool* defined)
 {
-    const StreamBuffer* pvalue = getValue(varname);
-    if (!pvalue) return true;
-    value.clear();
+    const Variable* pvar = getVariable(varname);
+    if (!pvar) return true;
+    if (defined) *defined = true;
+    const StreamBuffer* pvalue = &pvar->value;
     const char* source = (*pvalue)();
+    value.clear();
     if (!compileString(value, source))
     {
         error("in string variable '%s' in protocol file '%s' line %d\n",
@@ -941,13 +904,14 @@ getCommands(const char* handlername,StreamBuffer& code, Client* client)
     {
         if (handlername)
         {
-            errorMsg(pvar->line,
+            error(pvar->line, filename(),
                 "in handler '%s'\n", handlername);
-            errorMsg(variables->line,
+            error(variables->line, filename(),
                 "used by protocol '%s'\n", protocolname());
             return false;
         }
-        errorMsg(pvar->line, "in protocol '%s'\n", protocolname());
+        error(pvar->line, filename(),
+            "in protocol '%s'\n", protocolname());
         return false;
     }
     debug("commands %s: %s\n", handlername, pvar->value.expand()());
@@ -971,7 +935,7 @@ replaceVariable(StreamBuffer& buffer, const char* varname)
         const char* p = parameter[*varname-'0'];
         if (!p)
         {
-            errorMsg(linenr,
+            error(linenr, filename(),
                 "Missing value for parameter $%c\n", *varname);
             return false;
         }
@@ -997,7 +961,7 @@ replaceVariable(StreamBuffer& buffer, const char* varname)
     const Variable* v = getVariable(varname);
     if (!v)
     {
-        errorMsg(linenr,
+        error(linenr, filename(),
             "Undefined variable '%s' referenced\n",
             varname);
         return false;
@@ -1048,7 +1012,7 @@ compileNumber(unsigned long& number, const char*& source, unsigned long max)
         {
             if(!replaceVariable(buffer, source)) return false;
             debug("buffer=%s\n", buffer.expand()());
-            buffer.truncate(-1-sizeof(int));
+            buffer.truncate(-1-(int)sizeof(int));
         }
         else
         {
@@ -1061,7 +1025,7 @@ compileNumber(unsigned long& number, const char*& source, unsigned long max)
     {
         debug("StreamProtocolParser::Protocol::compileNumber: %s\n",
             buffer.expand()());
-        errorMsg(getLineNumber(source),
+        error(getLineNumber(source), filename(),
             "Unsigned numeric value expected: %s\n", buffer());
         return false;
     }
@@ -1069,7 +1033,7 @@ compileNumber(unsigned long& number, const char*& source, unsigned long max)
     {
         debug("StreamProtocolParser::Protocol::compileNumber: %s\n",
             buffer.expand()());
-        errorMsg(getLineNumber(source),
+        error(getLineNumber(source), filename(),
             "Garbage after numeric value: %s\n", buffer());
         return false;
     }
@@ -1077,7 +1041,7 @@ compileNumber(unsigned long& number, const char*& source, unsigned long max)
     {
         debug("StreamProtocolParser::Protocol::compileNumber: %s\n",
             buffer.expand()());
-        errorMsg(getLineNumber(source),
+        error(getLineNumber(source), filename(),
             "Value %s out of range [0...%ld]\n", buffer(), max);
         return false;
     }
@@ -1096,10 +1060,9 @@ compileString(StreamBuffer& buffer, const char*& source,
 {
     bool escaped = false;
     int n;
-    long formatPos[20];
-    int numFormats = 0;
     int newline = 0;
     StreamBuffer formatbuffer;
+    int formatpos = buffer.length();
     line = getLineNumber(source);
 
     debug("StreamProtocolParser::Protocol::compileString "
@@ -1110,40 +1073,58 @@ compileString(StreamBuffer& buffer, const char*& source,
     // 1) read a line from protocol source and code quoted strings,
     //    numerical bytes, tokens, etc, and replace variables and parameters
     // 2) replace the formats in the line
-    // thus variables can be replaces inside the format info string
+    // thus variables can be replaced inside the format info string
 
     while (1)
     {
+        debug("StreamProtocolParser::Protocol::compileString "
+            "buffer so far: %s\n", buffer.expand()());
         // this is step 2: replacing the formats
         if (!*source || (newline = getLineNumber(source)) != line)
         {
             // compile all formats in this line
             // We do this here after all variables in this line
             // have been replaced and after string has been coded.
-            int offs = 0;
-            for (n = 0; n < numFormats; n++)
+            if (formatType != NoFormat)
             {
-                int pos = formatPos[n] + offs;
-                debug("StreamProtocolParser::Protocol::compileString "
-                    "format=\"%s\"\n", buffer.expand(pos)());
-                formatbuffer.clear();
-                const char* p = buffer(pos);
-                if (!compileFormat(formatbuffer, p, formatType, client))
+                int nformats=0;
+                char c;
+                while ((c = buffer[formatpos]) != '\0')
                 {
-                    p = buffer(pos);
-                    printString(formatbuffer, p);
-                    errorMsg(line, "in format string: \"%s\"\n",
-                            formatbuffer());
-                    return false;
+                    if (c == esc) {
+                        // ignore escaped %
+                        formatpos+=2;
+                        continue;
+                    }
+                    if (c == '%') {
+                        debug("StreamProtocolParser::Protocol::compileString "
+                            "format=\"%s\"\n", buffer.expand(formatpos)());
+                        nformats++;
+                        formatbuffer.clear();
+                        const char* p = buffer(formatpos);
+                        if (!compileFormat(formatbuffer, p, formatType, client))
+                        {
+                            p = buffer(formatpos);
+                            formatbuffer.clear();
+                            printString(formatbuffer, p);
+                            error(line, filename(),
+                                "in format string: \"%s\"\n",
+                                formatbuffer());
+                            return false;
+                        }
+                        int formatlen = p - buffer(formatpos);
+                        buffer.replace(formatpos, formatlen, formatbuffer);
+                        debug("StreamProtocolParser::Protocol::compileString "
+                            "replaced by: \"%s\"\n", buffer.expand(formatpos)());
+                        formatpos += formatbuffer.length();
+                        continue;
+                    }
+                    formatpos ++;
                 }
-                int formatlen = p - buffer(pos);
-                buffer.replace(pos, formatlen, formatbuffer);
                 debug("StreamProtocolParser::Protocol::compileString "
-                    "replaced by: \"%s\"\n", buffer.expand(pos)());
-                offs += formatbuffer.length() - formatlen;
+                    "%d formats found in line %d\n", nformats, line);
             }
             if (!*source) break;
-            numFormats = 0;
             line = newline;
         }
         // this is step 1: coding the string
@@ -1159,18 +1140,14 @@ compileString(StreamBuffer& buffer, const char*& source,
             switch (*source)
             {
                 case '$': // can't be: readToken would have made a token from this
-                    errorMsg(line,
+                    error(line, filename(),
                         "INTERNAL ERROR: unconverted \\$ in quoted string\n");
                     return false;
                 case '?':
-                    if (formatType != ScanFormat)
-                    {
-                        errorMsg(line,
-                            "Quoted \\? only allowed in input: %s\n",
-                            source-1);
-                        return false;
-                    }
                     buffer.append(skip);
+                    break;
+                case '_':
+                    buffer.append(whitespace);
                     break;
                 case 'a':
                     buffer.append(7);
@@ -1182,10 +1159,10 @@ compileString(StreamBuffer& buffer, const char*& source,
                     buffer.append(9);
                     break;
                 case 'n':
-                    buffer.append(lf);
+                    buffer.append('\n');
                     break;
                 case 'r':
-                    buffer.append(cr);
+                    buffer.append('\r');
                     break;
                 case 'e':
                     buffer.append(esc).append(esc);
@@ -1194,7 +1171,7 @@ compileString(StreamBuffer& buffer, const char*& source,
                     sscanf (source, "%3o%n", &temp, &n);
                     if (temp > 0xFF)
                     {
-                        errorMsg(line,
+                        error(line, filename(),
                             "Octal source %#o does not fit in byte: %s\n",
                             temp, source-1);
                         return false;
@@ -1210,7 +1187,7 @@ compileString(StreamBuffer& buffer, const char*& source,
                 case 'x':  // hex numbers (max 2 digits after 0)
                     if (sscanf (source+1, "%2x%n", &temp, &n) < 1)
                     {
-                        errorMsg(line,
+                        error(line, filename(),
                             "Hex digit expected after \\x: %s\n",
                             source-1);
                         return false;
@@ -1235,7 +1212,7 @@ compileString(StreamBuffer& buffer, const char*& source,
                     sscanf (source, "%3u%n", &temp, &n);
                     if (temp > 0xFF)
                     {
-                        errorMsg(line,
+                        error(line, filename(),
                             "Decimal source %d does not fit in byte: %s\n",
                             temp, source-1);
                         return false;
@@ -1254,29 +1231,13 @@ compileString(StreamBuffer& buffer, const char*& source,
             source++;
             continue;
         }
-        if (quoted) // look for ending quotes, escapes, and formats
+        if (quoted) // look for ending quotes and escapes
         {
             switch (*source)
             {
                 case '\\':  // escape next character
                     escaped = true;
                     break;
-                case '%': // format specifier in string
-                    if (formatType != NoFormat)
-                    {
-                        // format is allowed here
-                        // just memorize position here and and do actual coding later
-                        // after all variables and parameters have been replaced
-                        // so that extra information is ready for format converter
-                        if (numFormats+1 == sizeof(formatPos))
-                        {
-                            errorMsg(line, "Too many formats in line");
-                            return false;
-                        }
-                        formatPos[numFormats++]=buffer.length();
-                        buffer.append(*source);
-                        break;
-                    }
                 case '"':
                 case '\'':
                     if (*source == quoted) // ending quote
@@ -1325,13 +1286,13 @@ compileString(StreamBuffer& buffer, const char*& source,
         {
             if (*p != 0)
             {
-                errorMsg(line,
+                error(line, filename(),
                     "Garbage after numeric source: %s", source);
                 return false;
             }
             if (temp > 0xFF || temp < -0x80)
             {
-                errorMsg(line,
+                error(line, filename(),
                     "Value %s does not fit in byte\n", source);
                 return false;
             }
@@ -1347,18 +1308,43 @@ compileString(StreamBuffer& buffer, const char*& source,
         // try constant token
         struct {const char* name; char code;} codes [] =
         {
-            {"skip", skip}, 
-            {"?",    skip}, 
-            {"eot",  4   }, 
-            {"ack",  6   }, 
-            {"bel",  7   }, 
-            {"bs",   8   }, 
-            {"ht",   9   }, 
-            {"tab",  9   }, 
-            {"lf",   lf  }, 
-            {"nl",   lf  }, 
-            {"cr",   cr  }, 
-            {"esc",  esc }, 
+            {"skip", skip},
+            {"?",    skip},
+            {"nul",  0x00},
+            {"soh",  0x01},
+            {"stx",  0x02},
+            {"etx",  0x03},
+            {"eot",  0x04},
+            {"enq",  0x05},
+            {"ack",  0x06},
+            {"bel",  0x07},
+            {"bs",   0x08},
+            {"ht",   0x09},
+            {"tab",  0x09},
+            {"lf",   0x0A},
+            {"nl",   0x0A},
+            {"vt",   0x0B},
+            {"ff",   0x0C},
+            {"np",   0x0C},
+            {"cr",   0x0D},
+            {"so",   0x0E},
+            {"si",   0x0F},
+            {"dle",  0x10},
+            {"dc1",  0x11},
+            {"dc2",  0x12},
+            {"dc3",  0x13},
+            {"dc4",  0x14},
+            {"nak",  0x15},
+            {"syn",  0x16},
+            {"etb",  0x17},
+            {"can",  0x18},
+            {"em",   0x19},
+            {"sub",  0x1A},
+            {"esc",  0x1B},
+            {"fs",   0x1C},
+            {"gs",   0x1D},
+            {"rs",   0x1E},
+            {"us",   0x1F},
             {"del",  0x7f}
         };
         size_t i;
@@ -1370,7 +1356,7 @@ compileString(StreamBuffer& buffer, const char*& source,
                 c = codes[i].code;
                 if (c == skip && formatType != ScanFormat)
                 {
-                    errorMsg(line,
+                    error(line, filename(),
                         "Use of '%s' only allowed in input formats\n",
                         source);
                     return false;
@@ -1387,7 +1373,7 @@ compileString(StreamBuffer& buffer, const char*& source,
         }
         if (c) continue;
         // source may contain a function name
-        errorMsg(line,
+        error(line, filename(),
             "Unexpected word: %s\n", source);
         return false;
     }
@@ -1423,14 +1409,14 @@ compileFormat(StreamBuffer& buffer, const char*& formatstr,
         buffer.append(format_field);
         if (!client)
         {
-            errorMsg(line,
+            error(line, filename(),
                 "Using fieldname is not possible in this context\n");
             return false;
         }
         const char* fieldnameEnd = strchr(source+=2, ')');
         if (!fieldnameEnd)
         {
-            errorMsg(line,
+            error(line, filename(),
                 "Missing ')' after field name\n");
             return false;
         }
@@ -1442,13 +1428,12 @@ compileFormat(StreamBuffer& buffer, const char*& formatstr,
         StreamBuffer fieldAddress;
         if (!client->getFieldAddress(buffer(fieldname), fieldAddress))
         {
-            errorMsg(line,
-                "Field '%s' of '%s' not found\n",
-                buffer(fieldname), client->name());
+            error(line, filename(),
+                "Field '%s' not found\n", buffer(fieldname));
             return false;
         }
         source = fieldnameEnd;
-        unsigned short length = fieldAddress.length();
+        unsigned short length = (unsigned short)fieldAddress.length();
         buffer.append(&length, sizeof(length));
         buffer.append(fieldAddress);
     }
@@ -1457,137 +1442,12 @@ compileFormat(StreamBuffer& buffer, const char*& formatstr,
         buffer.append(format);
     }
     const char* formatstart = source + 1;
-    // look for flags
-    streamFormat.flags = 0;
-    bool loop = true;
-    while (loop)
-    {
-        switch (*++source)
-        {
-            case '-':
-                streamFormat.flags |= left_flag;
-                break;
-            case '+':
-                streamFormat.flags |= sign_flag;
-                break;
-            case ' ':
-                streamFormat.flags |= space_flag;
-                break;
-            case '#':
-                streamFormat.flags |= alt_flag;
-                break;
-            case '0':
-                streamFormat.flags |= zero_flag;
-                break;
-            case '*':
-                if (formatType != ScanFormat)
-                {
-                    errorMsg(line,
-                        "Use of skip modifier '*' "
-                        "only allowed in input formats\n");
-                    return false;
-                }
-                if (fieldname)
-                {
-                    errorMsg(line,
-                        "Use of skip modifier '*' not allowed "
-                        "together with field name\n");
-                    return false;
-                }
-                streamFormat.flags |= skip_flag;
-                break;
-            default:
-                loop = false;
-        }
-    }
-/*
-    if (formatType != PrintFormat &&
-        streamFormat.flags & (left_flag|sign_flag|space_flag|zero_flag))
-    {
-        errorMsg(line,
-            "Use of format modifiers '-', '+', ' ', '0' "
-            "only allowed in output formats\n");
-        return false;
-    }
-    if (!(~streamFormat.flags & (left_flag|zero_flag)))
-    {
-        errorMsg(line,
-            "Can't use modifiers '-' and '0' together\n");
-        return false;
-    }
-    if (!(~streamFormat.flags & (space_flag|sign_flag)))
-    {
-        errorMsg(line,
-            "Can't use modifiers ' ' and '+' together\n");
-        return false;
-    }
-*/
-    // look for width
-    unsigned long val;
-    char* p;
-    val = strtoul (source, &p, 10);
-    source = p;
-    if (val > 0xFFFF)
-    {
-        errorMsg(line,
-            "Field width %ld out of range\n", val);
-        return false;
-    }
-    streamFormat.width = val;
-    // look for prec
-    streamFormat.prec = -1;
-    if (*source == '.')
-    {
-        source++;
-        if (formatType != PrintFormat)
-        {
-            errorMsg(line,
-                "Use of precision field only allowed "
-                "in output formats\n");
-            return false;
-        }
-        val = strtoul(source, &p, 10);
-        if (p == source)
-        {
-            debug("source = %s\n", source);
-            errorMsg(line,
-                "Numeric precision field expected after '.'\n");
-            return false;
-        }
-        source = p;
-        if (val > 0x7FFF)
-        {
-            errorMsg(line,
-                "Precision %ld out of range\n", val);
-            return false;
-        }
-        streamFormat.prec = val;
-    }
-    // look for converter
-    streamFormat.conv = *source++;
-    debug("StreamProtocolParser::Protocol::compileFormat: converter='%c'\n",
-        streamFormat.conv);
-    if (!streamFormat.conv || strchr("'\" (.0+-*", streamFormat.conv))
-    {
-        debug("StreamProtocolParser::Protocol::compileFormat: formatstr='%s'\n",
-            formatstr);
-        errorMsg(line,
-            "Missing converter character\n");
-        return false;
-    }
-    StreamFormatConverter* converter;
-    converter = StreamFormatConverter::find(streamFormat.conv);
-    if (!converter)
-    {
-        errorMsg(line,
-            "No converter registered for format '%%%c'\n",
-            streamFormat.conv);
-        return false;
-    }
+    
     // parse format and get info string
     StreamBuffer infoString;
-    int type = converter->parse(streamFormat, infoString,
-        source, formatType == ScanFormat);
+    int type = StreamFormatConverter::parseFormat(source,
+        formatType, streamFormat, infoString);
+        
     if (!type)
     {
         // parsing failed
@@ -1595,16 +1455,23 @@ compileFormat(StreamBuffer& buffer, const char*& formatstr,
     }
     if (type < long_format && type > pseudo_format)
     {
-        errorMsg(line,
+        error(line, filename(),
             "Illegal format type %d returned from '%%%c' converter\n",
             type, streamFormat.conv);
         return false;
     }
     if (type == pseudo_format && fieldname)
     {
-        errorMsg(line,
+        error(line, filename(),
             "Fieldname not allowed with pseudo format: '%%(%s)%c'\n",
             buffer(fieldname), streamFormat.conv);
+        return false;
+    }
+    if (fieldname && streamFormat.flags & skip_flag)
+    {
+        error(line, filename(),
+            "Use of skip modifier '*' not allowed "
+            "together with redirection\n");
         return false;
     }
     streamFormat.type = static_cast<StreamFormatType>(type);
@@ -1613,7 +1480,7 @@ compileFormat(StreamBuffer& buffer, const char*& formatstr,
         // terminate if necessary
         infoString.append(eos);
     }
-    streamFormat.infolen = infoString.length();
+    streamFormat.infolen = (unsigned short)infoString.length();
     // add formatstr for debug purpose
     buffer.append(formatstart, source-formatstart).append(eos);
 
@@ -1627,7 +1494,7 @@ compileFormat(StreamBuffer& buffer, const char*& formatstr,
     buffer.append(infoString);
 
     debug("StreamProtocolParser::Protocol::compileFormat: format.type=%s, infolen=%d\n",
-        formatTypeStr(streamFormat.type), streamFormat.infolen);
+        StreamFormatTypeStr[streamFormat.type], streamFormat.infolen);
     formatstr = source; // move pointer after parsed format
     return true;
 }
@@ -1644,13 +1511,13 @@ compileCommands(StreamBuffer& buffer, const char*& source, Client* client)
         args = source + strlen(source)+1+sizeof(int);
         if (!client->compileCommand(this, buffer, command, args))
         {
-            errorMsg(getLineNumber(source),
+            error(getLineNumber(source), filename(),
                 "in command '%s'\n", command);
             return false;
         }
         if (*args)
         {
-            errorMsg(getLineNumber(source),
+            error(getLineNumber(source), filename(),
                 "Garbage after '%s' command: '%s'\n",
                 command, args);
             return false;

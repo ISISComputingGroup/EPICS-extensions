@@ -19,8 +19,9 @@
 *                                                              *
 ***************************************************************/
 
-#include <devStream.h>
+#include "devStream.h"
 #include <mbbiDirectRecord.h>
+#include <epicsExport.h>
 
 static long readData (dbCommon *record, format_t *format)
 {
@@ -39,7 +40,7 @@ static long readData (dbCommon *record, format_t *format)
         else
         {
             /* No MASK, (NOBT = 0): use VAL field */
-            mbbiD->val = val;
+            mbbiD->val = (short)val;
             return DO_NOT_CONVERT;
         }
     }
@@ -65,7 +66,8 @@ static long initRecord (dbCommon *record)
     mbbiDirectRecord *mbbiD = (mbbiDirectRecord *) record;
 
     mbbiD->mask <<= mbbiD->shft;
-    return streamInitRecord (record, &mbbiD->inp, readData, writeData);
+    return streamInitRecord (record, &mbbiD->inp, readData, writeData) == ERROR ?
+        ERROR : OK;
 }
 
 struct {

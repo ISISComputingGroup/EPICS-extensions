@@ -19,8 +19,9 @@
 *                                                              *
 ***************************************************************/
 
-#include <devStream.h>
+#include "devStream.h"
 #include <mbboDirectRecord.h>
+#include <epicsExport.h>
 
 static long readData (dbCommon *record, format_t *format)
 {
@@ -40,7 +41,7 @@ static long readData (dbCommon *record, format_t *format)
         else
         {
             /* No MASK, (NOBT = 0): use VAL field */
-            mbboD->val = val;
+            mbboD->val = (short)val;
             return DO_NOT_CONVERT;
         }
     }
