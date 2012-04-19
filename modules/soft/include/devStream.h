@@ -62,10 +62,14 @@ extern const char StreamVersion[];
 #define DO_NOT_CONVERT 2
 #define INIT_RUN (!interruptAccept)
 
+#ifdef _WIN32
 #ifdef STREAM_EXPORTS
 #define STREAM_DLL_EXPORT __declspec(dllexport)
 #else
 #define STREAM_DLL_EXPORT __declspec(dllimport)
+#endif
+#else
+#define STREAM_DLL_EXPORT
 #endif
 extern STREAM_DLL_EXPORT FILE* StreamDebugFile;
 
