@@ -1,9 +1,0 @@
-record(ai,"$(P)"){
-  field(DTYP,"$(D)")
-  field(DESC,"Random numbers")
-  field(SCAN,"1 second")
-  field(INP,"$(S)")
-  field(LINR,"LINEAR")
-  field(ESLO,1)
-  field(EOFF,0)
-}
