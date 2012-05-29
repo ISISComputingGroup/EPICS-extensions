@@ -25,6 +25,7 @@ rand_DBD += randdev.dbd
 rand_SRCS += rand_registerRecordDeviceDriver.cpp
 
 rand_SRCS += devRand.c
+rand_SRCS += devRandAsync.c
 
 # Build the main IOC entry point on workstation OSs.
 rand_SRCS_DEFAULT += randMain.cpp
