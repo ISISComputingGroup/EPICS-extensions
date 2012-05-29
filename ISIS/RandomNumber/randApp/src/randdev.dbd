@@ -1,1 +1,2 @@
 device(ai,CONSTANT,devAiRand,"Random")
+device(ai,CONSTANT,devAiRandAsync,"Random Async")
