@@ -25,7 +25,7 @@ namespace EpicsWpfExample
 
             if (Environment.Is64BitProcess)
             {
-                throw new Exception("Cannot run as 64bit at the moment");
+                path += ";" + Properties.Settings.Default.EPICS_BASE + "\\windows-x64\\";
             }
             else
             {
