@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Als.Epics.SimpleChannelAccess;
-using Als.Epics.ChannelAccess;
 
 namespace EpicsWpfExample
 {
@@ -12,10 +10,11 @@ namespace EpicsWpfExample
     /// </summary>
     public partial class MainWindow : Window
     {
-        Sca _sca = new Sca();
+        CaWrapper.SimpleCa _sca = new CaWrapper.SimpleCa();
         bool _firstTime = true;
         String _name = "";
         private delegate void UpdateGuiDelegate(String n, String v);
+        bool _stop = false;
 
         public MainWindow()
         {
@@ -42,9 +41,9 @@ namespace EpicsWpfExample
                 _firstTime = false;
                 txtName.IsEnabled = false;
                 _name = txtName.Text;
-                _sca.AddItem(_name);
+                _sca.CreateChannel(_name);
             }
-            _sca.RefreshValues();
+
             double ans = _sca.GetDouble(_name);
             txtValue.Text = ans.ToString();
         }
@@ -56,7 +55,7 @@ namespace EpicsWpfExample
                 _firstTime = false;
                 txtName.IsEnabled = false;
                 _name = txtName.Text;
-                _sca.AddItem(_name);
+                _sca.CreateChannel(_name);
             }
 
             double res;
@@ -79,7 +78,7 @@ namespace EpicsWpfExample
                 _firstTime = false;
                 txtName.IsEnabled = false;
                 _name = txtName.Text;
-                _sca.AddItem(_name);
+                _sca.CreateChannel(_name);
             }
 
             btnSetEvent.IsEnabled = false;
@@ -90,20 +89,20 @@ namespace EpicsWpfExample
 
         private void monitor()
         {
-            Sca sca = new Sca();
-            sca.AddItem(_name);
+            CaWrapper.SimpleCa sca = new CaWrapper.SimpleCa();
+            sca.CreateChannel(_name);
 
-            Ca.EventCallbackDelagte callback = new Ca.EventCallbackDelagte(pv_ValueChanged);
-            Boolean res = sca.Subscribe(_name, callback);
-            Ca.ca_pend_event(0.0);
+            CaWrapper.Ca.EventCallBackDelegate callback = new CaWrapper.Ca.EventCallBackDelegate(pv_ValueChanged);
+            sca.CreateSubscription(_name, callback);
+            sca.EnableAllSubscriptions(0.0);
         }
 
-        unsafe void pv_ValueChanged(Ca.event_handler_args args)
+        unsafe void pv_ValueChanged(CaWrapper.event_handler_args args)
         {
             if (args.chid != IntPtr.Zero)
             {
-                String name = Marshal.PtrToStringAnsi(new IntPtr((void*)Ca.ca_name(args.chid)));
-                Object val = (object)*(double*)args.dbr;
+                String name = Marshal.PtrToStringAnsi(CaWrapper.Ca.ca_name(args.chid));
+                Double val = CaWrapper.SimpleCa.CastToDouble(args.dbr);
 
                 this.Dispatcher.Invoke(new UpdateGuiDelegate(UpdateEvent), name, val.ToString());
             }
@@ -112,6 +111,11 @@ namespace EpicsWpfExample
         void UpdateEvent(String name, String val)
         {
             txtEventInfo.Text = name + ": " + val.ToString();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
         }
     }
 }

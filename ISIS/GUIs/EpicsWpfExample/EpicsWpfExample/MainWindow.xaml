@@ -1,7 +1,7 @@
 ﻿<Window x:Class="EpicsWpfExample.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="WPF CA Client" Height="350" Width="525">
+        Title="WPF CA Client" Height="350" Width="525" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
