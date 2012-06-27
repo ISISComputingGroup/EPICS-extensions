@@ -1,0 +1,71 @@
+EPICS Qt Framework
+--------------------
+
+Using Qt 4.8.1 SDK and MSVC 2010 command line tools
+
+Start MSVC console
+
+Set the paths and env vars (adjust as appropriate):
+
+    set EPICS_HOST_ARCH=win32-x86
+    set EPICS_BASE=C:\EPICS\base\
+    set EPICS_TOP=%EPICS_BASE%
+    set EPICS_BIN=%EPICS_BASE%\bin\%EPICS_HOST_ARCH%
+    set EPICS_CA_ADDR_LIST=127.0.0.1
+    set EPICS_CA_AUTO_ADDR_LIST=NO
+    set PATH=%EPICS_BIN%;%PATH%
+
+    set EPICSQT=C:\EPICS_Qt_Framework\epicsqt\
+    set QCAQTDIR=C:\QtSDK\
+    set QCAFRAMEWORK=%EPICSQT%\ca_framework
+    set PATH=%QCAQTDIR%\Desktop\Qt\4.8.1\msvc2010\bin;%PATH%
+    set PATH=%QCAQTDIR%\QtCreator\bin;%PATH%
+
+
+Changes made to .pro files (changes submitted to SVN)
+-----------------------------------------------------
+
+Opened \epicsqt\ca_framework\qwt\qwt.pro and added the following line:
+
+    CONFIG += release
+
+Opened \epicsqt\ca_framework\plugins\plugins.pro and added the following line:
+
+    DEFINES += QWT_DLL
+    
+Changed the following lines:
+
+    debug_and_release
+    -lqwt6
+    
+to:
+
+    release
+    -lqwt
+
+Opened \epicsqt\applications\ASguiApp\ASguiApp.pro and changed the following lines:
+
+    debug_and_release
+    LIBS += -L$$(QCAFRAMEWORK)/plugins \
+    
+to:
+
+    release
+    LIBS += -L$$(QCAFRAMEWORK)/plugins/release \
+
+
+Building and installing
+--------------------
+
+From the epicsqt directory:
+
+qmake epicsqt.pro
+nmake
+
+Copy qwt_designer_plugin.dll to the Qt designer plugins directory (something like C:\QtSDK\Desktop\Qt\4.8.1\msvc2010\plugins\designer\).
+Copy the other qwt dlls to the Qt bin folder (something like C:\QtSDK\Desktop\Qt\4.8.1\msvc2010\bin\)
+Starting the Qt designer found in the Qt bin folder should automatically load the qwt plugins.
+
+Copy the QCaPlugin.dll to the Qt designer plugins directory.
+Copy the ca.dll and Com.dll (from EPICS) to the Qt bin folder (or set up the paths correctly!)
+Starting the Qt designer found in the Qt bin folder should automatically load the qwt plugins.
