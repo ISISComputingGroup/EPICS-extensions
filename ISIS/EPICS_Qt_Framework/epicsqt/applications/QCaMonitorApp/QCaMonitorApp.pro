@@ -26,6 +26,7 @@ QT -= gui
 TARGET = QCaMonitor
 CONFIG += console
 CONFIG -= app_bundle
+CONFIG += release
 TEMPLATE = app
 SOURCES += \
     ./src/main.cpp \
@@ -47,4 +48,4 @@ INCLUDEPATH += \
 #LIBS += -L$$(QTDIR)/plugins/designer -lQCaPlugin
 
 # Uncomment if linking agains QCa library in epicsQt release build directory
-LIBS += -L$$(QCAFRAMEWORK)/plugins -lQCaPlugin
+LIBS += -L$$(QCAFRAMEWORK)/plugins/release -lQCaPlugin

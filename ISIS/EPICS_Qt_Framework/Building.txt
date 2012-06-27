@@ -52,6 +52,18 @@ to:
 
     release
     LIBS += -L$$(QCAFRAMEWORK)/plugins/release \
+    
+Opened \epicsqt\applications\QCaMonitorApp\QCaMonitorApp.pro and added:
+
+    CONFIG += release
+    
+Changed:
+    
+    LIBS += -L$$(QCAFRAMEWORK)/plugins -lQCaPlugin
+    
+to:
+
+    LIBS += -L$$(QCAFRAMEWORK)/plugins/release -lQCaPlugin
 
 
 Building and installing
@@ -62,10 +74,10 @@ From the epicsqt directory:
 qmake epicsqt.pro
 nmake
 
-Copy qwt_designer_plugin.dll to the Qt designer plugins directory (something like C:\QtSDK\Desktop\Qt\4.8.1\msvc2010\plugins\designer\).
+Copy qwt_designer_plugin.dll and lib to the Qt designer plugins directory (something like C:\QtSDK\Desktop\Qt\4.8.1\msvc2010\plugins\designer\).
 Copy the other qwt dlls to the Qt bin folder (something like C:\QtSDK\Desktop\Qt\4.8.1\msvc2010\bin\)
 Starting the Qt designer found in the Qt bin folder should automatically load the qwt plugins.
 
-Copy the QCaPlugin.dll to the Qt designer plugins directory.
+Copy the QCaPlugin.dll and lib to the Qt designer plugins directory.
 Copy the ca.dll and Com.dll (from EPICS) to the Qt bin folder (or set up the paths correctly!)
 Starting the Qt designer found in the Qt bin folder should automatically load the qwt plugins.
