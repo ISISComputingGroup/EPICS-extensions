@@ -81,3 +81,6 @@ Starting the Qt designer found in the Qt bin folder should automatically load th
 Copy the QCaPlugin.dll and lib to the Qt designer plugins directory.
 Copy the ca.dll and Com.dll (from EPICS) to the Qt bin folder (or set up the paths correctly!)
 Starting the Qt designer found in the Qt bin folder should automatically load the qwt plugins.
+
+NOTE: The Qt Creator in the SDK does not work with the EPICS Qt stuff in this version. I think the Qt creator needs to be rebuilt using MSVC 2010 and Qt 4.8.1...
+Or perhaps a newer version of the creator can be downloaded...
