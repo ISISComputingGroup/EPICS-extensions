@@ -78,8 +78,8 @@ AttocubeSrc_DEPEND_DIRS = MotorSrc
 DIRS += AerotechSrc
 AerotechSrc_DEPEND_DIRS = MotorSrc
 
-DIRS += HytecSrc
-HytecSrc_DEPEND_DIRS = MotorSrc
+#DIRS += HytecSrc
+#HytecSrc_DEPEND_DIRS = MotorSrc
 
 DIRS += ACRSrc
 ACRSrc_DEPEND_DIRS = MotorSrc

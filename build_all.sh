@@ -21,7 +21,7 @@ cd ..
 #
 cd modules/soft
 make clean
-for i in asyn pcreApp StreamDevice; do 
+for i in asyn pcreApp StreamDevice sscan calc motor galil; do 
  ( cd $i; make clean; make )
 done
 make

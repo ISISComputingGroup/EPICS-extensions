@@ -19,11 +19,12 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 #Motor App TOP directory
-CALC=/beamline/perforce/Dev/SBS/4_Controls/4_3_Network_Infrastructure/4_3_1_Comms_Common_Services/sw/epics/calc-2-8
-SSCAN=/beamline/perforce/Dev/SBS/4_Controls/4_3_Network_Infrastructure/4_3_1_Comms_Common_Services/sw/epics/sscan-2-6-6
-MOTOR=/beamline/perforce/Dev/SBS/4_Controls/4_3_Network_Infrastructure/4_3_1_Comms_Common_Services/sw/epics/motorR6-5-2
-GALIL=/beamline/perforce/Dev/SBS/4_Controls/4_3_Network_Infrastructure/4_3_1_Comms_Common_Services/sw/device_drivers/Galil/1-4
-EPICS_BASE=/beamline/perforce/Dev/SBS/4_Controls/4_3_Network_Infrastructure/4_3_1_Comms_Common_Services/sw/epics/base-3-14-11
+CALC=$(EPICS_BASE)/../modules/soft/calc
+MOTOR=$(EPICS_BASE)/../modules/soft/motor
+SSCAN=$(EPICS_BASE)/../modules/soft/sscan
+GALIL=$(EPICS_BASE)/../modules/soft/galil
+EPICS_BASE=$(TOP)/../../../base
+-include $(TOP)/../configure/EPICS_BASE.$(EPICS_HOST_ARCH)
 
 #Capfast users may need the following definitions
 #CAPFAST_TEMPLATES=
