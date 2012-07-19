@@ -26,4 +26,4 @@ EPICS_BASE=$(TOP)/../base
 #Capfast users may need the following definitions
 #CAPFAST_TEMPLATES=
 #SCH2EDIF_PATH=
--include $(TOP)/configure/RELEASE.private
+-include $(TOP)/configure/EPICS_BASE.$(EPICS_HOST_ARCH)

@@ -9,7 +9,7 @@ cd base
 make
 cd "$mydir"
 #
-for i in modules/soft; do
+for i in modules/soft eurotherm2k-1-11; do
     echo "EPICS_BASE=${MY_EPICS_BASE}" > "$i/configure/EPICS_BASE.${EPICS_HOST_ARCH}"
 done
 #
