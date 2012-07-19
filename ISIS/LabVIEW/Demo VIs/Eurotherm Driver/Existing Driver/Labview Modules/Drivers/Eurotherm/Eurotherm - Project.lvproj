@@ -1,17 +1,21 @@
 ﻿<?xml version='1.0' encoding='UTF-8'?>
 <Project Type="Project" LVVersion="11008008">
 	<Property Name="varPersistentID:{0DC72635-E84F-452D-8487-DAB201F7C803}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/G1</Property>
-	<Property Name="varPersistentID:{3AC554C6-CBCE-405E-AA90-DEB18CE0119F}" Type="Ref">/My Computer/EurothermSimple2.lvlib/G1</Property>
+	<Property Name="varPersistentID:{20790163-E4FF-4BF0-B13A-AF82EED11745}" Type="Ref">/My Computer/EuroS2.lvlib/S2</Property>
+	<Property Name="varPersistentID:{2113D880-92C1-45C5-BFB6-1EC632BA7ECC}" Type="Ref">/My Computer/EuroS2.lvlib/R2</Property>
+	<Property Name="varPersistentID:{3AC554C6-CBCE-405E-AA90-DEB18CE0119F}" Type="Ref">/My Computer/EuroS2.lvlib/G1</Property>
 	<Property Name="varPersistentID:{42150948-2CD8-4ED6-B226-A5C57F1414AE}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/S1</Property>
-	<Property Name="varPersistentID:{57703236-6ABC-4B18-88A7-79239CE24415}" Type="Ref">/My Computer/EurothermSimple2.lvlib/S1</Property>
-	<Property Name="varPersistentID:{58316154-1F98-46F4-BBB1-F711DCA7EAB1}" Type="Ref">/My Computer/EurothermSimple2.lvlib/T1</Property>
-	<Property Name="varPersistentID:{66420936-BF8D-4329-B2F7-E2D77AD246C1}" Type="Ref">/My Computer/EurothermSimple2.lvlib/G2</Property>
+	<Property Name="varPersistentID:{57703236-6ABC-4B18-88A7-79239CE24415}" Type="Ref">/My Computer/EuroS2.lvlib/S1</Property>
+	<Property Name="varPersistentID:{58316154-1F98-46F4-BBB1-F711DCA7EAB1}" Type="Ref">/My Computer/EuroS2.lvlib/T1</Property>
+	<Property Name="varPersistentID:{66420936-BF8D-4329-B2F7-E2D77AD246C1}" Type="Ref">/My Computer/EuroS2.lvlib/G2</Property>
 	<Property Name="varPersistentID:{6BDF59C5-F732-43FA-BC8E-8223027D277F}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/R1</Property>
 	<Property Name="varPersistentID:{85BAA7C3-B89E-4220-91B7-AC14A8DDEA82}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/T2</Property>
 	<Property Name="varPersistentID:{89F9FA4A-3D84-4F9B-9227-B1D36DEC10E2}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/T1</Property>
 	<Property Name="varPersistentID:{AC64D018-3FCF-40B3-B8A9-685A96E746E6}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/G2</Property>
-	<Property Name="varPersistentID:{E5B42380-62C8-441B-B3CE-DAE465B79042}" Type="Ref">/My Computer/EurothermSimple2.lvlib/R1</Property>
-	<Property Name="varPersistentID:{F37A662C-FAA4-4C04-9528-F263B42DD372}" Type="Ref">/My Computer/EurothermSimple2.lvlib/T2</Property>
+	<Property Name="varPersistentID:{B93F2E42-D837-48C5-AA24-FD72E91C5BE2}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/S2</Property>
+	<Property Name="varPersistentID:{CCCFA189-E965-45E1-B5CC-DA10BF188583}" Type="Ref">/My Computer/Eurotherm/EurothermSimple2Var.lvlib/R2</Property>
+	<Property Name="varPersistentID:{E5B42380-62C8-441B-B3CE-DAE465B79042}" Type="Ref">/My Computer/EuroS2.lvlib/R1</Property>
+	<Property Name="varPersistentID:{F37A662C-FAA4-4C04-9528-F263B42DD372}" Type="Ref">/My Computer/EuroS2.lvlib/T2</Property>
 	<Item Name="My Computer" Type="My Computer">
 		<Property Name="IOScan.Faults" Type="Str"></Property>
 		<Property Name="IOScan.NetVarPeriod" Type="UInt">100</Property>
@@ -33,6 +37,11 @@
 		<Item Name="Common" Type="Folder" URL="../../../Common">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
+		<Item Name="DEMO" Type="Folder">
+			<Item Name="Eurotherm - Front Panel - Simple x 2.vi" Type="VI" URL="../Eurotherm - System Functions/Eurotherm - Front Panel - Simple x 2.vi"/>
+			<Item Name="Eurotherm - Setup Dialog.vi" Type="VI" URL="../Eurotherm - System Functions/Eurotherm - Setup Dialog.vi"/>
+			<Item Name="Eurotherm - VISA Serial - Command.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - VISA Serial - Command.vi"/>
+		</Item>
 		<Item Name="Eurotherm" Type="Folder">
 			<Item Name="Eurotherm - Comms" Type="Folder">
 				<Property Name="NI.SortType" Type="Int">3</Property>
@@ -41,7 +50,6 @@
 				<Item Name="Eurotherm - Validate Checksum.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - Validate Checksum.vi"/>
 				<Item Name="Eurotherm - VISA Serial - Clear Buffer.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - VISA Serial - Clear Buffer.vi"/>
 				<Item Name="Eurotherm - VISA Serial - Close Session.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - VISA Serial - Close Session.vi"/>
-				<Item Name="Eurotherm - VISA Serial - Command.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - VISA Serial - Command.vi"/>
 				<Item Name="Eurotherm - VISA Serial - Initialize Session.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - VISA Serial - Initialize Session.vi"/>
 				<Item Name="Eurotherm - VISA Serial - Read Reply.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - VISA Serial - Read Reply.vi"/>
 				<Item Name="Eurotherm - VISA Serial - Write Command.vi" Type="VI" URL="../Eurotherm - Comms/Eurotherm - VISA Serial - Write Command.vi"/>
@@ -77,11 +85,8 @@
 				<Item Name="Eurotherm - Setup.vi" Type="VI" URL="../Eurotherm - System Functions/Eurotherm - Setup.vi"/>
 				<Item Name="Eurotherm - Simple Front Panel Control.vi" Type="VI" URL="../Eurotherm - System Functions/Eurotherm - Simple Front Panel Control.vi"/>
 			</Item>
-			<Item Name="Eurotherm - Front Panel - Simple x 2.vi" Type="VI" URL="../Eurotherm - System Functions/Eurotherm - Front Panel - Simple x 2.vi"/>
-			<Item Name="Eurotherm - Front Panel.vi" Type="VI" URL="../Eurotherm - System Functions/Eurotherm - Front Panel.vi"/>
 			<Item Name="Eurotherm - Project.aliases" Type="Document" URL="../Eurotherm - Project.aliases"/>
 			<Item Name="Eurotherm - Project.lvlps" Type="Document" URL="../Eurotherm - Project.lvlps"/>
-			<Item Name="Eurotherm - Setup Dialog.vi" Type="VI" URL="../Eurotherm - System Functions/Eurotherm - Setup Dialog.vi"/>
 			<Item Name="EurothermSimple2Var.lvlib" Type="Library" URL="../EurothermSimple2Var.lvlib"/>
 		</Item>
 		<Item Name="Support Documents" Type="Folder">
@@ -89,7 +94,8 @@
 			<Item Name="Event Log 2012-07-19 11-00.log" Type="Document" URL="../../../../../../../../../../../../Data/Export Only/logs/LabVIEW/Event Log/2012-07/2012-07-19/Event Log 2012-07-19 11-00.log"/>
 			<Item Name="Notes.txt" Type="Document" URL="../../../../Support Files/Notes.txt"/>
 		</Item>
-		<Item Name="EurothermSimple2.lvlib" Type="Library" URL="../EurothermSimple2.lvlib"/>
+		<Item Name="Demo Instructions.txt" Type="Document" URL="../../../../Support Files/Demo Instructions.txt"/>
+		<Item Name="EuroS2.lvlib" Type="Library" URL="../EuroS2.lvlib"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="Application Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Application Directory.vi"/>
