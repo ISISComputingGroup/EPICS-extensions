@@ -167,6 +167,77 @@
 			</Item>
 			<Item Name="lvanlys.dll" Type="Document" URL="../../../../../../../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/resource/lvanlys.dll"/>
 		</Item>
-		<Item Name="Build Specifications" Type="Build"/>
+		<Item Name="Build Specifications" Type="Build">
+			<Item Name="My Application" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{C8BBA9C7-6A4F-4300-BCB1-E449081FC389}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{64858109-4213-46BE-89FA-ACD74E430502}</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{F3B01873-B767-41EE-9AC8-807A58E184DB}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">My Application</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">/C/Users/kvlb23/Documents/EPICS Pilot/EPICS and LV/Demo VIs/builds/Eurotherm Application</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{B5500A7B-A643-49E8-9680-0369C8BB6244}</Property>
+				<Property Name="Destination[0].destName" Type="Str">Application.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">/C/Users/kvlb23/Documents/EPICS Pilot/EPICS and LV/Demo VIs/builds/Eurotherm Application/Application.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">&lt;none&gt;</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">/C/Users/kvlb23/Documents/EPICS Pilot/EPICS and LV/Demo VIs/builds/Eurotherm Application/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">&lt;none&gt;</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Source[0].itemID" Type="Str">{39531965-34B0-40D4-AE9A-9381C73A04DD}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/DEMO/Eurotherm - Front Panel - Simple x 2.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">My Application</Property>
+				<Property Name="TgtF_fileVersion.major" Type="Int">1</Property>
+				<Property Name="TgtF_internalName" Type="Str">My Application</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2012 </Property>
+				<Property Name="TgtF_productName" Type="Str">My Application</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{229D391B-75CB-473A-9737-9FF9F4F5C62A}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">Application.exe</Property>
+			</Item>
+			<Item Name="Setup" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{C1B19070-C444-4C24-9FDB-6E195B78C5E1}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{B8E93B9D-09BF-4AF9-AF50-DAAEBDAA35E0}</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{53D7F996-83C5-48A5-AE23-BAF1AE060608}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">Setup</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">/C/Users/kvlb23/Documents/EPICS Pilot/EPICS and LV/Demo VIs/builds/Eurotherm Setup</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{E6335AEC-33D6-45F2-9010-875C52533B36}</Property>
+				<Property Name="Destination[0].destName" Type="Str">Application.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">/C/Users/kvlb23/Documents/EPICS Pilot/EPICS and LV/Demo VIs/builds/Eurotherm Setup/Application.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">&lt;none&gt;</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">/C/Users/kvlb23/Documents/EPICS Pilot/EPICS and LV/Demo VIs/builds/Eurotherm Setup/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">&lt;none&gt;</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Source[0].itemID" Type="Str">{39531965-34B0-40D4-AE9A-9381C73A04DD}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/DEMO/Eurotherm - Setup Dialog.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">Setup</Property>
+				<Property Name="TgtF_fileVersion.major" Type="Int">1</Property>
+				<Property Name="TgtF_internalName" Type="Str">Setup</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2012 </Property>
+				<Property Name="TgtF_productName" Type="Str">Setup</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{489C22CC-002D-4F06-8996-B964AA9700BE}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">Application.exe</Property>
+			</Item>
+		</Item>
 	</Item>
 </Project>

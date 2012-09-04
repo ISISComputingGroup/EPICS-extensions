@@ -19,6 +19,7 @@
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="Simple Client - Front Panel.vi" Type="VI" URL="../Simple Client - Front Panel.vi"/>
+		<Item Name="Simple Client - Init.vi" Type="VI" URL="../Simple Client - Init.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="citadel_ConvertDatabasePathToName.vi" Type="VI" URL="/&lt;vilib&gt;/citadel/citadel_ConvertDatabasePathToName.vi"/>
@@ -88,8 +89,51 @@
 			<Item Name="SCT Default Types.ctl" Type="VI" URL="../../../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/resource/dialog/variable/SCT Default Types.ctl"/>
 			<Item Name="SCT Get LVRTPath.vi" Type="VI" URL="../../../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/resource/dialog/variable/SCT Get LVRTPath.vi"/>
 			<Item Name="SCT Get Types.vi" Type="VI" URL="../../../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/resource/dialog/variable/SCT Get Types.vi"/>
-			<Item Name="Simple Client - Init.vi" Type="VI" URL="../Simple Client - Init.vi"/>
 		</Item>
-		<Item Name="Build Specifications" Type="Build"/>
+		<Item Name="Build Specifications" Type="Build">
+			<Item Name="My Application" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{03D1E061-9046-4497-B16F-882C8323C930}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{1A501849-B4C0-4B67-9C76-2BCDBDEF5701}</Property>
+				<Property Name="App_useFFRTE" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{ECB9BD0C-85E8-4D15-8F37-286AB58F3E96}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">My Application</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/My Application</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{2AE83B0C-150B-45CF-B70F-0A1A3979DE31}</Property>
+				<Property Name="Destination[0].destName" Type="Str">Application.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/My Application/Application.exe</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/My Application/data</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Exe_VardepDeployAtStartup" Type="Bool">true</Property>
+				<Property Name="Exe_VardepHideDeployDlg" Type="Bool">true</Property>
+				<Property Name="Exe_VardepUndeployOnExit" Type="Bool">true</Property>
+				<Property Name="Source[0].itemID" Type="Str">{D81FA923-3115-459A-8B6E-5C36BED0A44C}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Simple Client - Front Panel.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="Source[2].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[2].itemID" Type="Ref">/My Computer/Simple Client - Init.vi</Property>
+				<Property Name="Source[2].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[2].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">3</Property>
+				<Property Name="TgtF_enableDebugging" Type="Bool">true</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">My Application</Property>
+				<Property Name="TgtF_fileVersion.major" Type="Int">1</Property>
+				<Property Name="TgtF_internalName" Type="Str">My Application</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2012 </Property>
+				<Property Name="TgtF_productName" Type="Str">My Application</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{6C670C6A-5D51-41E1-BEA1-F74E5479AFD3}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">Application.exe</Property>
+			</Item>
+		</Item>
 	</Item>
 </Project>
