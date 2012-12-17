@@ -16,19 +16,10 @@
 
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
-#define P_RunString                "SCOPE_RUN"             /* asynInt32,    r/w */
-#define P_MaxPointsString          "SCOPE_MAX_POINTS"      /* asynInt32,    r/o */
-#define P_TimePerDivisionString    "SCOPE_TIME_PER_DIV"    /* asynFloat64,  r/w */
-#define P_VoltsPerDivisionString   "SCOPE_VOLTS_PER_DIV"   /* asynFloat64,  r/w */
-#define P_VoltOffsetString         "SCOPE_VOLT_OFFSET"     /* asynFloat64,  r/w */
-#define P_TriggerDelayString       "SCOPE_TRIGGER_DELAY"   /* asynFloat64,  r/w */
-#define P_NoiseAmplitudeString     "SCOPE_NOISE_AMPLITUDE" /* asynFloat64,  r/w */
-#define P_UpdateTimeString         "SCOPE_UPDATE_TIME"     /* asynFloat64,  r/w */
-#define P_WaveformString           "SCOPE_WAVEFORM"        /* asynFloat64Array,  r/o */
-#define P_TimeBaseString           "SCOPE_TIME_BASE"       /* asynFloat64Array,  r/o */
-#define P_MinValueString           "SCOPE_MIN_VALUE"       /* asynFloat64,  r/o */
-#define P_MaxValueString           "SCOPE_MAX_VALUE"       /* asynFloat64,  r/o */
-#define P_MeanValueString          "SCOPE_MEAN_VALUE"      /* asynFloat64,  r/o */
+#define P_LvRunString                	"LV_RUN" 
+#define P_LvRun2String                	"LV_RUN2" 
+
+class ISISSTUFF;
 
 /** Class that demonstrates the use of the asynPortDriver base class to greatly simplify the task
   * of writing an asyn port driver.
@@ -38,42 +29,30 @@
   * but they should really all be private. */
 class testAsynPortDriver : public asynPortDriver {
 public:
-    testAsynPortDriver(const char *portName, int maxArraySize);
+    testAsynPortDriver(const char *portName, const char *configFile);
                  
     /* These are the methods that we override from asynPortDriver */
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
+	virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 *value);
     virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
-    virtual asynStatus readFloat64Array(asynUser *pasynUser, epicsFloat64 *value,
-                                        size_t nElements, size_t *nIn);
-
-    /* These are the methods that are new to this class */
-    void simTask(void);
+    virtual asynStatus readFloat64(asynUser *pasynUser, epicsFloat64 *value);
 
 protected:
     /** Values used for pasynUser->reason, and indexes into the parameter library. */
-    int P_Run;
-    #define FIRST_SCOPE_COMMAND P_Run
-    int P_MaxPoints;
-    int P_TimePerDivision;
-    int P_VoltsPerDivision;
-    int P_VoltOffset;
-    int P_TriggerDelay;
-    int P_NoiseAmplitude;
-    int P_UpdateTime;
-    int P_Waveform;
-    int P_TimeBase;
-    int P_MinValue;
-    int P_MaxValue;
-    int P_MeanValue;
-    #define LAST_SCOPE_COMMAND P_MeanValue
+    int P_LvRun;
+    int P_LvRun2;
+	
+    #define FIRST_LV_COMMAND P_LvRun
+    #define LAST_LV_COMMAND P_LvRun2
  
 private:
     /* Our data */
-    epicsEventId eventId;
-    epicsFloat64 *pData;
-    epicsFloat64 *pTimeBase;
+//    epicsEventId eventId;
+//    epicsFloat64 *pData;
+//    epicsFloat64 *pTimeBase;
+	ISISSTUFF* m_stuff;
 };
 
 
-#define NUM_SCOPE_PARAMS (&LAST_SCOPE_COMMAND - &FIRST_SCOPE_COMMAND + 1)
-
+#define NUM_LV_PARAMS (&LAST_LV_COMMAND - &FIRST_LV_COMMAND + 1)
+#define MAX_NUM_LV_CONTROLS		100

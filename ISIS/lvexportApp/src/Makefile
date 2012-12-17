@@ -4,23 +4,36 @@ include $(TOP)/configure/CONFIG
 #----------------------------------------
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 
+FILE_TYPE += pdb
+INSTALL_pdb = $(INSTALL_BIN)
 
+USR_INCLUDES += -IC:/development/InstrumentControl/ICP/Third_Party/POCO/include
+USR_INCLUDES += -IC:/development/InstrumentControl/ICP/tlb
 
+USR_CXXFLAGS += /Zi
+#USR_CPPFLAGS
+USR_LDFLAGS += /DEBUG
+
+pocofoundation_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
+pocoxml_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
+pocoutil_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
 
 #=============================
 # Build the IOC support library
 
 LIBRARY_IOC += lvexportSupport
 
+pdb += lvexportSupport.pdb
+
 # xxxRecord.h will be created from xxxRecord.dbd
 #DBDINC += xxxRecord
 DBD += lvexport.dbd
 
 # Compile and add the code to the support library
-lvexportSupport_SRCS += testAsynPortDriver.cpp
-
+lvexportSupport_SRCS += testAsynPortDriver.cpp isis_stuff.cpp variant_utils.cpp
 
 lvexportSupport_LIBS += asyn
+lvexportSupport_LIBS += pocoutil pocoxml pocofoundation
 lvexportSupport_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 #=============================
@@ -52,6 +65,7 @@ lvexport_LIBS += lvexportSupport asyn
 # Finally link to the EPICS Base libraries
 lvexport_LIBS += $(EPICS_BASE_IOC_LIBS)
 
+pdb += lvexport.pdb
 
 
 #=============================
