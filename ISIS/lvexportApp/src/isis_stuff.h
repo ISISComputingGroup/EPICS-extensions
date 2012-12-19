@@ -29,6 +29,7 @@
 #include <Poco/Util/AbstractConfiguration.h>
 #include <Poco/Util/XMLConfiguration.h>
 #include <Poco/Format.h>
+#include <Poco/RWLock.h>
 
 struct ViRef
 {
@@ -40,17 +41,20 @@ struct ViRef
 class ISISSTUFF
 {
 public:
-	ISISSTUFF(const char *portName, const char *configFile);
-	template<typename T> void setLabviewValue(const std::string& portName, int addr, const T& value, bool use_ext);
+	ISISSTUFF(const char *portName, const char *configFile, const char* host);
+	template<typename T> void setLabviewValue(const std::string& portName, int addr, const T& value);
 	template<typename T> void getLabviewValue(const std::string& portName, int addr, T* value);
 
 private:
 	typedef std::map<std::wstring, ViRef> vi_map_t;
 	vi_map_t m_vimap;
+	Poco::RWLock m_lock;
 	Poco::Util::AbstractConfiguration *m_cfg;
 	CComBSTR m_extint;
+	std::string m_host;
 
 	int testlv();
+	std::string doPath(const std::string& xpath);
 	void getViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstrumentPtr &vi);
 	void createViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstrumentPtr &vi);
 	void getLabviewValue(BSTR vi_name, BSTR control_name, VARIANT* value);
@@ -61,6 +65,9 @@ private:
 	void startVi(BSTR vi_name);
 	void stopVi(BSTR vi_name);
 	void closeViFrontPanel(BSTR vi_name);
+	COAUTHIDENTITY* createIdentity(const std::string& user, const std::string& domain, const std::string& pass);
+	HRESULT setIdentity(COAUTHIDENTITY* pidentity, IUnknown* pUnk);
+
 
 };
 

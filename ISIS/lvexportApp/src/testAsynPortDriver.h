@@ -29,7 +29,7 @@ class ISISSTUFF;
   * but they should really all be private. */
 class testAsynPortDriver : public asynPortDriver {
 public:
-    testAsynPortDriver(const char *portName, const char *configFile);
+    testAsynPortDriver(const char *portName, const char *configFile, const char* host);
                  
     /* These are the methods that we override from asynPortDriver */
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);

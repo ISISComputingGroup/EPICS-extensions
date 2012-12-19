@@ -50,21 +50,20 @@ asynStatus testAsynPortDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 va
     const char *paramName = "";
     const char* functionName = "writeFloat64";
 
-	this->getAddress(pasynUser, &addr);
-		
 	try
 	{
-		m_stuff->setLabviewValue(this->portName, addr, value, true);
-        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
-                  "%s:%s: status=%d, function=%d, name=%s, value=%f", 
-                  driverName, functionName, status, function, paramName, value);
+		this->getAddress(pasynUser, &addr);
+		m_stuff->setLabviewValue(this->portName, addr, value);
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s, value=%f\n", 
+              driverName, functionName, function, paramName, value);
 		return asynSuccess;
 	}
 	catch(const std::exception& ex)
 	{
-        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-              "%s:%s: function=%d, name=%s, value=%f, error=%s\n", 
-              driverName, functionName, function, paramName, value, ex.what());
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, value=%f, error=%s", 
+                  driverName, functionName, status, function, paramName, value, ex.what());
 		return asynError;
 	}
 }
@@ -77,21 +76,20 @@ asynStatus testAsynPortDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
     const char *paramName = "";
     const char* functionName = "writeInt32";
 
-	this->getAddress(pasynUser, &addr);
-	
 	try
 	{
-		m_stuff->setLabviewValue(this->portName, addr, value, true);
-        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
-                  "%s:%s: status=%d, function=%d, name=%s, value=%f", 
-                  driverName, functionName, status, function, paramName, value);
+		this->getAddress(pasynUser, &addr);
+		m_stuff->setLabviewValue(this->portName, addr, value);
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s, value=%d\n", 
+              driverName, functionName, function, paramName, value);
 		return asynSuccess;
 	}
 	catch(const std::exception& ex)
 	{
-        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-              "%s:%s: function=%d, name=%s, value=%f error=%s\n", 
-              driverName, functionName, function, paramName, value, ex.what());
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, value=%d, error=%s", 
+                  driverName, functionName, status, function, paramName, value, ex.what());
 		return asynError;
 	}
 }
@@ -102,14 +100,21 @@ asynStatus testAsynPortDriver::readFloat64(asynUser *pasynUser, epicsFloat64 *va
 	int function = pasynUser->reason;
 	int status=0;
 	const char *functionName = "readFloat64";
-	this->getAddress(pasynUser, &addr);
+    const char *paramName = "";
 	try
 	{
+		this->getAddress(pasynUser, &addr);
 		m_stuff->getLabviewValue(this->portName, addr, value);
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s, value=%f\n", 
+              driverName, functionName, function, paramName, *value);
 		return asynSuccess;
 	}
 	catch(const std::exception& ex)
 	{
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, value=%f, error=%s", 
+                  driverName, functionName, status, function, paramName, *value, ex.what());
 		return asynError;
 	}
 }
@@ -120,14 +125,21 @@ asynStatus testAsynPortDriver::readInt32(asynUser *pasynUser, epicsInt32 *value)
 	int function = pasynUser->reason;
 	int status=0;
 	const char *functionName = "readInt32";
-	this->getAddress(pasynUser, &addr);
+    const char *paramName = "";
 	try
 	{
+		this->getAddress(pasynUser, &addr);
 		m_stuff->getLabviewValue(this->portName, addr, value);
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s, value=%d\n", 
+              driverName, functionName, function, paramName, *value);
 		return asynSuccess;
 	}
 	catch(const std::exception& ex)
 	{
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, value=%d, error=%s", 
+                  driverName, functionName, status, function, paramName, *value, ex.what());
 		return asynError;
 	}
 }
@@ -138,7 +150,7 @@ asynStatus testAsynPortDriver::readInt32(asynUser *pasynUser, epicsInt32 *value)
   * Calls constructor for the asynPortDriver base class.
   * \param[in] portName The name of the asyn port driver to be created.
   * \param[in] maxPoints The maximum  number of points in the volt and time arrays */
-testAsynPortDriver::testAsynPortDriver(const char *portName, const char *configFile) 
+testAsynPortDriver::testAsynPortDriver(const char *portName, const char *configFile, const char *host) 
    : asynPortDriver(portName, 
                     MAX_NUM_LV_CONTROLS, /* maxAddr */ 
                     NUM_LV_PARAMS,
@@ -147,7 +159,7 @@ testAsynPortDriver::testAsynPortDriver(const char *portName, const char *configF
                     ASYN_MULTIDEVICE | ASYN_CANBLOCK, /* asynFlags.  This driver does not block and it is not multi-device, so flag is 0 */
                     1, /* Autoconnect */
                     0, /* Default priority */
-                    0) /* Default stack size*/    
+                    0)	/* Default stack size*/
 {
     asynStatus status;
     int i;
@@ -157,7 +169,7 @@ testAsynPortDriver::testAsynPortDriver(const char *portName, const char *configF
     createParam(P_LvRun2String,                asynParamInt32,         &P_LvRun2);
 	try
 	{
-		m_stuff = new ISISSTUFF(portName, configFile);
+		m_stuff = new ISISSTUFF(portName, configFile, host);
 	}
 	catch(const std::exception& ex)
 	{
@@ -189,10 +201,10 @@ extern "C" {
 /** EPICS iocsh callable function to call constructor for the testAsynPortDriver class.
   * \param[in] portName The name of the asyn port driver to be created.
   * \param[in] maxPoints The maximum  number of points in the volt and time arrays */
-int testAsynPortDriverConfigure(const char *portName, const char *configFile)
+int testAsynPortDriverConfigure(const char *portName, const char *configFile, const char *host)
 {
-    new testAsynPortDriver(portName, configFile);
-    return(asynSuccess);
+		new testAsynPortDriver(portName, configFile, host);
+		return(asynSuccess);
 }
 
 
@@ -200,12 +212,15 @@ int testAsynPortDriverConfigure(const char *portName, const char *configFile)
 
 static const iocshArg initArg0 = { "portName",iocshArgString};
 static const iocshArg initArg1 = { "configFile",iocshArgString};
+static const iocshArg initArg2 = { "host",iocshArgString};
+
 static const iocshArg * const initArgs[] = {&initArg0,
-                                            &initArg1};
-static const iocshFuncDef initFuncDef = {"testAsynPortDriverConfigure",2,initArgs};
+                                            &initArg1,
+											&initArg2};
+static const iocshFuncDef initFuncDef = {"testAsynPortDriverConfigure",3,initArgs};
 static void initCallFunc(const iocshArgBuf *args)
 {
-    testAsynPortDriverConfigure(args[0].sval, args[1].sval);
+    testAsynPortDriverConfigure(args[0].sval, args[1].sval, args[2].sval);
 }
 
 void testAsynPortDriverRegister(void)
