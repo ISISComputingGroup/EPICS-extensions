@@ -51,19 +51,23 @@
 	// Use Poco::Path to convert to native (windows) style path as config file is UNIX style
 std::string ISISSTUFF::doPath(const std::string& xpath)
 {
+	if (m_cfg == NULL)
+	{
+		throw std::runtime_error("m_cfg is NULL");
+	}
 	try
 	{
 		m_cfg->getString(xpath);
 		Poco::Path p(m_cfg->getString(xpath));
 		return p.toString();
 	}
-	catch(std::exception& ex)
+	catch(const std::exception& ex)
 	{
 		throw std::runtime_error("Cannot load config xpath " + xpath + ": " + ex.what());
 	}
 }
 
-ISISSTUFF::ISISSTUFF(const char *portName, const char *configFile, const char* host)
+ISISSTUFF::ISISSTUFF(const char *portName, const char *configFile, const char* host) : m_cfg(NULL)
 {
 		CoInitializeEx(NULL, COINIT_MULTITHREADED);
 //		std::ifstream in(configFile);
@@ -85,8 +89,16 @@ ISISSTUFF::ISISSTUFF(const char *portName, const char *configFile, const char* h
 	else
 	{
 		m_host = "localhost";
-	}	
-    m_cfg = new Poco::Util::XMLConfiguration(configFile);
+	}
+	try
+	{
+		m_cfg = new Poco::Util::XMLConfiguration(configFile);
+	}
+	catch(const std::exception& ex)
+	{
+		m_cfg = NULL;
+		throw std::runtime_error("Cannot load " + std::string(configFile) + ": " + ex.what());
+	}
   	m_extint = doPath("extint[@path]").c_str();
 }
 
