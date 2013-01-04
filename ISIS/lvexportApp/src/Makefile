@@ -7,19 +7,21 @@ include $(TOP)/configure/CONFIG
 FILE_TYPE += pdb
 INSTALL_pdb = $(INSTALL_BIN)
 
-USR_INCLUDES += -IC:/development/InstrumentControl/ICP/Third_Party/POCO/include
-USR_INCLUDES += -IC:/development/InstrumentControl/ICP/tlb
+THIRD_PARTY=../../../../Third_Party
+
+USR_INCLUDES += -I$(THIRD_PARTY)/POCO/include
+USR_INCLUDES += -Itlb
 
 USR_CXXFLAGS += /Zi
 #USR_CPPFLAGS
 USR_LDFLAGS += /DEBUG
 
-pocofoundation_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
-pocofoundationd_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
-pocoxml_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
-pocoxmld_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
-pocoutil_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
-pocoutild_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
+pocofoundation_DIR = $(THIRD_PARTY)/POCO/lib_x64
+pocofoundationd_DIR = $(THIRD_PARTY)/POCO/lib_x64
+pocoxml_DIR = $(THIRD_PARTY)/POCO/lib_x64
+pocoxmld_DIR = $(THIRD_PARTY)/POCO/lib_x64
+pocoutil_DIR = $(THIRD_PARTY)/POCO/lib_x64
+pocoutild_DIR = $(THIRD_PARTY)/POCO/lib_x64
 
 #=============================
 # Build the IOC support library
@@ -70,7 +72,6 @@ lvexport_LIBS += lvexportSupport asyn
 lvexport_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 pdb += lvexport.pdb
-
 
 #=============================
 
