@@ -144,6 +144,78 @@ asynStatus testAsynPortDriver::readInt32(asynUser *pasynUser, epicsInt32 *value)
 	}
 }
 
+asynStatus testAsynPortDriver::readOctet(asynUser *pasynUser, char *value, size_t maxChars, size_t *nActual, int *eomReason)
+{
+	int addr;
+	int function = pasynUser->reason;
+	int status=0;
+	const char *functionName = "readOctet";
+    const char *paramName = "";
+	std::string value_s;
+	try
+	{
+		this->getAddress(pasynUser, &addr);
+		m_stuff->getLabviewValue(this->portName, addr, &value_s);
+		if ( value_s.size() > maxChars ) // did we read more than we have space for?
+		{
+			*nActual = maxChars;
+			if (eomReason) { *eomReason = ASYN_EOM_CNT | ASYN_EOM_END; }
+			asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s, value=\"%s\" (TRUNCATED from %d chars)\n", 
+			  driverName, functionName, function, paramName, value_s.substr(0,*nActual).c_str(), value_s.size());
+		}
+		else
+		{
+			*nActual = value_s.size();
+			if (eomReason) { *eomReason = ASYN_EOM_END; }
+			asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s, value=\"%s\"\n", 
+			  driverName, functionName, function, paramName, value_s.c_str());
+		}
+		strncpy(value, value_s.c_str(), maxChars); // maxChars  will NULL pad if possible, change to  *nActual  if we do not want this
+		return asynSuccess;
+	}
+	catch(const std::exception& ex)
+	{
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, value=\"%s\", error=%s", 
+                  driverName, functionName, status, function, paramName, value_s.c_str(), ex.what());
+		*nActual = 0;
+		if (eomReason) { *eomReason = ASYN_EOM_END; }
+		value[0] = '\0';
+		return asynError;
+	}
+}
+
+asynStatus testAsynPortDriver::writeOctet(asynUser *pasynUser, const char *value, size_t maxChars, size_t *nActual)
+{
+    int function = pasynUser->reason;
+    asynStatus status = asynSuccess;
+    int addr;
+    const char *paramName = "";
+    const char* functionName = "writeOctet";
+	std::string value_s(value, maxChars);
+	try
+	{
+		this->getAddress(pasynUser, &addr);
+		m_stuff->setLabviewValue(this->portName, addr, value_s);
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s, value=%s\n", 
+              driverName, functionName, function, paramName, value_s.c_str());
+		*nActual = value_s.size();
+		return asynSuccess;
+	}
+	catch(const std::exception& ex)
+	{
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, value=%s, error=%s", 
+                  driverName, functionName, status, function, paramName, value_s.c_str(), ex.what());
+		*nActual = 0;
+		return asynError;
+	}
+}
+
+
 /* Report
 
 /** Constructor for the testAsynPortDriver class.
@@ -154,8 +226,8 @@ testAsynPortDriver::testAsynPortDriver(const char *portName, const char *configF
    : asynPortDriver(portName, 
                     MAX_NUM_LV_CONTROLS, /* maxAddr */ 
                     NUM_LV_PARAMS,
-                    asynInt32Mask | asynFloat64Mask | asynDrvUserMask, /* Interface mask */
-                    asynInt32Mask | asynFloat64Mask,  /* Interrupt mask */
+                    asynInt32Mask | asynFloat64Mask | asynOctetMask | asynDrvUserMask, /* Interface mask */
+                    asynInt32Mask | asynFloat64Mask | asynOctetMask,  /* Interrupt mask */
                     ASYN_MULTIDEVICE | ASYN_CANBLOCK, /* asynFlags.  This driver does not block and it is not multi-device, so flag is 0 */
                     1, /* Autoconnect */
                     0, /* Default priority */

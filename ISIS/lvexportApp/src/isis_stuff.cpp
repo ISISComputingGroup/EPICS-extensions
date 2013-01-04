@@ -84,7 +84,7 @@ ISISSTUFF::ISISSTUFF(const char *portName, const char *configFile, const char* h
 	}
 	else
 	{
-		m_host = "127.0.0.1";
+		m_host = "localhost";
 	}	
     m_cfg = new Poco::Util::XMLConfiguration(configFile);
   	m_extint = doPath("extint[@path]").c_str();
@@ -146,12 +146,11 @@ void ISISSTUFF::getViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstrumen
 	UINT len = SysStringLen(vi_name);
 	std::wstring ws(vi_name, SysStringLen(vi_name));
 
-	m_lock.readLock();
+	Poco::RWLock::ScopedWriteLock _lock(m_lock);
 	vi_map_t::iterator it = m_vimap.find(ws);
 	if(it != m_vimap.end())
 	{
 		vi = it->second.vi_ref;
-		m_lock.unlock();
 		try
 		{
 			vi->GetExecState();
@@ -164,7 +163,6 @@ void ISISSTUFF::getViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstrumen
 	}
 	else
 	{
-		m_lock.unlock();
 		createViRef(vi_name, reentrant, vi);
 	}
 }
@@ -174,8 +172,8 @@ void ISISSTUFF::createViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstru
 {
 	std::wstring ws(vi_name, SysStringLen(vi_name));
 	CComBSTR host(m_host.c_str());
-	COSERVERINFO csi = { 0, host, NULL, 0 }; 
-	COAUTHIDENTITY* pidentity = createIdentity("spudulike", "ndxtestfaa", "reliablebeam");
+	COSERVERINFO csi = { 0, NULL, NULL, 0 }; 
+	COAUTHIDENTITY* pidentity = createIdentity("spudulike", m_host, "reliablebeam");
 	COAUTHINFO* pauth = new COAUTHINFO;
     pauth->dwAuthnSvc = RPC_C_AUTHN_WINNT;
     pauth->dwAuthnLevel = RPC_C_AUTHN_LEVEL_DEFAULT;
@@ -184,6 +182,7 @@ void ISISSTUFF::createViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstru
     pauth->dwImpersonationLevel = RPC_C_IMP_LEVEL_IMPERSONATE;
     pauth->pAuthIdentityData = pidentity;
     pauth->pwszServerPrincName = NULL;
+	csi.pwszName = host;
 	csi.pAuthInfo = pauth;
     MULTI_QI mq[ 1 ] = { 0 }; 
     mq[ 0 ].pIID = &LabVIEW::DIID__Application; // &IID_IDispatch; 
@@ -198,12 +197,10 @@ void ISISSTUFF::createViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstru
     if( FAILED( hr ) ) 
 	{
  		throw COMexception("CoCreateInstanceEx failed (could not connect to LabVIEW)", hr);
-        return; 
     } 
-    if( S_OK  != mq[ 0 ].hr || NULL == mq[ 0 ].pItf ) 
+    if( S_OK != mq[ 0 ].hr || NULL == mq[ 0 ].pItf ) 
     { 
  		throw COMexception("CoCreateInstanceEx failed (could not connect to LabVIEW)", mq[ 0 ].hr);
-        return; 
     } 
 	setIdentity(pidentity, mq[ 0 ].pItf);
     lv.Attach( reinterpret_cast< LabVIEW::_Application* >( mq[ 0 ].pItf ) ); 
@@ -227,9 +224,25 @@ void ISISSTUFF::createViRef(BSTR vi_name, bool reentrant, LabVIEW::VirtualInstru
 	ViRef viref;
 	viref.vi_ref = vi;
 	viref.reentrant = reentrant;
-	Poco::RWLock::ScopedWriteLock _lock(m_lock);
 	m_vimap[ws] = viref;
 }
+
+
+template <>
+void ISISSTUFF::getLabviewValue(const std::string& portName, int addr, std::string* value)
+{
+	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	CComVariant v;
+	std::string vi_name_xpath = Poco::format("item[@name='%s'].vi[@path]", portName);
+	std::string control_name_xpath = Poco::format("item[@name='%s'].vi.control[@id=%d].read[@target]", portName, addr);
+	// Use Poco::Path to convert to native (windows) style path as config file is UNIX style
+	CComBSTR vi_name(doPath(vi_name_xpath).c_str());
+	CComBSTR control_name(m_cfg->getString(control_name_xpath).c_str());
+    getLabviewValue(vi_name, control_name, &v);
+	v.ChangeType(VT_BSTR);
+	*value = CW2CT(v.bstrVal);
+}
+
 
 template <typename T>
 void ISISSTUFF::getLabviewValue(const std::string& portName, int addr, T* value)
@@ -258,6 +271,29 @@ void ISISSTUFF::getLabviewValue(BSTR vi_name, BSTR control_name, VARIANT* value)
 	if (FAILED(hr))
 	{
 		throw std::runtime_error("getLabviewValue failed");
+	}
+}
+
+
+template <>
+void ISISSTUFF::setLabviewValue(const std::string& portName, int addr, const std::string& value)
+{
+	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	CComVariant v(value.c_str()), results;
+	std::string vi_name_xpath = Poco::format("item[@name='%s'].vi[@path]", portName);
+	std::string control_name_xpath = Poco::format("item[@name='%s'].vi.control[@id=%d].set[@target]", portName, addr);
+	std::string use_extint_xpath = Poco::format("item[@name='%s'].vi.control[@id=%d].set[@extint]", portName, addr);
+	// Use Poco::Path to convert to native (windows) style path as config file is UNIX style
+	CComBSTR vi_name(doPath(vi_name_xpath).c_str());
+	CComBSTR control_name(doPath(control_name_xpath).c_str());
+	bool use_ext = m_cfg->getBool(use_extint_xpath);
+	if (use_ext)
+	{
+		setLabviewValueExt(vi_name, control_name, v, &results);	
+	}
+	else
+	{
+		setLabviewValue(vi_name, control_name, v);	
 	}
 }
 

@@ -105,8 +105,9 @@
 # configure/os/CONFIG_SITE.<host>.Common files will
 # override 
 #
-CROSS_COMPILER_TARGET_ARCHS=
+#CROSS_COMPILER_TARGET_ARCHS=windows-x64-debug win32-x86
 #CROSS_COMPILER_TARGET_ARCHS=vxWorks-ppc32
+CROSS_COMPILER_TARGET_ARCHS=
 
 #  If only a subset of the host architectures perform
 #  the build for the CROSS_COMPILER_TARGET_ARCHS
@@ -170,7 +171,7 @@ COMPAT_313=NO
 #  Installation directory
 # If you don't want to install into $(TOP) dir then
 # define INSTALL_LOCATION here
-#INSTALL_LOCATION=<fullpathname>
+#INSTALL_LOCATION=c:/isis_epics
 
 # Use POSIX thread priority scheduling (YES or NO)
 USE_POSIX_THREAD_PRIORITY_SCHEDULING = NO

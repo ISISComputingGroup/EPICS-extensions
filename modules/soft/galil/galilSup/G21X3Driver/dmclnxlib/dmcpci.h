@@ -1,7 +1,7 @@
 #ifndef INCLUDE_PCIBUS
 #define INCLUDE_PCIBUS
 
-#include <sys/pci.h>
+//#include <sys/pci.h>
 //#include <sys/osinfo.h>
 
 extern long PCIBUSReadData(int iIndex, PCHAR pchResponse, ULONG cbResponse, PULONG pulBytesRead);

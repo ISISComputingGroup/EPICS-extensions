@@ -22,33 +22,10 @@
 #define devStream_h
 
 #define STREAM_MAJOR 2
-#define STREAM_MINOR 1
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-extern const char StreamVersion[];
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+#define STREAM_MINOR 4
 
 #if defined(__vxworks) || defined(vxWorks)
 #include <vxWorks.h>
-#endif
-
-#include <stdio.h>
-#include <epicsVersion.h>
-#include <dbCommon.h>
-#include <dbScan.h>
-#include <devSup.h>
-#include <dbFldTypes.h>
-#include <dbAccess.h>
-#include <epicsVersion.h>
-
-#if (EPICS_VERSION==3 && EPICS_REVISION>=14)
-#include <epicsExport.h>
-#else
-#define epicsExportAddress(a,b);
 #endif
 
 #ifndef OK
@@ -62,25 +39,42 @@ extern const char StreamVersion[];
 #define DO_NOT_CONVERT 2
 #define INIT_RUN (!interruptAccept)
 
-#ifdef _WIN32
-#ifdef STREAM_EXPORTS
-#define STREAM_DLL_EXPORT __declspec(dllexport)
-#else
-#define STREAM_DLL_EXPORT __declspec(dllimport)
+#include <epicsVersion.h>
+#if (EPICS_VERSION == 3 && EPICS_REVISION == 14)
+#define EPICS_3_14
 #endif
-#else
-#define STREAM_DLL_EXPORT
-#endif
-extern STREAM_DLL_EXPORT FILE* StreamDebugFile;
 
-#ifdef __cplusplus
+#if defined(__cplusplus) && !defined(EPICS_3_14)
 extern "C" {
 #endif
+
+#include <stdio.h>
+#include <dbCommon.h>
+#include <dbScan.h>
+#include <devSup.h>
+/* #include <dbFldTypes.h> */
+#include <dbAccess.h>
+
+#if defined(__cplusplus) && !defined(EPICS_3_14)
+}
+#endif
+
 
 typedef const struct format_s {
     unsigned char type;
     const struct StreamFormat* priv;
 } format_t;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef _WIN32
+__declspec(dllimport)
+#endif
+extern FILE* StreamDebugFile;
+
+extern const char StreamVersion [];
 
 typedef long (*streamIoFunction) (dbCommon*, format_t*);
 
@@ -91,7 +85,6 @@ long streamReport(int interest);
 long streamReadWrite(dbCommon *record);
 long streamGetIointInfo(int cmd, dbCommon *record, IOSCANPVT *ppvt);
 long streamPrintf(dbCommon *record, format_t *format, ...);
-long streamScanSep(dbCommon *record);
 long streamScanfN(dbCommon *record, format_t *format,
     void*, size_t maxStringSize);
 
@@ -105,7 +98,7 @@ long streamScanfN(dbCommon *record, format_t *format,
 #define devStreamGetIointInfo streamGetIointInfo
 #define devStreamPrintf streamPrintf
 #define devStreamPrintSep(record) (0)
-#define devStreamScanSep streamScanSep
+#define devStreamScanSep (0)
 #define devStreamScanf(record, format, value) \
     streamScanfN(record, format, value, MAX_STRING_SIZE)
 #define streamScanf(record, format, value) \

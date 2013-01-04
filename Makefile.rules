@@ -1,0 +1,12 @@
+install : subdirs
+all : subdirs
+clean : subdirs
+uninstall : subdirs
+
+subdirs : $(SUBDIRS)
+
+.PHONY : install all clean uninstall subdirs $(SUBDIRS)
+
+$(SUBDIRS) :
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+	

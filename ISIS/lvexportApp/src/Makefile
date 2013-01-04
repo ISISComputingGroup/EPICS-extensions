@@ -15,8 +15,11 @@ USR_CXXFLAGS += /Zi
 USR_LDFLAGS += /DEBUG
 
 pocofoundation_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
+pocofoundationd_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
 pocoxml_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
+pocoxmld_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
 pocoutil_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
+pocoutild_DIR = C:/development/InstrumentControl/ICP/Third_Party/POCO/lib_x64
 
 #=============================
 # Build the IOC support library
@@ -33,6 +36,7 @@ DBD += lvexport.dbd
 lvexportSupport_SRCS += testAsynPortDriver.cpp isis_stuff.cpp variant_utils.cpp
 
 lvexportSupport_LIBS += asyn
+#lvexportSupport_LIBS += pocoutild pocoxmld pocofoundationd
 lvexportSupport_LIBS += pocoutil pocoxml pocofoundation
 lvexportSupport_LIBS += $(EPICS_BASE_IOC_LIBS)
 

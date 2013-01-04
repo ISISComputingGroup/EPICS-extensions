@@ -5,6 +5,11 @@ DIRS := $(DIRS) $(filter-out $(DIRS), configure)
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *App))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard iocBoot))
 
+# extra ones #
+MODULES=sscan calc asyn pcreApp StreamDevice # motor galil
+DIRS := $(MODULES) $(DIRS)
+##############
+
 define DIR_template
  $(1)_DEPEND_DIRS = configure
 endef

@@ -45,12 +45,14 @@
 #	(see: http://www.worldtimezone.org/daylight.html)
 #
 # These values are for 2011:
-EPICS_TIMEZONE=CUS::360:031302:110602
+#EPICS_TIMEZONE=CUS::360:031302:110602
 #EPICS_TIMEZONE=MET::-60:032702:103002
+# UK 2013
+EPICS_TIMEZONE=GMT::0:033101:102702
 
 # EPICS_TS_NTP_INET
 #	NTP time server ip address.  Uses boot host if not set.
-EPICS_TS_NTP_INET=
+EPICS_TS_NTP_INET=130.246.8.13
 
 # IOC Shell:
 # IOCSH_PS1

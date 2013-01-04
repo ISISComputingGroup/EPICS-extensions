@@ -12,11 +12,12 @@
 using std::endl;
 using std::cout;
 
+#include <asynDriver.h>
+
 #include <epicsThread.h>
 #include <epicsExport.h>
 #include <iocsh.h>
 
-#include <asynPortDriver.h>
 #define epicsExportSharedSymbols
 #include <shareLib.h>
 #include "asynMotorController.h"

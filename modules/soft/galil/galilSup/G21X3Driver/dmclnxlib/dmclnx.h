@@ -1,10 +1,10 @@
 #ifndef INCLUDE_DMCCOM
 #define INCLUDE_DMCCOM
 
-#include <sys/time.h>
-#include <sys/param.h>
+//#include <sys/time.h>
+//#include <sys/param.h>
 //#include <asm/system.h>
-#include <bits/types.h>
+//#include <bits/types.h>
 
 #include <ctype.h>
 #include <stdio.h>

@@ -14236,7 +14236,9 @@ recordtype(asyn) {
 	}
 }
 device(aai,CONSTANT,devAaiSoft,"Soft Channel")
+device(aai,INST_IO,devaaiStream,"stream")
 device(aao,CONSTANT,devAaoSoft,"Soft Channel")
+device(aao,INST_IO,devaaoStream,"stream")
 device(ai,CONSTANT,devAiSoft,"Soft Channel")
 device(ai,CONSTANT,devAiSoftRaw,"Raw Soft Channel")
 device(ai,INST_IO,devTimestampAI,"Soft Timestamp")
@@ -14337,6 +14339,7 @@ registrar(asynInterposeFlushRegister)
 registrar(asynInterposeEosRegister)
 registrar(drvAsynIPPortRegisterCommands)
 registrar(drvAsynIPServerPortRegisterCommands)
+registrar(vxi11RegisterCommands)
 registrar(streamRegistrar)
 variable(asCaDebug,int)
 variable(dbRecordsOnceOnly,int)

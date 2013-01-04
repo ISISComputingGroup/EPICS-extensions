@@ -5,11 +5,11 @@
     <vi path="c:/development/instrumentcontrol/icp/labview modules/beam logger/beam logger.vi">
       <control id="0" name="TS1Beam"> <!-- id will match "addr" parameter of EPICS asyn "port" -->
         <read method="GCV" target="TS1 Beam Current" />
-        <set method="SCV" target="TS1 Beam Current" />
+        <set method="SCV" extint="true" target="TS1 Beam Current" />
       </control>
       <control id="1" name="TS2Beam"> <!-- id will match "addr" parameter of EPICS asyn "port" -->
         <read method="GCV" target="TS2 Beam Current" />
-        <set method="SCV" target="TS2 Beam Current" />
+        <set method="SCV" extint="false" target="TS2 Beam Current" />
       </control>
     </vi>
   </item>

@@ -3,11 +3,11 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/uio.h>
+//#include <sys/uio.h>
 
-#include <termios.h>
+//#include <termios.h>
 #include <fcntl.h>
-#include <unistd.h>
+//#include <unistd.h>
 #include <errno.h>
 
 #define MAX_COMMPORTS   8

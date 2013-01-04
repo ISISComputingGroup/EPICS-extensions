@@ -8,7 +8,7 @@ CROSS_COMPILER_TARGET_ARCHS =
 
 # If you don't want to install into $(TOP) then
 # define INSTALL_LOCATION here
-#INSTALL_LOCATION=<fullpathname>
+#INSTALL_LOCATION=c:/isis_epics
 
 # To create a shared library set SHARED_LIBRARIES to YES in Makefile
 SHARED_LIBRARIES = NO

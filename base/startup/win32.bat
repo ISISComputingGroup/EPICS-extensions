@@ -80,6 +80,7 @@ REM call "C:\Program files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
 REM ======================================================
 REM --------------- EPICS --------------------------------
 REM ======================================================
+REM set EPICS_HOST_ARCH=windows-x64-debug
 set EPICS_HOST_ARCH=windows-x64
 REM set EPICS_HOST_ARCH=win32-x86
 set PATH=%PATH%;C:\development\EPICS\base\bin\%EPICS_HOST_ARCH%

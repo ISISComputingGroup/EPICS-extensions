@@ -12,6 +12,8 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 # build the swait record.
 SSCAN=$(EPICS_BASE)/../modules/soft/sscan
 
+#INSTALL_LOCATION_APP=c:/isis_epics
+
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=$(TOP)/../../../base
 -include $(TOP)/../configure/EPICS_BASE.$(EPICS_HOST_ARCH)

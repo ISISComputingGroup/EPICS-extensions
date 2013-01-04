@@ -24,8 +24,8 @@ ifdef ASYN
 DIRS += MotorSimSrc
 MotorSimSrc_DEPEND_DIRS = MotorSrc
 
-DIRS += NewportSrc
-NewportSrc_DEPEND_DIRS = MotorSrc
+#DIRS += NewportSrc
+#NewportSrc_DEPEND_DIRS = MotorSrc
 
 DIRS += ImsSrc
 ImsSrc_DEPEND_DIRS = MotorSrc

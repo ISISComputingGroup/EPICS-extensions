@@ -12,7 +12,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 # If you don't want to install into $(TOP) then
 # define INSTALL_LOCATION_APP here
-#INSTALL_LOCATION_APP=<fullpathname>
+#INSTALL_LOCATION_APP=c:/isis_epics
 
 #If using the sequencer, point SNCSEQ at its top directory:
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq

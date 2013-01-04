@@ -4,6 +4,9 @@
 
 typedef int (*xdrproc_t)();
 
+typedef void* caddr_t;
+typedef unsigned u_int;
+
 extern int write_XDR_Init();
 extern int writeXDR_char(FILE *fd, char *cp);
 extern int writeXDR_short(FILE *fd, short *sp);
