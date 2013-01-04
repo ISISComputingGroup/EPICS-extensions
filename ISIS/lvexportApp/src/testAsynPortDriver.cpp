@@ -49,10 +49,13 @@ asynStatus testAsynPortDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 va
     int addr;
     const char *paramName = "";
     const char* functionName = "writeFloat64";
-
 	try
 	{
 		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
 		m_stuff->setLabviewValue(this->portName, addr, value);
         asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
               "%s:%s: function=%d, name=%s, value=%f\n", 
@@ -79,6 +82,10 @@ asynStatus testAsynPortDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	try
 	{
 		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
 		m_stuff->setLabviewValue(this->portName, addr, value);
         asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
               "%s:%s: function=%d, name=%s, value=%d\n", 
@@ -104,6 +111,10 @@ asynStatus testAsynPortDriver::readFloat64(asynUser *pasynUser, epicsFloat64 *va
 	try
 	{
 		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
 		m_stuff->getLabviewValue(this->portName, addr, value);
         asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
               "%s:%s: function=%d, name=%s, value=%f\n", 
@@ -129,6 +140,10 @@ asynStatus testAsynPortDriver::readInt32(asynUser *pasynUser, epicsInt32 *value)
 	try
 	{
 		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
 		m_stuff->getLabviewValue(this->portName, addr, value);
         asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
               "%s:%s: function=%d, name=%s, value=%d\n", 
@@ -155,6 +170,10 @@ asynStatus testAsynPortDriver::readOctet(asynUser *pasynUser, char *value, size_
 	try
 	{
 		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
 		m_stuff->getLabviewValue(this->portName, addr, &value_s);
 		if ( value_s.size() > maxChars ) // did we read more than we have space for?
 		{
@@ -198,6 +217,10 @@ asynStatus testAsynPortDriver::writeOctet(asynUser *pasynUser, const char *value
 	try
 	{
 		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
 		m_stuff->setLabviewValue(this->portName, addr, value_s);
         asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
               "%s:%s: function=%d, name=%s, value=%s\n", 
