@@ -232,6 +232,10 @@ template <>
 void ISISSTUFF::getLabviewValue(const std::string& portName, int addr, std::string* value)
 {
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	if (value == NULL)
+	{
+		throw std::runtime_error("getLabviewValue failed (NULL)");
+	}
 	CComVariant v;
 	std::string vi_name_xpath = Poco::format("item[@name='%s'].vi[@path]", portName);
 	std::string control_name_xpath = Poco::format("item[@name='%s'].vi.control[@id=%d].read[@target]", portName, addr);
@@ -248,6 +252,10 @@ template <typename T>
 void ISISSTUFF::getLabviewValue(const std::string& portName, int addr, T* value)
 {
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	if (value == NULL)
+	{
+		throw std::runtime_error("getLabviewValue failed (NULL)");
+	}
 	CComVariant v;
 	std::string vi_name_xpath = Poco::format("item[@name='%s'].vi[@path]", portName);
 	std::string control_name_xpath = Poco::format("item[@name='%s'].vi.control[@id=%d].read[@target]", portName, addr);
