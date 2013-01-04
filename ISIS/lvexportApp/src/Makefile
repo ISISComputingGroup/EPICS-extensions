@@ -10,7 +10,7 @@ INSTALL_pdb = $(INSTALL_BIN)
 THIRD_PARTY=../../../../Third_Party
 
 USR_INCLUDES += -I$(THIRD_PARTY)/POCO/include
-USR_INCLUDES += -Itlb
+USR_INCLUDES += -I../tlb
 
 USR_CXXFLAGS += /Zi
 #USR_CPPFLAGS

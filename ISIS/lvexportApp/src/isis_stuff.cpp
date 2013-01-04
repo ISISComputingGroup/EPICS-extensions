@@ -28,7 +28,7 @@
 //#import "progid:isisicp.Idae" named_guids
 //#import "isisicp.tlb" named_guids
 //#import "Seci.tlb" named_guids
-#import "LabVIEW.tlb" named_guids
+//#import "LabVIEW.tlb" named_guids
 
 //#include "Poco/DOM/DOMParser.h"
 //#include "Poco/DOM/Document.h"
