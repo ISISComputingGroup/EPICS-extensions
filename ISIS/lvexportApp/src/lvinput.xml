@@ -11,6 +11,14 @@
         <read method="GCV" target="TS2 Beam Current" />
         <set method="SCV" extint="false" target="TS2 Beam Current" />
       </control>
+      <control id="2" name="array"> <!-- id will match "addr" parameter of EPICS asyn "port" -->
+        <read method="GCV" target="testarray" />
+        <set method="SCV" extint="false" target="testarray" />
+      </control>
+      <control id="3" name="Time"> <!-- id will match "addr" parameter of EPICS asyn "port" -->
+        <read method="GCV" target="Last Update Time" />
+        <set method="SCV" extint="false" target="Last Update Time" />
+      </control>
     </vi>
   </item>
 </lvinput>

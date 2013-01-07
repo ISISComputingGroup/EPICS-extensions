@@ -38,8 +38,11 @@ DBD += lvexport.dbd
 lvexportSupport_SRCS += testAsynPortDriver.cpp isis_stuff.cpp variant_utils.cpp
 
 lvexportSupport_LIBS += asyn
-#lvexportSupport_LIBS += pocoutild pocoxmld pocofoundationd
-lvexportSupport_LIBS += pocoutil pocoxml pocofoundation
+ifeq ($(T_A),windows-x64-debug)
+    lvexportSupport_LIBS += pocoutild pocoxmld pocofoundationd
+else
+    lvexportSupport_LIBS += pocoutil pocoxml pocofoundation
+endif
 lvexportSupport_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 #=============================

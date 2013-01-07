@@ -44,6 +44,7 @@ public:
 	ISISSTUFF(const char *portName, const char *configFile, const char* host);
 	template<typename T> void setLabviewValue(const std::string& portName, int addr, const T& value);
 	template<typename T> void getLabviewValue(const std::string& portName, int addr, T* value);
+	template<typename T> void getLabviewValue(const std::string& portName, int addr, T* value, size_t nElements, size_t& nIn);
 
 private:
 	typedef std::map<std::wstring, ViRef> vi_map_t;
@@ -52,6 +53,8 @@ private:
 	Poco::Util::AbstractConfiguration *m_cfg;
 	CComBSTR m_extint;
 	std::string m_host;
+	CComPtr<LabVIEW::_Application> m_lv;
+	COAUTHIDENTITY* m_pidentity;
 
 	int testlv();
 	std::string doPath(const std::string& xpath);
@@ -67,7 +70,5 @@ private:
 	void closeViFrontPanel(BSTR vi_name);
 	COAUTHIDENTITY* createIdentity(const std::string& user, const std::string& domain, const std::string& pass);
 	HRESULT setIdentity(COAUTHIDENTITY* pidentity, IUnknown* pUnk);
-
-
 };
 

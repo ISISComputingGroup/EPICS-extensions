@@ -101,6 +101,70 @@ asynStatus testAsynPortDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	}
 }
 
+asynStatus testAsynPortDriver::readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, size_t nElements, size_t *nIn)
+{
+  int function = pasynUser->reason;
+  int addr;
+  int status=0;
+  const char *paramName = "";
+  static const char *functionName = "readFloat64Array";
+
+	try
+	{
+		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
+		m_stuff->getLabviewValue(this->portName, addr, value, nElements, *nIn);
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s\n", 
+              driverName, functionName, function, paramName);
+		return asynSuccess;
+	}
+	catch(const std::exception& ex)
+	{
+		*nIn = 0;
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, error=%s", 
+                  driverName, functionName, status, function, paramName, ex.what());
+		return asynError;
+	}
+}
+
+
+asynStatus testAsynPortDriver::readInt32Array(asynUser *pasynUser, epicsInt32 *value, size_t nElements, size_t *nIn)
+{
+  int function = pasynUser->reason;
+  int addr;
+  int status=0;
+  const char *paramName = "";
+  static const char *functionName = "readInt32Array";
+
+	try
+	{
+		this->getAddress(pasynUser, &addr);
+		if (m_stuff == NULL)
+		{
+			throw std::runtime_error("m_stuff is NULL");
+		}
+		m_stuff->getLabviewValue(this->portName, addr, value, nElements, *nIn);
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+              "%s:%s: function=%d, name=%s\n", 
+              driverName, functionName, function, paramName);
+		return asynSuccess;
+	}
+	catch(const std::exception& ex)
+	{
+		*nIn = 0;
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
+                  "%s:%s: status=%d, function=%d, name=%s, error=%s", 
+                  driverName, functionName, status, function, paramName, ex.what());
+		return asynError;
+	}
+}
+
+
 asynStatus testAsynPortDriver::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
 {
 	int addr;
@@ -249,8 +313,8 @@ testAsynPortDriver::testAsynPortDriver(const char *portName, const char *configF
    : asynPortDriver(portName, 
                     MAX_NUM_LV_CONTROLS, /* maxAddr */ 
                     NUM_LV_PARAMS,
-                    asynInt32Mask | asynFloat64Mask | asynOctetMask | asynDrvUserMask, /* Interface mask */
-                    asynInt32Mask | asynFloat64Mask | asynOctetMask,  /* Interrupt mask */
+                    asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask | asynOctetMask | asynDrvUserMask, /* Interface mask */
+                    asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask | asynOctetMask,  /* Interrupt mask */
                     ASYN_MULTIDEVICE | ASYN_CANBLOCK, /* asynFlags.  This driver does not block and it is not multi-device, so flag is 0 */
                     1, /* Autoconnect */
                     0, /* Default priority */
