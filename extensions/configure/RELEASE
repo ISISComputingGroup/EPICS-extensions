@@ -10,3 +10,5 @@ EPICS_BASE=$(TOP)/../base
 EPICS_EXTENSIONS=$(TOP)
 
 OAG_APPS=$(TOP)/../../oag/apps
+
+include $(TOP)/../EPICS_BASE.$(EPICS_HOST_ARCH)

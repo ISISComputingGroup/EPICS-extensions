@@ -1,4 +1,4 @@
-SUBDIRS=base extensions modules ISIS
+SUBDIRS=base base_examples extensions modules ISIS
 
 all : $(SUBDIRS)
 
