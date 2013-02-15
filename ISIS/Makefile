@@ -6,8 +6,8 @@ DIRS := $(DIRS) $(filter-out $(DIRS), configure)
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard iocBoot))
 
 # extra ones #
-MODULES=RandomNumber
-ifneq ($(findstring windows,$(T_A)),)
+MODULES = RandomNumber
+ifneq ($(findstring windows,$(EPICS_HOST_ARCH)),)
 MODULES += lvExportApp isisepicsApp
 endif
 DIRS := $(MODULES) $(DIRS)

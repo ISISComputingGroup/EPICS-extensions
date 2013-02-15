@@ -1,6 +1,6 @@
 SUBDIRS=base base_examples extensions modules ISIS
 
-all : $(SUBDIRS)
+all : $(SUBDIRS) base_examples
 
 extensions : base
 modules : base
