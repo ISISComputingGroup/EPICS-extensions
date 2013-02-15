@@ -2,12 +2,16 @@
 #define INCLUDE_ETHERNET
 
 #include <sys/types.h>
+#ifdef _WIN32
 #include <winsock2.h>
-//#include <select.h>
-//#include <netinet/tcp.h>
-//#include <netinet/in.h>
-//#include <arpa/inet.h>
-//#include <netdb.h>
+#else
+#include <sys/socket.h>
+#include <sys/select.h>
+#include <netinet/tcp.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#endif
 
 #ifndef SOCKET
    #define SOCKET int

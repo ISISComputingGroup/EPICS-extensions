@@ -3,12 +3,14 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-//#include <sys/uio.h>
 
-//#include <termios.h>
 #include <fcntl.h>
-//#include <unistd.h>
 #include <errno.h>
+#ifndef _WIN32
+#include <unistd.h>
+#include <termios.h>
+#include <sys/uio.h>
+#endif
 
 #define MAX_COMMPORTS   8
 #define NO_MORE_DATA    -99
