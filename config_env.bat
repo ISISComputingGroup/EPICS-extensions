@@ -21,4 +21,5 @@ set PATH=%MYDIR%Third_Party\POCO\bin_x64;%PATH%
 
 REM create include for path to EPICS_BASE
 echo EPICS_BASE=%MYDIR%base> %MYDIR%EPICS_BASE.%EPICS_HOST_ARCH%
+echo MODULES_SOFT=%MYDIR%modules\soft>> %MYDIR%EPICS_BASE.%EPICS_HOST_ARCH%
 sed -i -e "s=\\=/=g" %MYDIR%EPICS_BASE.%EPICS_HOST_ARCH%

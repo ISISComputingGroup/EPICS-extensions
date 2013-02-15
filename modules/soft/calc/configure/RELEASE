@@ -10,7 +10,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 # Need SSCAN module only to build the swait record (recDynLink library)
 # If you comment this definition out, the module will just decline to
 # build the swait record.
-SSCAN=$(TOP)/../sscan
+SSCAN=$(MODULES_SOFT)/sscan
 
 #INSTALL_LOCATION_APP=c:/isis_epics
 

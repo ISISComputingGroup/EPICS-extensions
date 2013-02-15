@@ -19,10 +19,10 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 #Motor App TOP directory
-CALC=$(TOP)/../calc
-MOTOR=$(TOP)/../motor
-SSCAN=$(TOP)/../sscan
-GALIL=$(TOP)/../galil
+CALC=$(MODULES_SOFT)/calc
+MOTOR=$(MODULES_SOFT)/motor
+SSCAN=$(MODULES_SOFT)/sscan
+GALIL=$(MODULES_SOFT)/galil
 EPICS_BASE=$(TOP)/../../../base
 include $(TOP)/../../../EPICS_BASE.$(EPICS_HOST_ARCH)
 

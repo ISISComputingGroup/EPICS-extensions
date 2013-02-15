@@ -8,6 +8,8 @@ export MY_EPICS_BASE="${epics_base_path}"
 set_epics_base="EPICS_BASE=${epics_base_path}"
 echo "${set_epics_base}" > EPICS_BASE.${EPICS_HOST_ARCH}
 
+echo "MODULES_SOFT=${mydir}/modules/soft" >> EPICS_BASE.${EPICS_HOST_ARCH}
+
 # epics base and extensions
 export PATH=${mydir}/base/bin/${EPICS_HOST_ARCH}:${PATH}
 export PATH=${mydir}/extensions/bin/${EPICS_HOST_ARCH}:${PATH}

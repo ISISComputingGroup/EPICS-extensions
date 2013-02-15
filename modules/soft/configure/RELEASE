@@ -29,8 +29,8 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 # other than EPICS_BASE:
 #RULES=/path/to/epics/support/module/rules/x-y
 
-ASYN=$(TOP)/asyn
-PCRE=$(TOP)
+ASYN=$(MODULES_SOFT)/asyn
+PCRE=$(MODULES_SOFT)
 #EUROTHERM2K=$(EPICS_BASE)/../modules/soft/euro2kdata
 
 # EPICS_BASE usually appears last so other apps can override stuff:

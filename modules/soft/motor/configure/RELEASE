@@ -15,7 +15,7 @@
 # If any motor controller communication mechanism besides the VME backplane is
 # required, then ASYN must be defined.
 # Recommended ASYN release: R4-18
-ASYN=$(TOP)/../asyn
+ASYN=$(MODULES_SOFT)/asyn
 
 # Need the sequencer and the bust record for the MM4005 and XPS trajectory scanning
 # Recommended SNCSEQ release: R2-1-13
