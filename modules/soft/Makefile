@@ -6,7 +6,10 @@ DIRS := $(DIRS) $(filter-out $(DIRS), configure)
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard iocBoot))
 
 # extra ones #
-MODULES=sscan calc asyn pcreApp StreamDevice motor galil euro2kApp
+MODULES=sscan calc asyn pcreApp StreamDevice euro2kApp 
+ifeq ($(findstring windows,$(EPICS_HOST_ARCH)),)
+MODULES += motor galil
+endif 
 DIRS := $(MODULES) $(DIRS)
 ##############
 
