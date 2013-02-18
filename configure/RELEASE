@@ -23,3 +23,5 @@ EPICS_BASE=$(TOP)/../base
 EPICS_EXTENSIONS=$(TOP)
 
 OAG_APPS=$(TOP)/../../oag/apps
+
+include $(TOP)/../ISIS_CONFIG.$(EPICS_HOST_ARCH)
