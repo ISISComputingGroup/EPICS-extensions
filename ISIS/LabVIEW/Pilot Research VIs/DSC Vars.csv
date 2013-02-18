@@ -1,5 +1,0 @@
-Name,Type,VarType,Network,Network:AccessType,Network:BuffSize,Network:ElemSize,Network:PointsPerWaveform,Network:ProjectBinding,Network:ProjectPath,Network:UseBinding,Network:UseBuffering,Path
-FRED,Double,Network,on,read/write,50,1,1,TRUE,My Computer\DSCVars.lvlib\FRED,TRUE,TRUE,/DSC Server Test.lvproj/My Computer/DSCServPro.lvlib/
-GERRY,Double,Network,on,read/write,50,1,1,TRUE,My Computer\DSCVars.lvlib\GERRY,TRUE,TRUE,/DSC Server Test.lvproj/My Computer/DSCServPro.lvlib/
-RUPERT,Double,Network,on,read/write,50,1,1,TRUE,My Computer\DSCVars.lvlib\RUPERT,TRUE,TRUE,/DSC Server Test.lvproj/My Computer/DSCServPro.lvlib/
-SAM,Double,Network,on,read/write,50,1,1,TRUE,My Computer\DSCVars.lvlib\SAM,TRUE,TRUE,/DSC Server Test.lvproj/My Computer/DSCServPro.lvlib/

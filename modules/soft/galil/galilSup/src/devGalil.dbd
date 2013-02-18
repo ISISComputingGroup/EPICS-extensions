@@ -1,9 +1,0 @@
-# Galil 21X3 Driver support
-include "motorSupport.dbd"
-device(motor,VME_IO,devG21X3,"G21X3")
-device(ai,VME_IO,devAiG21X3,"G21X3")
-device(ao,VME_IO,devAoG21X3,"G21X3")
-device(mbbiDirect,VME_IO,devMbbiDirectG21X3,"G21X3")
-device(mbboDirect,VME_IO,devMbboDirectG21X3,"G21X3")
-driver(drvG21X3)
-registrar(GalilRegister)

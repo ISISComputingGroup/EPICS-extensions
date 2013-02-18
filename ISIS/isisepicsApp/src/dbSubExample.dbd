@@ -1,6 +1,0 @@
-variable(mySubDebug)
-function(mySubInit)
-function(mySubProcess)
-function(mySubGFProcess)
-function(myAsubInit)
-function(myAsubProcess)

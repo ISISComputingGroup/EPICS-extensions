@@ -1,5 +1,0 @@
-The included Event Log should it not be available includes the line:
-
-19/07/2012 11:15:20.416	None	Eurotherm : Dummy 1 : New Set Point : 10.000000	Eurotherm - Front Panel - Simple x 2.vi	
-
-Which was generated from an EPICS interface window rather than from the front panel.

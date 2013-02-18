@@ -1,17 +1,7 @@
-SUBDIRS=base base_examples extensions modules ISIS
+# Makefile,v 1.17 2007/06/22 21:08:32 jba Exp
 
-all : $(SUBDIRS) base_examples
+TOP = .
+include $(TOP)/configure/CONFIG
+DIRS = $(wildcard configure src)
+include $(TOP)/configure/RULES_TOP
 
-extensions : base
-modules : base
-ISIS : modules
-
-#MAKEBASEAPP=.\base\bin\${EPICS_HOST_ARCH}\makeBaseApp.pl
-#aaa : base
-#	cd base_examples#
-#	perl $(MAKEBASEAPP) -t example example
-#	perl $(MAKEBASEAPP) -i -p example -t example example
-#	perl $(MAKEBASEAPP) -t caClient caClient
-#	cd ..
-
-include Makefile.rules

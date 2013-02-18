@@ -1,5 +1,0 @@
-# FILE... Encoder_AD4_settings.req
-# US Digitial AD4 Encoder Counter
-$(P)AD4enc$(N):count
-$(P)AD4enc$(N):setMode
-$(P)AD4enc$(N):read.SCAN

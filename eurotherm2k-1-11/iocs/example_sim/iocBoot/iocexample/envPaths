@@ -1,1 +1,0 @@
-epicsEnvSet("EPICS_BASE","C:/development/EPICS/base")

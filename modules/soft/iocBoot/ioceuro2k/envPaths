@@ -1,6 +1,0 @@
-epicsEnvSet("ARCH","windows-x64")
-epicsEnvSet("IOC","ioceuro2k")
-epicsEnvSet("TOP","C:/development/EPICS/modules/soft")
-epicsEnvSet("EPICS_BASE","C:/development/EPICS/modules/soft/../../base")
-epicsEnvSet("ASYN","C:/development/EPICS/modules/soft/../../base/../modules/soft/asyn")
-epicsEnvSet("PCRE","C:/development/EPICS/modules/soft/../../base/../modules/soft")
