@@ -5,6 +5,11 @@
 #INSTALL_LOCATION_EXTENSIONS=<fullpathname>
 
 # Location of external products
-EPICS_BASE=G:/epics/base
-EPICS_EXTENSIONS = G:/epics/extensions
+#EPICS_BASE=G:/epics/base
+#EPICS_EXTENSIONS = G:/epics/extensions
 
+EPICS_BASE=$(TOP)/../base
+#EPICS_EXTENSIONS = /usr/local/epics/extensions
+EPICS_EXTENSIONS=$(TOP)
+
+include $(TOP)/../ISIS_CONFIG.$(EPICS_HOST_ARCH)
