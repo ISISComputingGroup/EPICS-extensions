@@ -114,7 +114,7 @@ ifeq ($(USE_PCRE),YES)
 else
 ifeq ($(OS_CLASS),WIN32)
 # Use Obj for object libraries and no Obj for import libraries
-  PROD_LIBS = regexObj
+  PROD_LIBS = regex
   regexObj_DIR = $(EPICS_EXTENSIONS_LIB)
 else
 ifneq ($(OS_CLASS),Linux) 
