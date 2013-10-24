@@ -1,0 +1,106 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 176
+y 116
+w 447
+h 779
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-medium-r-12.0"
+btnFont "helvetica-bold-r-14.0"
+fgColor rgb 0 0 0
+bgColor rgb 52171 52171 52171
+textColor rgb 0 0 0
+ctlFgColor1 rgb 0 0 0
+ctlFgColor2 rgb 0 0 65535
+ctlBgColor1 rgb 46517 46517 46517
+ctlBgColor2 rgb 56797 56797 56797
+topShadowColor rgb 61423 61423 61423
+botShadowColor rgb 24929 24929 24929
+title "Message Button"
+endScreenProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 26
+y 27
+w 178
+h 27
+font "helvetica-medium-r-24.0"
+fgColor rgb 0 0 0
+bgColor rgb 61423 61423 61423
+value {
+  "Message Button"
+}
+autoSize
+endObjectProperties
+
+# (GIF Image)
+object cfcf6c8a_dbeb_11d2_8a97_00104b8742df
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 19
+y 83
+w 106
+h 146
+file "$(help)helpMessageButtonGif.gif"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 19
+y 252
+w 411
+h 496
+font "helvetica-medium-r-14.0"
+fgColor rgb 0 0 0
+bgColor rgb 46517 46517 46517
+useDisplayBg
+value {
+  "This widget sends a arbitrary value to any PV type."
+  "One value may be sent on a press and another on a"
+  "release. The values may include macro symbols and special"
+  "symbols. For example, to write the value of a CALC pv to"
+  "a LOC pv, the destination could be LOC\\pv1=d:1 and the source"
+  "<val:CALC\\\{A+B\}(pv2,pv3)>."
+  ""
+  "Button type may be Toggle or Push. Operation is intuitive."
+  ""
+  "Button is still active when invisible box is checked"
+  "but is not active when it becomes invisible as the"
+  "result of a rule evaluation."
+  ""
+  "The current display may be closed on press or release."
+  ""
+  "If a password is entered (and successfully confirmed)"
+  "then, in execute mode, the button operation wil be"
+  "protected by a password."
+  ""
+  "The * character clears the password."
+  ""
+  "If locked is checked, the password may not be changed"
+  "(unless edm is running in supervisor mode)."
+  ""
+  "Color PV is used with dynaimic colors and alarm sensitivity."
+  "If both are present, alarm colors have precedence."
+  ""
+  "Visibility may be achieved through visibility PV and embedded "
+  "rule or with invisible color."
+  ""
+  "The button state is not initialized to the current PV value."
+}
+autoSize
+endObjectProperties
+
