@@ -28,7 +28,9 @@ DBVERBOSE = dbVerbose
 DCT = dct
 DOUBLELINKLIST = doubleLinkList
 DP = dp
+ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
 EDM = edm
+endif
 EZCA = ezca
 EZCAIDL = ezcaIDL
 EZCASCAN = EzcaScan
@@ -45,7 +47,9 @@ JDCT = Jdct
 JPROBE = jprobe
 KM = km
 NOBCONFIG = knobconfig
+ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
 MEDM = medm
+endif
 MOTIFBUTTON = motifButton
 EXTENSION_MSI = msi1-6
 NAMECAPTURE = namecapture
