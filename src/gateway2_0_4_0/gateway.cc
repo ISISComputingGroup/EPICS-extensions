@@ -96,6 +96,18 @@ void operator delete(void* x)
 }
 #endif
 
+static void hideConsoleWindow()
+{ 
+#ifdef _WIN32
+    /* hide console window - could also link program /subsys:windows rather than console */ 
+    HWND hwnd = GetConsoleWindow();
+    if (hwnd != NULL)
+    {
+        ShowWindow(hwnd, SW_HIDE /*SW_MINIMIZE*/);
+	}
+#endif /* _WIN32 */
+}
+
 // The parameters passed in from the user are:
 //	-debug ? = set debug level, ? is the integer level to set
 //	-pvlist file_name = process variable list file
@@ -115,6 +127,7 @@ void operator delete(void* x)
 //	-sport port_number = CAS port number
 //	-ro = read only server, no puts allowed
 //	-? = display usage
+//  -hide = hide console window on WIN32
 //
 //	GATEWAY_HOME = environment variable pointing to the home of the gateway
 //
@@ -167,6 +180,7 @@ void operator delete(void* x)
 #define PARM_SERVER_IGNORE_IP 25
 #define PARM_CACHE 			  26
 #define PARM_ARCHIVE		  27
+#define PARM_HIDE			  28
 
 
 #define HOME_DIR_SIZE    300
@@ -226,6 +240,7 @@ static PARM_STUFF ptable[] = {
     { "-mask",                5, PARM_MASK,        "event_mask" },
 	{ "-no_cache",            9, PARM_CACHE,       "(no caching)" },
 	{ "-archive",             8, PARM_ARCHIVE,     "archive monitor" },	
+    { "-hide",                5, PARM_HIDE,        "(WIN32: hide console window)" },
     { "-help",                5, PARM_HELP,        NULL },
     { NULL,                  -1, -1,               NULL }
 };
@@ -672,6 +687,7 @@ int main(int argc, char** argv)
 	int no_error=1;
 	int level=0;
 	int read_only=0;
+	int hide_console=0;
 	unsigned long mask=0;
 	int connect_tout=-1;
 	int inactive_tout=-1;
@@ -754,9 +770,13 @@ int main(int argc, char** argv)
 				case PARM_ARCHIVE:
 					archive=1;
 					not_done=0;
-					break;						
+					break;
 				case PARM_RO:
 					read_only=1;
+					not_done=0;
+					break;
+				case PARM_HIDE:
+					hide_console=1;
 					not_done=0;
 					break;
 #ifndef WIN32
@@ -1115,7 +1135,8 @@ int main(int argc, char** argv)
 	if(command_file)		gr->setCommandFile(command_file);
 	if(putlog_file)	    	gr->setPutlogFile(putlog_file);
 	if(report_file)	    	gr->setReportFile(report_file);
-	
+	if(hide_console)		hideConsoleWindow();
+
 	//set caching and archive mode 
 	gr->setCacheMode(cache);
 	gr->setArchiveMode(archive);
