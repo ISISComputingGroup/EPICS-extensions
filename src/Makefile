@@ -57,7 +57,9 @@ OAGCA = oagca
 OCTAVE = Octave
 PARSECASW = parsecasw
 POPUP = popup
+ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
 PHP_EPICS = php_epics
+endif
 PROBE = probe
 AMPLOAD = rampload
 SCOPEUTIL = scopeutil
