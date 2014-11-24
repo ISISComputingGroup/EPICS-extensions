@@ -29,7 +29,7 @@ DCT = dct
 DOUBLELINKLIST = doubleLinkList
 DP = dp
 ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
-EDM = edm
+#EDM = edm
 endif
 EZCA = ezca
 EZCAIDL = ezcaIDL
@@ -48,7 +48,7 @@ JPROBE = jprobe
 KM = km
 NOBCONFIG = knobconfig
 ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
-MEDM = medm
+#MEDM = medm
 endif
 MOTIFBUTTON = motifButton
 EXTENSION_MSI = msi1-6
@@ -57,6 +57,7 @@ OAGCA = oagca
 OCTAVE = Octave
 PARSECASW = parsecasw
 POPUP = popup
+PHP_EPICS = php_epics
 PROBE = probe
 AMPLOAD = rampload
 SCOPEUTIL = scopeutil
@@ -111,6 +112,7 @@ DIRS += $(EXTENSION_MSI)
 DIRS += $(NAMECAPTURE)
 DIRS += $(OCTAVE)
 DIRS += $(PARSECASW)
+DIRS += $(PHP_EPICS)
 DIRS += $(POPUP)
 DIRS += $(PROBE)
 DIRS += $(SGA)

@@ -1,0 +1,25 @@
+Sources:	php_epics.c - implementation of ca_get, ca_put, ca_monitor
+		test.php - a simple example how to use the functions from php
+
+Executable:	php_epics.so - a php module to be installed as php module
+		in /usr/local/lib/php/extensions on a Web server
+
+Authors:	Alain Bertrand,         Renata Krempaska
+                (alain.bertrand@psi.ch) (renata.krempaska@psi.ch)
+
+Description:	This package contains a php module which allows a php Web page 
+		to read, set or monitor an EPICS channel.
+
+  This module is intended to be used by a php Web applications. A dedicated php
+application will give the users, bl scientists, etc. the possibility to create 
+their own panels (similar like panel.tcl) to monitor or set the EPICS channels
+without having to write the php code.
+
+See Also:	PHP4 manual
+	
+Documentation: http://www.sls.psi.ch/controls/help/howto/php_epics.html
+
+Tested:
+on linux-x86 RH7.3
+with EPICS 3.13, 3.14
+and PHP 4.2.3
