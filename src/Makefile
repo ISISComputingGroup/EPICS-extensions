@@ -34,7 +34,7 @@ endif
 EZCA = ezca
 EZCAIDL = ezcaIDL
 EZCASCAN = EzcaScan
-GATEWAY = gateway2_0_5_0
+GATEWAY = gateway2_0_4_0
 GDCT313 = gdct313
 GNUREGEX = gnuregex0_13
 HISTTOOL = histTool
