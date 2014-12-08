@@ -12,19 +12,22 @@ include $(TOP)/configure/CONFIG
 
 CMPLR = STRICT
 
+# comment out, use default from epics base, otherwise get inconsistent linker options
 # Optimization
-ifdef WIN32
-HOST_OPT = YES
-else
-HOST_OPT = YES
-endif
+#ifdef WIN32
+#HOST_OPT = YES
+#else
+#HOST_OPT = YES
+#endif
 
 USR_CFLAGS_DEFAULT += -DSTDC_HEADERS=1 -DHAVE_STRING_H=1 -DHAVE_ALLOCA_H=1
 USR_CFLAGS_WIN32 += -DSTDC_HEADERS=1 -DHAVE_STRING_H=1 -DHAVE_ALLOCA_H=0 -DREGEX_MALLOC
 
 ifdef WIN32
 # The proper import/export declarations are not included for DLLs
+# thus always build a static library, but it will have correct CRTL compiler option for whatever EPICS build type we are using  
 SHARED_LIBRARIES = NO
+STATIC_BUILD = YES
 endif
 
 INC=regex.h
