@@ -21,6 +21,7 @@
 EPICS_BASE=$(TOP)/../base
 #EPICS_EXTENSIONS = /usr/local/epics/extensions
 EPICS_EXTENSIONS=$(TOP)
+CAPUTLOG=$(SUPPORT)/caPutLog/3-4
 
 OAG_APPS=$(TOP)/../../oag/apps
 

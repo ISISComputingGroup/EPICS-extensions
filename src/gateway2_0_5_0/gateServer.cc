@@ -46,8 +46,18 @@
 #undef USE_LINUX_PROC_FOR_CPU
 #endif
 
-// Posix
+#ifdef _WIN32
+#include <winsock2.h>
+static DWORD get_cpucount_win32()
+{
+    SYSTEM_INFO sysinfo;
+    GetSystemInfo(&sysinfo);
+    return sysinfo.dwNumberOfProcessors;
+}
+#define NO_OF_CPUS get_cpucount_win32()
+#else // Posix
 #define NO_OF_CPUS sysconf(_SC_NPROCESSORS_ONLN)
+#endif /* _WIN32 */
 
 // DEBUG_TIMES prints a message every minute, which helps determine
 // when things happen.

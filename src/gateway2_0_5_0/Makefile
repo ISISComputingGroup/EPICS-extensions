@@ -104,9 +104,14 @@ USR_CXXFLAGS_solaris += -DRESERVE_FOPEN_FD
 
 # USR_INCLUDES += -I$(GNU_REGEX_INC)
 
-WIN32_RUNTIME=MD
+# use value defined in EPICS base instead
+#WIN32_RUNTIME=MD
 USR_CXXFLAGS_WIN32 += /DWIN32 /D_WINDOWS
 USR_LDFLAGS_WIN32 += /SUBSYSTEM:CONSOLE
+#ifneq ($(findstring debug,$(EPICS_HOST_ARCH)),)  
+#USR_LDFLAGS_WIN32 += /NODEFAULTLIB:MSVCRT  
+#endif  
+#USR_SYS_LIBS_WIN32 += user32  # for static linking
 
 ifeq ($(USE_PCRE),YES)
   USR_CXXFLAGS += -DUSE_PCRE
@@ -114,8 +119,9 @@ ifeq ($(USE_PCRE),YES)
 else
 ifeq ($(OS_CLASS),WIN32)
 # Use Obj for object libraries and no Obj for import libraries
-  PROD_LIBS = regexObj
-  regexObj_DIR = $(EPICS_EXTENSIONS_LIB)
+  PROD_LIBS = regex # use regex from separate extension module
+#  PROD_LIBS = regexObj
+#  regexObj_DIR = $(EPICS_EXTENSIONS_LIB)
 else
 ifneq ($(OS_CLASS),Linux) 
   PROD_LIBS = regex
