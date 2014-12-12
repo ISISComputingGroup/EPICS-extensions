@@ -99,8 +99,13 @@ char *getComputerName(void)
 	if(status && size > 0) {
 		// Convert to lowercase and copy
 		// OK for ANSI.  Won't work for Unicode w/o conversion.
-		char *pChar=computerName;
-		while(*pChar) *pChar=tolower(*pChar++);
+		// needed to reorder while statement - WIN32 optimisation bug?
+		char *pChar = computerName;
+		while(*pChar)
+		{
+		    *pChar = tolower(*pChar);
+			++pChar;
+		}
 		name=strDup(computerName);
 	}
 #else
