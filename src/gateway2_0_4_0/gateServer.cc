@@ -2251,7 +2251,7 @@ gateRateStatsTimer::expire(const epicsTime &curTime)
 #endif
 	mrg->setStat(statCPUFract,cpuFract);
 
-#ifndef WIN32
+#if !defined(WIN32) && !defined(__CYGWIN__)
 	// Calculate the load using average over last minute.  Does not
 	// exist for WIN32.
 	double load[N_LOAD];
