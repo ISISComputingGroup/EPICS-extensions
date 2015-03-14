@@ -1,0 +1,17 @@
+#! /bin/csh
+# Script used to run caSnooper
+
+# Set server address
+setenv EPICS_CAS_INTF_ADDR_LIST 164.54.8.167
+# Set server port
+setenv EPICS_CA_SERVER_PORT 5064
+
+# Handle the interrupt so the output doesn't blow away
+onintr EXIT
+
+# Run and save the output in a log
+caSnooper -n |& tee caSnooper.log
+
+EXIT:
+echo Type CR to dismiss this XTerm
+$<

@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>CaSnooper Users Guide</title>
+</head>
+
+<body bgcolor="White" lang="en">
+<img alt="EPICS Logo" src="epics.png">
+
+<h1 style="text-align: center">CaSnooper Users Guide</h1>
+<br>
+<br>
+
+
+<h2 style="text-align: center">Kenneth Evans, Jr.</h2>
+
+<h2 style="text-align: center">June 2003</h2>
+<br>
+
+
+<center>
+Advanced Photon Source<br>
+Argonne National Laboratory<br>
+9700 South Cass Avenue<br>
+Argonne, IL 60439<br>
+</center>
+<br>
+<br>
+
+
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#Introduction">Introduction</a>
+    <ul>
+      <li><a href="#Overview">Overview</a></li>
+      <li><a href="#History">History</a></li>
+    </ul>
+  </li>
+  <li><a href="#Starting">Starting CaSnooper</a></li>
+  <li><a href="#Report">Report</a></li>
+  <li><a href="#ProcessVariables">CaSnooper Process Variables</a></li>
+  <li><a href="#GUIInterface">GUI Interface</a></li>
+  <li><a href="#IndividualPVName">Individual Process Variable Name</a></li>
+  <li><a href="#Environment">Environment Variables</a></li>
+  <li><a href="#ChannelAccess">Channel Access</a></li>
+  <li><a href="#Acknowledgements">Acknowledgements</a></li>
+  <li><a href="#Copyright">Copyright</a></li>
+</ul>
+
+<h2><a name="Introduction">Introduction</a></h2>
+
+<h3><a name="Overview">Overview</a></h3>
+
+<p>When a channel access client, such as MEDM, wants to connect to a process
+variable [PV], it broadcasts a search request, asking what server has this
+process variable.  These are UDP broadcasts, which means there is no checking
+whether the message actually arrives anywhere.  Each IOC or other channel
+access server on the network should receive this broadcast message, however,
+and when it does, it needs to search its process variables and see if it has
+the one requested.  If it has the process variable, it sends a UDP message
+back to the MEDM saying so, and then a two-way TCP connection is made to the
+server (or an existing one is used), and the process variable is connected
+for further access.  Messages over the TCP connection are reliable; that is,
+they are checked for transmission errors and whether they are received or
+not.</p>
+
+<p>Note that for this guide we will often refer to the client as MEDM and the
+server as an IOC.  This is because MEDM and IOCs are the most typical and
+most used client and servers and most people are familiar with them.  Keep in
+mind, however, that there are many other clients than MEDM and there are
+other types of servers than an IOC.  CaSnooper is, in fact, another type of
+server.</p>
+
+<p>As long as MEDM does not get a message back that an IOC has the process
+variable, it continues making these broadcasts at a decreasing rate until it
+gives up (after 100 requests).  It has to do this, in part, because of the
+unreliability of the UDP broadcasts.  This typically takes on the order of 8
+minutes, but can be hours if many process variables are requested and not
+found. Each server has to check to see if it has the process variable for
+each broadcast.  This can put a significant load on the server.</p>
+
+<p>In normal circumstances, however, this process happens rapidly.  One
+server soon returns that it has the process variable; the broadcasts stop;
+the TCP connection is made; and life goes on.  The worst case is when the
+process variable does not exist anywhere.  Then the process continues to its
+conclusion, causing unnecessary network traffic and load on the IOCs.</p>
+
+<p>The search process starts again under certain circumstances, such as when
+a new server is seen on the network, or when MEDM thinks a new server is
+seen.  This search is only for unfound process variables, of course, and will
+happen for all the nonexistent ones, causing more unnecessary traffic and
+load on the IOCs.  The way MEDM knowns if a new server is seen involves
+another set of UDP broadcasts, called beacons.  These come from the IOC. When
+an IOC comes up, it sends beacons with a very short period.  The period is
+doubled each time until it reaches EPICS_CA_BEACON_PERIOD, 15 sec. by
+default. Then it sends them every EPICS_CA_BEACON_PERIOD seconds.  Clients
+such as MEDM watch for changes in the beacon period.  A short period
+indicates an IOC has come up. This is called a beacon anomaly.  A change from
+something to zero, indicates one may have gone down.  (The clients do other
+tests before concluding the IOC has gone down.)  In some cases there are
+circumstances that lead MEDM to continuously think a new IOC has come up.
+This can cause a really substantial load on the newtork and IOCs.  See <a
+href="#History">History</a> and <a href="#Starting">Starting CaSnooper</a>
+for examples.  A more complete description of these processes can be found in
+the EPICS Channel Access Reference Manual (see <a
+href="#ChannelAccess">Channel Access</a>).</p>
+
+<p>Useless and unnecessary searches for non-existent PVs can produce a
+significant load on the IOCs, keeping them from doing important tasks or even
+causing them to crash.  CaSnooper is a tool designed to monitor search
+requests.  It is a server. Since it is a server, it gets all the requests
+that the other servers get. However, instead of looking to see if it has the
+process variables in the search request, it keeps track of the search
+requests instead and displays the information in various forms.</p>
+
+<p>CaSnooper could formerly be built with both EPICS Base 3.13 and 3.14, even
+though the portable server implementation is significantly different in each
+version of base.  It does not currently build with 3.14 because a needed
+funcion has been made private and unavailable.  If this is a concern, you
+should contact <a href="mailto:johill@lanl.gov">Jeff Hill</a> at Los Alamos
+National Laboratory.</p>
+
+<p>For information on obtaining CaSnooper, consult the <a
+href="http://www.aps.anl.gov/epics/index.php">EPICS Documentation</a>.</p>
+
+<h3><a name="History">History</a></h3>
+
+<p>CaSnooper was written by Kenneth Evans in 1999 as a tool to help
+investigate IOC instability.  The first problem it helped solve was caused by
+continuously repeated searches for non-existent process variables.  The
+reason these searches were continuous was that beacons with the same
+identification were coming from two servers.  Clients such as MEDM saw this
+as a single beacon with a short period, indicating they should reissue their
+search requests.  Since the period remained short, the clients searched
+continuously, putting an extraordinary load on the IOCs and increasing the
+traffic on the network.  The problem was caused by an error in configuring
+the IP address of one of the servers.  The study also indicated that  many
+non-existent process variables were being searched for.  These primarily came
+from MEDM screens or IOCs that attempted to make connections to process
+variable names that were misspelled or had changed.  Using the results from
+CaSnooper, these screens and IOCs were found and cleaned up.  This lead to a
+further increase in IOC stability and further reduced unnecessary IOC load
+and network traffic.</p>
+
+<h2><a name="Starting">Starting CaSnooper</a></h2>
+
+<p>CaSnooper is started by typing the following on a command line:</p>
+<pre>caSnooper [Options]</pre>
+
+<p>The options are:</p>
+
+<table border="1">
+  <tbody>
+    <tr>
+      <td>-c&lt;integer&gt;</td>
+      <td>Check validity of top n requests  (0 means all).  That is, try to
+        connect to these process variables.  Timeout after 10 s.  See <a
+        href="#Report">Report</a>.</td>
+    </tr>
+    <tr>
+      <td>-d&lt;integer&gt;</td>
+      <td>Set debug level to n.  Prints extra information for debugging.</td>
+    </tr>
+    <tr>
+      <td>-h</td>
+      <td>Help.</td>
+    </tr>
+    <tr>
+      <td>-i&lt;string&gt;</td>
+      <td>Specify a PV name to watch individually. The default is
+        CaSnoop.test. (The default is not affected by setting the prefix with
+        -n.) See <a href="#IndividualName">Individual Process Variable
+        Name</a>.</td>
+    </tr>
+    <tr>
+      <td>-l&lt;decimal&gt;</td>
+      <td>Print all requests over n Hz.  See <a
+      href="#Report">Report</a>.</td>
+    </tr>
+    <tr>
+      <td>-p&lt;integer&gt;</td>
+      <td>Print top n (0 means all).  See <a href="#Report">Report</a>.</td>
+    </tr>
+    <tr>
+      <td>-n[&lt;string&gt;]</td>
+      <td>Make internal PV names available.  Use string as prefix for
+        internal PV names (10 chars max length). Default string is: CaSnoop.
+        See <a href="#ProcessVariables">CaSnooper Process Variables</a>.</td>
+    </tr>
+    <tr>
+      <td>-s&lt;integer&gt;</td>
+      <td>Print all requests over n sigma.  See <a
+      href="#Report">Report</a>.</td>
+    </tr>
+    <tr>
+      <td>-t&lt;decimal&gt;</td>
+      <td>Run n seconds, then print report.</td>
+    </tr>
+    <tr>
+      <td>-w&lt;decimal&gt;</td>
+      <td>Wait n sec before collecting data.  Use to wait until searches
+        resulting from CaSnooper's coming up are over.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>There is no space between the switches and their value.  A typical command
+line is:</p>
+<pre>% caSnooper -t60 -p10 -c5</pre>
+
+<p>See <a href="#Report">Report</a> for the report resulting from this
+command line.</p>
+
+<p>Requests are ordered by frequency, and the top requests are the ones with
+the highest frequencies.</p>
+
+<p>If the internal PV names are made available, it is necessary to be sure
+there is only one copy of CaSnooper with that PV name prefix running on a
+network to avoid duplicate PV names.</p>
+
+<p>With EPICS 3.13, there should be no more than one portable server, such as
+CaSnooper, running on a workstation.  The reason is that there is not
+sufficient information in the beacons to distinguish among servers on the
+same host.  Clients such as MEDM must treat their beacons as one set of
+beacon signals and will see sum and difference frequencies.  They will likely
+interpret this as an IOC coming up and will continuously reissue their search
+requests.  As a result, if CaSnooper is one of two portable servers on the
+same host, it will be causing a problem, rather than help solving it.  The
+repeated searches should be seen in CaSnooper, however.  Two servers on the
+same host should not be a problem with 3.14 servers.  It is not clear what
+will happen with a mixture of 3.13 and 3.14 servers. That situation should be
+avoided.  Hardware IOCs are their own host and do not have this problem.</p>
+
+<h2><a name="Report">Report</a></h2>
+
+<p>CaSnooper prints reports to standard output (stdout).  By default it
+writes the number of requests, the number of different process variables
+requested, and the maximum, mean, and standard deviation of the request
+frequencies.  There are several command-line options to print more
+information.  The following is an example of running for 60 s, printing the
+top 10 requests (based on frequency), and asking to check if the top 5
+process variables exist:</p>
+<pre>% caSnooper -t60 -p10 -c5
+Starting CaSnooper 2.0.0.2 (12-4-2002) at Apr 07 13:39:28
+
+EPICS Version 3.13.8
+
+CaSnooper terminating after 60.01 seconds [1.00 minutes]
+Data collected for 60.01 seconds [1.00 minutes]
+
+Apr 07 13:40:28:
+There were 6006 requests to check for PV existence for 818 different PVs.
+  Max(Hz):   1.67
+  Mean(Hz):  0.12
+  StDev(Hz): 0.21
+
+PVs with top 10 requests:
+  1 vulcan:62872      office:Table0:LI      1.67
+  2 vulcan:62872      office:Table1:LI      1.67
+  3 vulcan:62872      office:Table0:LI.DESC 1.67
+  4 vulcan:62872      office:Table1:LI.DESC 1.67
+  5 vulcan:62872      office:Table0:ai      1.67
+  6 vulcan:62872      office:AbDcm.VAL      1.67
+  7 funhouse:64968    ACIS:RAI_22BM_KEY     0.65
+  8 funhouse:64968    ACIS:RAI_34BM_KEY     0.50
+  9 iocsw140:1029     jba:xxxExample        0.48
+ 10 iocpsslab1:1028   S:SRcurrentAI         0.48
+
+Connection status for top 5 PVs after 10.00 sec:
+  1 vulcan:62872      office:Table0:LI      NC 1.67
+  2 vulcan:62872      office:Table1:LI      NC 1.67
+  3 vulcan:62872      office:Table0:LI.DESC NC 1.67
+  4 vulcan:62872      office:Table1:LI.DESC NC 1.67
+  5 vulcan:62872      office:Table0:ai      NC 1.67</pre>
+
+<p>The first column is the index, the second column is the machine and port,
+the third column is the name of the process variable, the fourth column in
+the connection status list is whether it connected or not (NC means not
+connected, C means connected), and the last column is the frequency in Hz. If
+the port is 5064, it is probably an IOC running on the default port. Other
+low-numbered ports are probably IOCs.  High-numbered ports are probably
+TCP/IP connections, indicating an application such as MEDM is requesting the
+process variable.</p>
+
+<h2><a name="ProcessVariables">CaSnooper Process Variables</a></h2>
+
+<p>CaSnooper publishes several process variables, allowing you to control it
+and monitor the request rate.  By default these have the prefix "CaSnoop",
+but this can be changed by <a href="#Starting">command-line options</a>.</p>
+
+<p><strong>CaSnoop.requestRate</strong></p>
+
+<p>This is the total request rate in Hz.  It could be monitored in MEDM,
+StripTool, or other clients.</p>
+
+<p><strong>CaSnoop.individualRate</strong></p>
+
+<p>This is the request rate in Hz for the individual process variable if one
+is specified.  See <a href="#IndividualPVName">Individual Process Variable
+Name</a>.  It could be monitored in MEDM, StripTool, or other clients.</p>
+
+<p><strong>CaSnoop.test</strong></p>
+
+<p>This is not a process variable published by CaSnooper.  It is the default
+name for the individual process variable.  It is included here for reference.
+This process variable may or may not exist, depending on if another IOC has
+it.  You can also specify a different name for the individual process
+variable.  See <a href="#IndividualName">Individual Process Variable Name</a>
+for more details.</p>
+
+<p><strong>CaSnoop.nCheck</strong></p>
+
+<p>This specifies the number of process variables for which to print the
+connection status in the report.  0 is All and -1 is None.  It is the same as
+setting -c on the <a href="#Starting">command-line</a>.  Checking means
+trying to make an actual connection to these process variables.  The results
+for the process variables with the top CaSnoop.nCheck rates will be checked
+and appear in the report.</p>
+
+<p><strong>CaSnoop.nPrint</strong></p>
+
+<p>This specifies the number of process variables for which to print results
+in the report.  0 is All and -1 is None.   It is the same as setting -p on
+the <a href="#Starting">command-line</a>.  The results for the process
+variables with the top CaSnoop.nPrint rates will be included in the
+report.</p>
+
+<p><strong>CaSnoop.nSigma</strong></p>
+
+<p>This specifies the lower value of the standard deviation multiplier for
+which to print results in the report. 0 is All and -1 is None.  It is the
+same as setting -s on the <a href="#Starting">command-line</a>.  If a process
+variable has a rate that falls above the standard deviation multiplied by
+this number, its results will be included in the report.  For example, if
+CaSnoop.nSigma is 2 and the standard deviation of all the results is .2 Hz,
+then results for process variables with rates above .4 Hz will be printed.</p>
+
+<p><strong>CaSnoop.nLimit</strong></p>
+
+<p>This specifies the lower limit in Hz for the report.  0 is All and -1 is
+None.  It is the same as setting -l on the <a
+href="#Starting">command-line</a>.  If a process variable has a rate above
+this value, its results will be included in the report.</p>
+
+<p><strong>CaSnoop.repor</strong>t</p>
+
+<p>Setting this to 1 causes CaSnooper to print a report.  It will be set to 0
+after the report completes.</p>
+
+<p><strong>CaSnoop.reset</strong></p>
+
+<p>Setting this to 1 causes CaSnooper to reset the counters and start a new
+list of process variables.    It will be set to 0 after the reset.</p>
+
+<p><strong>CaSnoop.quit</strong></p>
+
+<p>Setting this to 1 causes CaSnooper to exit.</p>
+
+<h2><a name="GUIInterface">GUI Interface</a></h2>
+
+<p>Owing to its <a href="#ProcessVariables">published process variables</a>,
+you can control CaSnooper via MEDM or another tool.  To do this you would
+typically start CaSnooper via the command line:</p>
+<pre>% caSnooper -n</pre>
+
+<p>or</p>
+<pre>% caSnooper -nMyPrefix</pre>
+
+<p>if you want to specify another prefix.  You can then set the report
+switches and cause CaSnooper to print reports, reset, or quit via its process
+variables using a MEDM screen like the following:</p>
+
+<p align="center"><img alt="CaSnooper MEDM Interface"
+src="CaSnooper.MEDM.gif"></p>
+
+<p>(As a note: the graph shows what happens when an IOC comes up.)  This
+screen just accesses the <a href="#ProcessVariables">CaSnooper process
+variables</a>.  The Shell Command button labeled Start provides an option to
+start CaSnooper using the following command:</p>
+<pre>xterm -geometry 80x50+5+5 -fg black -bg white -title CaSnooper
+  -mb -sk -sb -sl 512 -e runCaSnooper &amp;</pre>
+
+<p>The script, here named runCaSnooper, that actually starts CaSnooper might
+look like:</p>
+<pre>#! /bin/csh
+# Script used to run caSnooper
+# Set server address
+setenv EPICS_CAS_INTF_ADDR_LIST 164.54.8.167
+# Set server port
+setenv EPICS_CA_SERVER_PORT 5064
+# Handle ^C so the XTerm doesn't blow away
+onintr EXIT
+# Run and save the output in a log
+caSnooper -n |&amp; tee caSnooper.log
+EXIT: echo Type CR to dismiss this XTerm
+$&lt; </pre>
+
+<p>This script first sets some <a href="#Environment">EPICS environment
+variables</a>, then runs CaSnooper, making the internal process variables
+available.  It handles an interrupt so the XTerm does not immediately
+disappear after a Ctrl-C interrupt or stopping CaSnooper via CaSnoop.quit.
+The output is saved in a log, which is reused.  Of course, you can make as
+simple or complicated a script as you wish.</p>
+
+<p>Both the MEDM ADL file for this screen and the script are included in the
+CaSnooper distribution.</p>
+
+<h2><a name="IndividualName">Individual Process Variable Name</a></h2>
+
+<p>CaSnooper watches one single process variable individually and apart from
+the list of others.  It publishes the rate in a separate process variable,
+CaSnoop.individualRate.  See <a href="#ProcessVariables">CaSnooper Process
+Variables</a>.  You can specify the name of this process variable on the <a
+href="#Starting">command line</a> via the -i switch.  The default is
+CaSnoop.test.  If this process variable does not exist, you can use it to see
+the pattern of search requests for a process variable that doesn't exist.</p>
+
+<h2><a name="Environment">Environment Variables</a></h2>
+
+<p>CaSnooper has no environment variables of its own; however, it is affected
+by EPICS environment variables such as EPICS_CA_ADDR_LIST.  These are some of
+the environment variables that would most commonly be used with CaSnooper.
+See <a href="#ChannelAccess">Channel Access </a> below for more
+information.</p>
+
+<table border="1">
+  <caption></caption>
+  <tbody>
+    <tr>
+      <td>EPICS_CAS_INTF_ADDRESS</td>
+      <td>Specifies the IP address that CaSnooper will use.  May be necessary
+        if the machine on which CaSnooper runs has more than one interface
+        card.</td>
+    </tr>
+    <tr>
+      <td>EPICS_CA_SERVER_PORT</td>
+      <td>Specifies the port that CaSnooper uses to publish its internal
+        process variables.  Used for either CaSnooper or a client such as
+        MEDM.  (They have to be using the same port to talk to each other.)
+        Usually, this would be left to the default of 5064.</td>
+    </tr>
+    <tr>
+      <td>EPICS_CA_ADDR_LIST</td>
+      <td>Used by a client such as MEDM to specify the IP addresses from
+        which to get process variables.  To monitor CaSnooper, it would be
+        set to the IP address of the machine on which CaSnooper is running or
+        the EPICS_CAS_INTF_ADDRESS of CaSnooper if there is more than one
+        interface card on that machine.  It could also be set to the
+        broadcast address that includes the IP address of CaSnooper.</td>
+    </tr>
+    <tr>
+      <td>EPICS_CA_AUTO_ADDR_LIST</td>
+      <td>Used by a client such as MEDM to keep Channel Access from
+        automatically adding the broadcast address of each subnet to the list
+        of IP addresses from which the client get process variables.  Set it
+        to "NO" (without the quotes) if you want to limit the client to only
+        IP addresses in EPICS_CA_ADDR_LIST.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="ChannelAccess">Channel Access</a></h2>
+
+<p>Channel Access is the part of EPICS that governs communication between
+servers and clients.  You can find out more information by looking at the
+EPICS Channel Access Reference Manual.  There is a version included with each
+EPICS release.  They can be found by starting at <a
+href="http://www.aps.anl.gov/epics/modules/index.php">IOC Software</a> in the
+<a href="http://www.aps.anl.gov/epics/docs">EPICS Documentation</a> and
+following links to the release and point release of the desired EPICS
+base.</p>
+
+<h2><a name="Acknowledgements">Acknowledgements</a></h2>
+
+<p>Jeff Hill of Los Alamos National Laboratory, the person responsible for
+Channel Access, was of great help in understanding the operation of Channel
+Access.</p>
+
+<h2><a name="Copyright">Copyright</a></h2>
+
+<p>CaSnooper is governed by the <a
+href="http://www.aps.anl.gov/epics/license/index.php">EPICS Open
+License.</a></p>
+<hr>
+
+<p><a href="http://validator.w3.org/check/referer"><img
+src="valid-html401.png" alt="Valid HTML 4.01!" border="0" align="right"
+height="31" width="88"></a></p>
+</body>
+</html>
