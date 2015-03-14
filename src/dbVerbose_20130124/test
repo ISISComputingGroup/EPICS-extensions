@@ -1,0 +1,2 @@
+#!/bin/sh
+ O.solaris/dbVerbose test.dbd test.db

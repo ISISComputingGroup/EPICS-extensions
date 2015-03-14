@@ -1,0 +1,53 @@
+record(ai,"TUNEai1") {  }
+record(calc,"TUNEai1xx1") {  }
+record(bi,"TUNEai12") {  }
+record(ai,"TUNEai13") {  }
+record(ai,"TUNEai14") {  }
+record(waveform,"TUNEai1444") {  }
+record(ao, "PARao5")
+    {
+        field(DESC, "")
+        field(SCAN, "Passive")
+        field(PINI, "NO")
+        field(PHAS, "0")
+        field(EVNT, "0")
+        field(DTYP, "Soft Channel")
+        field(DISV, "1")
+        field(SDIS, "0")
+        field(DISS, "NO_ALARM")
+        field(PRIO, "LOW")
+        field(FLNK, "0")
+        field(OUT, "#C0 S0 @1,0")
+        field(OROC, "0")
+        field(DOL, "P:ACM:current.VAL  NPP NMS")
+        field(OMSL, "closed_loop")
+        field(OIF, "Full")
+        field(PREC, "3")
+        field(LINR, "NO CONVERSION")
+        field(EGUF, "0")
+        field(EGUL, "0")
+        field(EGU, "")
+        field(DRVH, "0")
+        field(DRVL, "0")
+        field(HOPR, "0")
+        field(LOPR, "0")
+        field(HIHI, "0")
+        field(LOLO, "0")
+        field(HIGH, "0")
+        field(LOW, "0")
+        field(HHSV, "NO_ALARM")
+        field(LLSV, "NO_ALARM")
+        field(HSV, "NO_ALARM")
+        field(LSV, "NO_ALARM")
+        field(HYST, "0")
+        field(ADEL, "0")
+        field(MDEL, "0")
+        field(SIOL, "0")
+        field(SIML, "0")
+        field(SIMS, "NO_ALARM")
+        field(IVOA, "Continue normally")
+        field(IVOV, "0")
+    }
+record(bi,"TUNEbi") {  }
+record(ai,"TUNEai2") {  }
+record(stringout,"TUNEstringout") {  }
