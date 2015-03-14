@@ -82,7 +82,7 @@ char *timeStamp(void)
   //   e.g. strcpy(savetime,timestamp());
 {
     static char timeStampStr[16];
-    long now;
+    time_t now;
     struct tm *tblock;
     
     time(&now);
