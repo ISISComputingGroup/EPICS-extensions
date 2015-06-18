@@ -57,8 +57,10 @@ OAGCA = oagca
 OCTAVE = Octave
 PARSECASW = parsecasw
 POPUP = popup
-ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
+ifeq ($(SHARED_LIBRARIES),YES)
+ifneq ($(findstring linux-x86_64,$(EPICS_HOST_ARCH)),) # linux only module
 PHP_EPICS = php_epics
+endif
 endif
 PROBE = probe
 AMPLOAD = rampload
