@@ -5,7 +5,8 @@ include $(TOP)/configure/CONFIG
 
 LIBRARY_HOST = php_epics
 
-USR_CFLAGS  +=  -I/usr/include/php -I/usr/include/php/Zend -I/usr/include/php/TSRM -I/usr/include/php/main \
+USR_CFLAGS  +=  -I/usr/include/php5 -I/usr/include/php5/Zend -I/usr/include/php5/TSRM -I/usr/include/php5/main \
+                -I/usr/include/php -I/usr/include/php/Zend -I/usr/include/php/TSRM -I/usr/include/php/main \
    -DUNAME="\"UNAME=$(UNAME)\"" \
    -DLOGINDATE="\"LOGINDATE=$(LOGINDATE)\"" -DUNIX  \
    $(SERVER_CFLAGS) -DCOMPILE_DL=1 -DPNG_SETJMP_NOT_SUPPORTED -DHAVE_PHP_STREAM
