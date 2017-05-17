@@ -10,6 +10,9 @@
 #define WARN 1
 #define ERROR 0
 
+#ifdef _WIN32
+typedef int pid_t;
+#endif
 
 int cd_home_dir(const char* const home_dir);
 void increase_process_limits();

@@ -53,7 +53,7 @@ endif
 MOTIFBUTTON = motifButton
 EXTENSION_MSI = msi1-6
 NAMECAPTURE = namecapture
-NAMSERVER = nameserver
+NAMESERVER = nameserver
 OAGCA = oagca
 OCTAVE = Octave
 PARSECASW = parsecasw
