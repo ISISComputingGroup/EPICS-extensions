@@ -33,7 +33,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 # define strcasecmp stricmp
 # include <string.h>
 #else

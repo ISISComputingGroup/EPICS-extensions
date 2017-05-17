@@ -57,7 +57,7 @@ static int cleanup ( pIoc *pIoc);
 
 // globals
 directoryServer	*pCAS;
-#ifndef WIN32
+#ifndef _WIN32
 pid_t child_pid =0;		//!< pid of the child process
 pid_t parent_pid =0;		//!< pid of the parent process
 pid_t parent_pgrp =0;		//!< pid of the parent process
@@ -97,7 +97,7 @@ extern int main (int argc, char *argv[])
 	int			logging_to_file = 0;			//!< default is logging to terminal
 	//int			nPV = DEFAULT_HASH_SIZE;		//!< default pv hash table size
 	int			pv_count;						//!< count of pv's in startup lists
-#ifndef WIN32
+#ifndef _WIN32
 	int			daemon_status;					//!< did the forks work?
 #endif
 	epicsTime   first;                  //!< time loading begins
@@ -208,7 +208,7 @@ extern int main (int argc, char *argv[])
     }
 
 
-#ifndef WIN32
+#ifndef _WIN32
 	if(server_mode) {
 		log_message(INFO, "Starting daemon\n");
 		daemon_status = start_daemon();
@@ -466,7 +466,7 @@ static void processPendingList (epicsTime now,double tooLong){
 
 }
 
-#ifndef WIN32
+#ifndef _WIN32
 
 /*! \part that watches the nameserver process and ensures that it stays up
  *
@@ -1002,7 +1002,7 @@ extern "C" void registerCA(void * /* pfdctx */,int fd, int condition)
         remove_CA_mon( fd);
 }
 
-#ifndef WIN32
+#ifndef _WIN32
 /*! \brief Callback for death of a child
  *
  * When run as a daemon, death of a child shakes the parent out of pause status.

@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include <sys/stat.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 #include <stdarg.h>
@@ -17,6 +17,7 @@
 
 #ifdef linux
 #include <sys/wait.h>
+#include <sys/resource.h>
 #endif
 
 #include "reserve_fd.h"
@@ -30,7 +31,7 @@
 
 static int log_level = 2;
 
-#ifndef WIN32
+#ifndef _WIN32
 
 /*! \brief Change to home directory 
  *
@@ -113,7 +114,7 @@ void increase_process_limits()
 	struct rlimit lim;
 
     // Increase process limits to max
-#ifdef WIN32
+#ifdef _WIN32
     // Set open file limit (512 by default, 2048 is max)
 #if DEBUG_OPENFILES
     int maxstdio=_getmaxstdio();
@@ -177,7 +178,7 @@ void increase_process_limits()
 */
 void setup_logging(char *log_file)
 {
-#ifndef WIN32
+#ifndef _WIN32
 	struct		stat sbuf;			//old logfile info
 	char 		cur_time[200];
 	time_t t;
