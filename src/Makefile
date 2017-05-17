@@ -53,15 +53,12 @@ endif
 MOTIFBUTTON = motifButton
 EXTENSION_MSI = msi1-6
 NAMECAPTURE = namecapture
+NAMSERVER = nameserver
 OAGCA = oagca
 OCTAVE = Octave
 PARSECASW = parsecasw
 POPUP = popup
-ifeq ($(SHARED_LIBRARIES),YES)
-ifneq ($(findstring linux-x86_64,$(EPICS_HOST_ARCH)),) # linux only module
 PHP_EPICS = php_epics
-endif
-endif
 PROBE = probe
 AMPLOAD = rampload
 SCOPEUTIL = scopeutil
@@ -90,9 +87,7 @@ DIRS += $(DBVERBOSE)
 DIRS += $(DCT)  # __eprintf undefined referenced in /opt/local/lib//libtk.so
 DIRS += $(DOUBLELINKLIST)
 DIRS += $(DP)
-ifeq ($(STATIC_BUILD),NO)
-DIRS += $(EDM)
-endif
+#DIRS += $(EDM)
 DIRS += $(EZCA)
 DIRS += $(EZCASCAN)
 DIRS += $(EZCAIDL)
@@ -108,15 +103,14 @@ DIRS += $(JCA2)
 DIRS += $(JDCT)
 DIRS += $(JPROBE)
 DIRS += $(KM)
-ifeq ($(STATIC_BUILD),NO)
-DIRS += $(MEDM)
-endif
+#DIRS += $(MEDM)
 DIRS += $(MOTIFBUTTON)
 DIRS += $(EXTENSION_MSI)
 DIRS += $(NAMECAPTURE)
+DIRS += $(NAMESERVER)
 DIRS += $(OCTAVE)
 DIRS += $(PARSECASW)
-DIRS += $(PHP_EPICS)
+#DIRS += $(PHP_EPICS)
 DIRS += $(POPUP)
 DIRS += $(PROBE)
 DIRS += $(SGA)
