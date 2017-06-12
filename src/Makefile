@@ -34,7 +34,9 @@ endif
 EZCA = ezca
 EZCAIDL = ezcaIDL
 EZCASCAN = EzcaScan
+ifeq ($(BASE_3_14),YES)
 GATEWAY = gateway2_0_4_0
+endif
 GDCT313 = gdct313
 GNUREGEX = gnuregex0_13
 HISTTOOL = histTool
@@ -51,7 +53,9 @@ ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
 #MEDM = medm
 endif
 MOTIFBUTTON = motifButton
-EXTENSION_MSI = msi1-6
+#ifeq ($(BASE_3_14),YES)
+EXTENSION_MSI = msi1-7
+#endif
 NAMECAPTURE = namecapture
 NAMESERVER = nameserver
 OAGCA = oagca
