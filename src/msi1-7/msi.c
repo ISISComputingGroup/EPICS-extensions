@@ -27,7 +27,7 @@
 #include <ellLib.h>
 #include <errlog.h>
 
-#define MAX_BUFFER_SIZE 4096
+#define MAX_BUFFER_SIZE 40960
 
 #if ((EPICS_VERSION <= 3) && (EPICS_REVISION <= 13))
 #define macEnvExpand(x) strdup(x)
