@@ -71,9 +71,9 @@ SDDSIDL = sddsIDL
 SGA = sga
 STRIPTOOL = StripTool
 TS = ts
+VDCT = VisualDCT
 VIEWIMAGE = viewImage
 YCA = Yca
-
 
 
 # The order of the following directories is important
@@ -137,6 +137,7 @@ DIRS += $(RAMPLOAD)
 DIRS += $(SCOPEUTIL)
 DIRS += $(SDDSIDL)
 DIRS += $(STRIPTOOL)
+DIRS += $(VDCT)
 
 DIRS := $(wildcard $(DIRS))
 
