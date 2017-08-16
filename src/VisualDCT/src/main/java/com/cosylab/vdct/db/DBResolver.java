@@ -1831,7 +1831,21 @@ public class DBResolver {
 
 	}
 
-
+	/**
+	 * Convert a double to a string, but without training zeros.
+     * @param d Number to format
+	 */
+	public static String formatNumber(double d)
+	{
+	    if (d == (long)d)
+	    {
+	        return String.valueOf((long)d);
+	    }
+	    else
+	    {
+	    	return String.valueOf(d);
+	    }
+	}
 
 	/**
 	 * This method was created in VisualAge.
@@ -1870,6 +1884,7 @@ public class DBResolver {
 						// read field_value
 						tokenizer.nextToken();
 						if (tokenizer.ttype == DBConstants.quoteChar) value=tokenizer.sval;
+						else if (tokenizer.ttype == EnhancedStreamTokenizer.TT_NUMBER) value = formatNumber(tokenizer.nval);
 						else throw (new DBParseException("Invalid field value...", tokenizer, fileName));
 
 						DBFieldData fd = new DBFieldData(name, value);
