@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.5</version>
+    </skin>
+
+    <body>
+        <menu name="User Documentation">
+            <item name="User Manual" href="doc/MAN-VisualDCT_Users_Manual.html" />
+        </menu>
+        <menu name="References">
+            <item name="Release Notes" href="release-notes.html" />
+            <item name="Release Notes (before v2.6.1274)" href="doc/MEM-VisualDCT_Release_Notes.html" />
+            <item name="Graphical Data Reference" href="doc/MAN-VisualDCT_Graphical_Data_Reference.html" />
+            <item name="Plugins" href="doc/DOC-VisualDCT_Plugins.html" />
+            <item name="Hierarchies" href="doc/DES-VisualDCT_EPICS_Databases_Hierarchy_Support.html" />
+            <item name="Hierarchy Additions Spec" href="doc/SPE-VisualDCT_Hierarchy_Additions.html" />
+        </menu>
+        <menu ref="reports" />
+    </body>
+</project>
