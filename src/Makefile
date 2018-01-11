@@ -5,7 +5,6 @@
 TOP = ..
 include $(TOP)/configure/CONFIG
 
-
 #  All EPICS extension directories may be specified here.
 
 ADT = adt
@@ -140,6 +139,8 @@ DIRS += $(STRIPTOOL)
 DIRS += $(VDCT)
 
 DIRS := $(wildcard $(DIRS))
+
+$(NAMESERVER)_DEPEND_DIRS += $(GNUREGEX)
 
 include $(TOP)/configure/RULES_DIRS
 

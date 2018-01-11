@@ -1,9 +1,11 @@
 .PHONY: install clean uninstall
 
+MVNFLAGS=-T 4
+
 install:
-	mvn clean verify
+	mvn $(MVNFLAGS) clean verify
 
 clean:
-	mvn clean
+	mvn $(MVNFLAGS) clean
 
 uninstall:

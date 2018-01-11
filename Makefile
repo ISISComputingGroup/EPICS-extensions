@@ -3,5 +3,8 @@
 TOP = .
 include $(TOP)/configure/CONFIG
 DIRS = $(wildcard configure src)
+
+src_DEPEND_DIRS += configure
+
 include $(TOP)/configure/RULES_TOP
 
