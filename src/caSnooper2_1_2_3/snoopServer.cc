@@ -25,7 +25,7 @@
 
 #define HOST_NAMESIZE 256
 
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
 #include <osiSock.h>
 #else
 #include <bsdSocketResource.h>
@@ -74,7 +74,7 @@ snoopServer::snoopServer(char *prefixIn, char *individualNameIn,
     individualCount(0)
 {
   // Initialize the PV list
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
   // No longer required
 #else
     pvList.init(2048u);
@@ -89,7 +89,7 @@ snoopServer::snoopServer(char *prefixIn, char *individualNameIn,
     requestCount=0u;
 
   // Set the select mask to everything supported
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
     selectMask=(alarmEventMask()|valueEventMask()|logEventMask());
 #else
     selectMask=(alarmEventMask|valueEventMask|logEventMask);
@@ -100,7 +100,7 @@ snoopServer::snoopServer(char *prefixIn, char *individualNameIn,
 snoopServer::~snoopServer(void)
 {
   // Clear the pvList
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
     pvList.traverse(&dataNode::destroy);
 #else
     pvList.destroyAllEntries();
@@ -117,7 +117,7 @@ void snoopServer::clearStat(int type)
 // This function is called by Base 3.13 and earlier
 pvExistReturn snoopServer::pvExistTest(const casCtx& ctx, const char *pvName)
 {
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
   // Should not get here
     return pverDoesNotExistHere;
 #else
@@ -510,7 +510,7 @@ void snoopServer::report(void)
 void snoopServer::reset(void)
 {
   // Clear the pvList
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
     pvList.traverse(&dataNode::destroy);
 #else
     pvList.destroyAllEntries();
@@ -776,7 +776,7 @@ snoopData &snoopData::operator=(const snoopData &snoopDataIn)
 ////////////////////////////////////////////////////////////////////////
 
 // snoopRateStatsTimer::expire /////////////////////////////////////////
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
 epicsTimerNotify::expireStatus
 snoopRateStatsTimer::expire(const epicsTime &curTime)
 {

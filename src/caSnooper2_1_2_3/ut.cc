@@ -116,7 +116,7 @@ struct timespec *timeSpec(void)
     static struct timespec ts;
     osiTime osit(osiTime::getCurrent());
   // EPICS is 20 years ahead of its time
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
     ts=osit;
 #else
     ts.tv_sec=(time_t)osit.getSecTruncToLong()-631152000ul;
