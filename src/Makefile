@@ -33,9 +33,6 @@ endif
 EZCA = ezca
 EZCAIDL = ezcaIDL
 EZCASCAN = EzcaScan
-#ifeq ($(BASE_3_14),YES)
-#GATEWAY = gateway2_0_4_0
-#endif
 GDCT313 = gdct313
 GNUREGEX = gnuregex0_13
 HISTTOOL = histTool
