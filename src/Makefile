@@ -15,7 +15,7 @@ BURT = burt
 CAEX = caex
 CAMONITOR = camonitor
 CAOBJECT2 = caObject2
-CASNOOPER = caSnooper2_1_2_3
+#CASNOOPER = caSnooper2_1_2_3
 CASR = casr
 CATCL = caTCL
 CAU = cau
@@ -33,9 +33,6 @@ endif
 EZCA = ezca
 EZCAIDL = ezcaIDL
 EZCASCAN = EzcaScan
-ifeq ($(BASE_3_14),YES)
-GATEWAY = gateway2_0_4_0
-endif
 GDCT313 = gdct313
 GNUREGEX = gnuregex0_13
 HISTTOOL = histTool
@@ -53,10 +50,10 @@ ifneq ($(findstring linux,$(EPICS_HOST_ARCH)),) # linux only module
 endif
 MOTIFBUTTON = motifButton
 #ifeq ($(BASE_3_14),YES)
-EXTENSION_MSI = msi1-7
+#EXTENSION_MSI = msi1-7
 #endif
 NAMECAPTURE = namecapture
-NAMESERVER = nameserver
+#NAMESERVER = nameserver
 OAGCA = oagca
 OCTAVE = Octave
 PARSECASW = parsecasw
@@ -80,7 +77,7 @@ YCA = Yca
 
 DIRS = $(ALH)
 DIRS += $(CAOBJECT2)
-DIRS += $(CASNOOPER)
+#DIRS += $(CASNOOPER)
 DIRS += $(CATCL)  # __eprintf undefined referenced in /opt/local/lib//libtk.so
 DIRS += $(CAEX)
 DIRS += $(CAMONITOR)
@@ -96,7 +93,7 @@ DIRS += $(EZCASCAN)
 DIRS += $(EZCAIDL)
 DIRS += $(GDCT313)  #  /usr/include/iso/math_c99.h", line 137: Error: round(double), returning double, was previously declared returning int.
 DIRS += $(GNUREGEX)
-DIRS += $(GATEWAY)
+#DIRS += $(GATEWAY)
 DIRS += $(HISTTOOL)
 DIRS += $(IMAGECATCHER)
 DIRS += $(INSTALLVERSIONS)
@@ -108,9 +105,9 @@ DIRS += $(JPROBE)
 DIRS += $(KM)
 #DIRS += $(MEDM)
 DIRS += $(MOTIFBUTTON)
-DIRS += $(EXTENSION_MSI)
-DIRS += $(NAMECAPTURE)
-DIRS += $(NAMESERVER)
+#DIRS += $(EXTENSION_MSI)
+#DIRS += $(NAMECAPTURE)
+#DIRS += $(NAMESERVER)
 DIRS += $(OCTAVE)
 DIRS += $(PARSECASW)
 #DIRS += $(PHP_EPICS)

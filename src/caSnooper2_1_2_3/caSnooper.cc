@@ -131,7 +131,7 @@ extern int main(int argc, const char **argv)
     print("delay0=%g wait=%g\n",delay0,wait);
 #endif
     while(delay0 < wait) {
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
 	fileDescriptorManager.process(delay0);
 #else
 	osiTime osiDelay(delay0);
@@ -145,7 +145,7 @@ extern int main(int argc, const char **argv)
 
   // Initialize stat counters
     if(doStats) {
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
       // Start a default timer queue
 	epicsTimerQueueActive &queue = 
 	  epicsTimerQueueActive::allocate(true);
@@ -175,7 +175,7 @@ extern int main(int argc, const char **argv)
     pCAS->enable();
     osiTime start(osiTime::getCurrent());
     while (aitTrue) {
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
 	fileDescriptorManager.process(delay);
 #else
 	osiTime osiDelay(delay);

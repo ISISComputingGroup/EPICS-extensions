@@ -17,7 +17,7 @@
 
 #include "epicsVersion.h"
 
-#if EPICS_REVISION > 13
+#if ( EPICS_REVISION > 13  || EPICS_VERSION > 3 )
 #define WRITE_CONST const
 #else
 #define WRITE_CONST

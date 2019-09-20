@@ -12,11 +12,7 @@
 TOP = ../..
 include $(TOP)/configure/CONFIG
 
-ifdef BASE_3_15
-PROD_LIBS += dbCore Com
-else
-PROD_LIBS += dbStaticHost Com
-endif
+PROD_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 SRCS.c = dbVerbose.c
 PROD_HOST = dbVerbose
