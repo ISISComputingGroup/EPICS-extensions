@@ -34,7 +34,7 @@ import java.awt.print.*;
 /**
  * Insert the type's description here.
  * Creation date: (3.2.2001 22:05:51)
- * @author 
+ * @author cosylab
  */
 public class GetPrintableInterface extends Command {
 	Pageable pageable = null;

@@ -32,30 +32,30 @@ import java.awt.Color;
 
 public class DBLine {
 
-	protected String name;
-	protected int x;
-	protected int y;
-	protected int x2;
-	protected int y2;
-	protected boolean dashed;
-	protected boolean startArrow;
-	protected boolean endArrow;
-	protected Color color;
-	protected String parentBorderID;
+    protected String name;
+    protected int x;
+    protected int y;
+    protected int x2;
+    protected int y2;
+    protected boolean dashed;
+    protected boolean startArrow;
+    protected boolean endArrow;
+    protected Color color;
+    protected String parentBorderID;
 	
 /**
  * Insert the method's description here.
  * Creation date: (23.4.2001 21:12:09)
- * @param name
- * @param x
- * @param y
- * @param y2
- * @param parentBorderID
- * @param dashed
- * @param x2
- * @param endArrow
- * @param color
- * @param startArrow
+ * @param name name
+ * @param x x
+ * @param y y
+ * @param y2 y2
+ * @param parentBorderID parentBorderID
+ * @param dashed dashed
+ * @param x2 x2
+ * @param endArrow endArrow
+ * @param color color
+ * @param startArrow startArrow
  */
 public DBLine(String name, int x, int y, int x2, int y2, boolean dashed, 
 			   boolean startArrow, boolean endArrow, Color color, String parentBorderID)

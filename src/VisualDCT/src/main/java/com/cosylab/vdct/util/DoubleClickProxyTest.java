@@ -19,7 +19,10 @@ import javax.swing.event.MouseInputListener;
  */
 public class DoubleClickProxyTest extends JFrame {
 
-	public DoubleClickProxyTest() {
+    /**
+     *
+     */
+    public DoubleClickProxyTest() {
 		DoubleClickProxy.setAwt_multiclick_time(1000);
 		
 		DoubleClickProxy proxy = new DoubleClickProxy(new MouseInputListener() {
@@ -64,7 +67,11 @@ public class DoubleClickProxyTest extends JFrame {
 		
 	}
 
-	public static void main(String[] args) {
+    /**
+     *
+     * @param args args
+     */
+    public static void main(String[] args) {
 		new DoubleClickProxyTest();
 	}
 }

@@ -38,7 +38,7 @@ import com.cosylab.vdct.util.StringUtils;
 /**
  * Insert the type's description here.
  * Creation date: (26.1.2001 15:51:20)
- * @author 
+ * @author cosylab
  */
 public class CommentProperty implements com.cosylab.vdct.inspector.InspectableProperty {
 
@@ -47,6 +47,7 @@ public class CommentProperty implements com.cosylab.vdct.inspector.InspectablePr
 	private static String helpString = "\""+com.cosylab.vdct.db.DBConstants.commentString+"\" will be added automatically";
 /**
  * CommentProperty constructor comment.
+     * @param record record
  */
 public CommentProperty(Commentable record) {
 	this.record=record;
@@ -230,8 +231,8 @@ public int getVisibility()
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y)
 {
@@ -239,6 +240,7 @@ public void popupEvent(Component component, int x, int y)
 
 /** Default value is null or "".
  * 
+     * @return something
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
  */
 public boolean hasDefaultValue() {
@@ -248,6 +250,12 @@ public boolean hasDefaultValue() {
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasValidity() {
 	return false;
 }

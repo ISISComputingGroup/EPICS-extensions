@@ -36,9 +36,21 @@ import java.util.*;
  * @author Matej Sekoranja
  */
 public abstract class ContainerObject extends VisibleObject {
-	protected boolean useHashtable = true;
-	protected Hashtable subObjects = null;
-	protected Vector subObjectsV = null;
+
+    /**
+     *
+     */
+    protected boolean useHashtable = true;
+
+    /**
+     *
+     */
+    protected Hashtable subObjects = null;
+
+    /**
+     *
+     */
+    protected Vector subObjectsV = null;
 //    private boolean isZoomRepaint;
 /**
  * Insert the method's description here.
@@ -81,9 +93,9 @@ public void addSubObject(String id, VisibleObject object) {
 
     /**
      *
-     * @param id
-     * @param object
-     * @param position
+     * @param id id
+     * @param object object
+     * @param position position
      */
     public void addSubObject(String id, VisibleObject object, int position) {
     if (useHashtable)
@@ -107,9 +119,9 @@ public void addSubObject(String id, VisibleObject object) {
 
 /**
  * "Helper" method (e.g. for Group).
- * @param id
- * @param object
- * @param create
+ * @param id id
+ * @param object object
+ * @param create create
  */
 public void addSubObject(String id, VisibleObject object, boolean create) {
 	addSubObject(id, object);
@@ -187,6 +199,9 @@ public Object removeObject(String id) {
 		return null;
 }
 
+    /**
+     *
+     */
     public void updateFields() {
 	Enumeration e = getSubObjectsV().elements();
 	while (e.hasMoreElements()) {
@@ -204,8 +219,11 @@ public Object removeObject(String id) {
 //    return isZoomRepaint;
 //}
 
-    
-public ContainerObject getRootContainer() {
+    /**
+     *
+     * @return something
+     */
+    public ContainerObject getRootContainer() {
 	return getParent() != null ? getParent().getRootContainer() : this;
 }
 

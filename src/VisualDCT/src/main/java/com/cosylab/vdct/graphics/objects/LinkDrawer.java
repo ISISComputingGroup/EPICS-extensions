@@ -56,7 +56,7 @@ public final class LinkDrawer {
 /**
  * Creation date: (30.1.2001 14:43:02)
  * @param g java.awt.Graphics
- * @param view
+ * @param view view
  * @param out com.cosylab.vdct.graphics.objects.OutLink
  * @param in com.cosylab.vdct.graphics.objects.InLink
  * @param isRight boolean
@@ -135,7 +135,7 @@ private static void drawIntergroupLink(Graphics g, ViewState view, int x1, int y
 /**
  * This method was created in VisualAge.
  * @param g java.awt.Graphics
- * @param view
+ * @param view view
  * @param out com.cosylab.vdct.graphics.objects.OutLink
  * @param in com.cosylab.vdct.graphics.objects.InLink
  * @param firstHorizontal boolean
@@ -446,11 +446,11 @@ public static void drawKneeLine(Graphics g, ViewState view, OutLink out, InLink 
 }
 
 /**
- * @param in
- * @param isInLeft
- * @param middleInX
- * @param drawDot
- * @return
+ * @param in in
+ * @param isInLeft isInLeft
+ * @param middleInX middleInX
+ * @param drawDot drawDot
+ * @return something
  */
 private static boolean checkForSameSideLinks(EPICSVarOutLink evol, boolean isInLeft, int middleInX) {
 	boolean drawDot = true;
@@ -477,7 +477,7 @@ private static boolean checkForSameSideLinks(EPICSVarOutLink evol, boolean isInL
 
 /**
  * Precondition: checkForSameSideLinks == true, i.e. at least 2 links on the same side
- * @return
+ * @return something
  */
 private static boolean checkHorizontalFirstDootNeeded(MultiInLink evol, int outY, int inY, boolean isInLeft, int middleInX) {
 	
@@ -535,7 +535,7 @@ private static boolean checkHorizontalFirstDootNeeded(MultiInLink evol, int outY
 
 /**
  * Precondition: checkForSameSideLinks == true, i.e. at least 2 links on the same side
- * @return
+ * @return something
  */
 private static boolean checkMiddleDotNeededCase(MultiInLink evol, int outY, int inY, boolean isInLeft, int middleInX) {
 
@@ -593,7 +593,7 @@ private static boolean checkMiddleDotNeededCase(MultiInLink evol, int outY, int 
 
 /**
  * Precondition: checkForSameSideLinks == true, i.e. at least 2 links on the same side
- * @return
+ * @return something
  */
 private static boolean checkConnectorOuterMost(MultiInLink evol, int outX, int inX, boolean isInLeft, int middleInX) {
 	
@@ -648,7 +648,7 @@ private static boolean checkConnectorOuterMost(MultiInLink evol, int outX, int i
 /**
  * Creation date: (30.1.2001 14:43:02)
  * @param g java.awt.Graphics
- * @param view
+ * @param view view
  * @param out com.cosylab.vdct.graphics.objects.OutLink
  * @param in com.cosylab.vdct.graphics.objects.InLink
  * @param count int

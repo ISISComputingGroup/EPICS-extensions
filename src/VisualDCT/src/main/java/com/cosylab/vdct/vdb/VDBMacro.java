@@ -54,25 +54,48 @@ import com.cosylab.vdct.undo.UndoManager;
  */
 public class VDBMacro implements InspectableProperty, Descriptable, ChangableVisibility, LinkSource
 {
-	protected String name = null;
-	protected String description = null;
-	protected String comment = null;
+
+    /**
+     *
+     */
+    protected String name = null;
+
+    /**
+     *
+     */
+    protected String description = null;
+
+    /**
+     *
+     */
+    protected String comment = null;
 	
 	private static final String nullString = "";
 
-	protected static String defaultDescription = "";
+    /**
+     *
+     */
+    protected static String defaultDescription = "";
 
 	private static final String removeString = "Remove";
 	private static final String renameString = "Rename";
 	
 	private VDBTemplate template = null;
 
-	protected int visibility = ALWAYS_VISIBLE;
+    /**
+     *
+     */
+    protected int visibility = ALWAYS_VISIBLE;
 
-	protected Macro visibleObject = null;
+    /**
+     *
+     */
+    protected Macro visibleObject = null;
 	
 	/**
 	 * Insert the method's description here.
+     * @param template template
+     * @param macro macro
 	 */
 	public VDBMacro(VDBTemplate template, DBMacro macro)
 	{
@@ -84,6 +107,9 @@ public class VDBMacro implements InspectableProperty, Descriptable, ChangableVis
 	
 	/**
 	 * Insert the method's description here.
+     * @param template template
+     * @param name name
+     * @param description description
 	 */
 	public VDBMacro(VDBTemplate template, String name, String description)
 	{
@@ -188,7 +214,7 @@ public class VDBMacro implements InspectableProperty, Descriptable, ChangableVis
 	/**
 	 * Returns macro name
 	 * @param templateInstanceName The name of the template instance
-     * @return 
+     * @return something
 	 */
 	public String getMacroDefinition(String templateInstanceName)
 	{
@@ -409,12 +435,24 @@ public class VDBMacro implements InspectableProperty, Descriptable, ChangableVis
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public boolean hasDefaultValue() {
 		return false;
 	}
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public boolean hasValidity() {
 		return false;
 	}

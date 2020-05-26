@@ -34,24 +34,53 @@ import com.cosylab.vdct.inspector.InspectableProperty;
  * This type was created in VisualAge.
  */
 public class DBFieldData extends DBComment {
-	protected String name;	
-	protected String value;
-	protected boolean template_def = false;
 	
-	protected java.awt.Color color = java.awt.Color.black;
-	protected boolean rotated;
+    /**
+     *
+     */
+    protected String name;	
+
+    /**
+     *
+     */
+    protected String value;
+
+    /**
+     *
+     */
+    protected boolean template_def = false;
+	
+    /**
+     *
+     */
+    protected java.awt.Color color = java.awt.Color.black;
+
+    /**
+     *
+     */
+    protected boolean rotated;
 
 	private static final String nullString = "";
-	protected String description = nullString;
 
-	protected boolean hasAdditionalData = false;
+    /**
+     *
+     */
+    protected String description = nullString;
 
-	protected int visibility = InspectableProperty.NON_DEFAULT_VISIBLE;       // = 0
+    /**
+     *
+     */
+    protected boolean hasAdditionalData = false;
+
+    /**
+     *
+     */
+    protected int visibility = InspectableProperty.NON_DEFAULT_VISIBLE;       // = 0
 	
 /**
  * FieldData constructor comment.
- * @param name
- * @param value
+ * @param name name
+ * @param value value
  */
 public DBFieldData(String name, String value) {
 	this.name=name;

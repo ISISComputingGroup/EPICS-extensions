@@ -33,6 +33,11 @@ public class ImportAction extends ActionObject {
     private HashMap importedObjects;
     private Group parent;
     
+    /**
+     *
+     * @param importedVisibleObjects importedVisibleObjects
+     * @param parent parent
+     */
     public ImportAction(HashMap importedVisibleObjects, Group parent) {
         this.importedObjects = importedVisibleObjects;
         this.parent = parent;

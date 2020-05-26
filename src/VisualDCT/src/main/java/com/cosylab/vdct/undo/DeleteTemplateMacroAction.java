@@ -34,14 +34,14 @@ import com.cosylab.vdct.vdb.VDBTemplate;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 20:32:44)
- * @author 
+ * @author cosylab
  */
 public class DeleteTemplateMacroAction extends CreateTemplateMacroAction {
 
 /**
  * DeleteAction constructor comment.
  * @param object com.cosylab.vdct.graphics.objects.VisibleObject
- * @param macro
+ * @param macro macro
  */
 public DeleteTemplateMacroAction(VDBTemplate object, VDBMacro macro) {
 	super(object, macro);

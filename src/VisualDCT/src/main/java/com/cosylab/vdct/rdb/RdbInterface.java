@@ -36,8 +36,24 @@ import com.cosylab.vdct.db.DBData;
  */
 public interface RdbInterface {
 
+    /**
+     *
+     */
     public void connect();
 	
-	public DBData loadRdbData(Object dsId);
-	public boolean saveRdbData(Object dsId, RdbDataId rdbId, boolean dialog);
+    /**
+     *
+     * @param dsId dsId
+     * @return something
+     */
+    public DBData loadRdbData(Object dsId);
+
+    /**
+     *
+     * @param dsId dsId
+     * @param rdbId rdbId
+     * @param dialog dialog
+     * @return something
+     */
+    public boolean saveRdbData(Object dsId, RdbDataId rdbId, boolean dialog);
 }

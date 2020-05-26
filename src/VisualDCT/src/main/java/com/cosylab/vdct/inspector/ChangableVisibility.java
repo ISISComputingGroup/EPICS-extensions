@@ -36,7 +36,7 @@ public interface ChangableVisibility
 	
 /**
  * Insert the method's description here.
- * @param visibility
+ * @param visibility visibility
  */
 public void setVisibility(int visibility);
 

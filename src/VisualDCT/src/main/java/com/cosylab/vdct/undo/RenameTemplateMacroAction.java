@@ -34,17 +34,37 @@ import com.cosylab.vdct.vdb.VDBTemplate;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 16:26:04)
- * @author 
+ * @author cosylab
  */
 public class RenameTemplateMacroAction extends ActionObject {
-	protected VDBTemplate object;
-	protected VDBMacro macro;
-	protected String oldName;
-	protected String newName;
+
+    /**
+     *
+     */
+    protected VDBTemplate object;
+
+    /**
+     *
+     */
+    protected VDBMacro macro;
+
+    /**
+     *
+     */
+    protected String oldName;
+
+    /**
+     *
+     */
+    protected String newName;
 
 /**
  * Insert the method's description here.
  * Creation date: (3.5.2001 16:27:58)
+     * @param object object
+     * @param macro macro
+     * @param oldName oldName
+     * @param newName newName
  */
 public RenameTemplateMacroAction(VDBTemplate object, VDBMacro macro, String oldName, String newName) {
 	this.object=object;

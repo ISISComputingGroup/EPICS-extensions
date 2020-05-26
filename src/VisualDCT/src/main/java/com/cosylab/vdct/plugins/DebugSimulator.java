@@ -106,7 +106,7 @@ public String getDescription() {
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 16:40:05)
- * @return
+ * @return something
  */
 public String getName() {
 	return "Debug Simulator ("+source+")";
@@ -131,8 +131,9 @@ public String getVersion() {
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 16:40:05)
-     * @param properties
-     * @param context */
+ * @param properties properties
+ * @param context context
+ */
 public void init(java.util.Properties properties, PluginContext context)
 {
 	// read properties

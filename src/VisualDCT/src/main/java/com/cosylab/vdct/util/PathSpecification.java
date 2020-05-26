@@ -40,18 +40,24 @@ import java.util.Iterator;
 public class PathSpecification
 {
 	
-	protected ArrayList currentPath = null;
+    protected ArrayList currentPath = null;
 	
-	protected static final String NAME_EPICS_DB_INCLUDE_PATH = "EPICS_DB_INCLUDE_PATH";
+    protected static final String NAME_EPICS_DB_INCLUDE_PATH = "EPICS_DB_INCLUDE_PATH";
 	
-	protected String currentDir = null;
+    protected String currentDir = null;
 	
-	public PathSpecification (String defaultPath)
+    /**
+     *
+     * @param defaultPath defaultPath
+     */
+    public PathSpecification (String defaultPath)
 	{
 		this(defaultPath, null);
 	}
 	
 	/**
+     * @param defaultPath defaultPath
+     * @param parent parent
 	 */
 	public PathSpecification (String defaultPath, PathSpecification parent)
 	{
@@ -73,6 +79,9 @@ public class PathSpecification
 	}
 	
 	/**
+     * @param dirs dirs
+     * @param currentDir currentDir
+     * @param list list
 	 */
 	public static void splitPath(String dirs, String currentDir, ArrayList list)
 	{
@@ -107,6 +116,7 @@ public class PathSpecification
 	}
 
 	/**
+     * @param dirs dirs
 	 */
 	public void setPath(String dirs)
 	{
@@ -118,6 +128,7 @@ public class PathSpecification
 	}		
 	
 	/**
+     * @param dirs dirs
 	 */
 	public void addAddPath(String dirs)
 	{
@@ -126,6 +137,9 @@ public class PathSpecification
 	}
 
 	/**
+     * @param fileName fileName
+     * @return something
+     * @throws FileNotFoundException foo
 	 */
 	public File search4File(String fileName) throws FileNotFoundException
 	{
@@ -170,9 +184,9 @@ public class PathSpecification
 	}
 
 	/**
-	 * @param path
-	 * @param relativeToPath
-	 * @return
+	 * @param path path
+	 * @param relativeToPath relativeToPath
+	 * @return something
 	 */
 	public static File getRelativeName(File path, File relativeToPath)
 	{

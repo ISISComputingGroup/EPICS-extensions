@@ -31,11 +31,18 @@ public class DoubleClickProxy implements MouseInputListener {
     int lasty = 0;
     int lastButton = 0;
 
+    /**
+     *
+     * @param listener listener
+     */
     public DoubleClickProxy(MouseInputListener listener) {
         this.listener = listener;
         update();
     }
 
+    /**
+     *
+     */
     public static void update() {
         awt_multiclick_time = Settings.getInstance().getDoubleClickSpeed();
         awt_multiclick_smudge = Settings.getInstance().getDoubleClickSmudge();
@@ -150,23 +157,31 @@ public class DoubleClickProxy implements MouseInputListener {
                 e.isPopupTrigger(), e.getButton()));
     }
 	
-	public static void setAwt_multiclick_smudge(int i) {
+    /**
+     *
+     * @param i i
+     */
+    public static void setAwt_multiclick_smudge(int i) {
 		awt_multiclick_smudge = i;
 	}
 
-	public static void setAwt_multiclick_time(int i) {
+    /**
+     *
+     * @param i i
+     */
+    public static void setAwt_multiclick_time(int i) {
 		awt_multiclick_time = i;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public static int getAwt_multiclick_smudge() {
 		return awt_multiclick_smudge;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public static int getAwt_multiclick_time() {
 		return awt_multiclick_time;

@@ -46,11 +46,17 @@ import com.cosylab.vdct.graphics.DsManager;
  */
 public class UndoManager implements DsEventListener {
 
-	protected static HashMap instances = new HashMap();
+    /**
+     *
+     */
+    protected static HashMap instances = new HashMap();
 	
 	private final int lowerbound = -1;
 	
-	protected Object dsId = null;
+    /**
+     *
+     */
+    protected Object dsId = null;
 	
 	private int pos;
 	private int first, last; 
@@ -69,6 +75,7 @@ public class UndoManager implements DsEventListener {
 
 /**
  * UndoManager constructor comment.
+     * @param dsId dsId
  */
 protected UndoManager(Object dsId) {
 	this.dsId = dsId;
@@ -168,7 +175,12 @@ public ComposedActionInterface getComposedAction() {
 	return composedAction;
 }
 
-public static UndoManager getInstance(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     * @return something
+     */
+    public static UndoManager getInstance(Object dsId) {
 
 	UndoManager undoManager = (UndoManager)instances.get(dsId);
     if (undoManager == null) {
@@ -337,10 +349,19 @@ public void prepareAfterSaving() {
     actionsAfterSave = 0;
 }
 
-public void addMacroActionEventListener(MacroActionEventListener listener) {
+    /**
+     *
+     * @param listener listener
+     */
+    public void addMacroActionEventListener(MacroActionEventListener listener) {
 	macroActionListeners.add(listener);
 }
-public void removeMacroActionEventListener(MacroActionEventListener listener) {
+
+    /**
+     *
+     * @param listener listener
+     */
+    public void removeMacroActionEventListener(MacroActionEventListener listener) {
 	macroActionListeners.remove(listener);
 }
 
@@ -365,7 +386,10 @@ private void packComposedAction() {
 	}
 }
 
-public static void registerDsListener() {
+    /**
+     *
+     */
+    public static void registerDsListener() {
 
     UndoManager manager = new UndoManager(Constants.DEFAULT_NAME);
 	instances.put(Constants.DEFAULT_NAME, manager);
@@ -376,12 +400,26 @@ public static void registerDsListener() {
 	}
 }
 
-public void onDsAdded(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void onDsAdded(Object id) {
     instances.put(id, new UndoManager(id));
 }
-public void onDsRemoved(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsRemoved(Object id) {
 }
-public void onDsFocused(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsFocused(Object id) {
 	((UndoManager)instances.get(id)).updateMenuItems();
 }
 

@@ -34,7 +34,7 @@ import com.cosylab.vdct.VisualDCT;
 /**
  * Insert the class' description here.
  * Creation date: (3.2.2001 19:37:21)
- * @author 
+ * @author cosylab
  */
  
 public class ShowRenameDialog extends Command {
@@ -43,7 +43,7 @@ public class ShowRenameDialog extends Command {
 /**
  * Insert the method's description here.
  * Creation date: (29.12.2000 12:37:58)
- * @param visualDCT
+ * @param visualDCT visualDCT
  */
 public ShowRenameDialog(VisualDCT visualDCT) {
 	this.visualDCT=visualDCT;

@@ -54,24 +54,51 @@ import com.cosylab.vdct.undo.UndoManager;
  */
 public class VDBPort implements InspectableProperty, Descriptable, ChangableVisibility, LinkSource
 {
-	protected String name = null;
-	protected String target = null;
-	protected String description = null;
-	protected String comment = null;
 
-	protected static String defaultDescription = "";
+    /**
+     *
+     */
+    protected String name = null;
+
+    /**
+     *
+     */
+    protected String target = null;
+
+    /**
+     *
+     */
+    protected String description = null;
+
+    /**
+     *
+     */
+    protected String comment = null;
+
+    /**
+     *
+     */
+    protected static String defaultDescription = "";
 
 	private static final String removeString = "Remove";
 	private static final String renameString = "Rename";
 	
 	private VDBTemplate template = null;
 
-	protected int visibility = ALWAYS_VISIBLE;
+    /**
+     *
+     */
+    protected int visibility = ALWAYS_VISIBLE;
 
-	protected Port visibleObject = null;
+    /**
+     *
+     */
+    protected Port visibleObject = null;
 	
 	/**
 	 * Insert the method's description here.
+     * @param template template
+     * @param port port
 	 */
 	public VDBPort(VDBTemplate template, DBPort port)
 	{
@@ -84,6 +111,10 @@ public class VDBPort implements InspectableProperty, Descriptable, ChangableVisi
 	
 	/**
 	 * Insert the method's description here.
+     * @param template template
+     * @param target target
+     * @param name name
+     * @param description description
 	 */
 	public VDBPort(VDBTemplate template, String name, String target, String description)
 	{
@@ -194,7 +225,7 @@ public class VDBPort implements InspectableProperty, Descriptable, ChangableVisi
 	/**
 	 * Returns port name
 	 * @param templateInstanceName The name of the template instance
-     * @return 
+     * @return something
 	 */
 	public String getPortDefinition(String templateInstanceName)
 	{
@@ -437,12 +468,24 @@ public class VDBPort implements InspectableProperty, Descriptable, ChangableVisi
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public boolean hasDefaultValue() {
 		return false;
 	}
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public boolean hasValidity() {
 		return false;
 	}

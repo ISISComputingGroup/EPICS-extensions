@@ -33,7 +33,7 @@ import java.util.Vector;
 /**
  * Insert the type's description here.
  * Creation date: (4.5.2001 9:51:01)
- * @author 
+ * @author cosylab
  */
 public interface MultiInLink extends InLink {
 /**
@@ -43,7 +43,15 @@ public interface MultiInLink extends InLink {
  */
 int getLinkCount();
 
-Vector getStartPoints();
+    /**
+     *
+     * @return something
+     */
+    Vector getStartPoints();
 
-Vector getOutlinks();
+    /**
+     *
+     * @return something
+     */
+    Vector getOutlinks();
 }

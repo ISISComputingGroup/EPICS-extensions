@@ -31,8 +31,8 @@ public class NamingContext {
 	
 	/**
 	 * Used by createNamingContextFor
-	 * @param parent
-	 * @param templateInstance
+	 * @param parent parent
+	 * @param templateInstance templateInstance
 	 */
 	private NamingContext(NamingContext parent, VDBTemplateInstance templateInstance, String addedPrefix, String removedPrefix, boolean export) {
 		this.parent=parent;
@@ -45,11 +45,11 @@ public class NamingContext {
 	/**
 	 * This constructor should be used for the topmost template, which doesn't have
 	 * template instance
-	 * @param parent
-	 * @param template
-     * @param addedPrefix
-     * @param removedPrefix
-     * @param export
+	 * @param parent parent
+	 * @param template template
+     * @param addedPrefix addedPrefix
+     * @param removedPrefix removedPrefix
+     * @param export export
 	 */
 	public NamingContext(NamingContext parent, VDBTemplate template, String addedPrefix, String removedPrefix, boolean export) {
 		this.parent=parent;
@@ -61,7 +61,7 @@ public class NamingContext {
 
 	/**
 	 * Returns parent, which can be null.
-	 * @return
+	 * @return something
 	 */
 	public NamingContext getParent() {
 		return parent;
@@ -69,6 +69,7 @@ public class NamingContext {
 
 	/**
 	 * Returns template instance, which can be null
+     * @return something
 	 */
 	public VDBTemplateInstance getTemplateInstance() {
 		return templateInstance;
@@ -76,7 +77,7 @@ public class NamingContext {
 	
 	/**
 	 * Returns template
-	 * @return
+	 * @return something
 	 */
 	public VDBTemplate getTemplate() {
 		return template;
@@ -84,7 +85,7 @@ public class NamingContext {
 
 	/**
 	 * Returns full map
-	 * @return
+	 * @return something
 	 */
 	public Map getMap() {
 		return map;
@@ -92,7 +93,7 @@ public class NamingContext {
 	
 	/**
 	 * Returns only mapping of macros
-	 * @return
+	 * @return something
 	 */
 	public Map getMacroMap() {
 		return macroMap;
@@ -100,9 +101,9 @@ public class NamingContext {
 
 	/**
 	 * Recursively resolves macros/ports
-	 * @param name
-	 * @param value
-	 * @return
+	 * @param name name
+	 * @param value value
+	 * @return something
 	 */
 	public String resolveMacro(String name, String value) {
 		//DebugSystem.out.println("resolve macro "+name+"="+value);
@@ -124,8 +125,8 @@ public class NamingContext {
 
 	/**
 	 * Creates or returns NamingContext for specific template
-	 * @param instance
-	 * @return
+	 * @param instance instance
+	 * @return something
 	 */
 	public NamingContext createNamingContextFor(VDBTemplateInstance instance) {
 		//DebugSystem.out.println("create record namer for " +instance);
@@ -147,8 +148,8 @@ public class NamingContext {
 
 	/**
 	 * Recursively resolves macros/ports
-	 * @param port
-	 * @return
+	 * @param port port
+	 * @return something
 	 */
 	public String resolvePort(VDBPort port) {
 		//DebugSystem.out.println("resolve port "+port);
@@ -177,8 +178,8 @@ public class NamingContext {
 	 * Renames the record apropriately.
 	 * When exporting to Capfast hierarchy.
 	 * When exporting single Group.
-	 * @param data
-	 * @return
+	 * @param data data
+	 * @return something
 	 */
 /*	public String getResolvedName(VDBRecordData data) {
 		System.out.println("get res name "+data);
@@ -189,8 +190,8 @@ public class NamingContext {
 	/**
 	 * Used in write VDCT data
 	 * Should handle exporting single Group
-	 * @param name
-	 * @return
+	 * @param name name
+	 * @return something
 	 */ 
 	public String getResolvedName(String name) {
 		if (removedPrefix!=null)
@@ -202,8 +203,8 @@ public class NamingContext {
 
 	/**
 	 * Adds a port to this naming context
-	 * @param name
-	 * @param value
+	 * @param name name
+	 * @param value value
 	 */
 	public void addPort(String name, String value) {
 		//DebugSystem.out.println("add port "+name+"="+value);
@@ -213,8 +214,8 @@ public class NamingContext {
 
 	/**
 	 * Adds a macro to this naming context
-	 * @param name
-	 * @param value
+	 * @param name name
+	 * @param value value
 	 */
 	public void addMacro(String name, String value) {
 		//DebugSystem.out.println("add macro "+name+"="+value);
@@ -225,8 +226,8 @@ public class NamingContext {
 	/**
 	 * Subtracts record name from link, looks for apropriate record and renames
 	 * the record in apropriate way. It contructs back the link.
-	 * @param target
-	 * @return
+	 * @param target target
+	 * @return something
 	 */
 	public String resolveLink(String target) {
 		//DebugSystem.out.println("resolve link "+target);
@@ -242,13 +243,16 @@ public class NamingContext {
 		return target;
 	}
 
-	public final static Object cycleFlag=new Object();
+    /**
+     *
+     */
+    public final static Object cycleFlag=new Object();
 
 	/**
 	 * Searches for the macro in the specific template.
 	 * Possibly also for global macro definitions.
-	 * @param name
-	 * @return
+	 * @param name name
+	 * @return something
 	 */
 	public String findAndResolveMacro(String name) {
 		//DebugSystem.out.println("find and resolve macro "+name);
@@ -285,9 +289,9 @@ public class NamingContext {
 	/**
 	 * Searches for port in the specific template.
 	 * Notice that port has to be resolved in inner template, but added in outer one.
-	 * @param temp
-	 * @param name
-	 * @return
+	 * @param temp temp
+	 * @param name name
+	 * @return something
 	 */
 	public String findAndResolvePort(String temp, String name) {
 		//DebugSystem.out.println("find and resolve port: "+temp+"."+name);
@@ -326,8 +330,8 @@ public class NamingContext {
 	 * TASK:RECMACROS: currently it doesn't handle something like $($()) very well.
 	 * I don't think this is a simple problem, which could be done with regex.
 	 * Hierarchy prevents it. 
-	 * @param value
-	 * @return
+	 * @param value value
+	 * @return something
 	 */
 	public String matchAndReplace(String value) {
 		if (value==null || value.indexOf('$')<0) return value;

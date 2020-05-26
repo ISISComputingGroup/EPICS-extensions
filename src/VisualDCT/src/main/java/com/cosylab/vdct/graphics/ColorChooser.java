@@ -37,7 +37,11 @@ public class ColorChooser
 {
 	private static JColorChooser instance = null;
 	
-	public static JColorChooser getInstance()
+    /**
+     *
+     * @return something
+     */
+    public static JColorChooser getInstance()
 	{
 		if (instance==null)
 			instance = new JColorChooser();
@@ -46,9 +50,9 @@ public class ColorChooser
 
     /**
      *
-     * @param selectTitle
-     * @param color
-     * @return
+     * @param selectTitle selectTitle
+     * @param color color
+     * @return something
      */
     public static Color getColor(String selectTitle, Color color)
 	{

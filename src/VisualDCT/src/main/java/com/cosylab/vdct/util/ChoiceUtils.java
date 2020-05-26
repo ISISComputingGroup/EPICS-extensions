@@ -31,7 +31,7 @@ package com.cosylab.vdct.util;
 /**
  * Insert the type's description here.
  * Creation date: (5.11.1999 14:51:56)
- * @author 
+ * @author cosylab
  */
 public class ChoiceUtils {
 /**

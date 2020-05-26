@@ -38,7 +38,12 @@ import com.cosylab.vdct.events.Command;
 public class SetDefaultFocus extends Command {
 
 	private VisualDCT visualDCT;
-	public SetDefaultFocus(VisualDCT visualDCT) {
+
+    /**
+     *
+     * @param visualDCT visualDCT
+     */
+    public SetDefaultFocus(VisualDCT visualDCT) {
 		this.visualDCT = visualDCT;
 	}
 

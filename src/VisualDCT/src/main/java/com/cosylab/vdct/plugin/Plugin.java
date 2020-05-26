@@ -54,7 +54,7 @@ public String getDescription();
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:04:45)
- * @return
+ * @return something
  */
 public String getName();
 /**
@@ -66,8 +66,8 @@ public String getVersion();
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:04:45)
- * @param properties
- * @param context
+ * @param properties properties
+ * @param context context
  */
 public void init(java.util.Properties properties, PluginContext context);
 /**

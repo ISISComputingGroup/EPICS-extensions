@@ -39,10 +39,20 @@ import com.cosylab.vdct.inspector.*;
  * @author Matej Sekoranja
  */
 public class NameValueInfoProperty implements InspectableProperty {
-	protected String name;
-	protected String value;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected String value;
 /**
  * DTYPInfoProperty constructor comment.
+     * @param name name
+     * @param value value
  */
 public NameValueInfoProperty(String name, String value) {
 	this.name=name;
@@ -159,8 +169,8 @@ public int getVisibility()
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y)
 {
@@ -169,12 +179,24 @@ public void popupEvent(Component component, int x, int y)
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasDefaultValue() {
 	return false;
 }
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasValidity() {
 	return false;
 }

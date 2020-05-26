@@ -401,14 +401,14 @@ public void loadRecentFiles()
 }
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean getGlobalMacros() {
 		return globalMacros;
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setGlobalMacros(boolean b) {
 		globalMacros = b;
@@ -416,19 +416,23 @@ public void loadRecentFiles()
 		sync();
 	}
 
-	public void setGlobalMacrosTemp(boolean b) {
+    /**
+     *
+     * @param b b
+     */
+    public void setGlobalMacrosTemp(boolean b) {
 		globalMacros = b;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean getHierarhicalNames() {
 		return hierarhicalNames;
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setHierarhicalNames(boolean b) {
 		hierarhicalNames = b;
@@ -436,19 +440,23 @@ public void loadRecentFiles()
 		sync();
 	}
 
-	public void setHierarhicalNamesTemp(boolean b) {
+    /**
+     *
+     * @param b b
+     */
+    public void setHierarhicalNamesTemp(boolean b) {
 		hierarhicalNames = b;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean getWindowsPan() {
 		return windowsPan;
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setWindowsPan(boolean b) {
 		windowsPan = b;
@@ -459,14 +467,14 @@ public void loadRecentFiles()
 	
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getDoubleClickSmudge() {
 		return doubleClickSmudge;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getDoubleClickSpeed() {
 		if (doubleClickSpeed == -1) {
@@ -486,7 +494,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setDoubleClickSmudge(int i) {
 		doubleClickSmudge = i;
@@ -495,7 +503,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setDoubleClickSpeed(int i) {
 			doubleClickSpeed = i;
@@ -504,14 +512,14 @@ public void loadRecentFiles()
 	}	
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getRecordLength() {
 		return recordLength;
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setRecordLength(int i) {
 		recordLength = i;
@@ -520,14 +528,14 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean getFastMove() {
 		return fastMove;
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setFastMove(boolean b) {
 		fastMove = b;
@@ -536,28 +544,28 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public String getLegendLogo() {
 		return legendLogo;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getLegendPosition() {
 		return legendPosition;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getLegendVisibility() {
 		return legendVisibility;
 	}
 
 	/**
-	 * @param string
+	 * @param string string
 	 */
 	public void setLegendLogo(String string) {
 		legendLogo = string;
@@ -566,7 +574,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setLegendPosition(int i) {
 		legendPosition = i;
@@ -575,7 +583,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setLegendVisibility(int i) {		
 		legendVisibility = i;
@@ -584,35 +592,35 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getCanvasHeight() {
 		return canvasHeight;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getCanvasWidth() {
 		return canvasWidth;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean isDefaultVisibility() {
 		return defaultVisibility;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean isHideLinks() {
 		return hideLinks;
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setCanvasHeight(int i) {
 		canvasHeight = i;
@@ -621,7 +629,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setCanvasWidth(int i) {
 		canvasWidth = i;
@@ -630,7 +638,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setDefaultVisibility(boolean b) {
 		defaultVisibility = b;
@@ -639,7 +647,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setHideLinks(boolean b) {
 		hideLinks = b;
@@ -648,7 +656,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setWireCrossingAvoidiance(boolean b) {
 		wireCrossingAvoidiance = b;
@@ -657,28 +665,28 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getLegendNavigatorHeight() {
 		return legendNavigatorHeight;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean isLegendNavigatorVisibility() {
 		return legendNavigatorVisibility;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getLegendNavigatorWidth() {
 		return legendNavigatorWidth;
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setLegendNavigatorHeight(int i) {
 		legendNavigatorHeight = i;
@@ -687,7 +695,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setLegendNavigatorVisibility(boolean b) {
 		legendNavigatorVisibility = b;
@@ -696,7 +704,7 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setLegendNavigatorWidth(int i) {
 		legendNavigatorWidth = i;
@@ -705,18 +713,26 @@ public void loadRecentFiles()
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
     public boolean isWireCrossingAvoidiance()
     {
         return wireCrossingAvoidiance;
     }
 
+    /**
+     *
+     * @return something
+     */
     public boolean getDisableMacroWarnings()
     {
 		  return disableMacroWarnings;
     }
 
+    /**
+     *
+     * @param b b
+     */
     public void setDisableMacroWarnings(boolean b)
     {
 		  disableMacroWarnings = b;

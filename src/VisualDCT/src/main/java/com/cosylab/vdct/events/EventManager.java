@@ -36,7 +36,11 @@ import java.util.*;
  * @author Matej Sekoranja
  */
 public abstract class EventManager {
-	protected Hashtable subscriber;
+
+    /**
+     *
+     */
+    protected Hashtable subscriber;
 
 /**
  * CommandManager constructor comment.

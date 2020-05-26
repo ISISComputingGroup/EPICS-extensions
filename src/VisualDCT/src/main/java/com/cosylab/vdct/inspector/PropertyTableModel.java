@@ -55,18 +55,37 @@ public interface PropertyTableModel {
 	 * The header display types, text, eye icon, or nothing.
 	 */
 	public static final int HEADERDISP_TEXT = 0;
-	public static final int HEADERDISP_EYE = 1;
-	public static final int HEADERDISP_NONE = 2;
 
-	public InspectableProperty getPropertyAt(int row, int column);
+    /**
+     *
+     */
+    public static final int HEADERDISP_EYE = 1;
+
+    /**
+     *
+     */
+    public static final int HEADERDISP_NONE = 2;
+
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+    public InspectableProperty getPropertyAt(int row, int column);
 	
 	/**
 	 * Returns the cell display type DISP_* at the given position.
+     * @param row row
+     * @param column column
+     * @return something
 	 */
 	public int getPropertyDisplayTypeAt(int row, int column);
 
 	/**
 	 * Returns the header display type HEADERDISP_* at the given position.
+     * @param column column
+     * @return something
 	 */
 	public int getHeaderDisplayType(int column);
 }

@@ -32,26 +32,26 @@ import java.awt.Color;
 
 public class DBBox {
 
-	protected String name;
-	protected int x;
-	protected int y;
-	protected int x2;
-	protected int y2;
-	protected boolean dashed;
-	protected Color color;
-	protected String parentBorderID;
+    protected String name;
+    protected int x;
+    protected int y;
+    protected int x2;
+    protected int y2;
+    protected boolean dashed;
+    protected Color color;
+    protected String parentBorderID;
 	
 /**
  * Insert the method's description here.
  * Creation date: (23.4.2001 21:12:09)
-     * @param name
-     * @param y
-     * @param x
-     * @param x2
-     * @param y2
-     * @param dashed
-     * @param color
-     * @param parentBorderID
+     * @param name name
+     * @param y y
+     * @param x x
+     * @param x2 x2
+     * @param y2 y2
+     * @param dashed dashed
+     * @param color color
+     * @param parentBorderID parentBorderID
  */
 public DBBox(String name, int x, int y, int x2, int y2, boolean dashed, Color color, String parentBorderID)
 {

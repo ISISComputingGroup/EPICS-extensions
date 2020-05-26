@@ -111,7 +111,11 @@ public class CustomSplitDialog extends JDialog implements ActionListener, Docume
 	private static final String nestedGroupsTestDataInstruction = "Nested groups in pattern are not supported!";
 	private static final String starTestDataInstruction = "Split data:";
 	
-	public CustomSplitDialog(Dialog dialog) {
+    /**
+     *
+     * @param dialog dialog
+     */
+    public CustomSplitDialog(Dialog dialog) {
         super(dialog, true);
 		setTitle("Custom split");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -375,6 +379,10 @@ public class CustomSplitDialog extends JDialog implements ActionListener, Docume
 		area.setWrapStyleWord(true);
     }
     
+    /**
+     *
+     * @param data data
+     */
     public void setSplitData(DBSheetSplitCol data) {
         setDelimiterType(data.isDelimiterType());
         if (delimiterType) {
@@ -385,6 +393,10 @@ public class CustomSplitDialog extends JDialog implements ActionListener, Docume
         checkPattern(); 
     }
 
+    /**
+     *
+     * @return something
+     */
     public DBSheetSplitCol getSplitData() {
         String pattern = delimiterType ? delimiterField.getText() : patternField.getText();
     	return (pattern != null && pattern.length() > 0) ? new DBSheetSplitCol(delimiterType, pattern) : null;
@@ -487,7 +499,11 @@ public class CustomSplitDialog extends JDialog implements ActionListener, Docume
     	splitResultArea.setText(buffer.toString());
 	}
 	
-	public void setTestExample(String example) {
+    /**
+     *
+     * @param example example
+     */
+    public void setTestExample(String example) {
 	    testDataField.setText(example);
 	    checkPattern();
 	}

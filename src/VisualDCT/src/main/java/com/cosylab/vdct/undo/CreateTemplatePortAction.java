@@ -34,15 +34,25 @@ import com.cosylab.vdct.vdb.VDBTemplate;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 16:26:04)
- * @author 
+ * @author cosylab
  */
 public class CreateTemplatePortAction extends ActionObject {
-	protected VDBTemplate object;
-	protected VDBPort port;
+
+    /**
+     *
+     */
+    protected VDBTemplate object;
+
+    /**
+     *
+     */
+    protected VDBPort port;
 
 /**
  * Insert the method's description here.
  * Creation date: (3.5.2001 16:27:58)
+     * @param object object
+     * @param port port
  */
 public CreateTemplatePortAction(VDBTemplate object, VDBPort port) {
 	this.object=object;

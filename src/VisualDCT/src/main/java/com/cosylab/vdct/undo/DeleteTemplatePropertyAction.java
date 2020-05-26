@@ -34,15 +34,15 @@ import com.cosylab.vdct.graphics.objects.Template;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 20:32:44)
- * @author 
+ * @author cosylab
  */
 public class DeleteTemplatePropertyAction extends CreateTemplatePropertyAction {
 
 /**
  * DeleteAction constructor comment.
  * @param object com.cosylab.vdct.graphics.objects.VisibleObject
- * @param name
- * @param value
+ * @param name name
+ * @param value value
  */
 public DeleteTemplatePropertyAction(Template object, String name, String value) {
 	super(object, name, value);

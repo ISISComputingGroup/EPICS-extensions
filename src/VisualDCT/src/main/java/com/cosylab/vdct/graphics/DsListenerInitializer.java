@@ -40,7 +40,10 @@ import com.cosylab.vdct.vdb.VDBData;
  */
 public class DsListenerInitializer {
 
-	public static void registerDsManagerListeners() {
+    /**
+     *
+     */
+    public static void registerDsManagerListeners() {
 		Group.registerDsListener();
 		ViewState.registerDsListener();
 		UndoManager.registerDsListener();

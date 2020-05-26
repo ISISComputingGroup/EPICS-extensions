@@ -47,9 +47,15 @@ public final class ZoomPane implements ImageObserver {
     private int height = 0;
     private int topOffset;
     
+    /**
+     *
+     */
     public static ZoomPane panel = new ZoomPane();
     
-    
+    /**
+     *
+     * @return something
+     */
     public static ZoomPane getInstance() {
         return panel;
     }
@@ -59,7 +65,7 @@ public final class ZoomPane implements ImageObserver {
     /**
      * 
      * Returns the left offset - distance from the left border to the most left object.
-     * @return
+     * @return something
      */
     public int getLeftOffset() {
         return leftOffset + HORIZONTAL_MARGIN;
@@ -68,7 +74,7 @@ public final class ZoomPane implements ImageObserver {
     /**
      * 
      * Returns the right offset - distance from the right border to the most right object.
-     * @return
+     * @return something
      */
     public int getRightOffset() {
         return rightOffset + HORIZONTAL_MARGIN;
@@ -77,7 +83,7 @@ public final class ZoomPane implements ImageObserver {
     /**
      * 
      * Returns the top offset - distance from the top border to the object that is the closest to the top.
-     * @return
+     * @return something
      */
     public int getTopOffset() {
         return topOffset + VERTICAL_MARGIN;
@@ -87,9 +93,9 @@ public final class ZoomPane implements ImageObserver {
      * 
      * Starts drawing objects and returns drawn image.
      * 
-     * @param obj
-     * @param clearImage
-     * @return
+     * @param obj obj
+     * @param clearImage clearImage
+     * @return something
      */
     public Image startZooming(VisibleObject obj, boolean clearImage) {
         object = obj;
@@ -168,7 +174,7 @@ public final class ZoomPane implements ImageObserver {
     /**
      * 
      * Returns the width of the image.
-     * @return
+     * @return something
      */
     public int getWidth() {
         return width;
@@ -176,7 +182,7 @@ public final class ZoomPane implements ImageObserver {
     
     /**
      * Returns the height of the image.
-     * @return
+     * @return something
      */
     public int getHeight() {
         return height;

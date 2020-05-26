@@ -97,7 +97,8 @@ public RecentFilesMenu()
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:09:23)
- * @param file */
+ * @param file file
+ */
 public void addFile(File file)
 {
 	addFile(file, false);
@@ -106,8 +107,9 @@ public void addFile(File file)
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:09:23)
- * @param file
- * @param makeLast */
+ * @param file file
+ * @param makeLast makeLast
+ */
 public synchronized void addFile(File file, boolean makeLast)
 {
 	

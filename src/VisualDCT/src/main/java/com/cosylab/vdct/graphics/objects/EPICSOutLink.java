@@ -48,10 +48,25 @@ import com.cosylab.vdct.graphics.ViewState;
  */
 public class EPICSOutLink extends EPICSLinkOutIn {
 
-	protected static final String processString = "Process";
-	protected static final String nppString = "NPP - No Process Passive";
-	protected static final String ppString ="PP - Process Passive";
-	protected static final String caString = "CA - Channel Access";
+    /**
+     *
+     */
+    protected static final String processString = "Process";
+
+    /**
+     *
+     */
+    protected static final String nppString = "NPP - No Process Passive";
+
+    /**
+     *
+     */
+    protected static final String ppString ="PP - Process Passive";
+
+    /**
+     *
+     */
+    protected static final String caString = "CA - Channel Access";
 
 	private static final String severityString = "Severity";
 	private static final String nmsString = "NMS - No Maximize Severity";

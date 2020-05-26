@@ -39,14 +39,17 @@ public class RdbDataId {
 	private String ioc = null;
 	private String description = null;
 	
-	public RdbDataId() {
+    /**
+     *
+     */
+    public RdbDataId() {
 		super();
 	}
 	
 	/**
-	 * @param fileName
-	 * @param version
-	 * @param ioc
+	 * @param fileName fileName
+	 * @param version version
+	 * @param ioc ioc
 	 */
 	public RdbDataId(String fileName, String version, String ioc) {
 		super();
@@ -55,7 +58,11 @@ public class RdbDataId {
 		this.ioc = ioc;
 	}
 	
-	public boolean isDefined() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isDefined() {
 		return fileName != null && version != null && ioc != null;
 	}
 

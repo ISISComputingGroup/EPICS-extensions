@@ -42,14 +42,16 @@ import com.cosylab.vdct.inspector.InspectorManager;
  */
 public class VDBTemplateMacro extends VDBFieldData implements Descriptable, ChangableVisibility
 {
-	protected VDBMacro macro = null;
-	protected VDBTemplateInstance templateInstance = null;
+    protected VDBMacro macro = null;
+    protected VDBTemplateInstance templateInstance = null;
 
-	protected int visibility = UNDEFINED_VISIBILITY;
+    protected int visibility = UNDEFINED_VISIBILITY;
 
 	private static final String nullString = "";
 
 	/**
+     * @param templateInstance templateInstance
+     * @param macro macro
 	 */
 	public VDBTemplateMacro(VDBTemplateInstance templateInstance, VDBMacro macro)
 	{
@@ -197,6 +199,7 @@ public class VDBTemplateMacro extends VDBFieldData implements Descriptable, Chan
 /**
  * Insert the method's description here.
  * Creation date: (24/8/99 15:29:04)
+     * @return something
  */
 public String getToolTipText()
 {
@@ -233,6 +236,7 @@ public java.lang.String[] getSelectableValues() {
 }
 
 /**
+     * @return something
  * @see com.cosylab.vdct.inspector.InspectableProperty#isEditable()
  */
 public boolean isEditable() {
@@ -339,6 +343,7 @@ public java.lang.String getValue() {
 }
 
 /**
+     * @return something
  * @see com.cosylab.vdct.graphics.objects.LinkSource#getType()
  */
 public int getType()

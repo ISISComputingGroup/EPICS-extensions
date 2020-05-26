@@ -36,12 +36,24 @@ import javax.print.attribute.PrintRequestAttributeSet;
 /**
  * Insert the type's description here.
  * Creation date: (13.5.2001 12:33:52)
- * @author 
+ * @author cosylab
  */
 public class Page {
-	public final static int TRUE_SCALE = 0; 
-	public final static int USER_SCALE = 1;
-	public final static int FIT_SCALE = 2;
+ 
+    /**
+     *
+     */
+    public final static int TRUE_SCALE = 0; 
+
+    /**
+     *
+     */
+    public final static int USER_SCALE = 1;
+
+    /**
+     *
+     */
+    public final static int FIT_SCALE = 2;
 
 	private static int printMode = FIT_SCALE;
 

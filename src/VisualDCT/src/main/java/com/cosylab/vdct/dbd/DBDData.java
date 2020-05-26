@@ -37,10 +37,26 @@ import com.cosylab.vdct.ConsoleInterface;
  */
  
 public class DBDData {
-	protected Hashtable records = null;
-	protected Hashtable menus = null;
-	protected Hashtable devices = null;
-	protected Map<String, DBDGuiGroupData> gui_groups = null;
+
+    /**
+     *
+     */
+    protected Hashtable records = null;
+
+    /**
+     *
+     */
+    protected Hashtable menus = null;
+
+    /**
+     *
+     */
+    protected Hashtable devices = null;
+
+    /**
+     *
+     */
+    protected Map<String, DBDGuiGroupData> gui_groups = null;
 /**
  * DBDData constructor comment.
  */

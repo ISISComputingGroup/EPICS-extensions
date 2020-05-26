@@ -46,13 +46,20 @@ public class PluginNameConfigManager implements PluginListener {
 
     private LinkedList list = null;
 
-	protected PluginNameConfigManager()
+    /**
+     *
+     */
+    protected PluginNameConfigManager()
 	{
 		list = new LinkedList();
 		PluginManager.getInstance().addPluginListener(this);
 	}
 
-	public static PluginNameConfigManager getInstance() {
+    /**
+     *
+     * @return something
+     */
+    public static PluginNameConfigManager getInstance() {
 		if (instance==null) instance = new PluginNameConfigManager();
 		return instance;
 	}
@@ -60,7 +67,8 @@ public class PluginNameConfigManager implements PluginListener {
 	/**
 	 * If name is valid, the function returns null, otherwise it returns a
 	 * String with the description of the error. 
-     * @return 
+     * @param name name
+     * @return something
 	 */
 	public String checkValidity(String name) {
 		// Use only the most recently loaded running plugin.
@@ -70,7 +78,7 @@ public class PluginNameConfigManager implements PluginListener {
 	
 	/**
 	 * Returns the description of the valid names.    
-     * @return 
+     * @return something
 	 */
 	public String getNameDescription() {
 		// Use only the most recently loaded plugin.
@@ -78,7 +86,11 @@ public class PluginNameConfigManager implements PluginListener {
 		return (lastPlugin != null) ? lastPlugin.getNameDescription() : null;
 	}
 
-	public String getDefaultName() {
+    /**
+     *
+     * @return something
+     */
+    public String getDefaultName() {
 		// Use only the most recently loaded plugin.
 		NameConfigPlugin lastPlugin = getMostRecentRunning();
 		return (lastPlugin != null) ? lastPlugin.getDefaultName() : null;

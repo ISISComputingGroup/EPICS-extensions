@@ -35,9 +35,21 @@ import java.util.*;
  */
 
 public class DBDRecordData {
-	protected String name;
-	protected Hashtable fields = null;
-	protected Vector fieldsV = null;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected Hashtable fields = null;
+
+    /**
+     *
+     */
+    protected Vector fieldsV = null;
 /**
  * RecordData constructor comment.
  */

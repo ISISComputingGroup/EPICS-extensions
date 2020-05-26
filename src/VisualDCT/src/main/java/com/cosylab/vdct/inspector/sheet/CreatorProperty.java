@@ -40,7 +40,11 @@ public class CreatorProperty extends NameValueInfoProperty {
 	private CreatorPropertyListener listener = null;
 	private InspectableProperty createdProperty = null;
 
-	public CreatorProperty(CreatorPropertyListener listener) {
+    /**
+     *
+     * @param listener listener
+     */
+    public CreatorProperty(CreatorPropertyListener listener) {
 		super("", "");
 		this.listener = listener;
 	}
@@ -65,11 +69,19 @@ public class CreatorProperty extends NameValueInfoProperty {
 		super.setValue(value);
 	}
 	
-	public void setName(String name) {
+    /**
+     *
+     * @param name name
+     */
+    public void setName(String name) {
 		this.name = name;
 	}
 
-	public InspectableProperty getCreatedProperty() {
+    /**
+     *
+     * @return something
+     */
+    public InspectableProperty getCreatedProperty() {
 		return createdProperty;
 	}
 }

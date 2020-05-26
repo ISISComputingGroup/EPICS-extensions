@@ -53,7 +53,7 @@ public VisualDCTDocument() {
 /**
  * VisualDCTDocument constructor comment.
  * @param owner java.awt.Frame
- * @param document
+ * @param document document
  */
 public VisualDCTDocument(java.awt.Frame owner, URL document) {
 	super(owner);

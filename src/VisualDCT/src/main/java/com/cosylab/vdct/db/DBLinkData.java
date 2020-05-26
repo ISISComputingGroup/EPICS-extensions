@@ -32,8 +32,16 @@ package com.cosylab.vdct.db;
  * This type was created in VisualAge.
  */
 public class DBLinkData {
-	protected String fieldName;
-	protected String targetID;
+
+    /**
+     *
+     */
+    protected String fieldName;
+
+    /**
+     *
+     */
+    protected String targetID;
 /**
  * Insert the method's description here.
  * Creation date: (23.4.2001 21:12:09)

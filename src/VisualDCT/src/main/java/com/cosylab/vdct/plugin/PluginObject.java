@@ -36,7 +36,7 @@ import org.w3c.dom.*;
 import com.cosylab.vdct.xml.*;
 
 /**
- * Insert the class' description here.
+ * Insert the class description here.
  * Creation date: (6.12.2001 22:40:36)
  * @author Matej Sekoranja
  */
@@ -44,12 +44,12 @@ import com.cosylab.vdct.xml.*;
 public class PluginObject
 {
 
-	public static final int PLUGIN_NOT_LOADED = 0;
-	public static final int PLUGIN_LOADED = 1;
-	public static final int PLUGIN_INVALID = 2;
-	public static final int PLUGIN_INITIALIZED = 3;
-	public static final int PLUGIN_STARTED = 4;
-	public static final int PLUGIN_STOPPED = 5;
+    public static final int PLUGIN_NOT_LOADED = 0;
+    public static final int PLUGIN_LOADED = 1;
+    public static final int PLUGIN_INVALID = 2;
+    public static final int PLUGIN_INITIALIZED = 3;
+    public static final int PLUGIN_STARTED = 4;
+    public static final int PLUGIN_STOPPED = 5;
 
 	private final static String NOT_LOADED_PLUGIN = "Not loaded.";
 	private final static String LOADED_PLUGIN = "Loaded.";
@@ -74,7 +74,8 @@ public class PluginObject
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @param pluginNode */
+ * @param pluginNode pluginNode
+ */
 public PluginObject(Element pluginNode)
 {
 	propChangeSupport = new PropertyChangeSupport(this);
@@ -85,7 +86,8 @@ public PluginObject(Element pluginNode)
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @param listener */
+ * @param listener listener
+ */
 public void addPropertyChangeListener(PropertyChangeListener listener)
 {
 	propChangeSupport.addPropertyChangeListener(listener);
@@ -115,7 +117,7 @@ public void firePropertyChange(String property, Object oldValue, Object newValue
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public String getAuthor()
 {
@@ -136,7 +138,7 @@ public String getAuthor()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public String getAutoStartString()
 {
@@ -148,7 +150,7 @@ public String getAutoStartString()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public String getDescription()
 {
@@ -169,7 +171,7 @@ public String getDescription()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public String getName()
 {
@@ -190,7 +192,7 @@ public String getName()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public Plugin getPlugin()
 {
@@ -199,7 +201,7 @@ public Plugin getPlugin()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public int getStatus()
 {
@@ -208,7 +210,7 @@ public int getStatus()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public String getStatusString()
 {
@@ -230,7 +232,7 @@ public String getStatusString()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:46:06)
- * @return
+ * @return something
  */
 public String getVersion()
 {
@@ -267,7 +269,7 @@ public void init()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:42:08)
- * @return
+ * @return something
  */
 public boolean isAutoStart()
 {
@@ -300,9 +302,9 @@ private void loadConfig(Element pluginNode)
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 14:07:42)
- * @param className
- * @return 
- * @throws java.lang.Throwable
+ * @param className className
+ * @return something
+ * @throws java.lang.Throwable foo
  */
 public static Plugin loadPlugin(String className) throws Throwable
 {
@@ -326,7 +328,8 @@ public static Plugin loadPlugin(String className) throws Throwable
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:42:08)
- * @param listener */
+ * @param listener listener
+ */
 public void removePropertyChangeListener(PropertyChangeListener listener)
 {
 	propChangeSupport.removePropertyChangeListener(listener);
@@ -334,7 +337,7 @@ public void removePropertyChangeListener(PropertyChangeListener listener)
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 15:01:22)
- * @param doc
+ * @param doc doc
  * @param pluginNode org.w3c.dom.Element
  */
 public void saveConfig(Document doc, Element pluginNode)
@@ -354,7 +357,9 @@ public void saveConfig(Document doc, Element pluginNode)
 }
 /**
  * Insert the method's description here.
- * Creation date: (6.12.2001 22:42:08) */
+ * Creation date: (6.12.2001 22:42:08)
+ * @param autoStart autoStart
+ */ 
 public void setAutoStart(boolean autoStart)
 {
 	boolean oldAutoStart = autoStart;
@@ -365,7 +370,7 @@ public void setAutoStart(boolean autoStart)
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:42:08)
- * @param newStatus
+ * @param newStatus newStatus
  */
 private void setStatus(int newStatus)
 {

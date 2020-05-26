@@ -37,10 +37,26 @@ import java.awt.*;
  */
 
 public class PagePreview extends javax.swing.JPanel {
-	protected int width;
-	protected int height;
-	protected Image source;
-	protected Image image;
+
+    /**
+     *
+     */
+    protected int width;
+
+    /**
+     *
+     */
+    protected int height;
+
+    /**
+     *
+     */
+    protected Image source;
+
+    /**
+     *
+     */
+    protected Image image;
 /**
  * Insert the method's description here.
  * Creation date: (12.5.2001 16:53:36)
@@ -60,6 +76,7 @@ public PagePreview(int w, int h, Image source) {
 /**
  * Insert the method's description here.
  * Creation date: (12.5.2001 16:43:10)
+     * @return something
  */
 public Dimension getMainimumSize()
 {
@@ -68,6 +85,7 @@ public Dimension getMainimumSize()
 /**
  * Insert the method's description here.
  * Creation date: (12.5.2001 16:43:10)
+     * @return something
  */
 public Dimension getMaximumSize()
 {
@@ -76,6 +94,7 @@ public Dimension getMaximumSize()
 /**
  * Insert the method's description here.
  * Creation date: (12.5.2001 16:43:10)
+     * @return something
  */
 public Dimension getPreferredSize()
 {

@@ -46,12 +46,12 @@ int getType();
 String getValue();
 /**
  * Sets (value of )the link target.
- * @param value
+ * @param value value
  */
 void setValue(String value);
 /**
  * Sets (value of )the link target.
- * @param value
+ * @param value value
  */
 void setValueSilently(String value);
 /**

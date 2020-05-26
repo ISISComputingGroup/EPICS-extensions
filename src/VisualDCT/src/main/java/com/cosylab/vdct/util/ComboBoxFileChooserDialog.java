@@ -14,8 +14,9 @@ import javax.swing.JFileChooser;
 public class ComboBoxFileChooserDialog extends javax.swing.JDialog {
         
     /** Creates new form ComboBoxFileChooser
-     * @param parent
-     * @param jfc */
+     * @param parent parent
+     * @param jfc jfc
+     */
     public ComboBoxFileChooserDialog(java.awt.Frame parent, JFileChooser jfc) {
         super(parent, true);
         jFileChooser = jfc;
@@ -123,14 +124,14 @@ public class ComboBoxFileChooserDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     
 	/**
-	 * @return
+	 * @return something
 	 */
 	public javax.swing.JCheckBox getJCheckBoxAbsoluteDBD() {
 		return jCheckBoxAbsoluteDBD;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public javax.swing.JFileChooser getJFileChooser() {
 		return jFileChooser;

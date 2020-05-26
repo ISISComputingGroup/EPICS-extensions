@@ -35,18 +35,61 @@ import java.util.*;
  */
 
 public class DBRecordData extends DBComment {
-	protected String record_type;
-	protected String name;
-	protected Hashtable fields = null;
-	protected Vector fieldsV = null;
-	protected Vector visualFieldsV = null;
-	protected Vector infoFieldsV = null;
 
-	protected int x = -1;			// used for layout
-	protected int y = -1;
-	protected java.awt.Color color = java.awt.Color.black;
-	protected boolean rotated = false;
-	protected String description = null;
+    /**
+     *
+     */
+    protected String record_type;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected Hashtable fields = null;
+
+    /**
+     *
+     */
+    protected Vector fieldsV = null;
+
+    /**
+     *
+     */
+    protected Vector visualFieldsV = null;
+
+    /**
+     *
+     */
+    protected Vector infoFieldsV = null;
+
+    /**
+     *
+     */
+    protected int x = -1;			// used for layout
+
+    /**
+     *
+     */
+    protected int y = -1;
+
+    /**
+     *
+     */
+    protected java.awt.Color color = java.awt.Color.black;
+
+    /**
+     *
+     */
+    protected boolean rotated = false;
+
+    /**
+     *
+     */
+    protected String description = null;
 
 /**
  * RecordData constructor comment.

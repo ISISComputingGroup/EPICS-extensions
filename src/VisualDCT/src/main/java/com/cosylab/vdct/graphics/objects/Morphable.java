@@ -38,13 +38,25 @@ public interface Morphable {
  * Insert the method's description here.
  * Creation date: (4.2.2001 21:57:20)
  * @param newType java.lang.String
- * @return 
+ * @return something
  */
 boolean morph(String newType);
 
-String getName();
+    /**
+     *
+     * @return something
+     */
+    String getName();
 
-String getType();
+    /**
+     *
+     * @return something
+     */
+    String getType();
 
-Object[] getTargets();
+    /**
+     *
+     * @return something
+     */
+    Object[] getTargets();
 }

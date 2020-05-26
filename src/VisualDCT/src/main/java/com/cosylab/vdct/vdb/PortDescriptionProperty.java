@@ -44,6 +44,7 @@ public class PortDescriptionProperty implements InspectableProperty {
 		
 		/**
 		 * Constructor
+     * @param port port
 		 */
 		public PortDescriptionProperty(VDBPort port)
 		{
@@ -177,12 +178,24 @@ public class PortDescriptionProperty implements InspectableProperty {
 		/* (non-Javadoc)
 		 * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
 		 */
+
+    /**
+     *
+     * @return something
+     */
+
 		public boolean hasDefaultValue() {
 			return false;
 		}
 		/* (non-Javadoc)
 		 * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
 		 */
+
+    /**
+     *
+     * @return something
+     */
+
 		public boolean hasValidity() {
 			return false;
 		}

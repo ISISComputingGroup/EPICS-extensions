@@ -79,6 +79,7 @@ public class UniversalFileFilter extends FileFilter {
 	 * Note that the "." before the extension is not needed adn
 	 * will be ignored.
 	 *
+     * @param filters filters
 	 * @see #addExtension
 	 */
 	public UniversalFileFilter(String[] filters) {
@@ -90,6 +91,8 @@ public class UniversalFileFilter extends FileFilter {
 	 *
 	 * Note that the "." before the extension is not needed and will be ignored.
 	 *
+     * @param filters filters
+     * @param description description
 	 * @see #addExtension
 	 */
 	public UniversalFileFilter(String[] filters, String description) {
@@ -104,6 +107,7 @@ public class UniversalFileFilter extends FileFilter {
 	 * Creates a file filter that accepts files with the given extension.
 	 * Example: new ExampleFileFilter("jpg");
 	 *
+     * @param extension extension
 	 * @see #addExtension
 	 */
 	public UniversalFileFilter(String extension) {
@@ -116,6 +120,8 @@ public class UniversalFileFilter extends FileFilter {
 	 * Note that the "." before the extension is not needed. If
 	 * provided, it will be ignored.
 	 *
+     * @param extension extension
+     * @param description description
 	 * @see #addExtension
 	 */
 	public UniversalFileFilter(String extension, String description) {
@@ -129,6 +135,8 @@ public class UniversalFileFilter extends FileFilter {
 	 *
 	 * Files that begin with "." are ignored.
 	 *
+     * @param f f
+     * @return something
 	 * @see #getExtension
 	 * @see UniversalFileFilter#accept(java.io.File)
 	 */
@@ -155,6 +163,7 @@ public class UniversalFileFilter extends FileFilter {
 	 *   filter.addExtension("tif");
 	 *
 	 * Note that the "." before the extension is not needed and will be ignored.
+     * @param extension extension
 	 */
 	public void addExtension(String extension) {
 	if(filters == null) {
@@ -167,6 +176,7 @@ public class UniversalFileFilter extends FileFilter {
 	 * Returns the human readable description of this filter. For
 	 * example: "JPEG and GIF Image Files (*.jpg, *.gif)"
 	 *
+     * @return something
 	 * @see setDescription
 	 * @see setExtensionListInDescription
 	 * @see isExtensionListInDescription
@@ -194,6 +204,8 @@ public class UniversalFileFilter extends FileFilter {
 	/**
 	 * Return the extension portion of the file's name .
 	 *
+     * @param f f
+     * @return something
 	 * @see #getExtension
 	 * @see FileFilter#accept
 	 */
@@ -214,6 +226,7 @@ public class UniversalFileFilter extends FileFilter {
 	 * Only relevent if a description was provided in the constructor
 	 * or using setDescription();
 	 *
+     * @return something
 	 * @see getDescription
 	 * @see setDescription
 	 * @see setExtensionListInDescription
@@ -225,6 +238,7 @@ public class UniversalFileFilter extends FileFilter {
 	 * Sets the human readable description of this filter. For
 	 * example: filter.setDescription("Gif and JPG Images");
 	 *
+     * @param description description
 	 * @see setDescription
 	 * @see setExtensionListInDescription
 	 * @see isExtensionListInDescription
@@ -240,6 +254,7 @@ public class UniversalFileFilter extends FileFilter {
 	 * Only relevent if a description was provided in the constructor
 	 * or using setDescription();
 	 *
+     * @param b b
 	 * @see getDescription
 	 * @see setDescription
 	 * @see isExtensionListInDescription

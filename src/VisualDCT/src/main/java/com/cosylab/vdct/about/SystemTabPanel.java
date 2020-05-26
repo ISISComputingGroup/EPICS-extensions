@@ -59,7 +59,7 @@ public class SystemTabPanel extends AboutTabPanel {
 	private javax.swing.JTextArea JTextAreaSystemJavaClasspathProperty = null;
 	/**
 	 * Constructor for SystemTabPanel.
-	 * @param tabModel
+	 * @param tabModel tabModel
 	 */
 	public SystemTabPanel(AboutTabModel tabModel) {
 		super(tabModel);

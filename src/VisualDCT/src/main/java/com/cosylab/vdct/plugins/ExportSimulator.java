@@ -68,7 +68,7 @@ public String getDescription() {
 /**
  * Insert the method's description here.
  * Creation date: (8.12.2001 13:29:26)
- * @return
+ * @return something
  */
 public String getName() {
 	return "Export Simulator";

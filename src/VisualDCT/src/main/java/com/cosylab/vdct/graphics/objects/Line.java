@@ -114,12 +114,12 @@ private static final String hashIdPrefix = "Line";
 
     /**
      *
-     * @param parName
-     * @param parentGroup
-     * @param posX
-     * @param posY
-     * @param posX2
-     * @param posY2
+     * @param parName parName
+     * @param parentGroup parentGroup
+     * @param posX posX
+     * @param posY posY
+     * @param posX2 posX2
+     * @param posY2 posY2
      */
     public Line(String parName, Group parentGroup, int posX, int posY, int posX2, int posY2)
 {
@@ -342,22 +342,38 @@ private String getAvailableHashId()
 	return testHashId;
 }
 
-public static boolean getCurrentStartArrow()
+    /**
+     *
+     * @return something
+     */
+    public static boolean getCurrentStartArrow()
 {
 	return currentStartArrow;
 }
 
-public static boolean getCurrentEndArrow()
+    /**
+     *
+     * @return something
+     */
+    public static boolean getCurrentEndArrow()
 {
 	return currentEndArrow;
 }
 
-public boolean getEndArrow()
+    /**
+     *
+     * @return something
+     */
+    public boolean getEndArrow()
 {
 	return endArrow;
 }
 
-public Vertex getEndVertex()
+    /**
+     *
+     * @return something
+     */
+    public Vertex getEndVertex()
 {
 	return endVertex;
 }
@@ -372,7 +388,11 @@ public String getHashID()
 	return hashId;
 }
 
-public boolean getDashed()
+    /**
+     *
+     * @return something
+     */
+    public boolean getDashed()
 {
 	return dashed;
 }
@@ -410,17 +430,29 @@ public Vector getItems()
 	return items;
 }
 
-public String getName()
+    /**
+     *
+     * @return something
+     */
+    public String getName()
 {
 	return name;
 }
 
-public boolean getStartArrow()
+    /**
+     *
+     * @return something
+     */
+    public boolean getStartArrow()
 {
 	return startArrow;
 }
 
-public Vertex getStartVertex()
+    /**
+     *
+     * @return something
+     */
+    public Vertex getStartVertex()
 {
 	return startVertex;
 }
@@ -513,17 +545,29 @@ public void revalidatePosition()
 	setRy((int)(getY() * rscale));
 }
 
-public void setEndArrow(boolean parEndArrow)
+    /**
+     *
+     * @param parEndArrow parEndArrow
+     */
+    public void setEndArrow(boolean parEndArrow)
 {
 	endArrow = parEndArrow;
 }
 
-public void setStartArrow(boolean parStartArrow)
+    /**
+     *
+     * @param parStartArrow parStartArrow
+     */
+    public void setStartArrow(boolean parStartArrow)
 {
 	startArrow = parStartArrow;
 }
 
-public void setDashed(boolean parDashed)
+    /**
+     *
+     * @param parDashed parDashed
+     */
+    public void setDashed(boolean parDashed)
 {
 	dashed = parDashed;
 }

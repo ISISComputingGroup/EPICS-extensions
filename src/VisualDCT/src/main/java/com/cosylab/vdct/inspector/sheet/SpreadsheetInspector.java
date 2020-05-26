@@ -147,7 +147,12 @@ public class SpreadsheetInspector extends JDialog
 	private final static String helpTask8 = "Redo an action:";
 	private final static String helpAction8 = "Ctrl+Y";
 
-	public SpreadsheetInspector(java.awt.Frame parent, boolean modal) {
+    /**
+     *
+     * @param parent parent
+     * @param modal modal
+     */
+    public SpreadsheetInspector(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 		createStaticGUI();
     }
@@ -176,11 +181,19 @@ public class SpreadsheetInspector extends JDialog
 		super.setVisible(b);
 	}
 	
-	public void setHelpText(String text) {
+    /**
+     *
+     * @param text text
+     */
+    public void setHelpText(String text) {
     	hintLabel.setText((text != null && text.length() > 0) ? text : " ");
     }
 
-	public void setHelpTextColor(Color color) {
+    /**
+     *
+     * @param color color
+     */
+    public void setHelpTextColor(Color color) {
 		hintLabel.setForeground(color);
 	}
 		
@@ -215,6 +228,11 @@ public class SpreadsheetInspector extends JDialog
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.undo.MacroActionEventListener#macroActionStarted()
 	 */
+
+    /**
+     *
+     */
+
 	public void macroActionStarted() {
 	    macroActionsEnabled = true;
 	}
@@ -222,6 +240,11 @@ public class SpreadsheetInspector extends JDialog
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.undo.MacroActionEventListener#macroActionStopped()
 	 */
+
+    /**
+     *
+     */
+
 	public void macroActionStopped() {
 	    macroActionsEnabled = false;
 	    if (inspectableDataChanged) {
@@ -231,12 +254,20 @@ public class SpreadsheetInspector extends JDialog
 	    inspectableDataChanged = false;
 	}
 
-	public void setUndoState(boolean state) {
+    /**
+     *
+     * @param state state
+     */
+    public void setUndoState(boolean state) {
 		undoItem.setEnabled(state);
 		undoButton.setEnabled(state);
 	}
 
-	public void setRedoState(boolean state) {
+    /**
+     *
+     * @param state state
+     */
+    public void setRedoState(boolean state) {
 		redoItem.setEnabled(state);
 		redoButton.setEnabled(state);
 	}
@@ -676,6 +707,10 @@ public class SpreadsheetInspector extends JDialog
     	}  
     }
     
+    /**
+     *
+     * @return something
+     */
     public CustomSplitDialog getCustomSplitDialog() {
         if (splitDialog == null) {
             splitDialog = new CustomSplitDialog(this);
@@ -683,6 +718,10 @@ public class SpreadsheetInspector extends JDialog
         return splitDialog;
     }
 
+    /**
+     *
+     * @return something
+     */
     public CommentDialog getCommentDialog() {
         if (commentDialog == null) {
         	commentDialog = new CommentDialog(this);
@@ -690,6 +729,10 @@ public class SpreadsheetInspector extends JDialog
         return commentDialog;
     }
 
+    /**
+     *
+     * @return something
+     */
     public NewTemplateInstanceDialog getTemplateDialog() {
         if (templateDialog == null) {
         	templateDialog = new NewTemplateInstanceDialog(this);
@@ -807,6 +850,11 @@ public class SpreadsheetInspector extends JDialog
 		return false;
 	}
 	
+    /**
+     *
+     * @param object object
+     * @return something
+     */
     public static Object getTypeKey(Object object) {
     	
     	if (object instanceof Record) {
@@ -817,6 +865,11 @@ public class SpreadsheetInspector extends JDialog
     	return null;
     }
 
+    /**
+     *
+     * @param object object
+     * @return something
+     */
     public static String getTypeName(Object object) {
     	
     	Object key = getTypeKey(object);
@@ -828,11 +881,19 @@ public class SpreadsheetInspector extends JDialog
     	return null;
     }
 
-	public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 		return dsId;
 	}
 
-	public void setDsId(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     */
+    public void setDsId(Object dsId) {
 		this.dsId = dsId;
 	}
 }

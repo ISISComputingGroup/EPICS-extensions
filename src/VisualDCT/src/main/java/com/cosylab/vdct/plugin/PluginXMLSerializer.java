@@ -50,8 +50,8 @@ public class PluginXMLSerializer implements PluginSerializer
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 15:04:28)
- * @param fileName
- * @param pluginManager
+ * @param fileName fileName
+ * @param pluginManager pluginManager
  */
 
 public void exportPlugins(String fileName, PluginManager pluginManager) throws Exception
@@ -81,8 +81,8 @@ public void exportPlugins(String fileName, PluginManager pluginManager) throws E
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 14:52:16)
- * @param fileName
- * @param pluginManager
+ * @param fileName fileName
+ * @param pluginManager pluginManager
  */
 public void importPlugins(String fileName, PluginManager pluginManager) throws Exception
 {

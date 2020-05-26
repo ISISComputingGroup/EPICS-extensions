@@ -42,7 +42,7 @@ public interface GUIMenuInterface {
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 15:12:21)
- * @param direction
+ * @param direction direction
  */
 void moveOrigin(int direction);
 /**
@@ -68,7 +68,7 @@ void delete();
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 15:08:14)
- * @param groupName
+ * @param groupName groupName
  */
 void group(String groupName);
 /**
@@ -109,14 +109,14 @@ void importDBD(File file) throws IOException;
 
 /**
  *
- * @param guiContext
+ * @param guiContext guiContext
  */
 void loadRdbGroup(JFrame guiContext);
 
 /**
  *
- * @param guiContext
- * @param dialog
+ * @param guiContext guiContext
+ * @param dialog dialog
  */
 void saveRdbGroup(JFrame guiContext, boolean dialog);
 
@@ -129,7 +129,7 @@ boolean isModified();
 
 /**
  *
- * @return
+ * @return something
  */
 boolean isMacroPortsIDChanged();
 
@@ -165,8 +165,8 @@ void paste();
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 15:07:54)
- * @param pX
- * @param pY
+ * @param pX pX
+ * @param pY pY
  */
 void pasteAtPosition(int pX, int pY);
 /**
@@ -187,8 +187,8 @@ void rename();
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 15:08:06)
- * @param oldName
- * @param newName
+ * @param oldName oldName
+ * @param newName newName
  */
 void rename(String oldName, String newName);
 /**
@@ -197,8 +197,8 @@ void rename(String oldName, String newName);
 void morph();
 /**
  *
- * @param name
- * @param newType
+ * @param name name
+ * @param newType newType
  */
 void morph(String name, String newType);
 /**
@@ -292,12 +292,29 @@ void ungroup();
  */
 void updateGroupLabel();
 
-void systemCopy();
-void systemPaste();
+    /**
+     *
+     */
+    void systemCopy();
 
-void reset();
+    /**
+     *
+     */
+    void systemPaste();
 
-void close();
-void closeAll();
+    /**
+     *
+     */
+    void reset();
+
+    /**
+     *
+     */
+    void close();
+
+    /**
+     *
+     */
+    void closeAll();
 
 }

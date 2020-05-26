@@ -19,27 +19,30 @@ import java.text.AttributedCharacterIterator;
 
 public class PSGr extends java.awt.Graphics {
 
+    /**
+     *
+     */
     public final static int CLONE = 49;
 
 /* Standard 8.5 x 11 inch page with margins -- in points */
 
     protected static final int
 
-      PAGEMARGINX = 30,
-      PAGEMARGINY = 30,
+    PAGEMARGINX = 30,
+    PAGEMARGINY = 30,
 
-      PAGEHEIGHT = 792,
-      PAGEWIDTH = 612;
+    PAGEHEIGHT = 792,
+    PAGEWIDTH = 612;
     protected static final boolean PAGEPORTRAIT = true;
 
     protected int
 
-      Page_MarginX = PAGEMARGINX,
-      Page_MarginY = PAGEMARGINY,
-      Page_Height = PAGEHEIGHT,
-      Page_Width = PAGEWIDTH;
+    Page_MarginX = PAGEMARGINX,
+    Page_MarginY = PAGEMARGINY,
+    Page_Height = PAGEHEIGHT,
+    Page_Width = PAGEWIDTH;
 
-	protected boolean Page_Portrait = PAGEPORTRAIT;
+    protected boolean Page_Portrait = PAGEPORTRAIT;
 
 /* Output stream where PostScript goes */
 
@@ -86,6 +89,11 @@ public class PSGr extends java.awt.Graphics {
         this (o, /*g,*/ CLONE-1);
     }
 
+    /**
+     *
+     * @param o o
+     * @param what what
+     */
     protected PSGr (OutputStream o,/* Graphics g,*/ int what) {
         if (o instanceof PrintStream)
             os = (PrintStream)o;
@@ -151,6 +159,7 @@ public class PSGr extends java.awt.Graphics {
  * This simulates the context stack in PostScript,
  * and works fine as long as each g is used as described,
  * that is by using only the most recently created g.
+     * @return something
  */
 
     public Graphics create () {
@@ -186,7 +195,7 @@ public class PSGr extends java.awt.Graphics {
  * @param y the y coordinate, pixels positive down from top.
  * @param width the width of the area
  * @param height the height of the area
- * @return 
+ * @return something
  * @see #translate
  */
     public Graphics create (int x, int y, int width, int height) {
@@ -202,15 +211,30 @@ public class PSGr extends java.awt.Graphics {
     }
 
 /** Printing dimensions default or set at construct time.
- * These are methods of the PSGr extension of Graphics. */
+ * These are methods of the PSGr extension of Graphics.
+     * @return something
+     */
 
 //    public int getPageMargin () { return Page_Margin; }
 
     public int getPageMarginX () { return Page_MarginX; }
+
+    /**
+     *
+     * @return something
+     */
     public int getPageMarginY () { return Page_MarginY; }
 
+    /**
+     *
+     * @return something
+     */
     public int getPageHeight () { return Page_Height; }
 
+    /**
+     *
+     * @return something
+     */
     public int getPageWidth () { return Page_Width; }
 
 
@@ -253,6 +277,7 @@ public class PSGr extends java.awt.Graphics {
 
 /**
  * Gets the current color.
+     * @return something
  * @see #setColor
  */
     public Color getColor () {
@@ -262,6 +287,7 @@ public class PSGr extends java.awt.Graphics {
 /**
  * Gets the current color.
  * This is NOT part of the Graphics API.
+     * @param c c
  * @see #setColor
  */
     protected void setBackground (Color c) {
@@ -288,6 +314,13 @@ public class PSGr extends java.awt.Graphics {
     }
 
 /* Short reals are enough */
+
+    /**
+     *
+     * @param d d
+     * @return something
+     */
+
 
     protected String strunc (double d) {
 	if (0 == d)
@@ -322,6 +355,7 @@ public class PSGr extends java.awt.Graphics {
 
 /**
  * Gets the current font.
+     * @return something
  * @see #setFont
  */
     public Font getFont () {
@@ -438,6 +472,7 @@ public class PSGr extends java.awt.Graphics {
 
 /**
  * PSGr does not implement getFontMetrics(*)
+     * @return something
  */
     public FontMetrics getFontMetrics ()
     {
@@ -447,6 +482,7 @@ public class PSGr extends java.awt.Graphics {
 
 /**
  * "Warning: PSGr does not implement getFontMetrics(*)
+     * @return something
  * @see #getFont
  */
     public FontMetrics getFontMetrics(Font f)
@@ -458,6 +494,7 @@ public class PSGr extends java.awt.Graphics {
 
 /**
  * Returns the bounding Rectangle of the current clipping area.
+     * @return something
  * @see #clipRect
  * @deprecated in 1.1
  * @see getClipBounds */
@@ -473,6 +510,7 @@ public class PSGr extends java.awt.Graphics {
 /**
  * MGH added Shape getClip () per 1.1 API.
  * Rectangle implements Shape.
+     * @return something
  */
 
     public Shape getClip () {
@@ -481,7 +519,9 @@ public class PSGr extends java.awt.Graphics {
     }
 
 /** MGH added setClip (Shape s) hacked over Rectangle.
- * Really nothing to do for Shape as yet... */
+ * Really nothing to do for Shape as yet...
+ * @param s s
+ */
 
     public void setClip (Shape s) {
         System.err.println ("setClip (Shape) is not implemented:"+s);
@@ -605,6 +645,9 @@ public class PSGr extends java.awt.Graphics {
 
 /** Polyline
  * MGH added to satisfy 1.1 API
+     * @param x x
+     * @param y y
+     * @param np np
  */
 
     public void drawPolyline (int [] x, int [] y, int np) {
@@ -612,6 +655,14 @@ public class PSGr extends java.awt.Graphics {
             drawLine (x[ii], y[ii], x[ii+1], y[ii+1]);
     }
 
+    /**
+     *
+     * @param x x
+     * @param y y
+     * @param width width
+     * @param height height
+     * @param fill fill
+     */
     protected void doRect (int x, int y, int width, int height, boolean fill) {
 
         int xps = xTrans (x);
@@ -987,6 +1038,13 @@ public class PSGr extends java.awt.Graphics {
 /* Always two characters "00" through "FF"
  * Cannot use Integer.toHexString because not always two characters. */
 
+    /**
+     *
+     * @param n n
+     * @return something
+     */
+
+
     protected String myHexString (int n) {
 	int msb = (n >> 4) & 0xf;
 	int lsb = n & 0xf;
@@ -994,6 +1052,19 @@ public class PSGr extends java.awt.Graphics {
     }
 
 /* Support all versions of drawImage () */
+
+    /**
+     *
+     * @param img img
+     * @param x x
+     * @param y y
+     * @param width width
+     * @param height height
+     * @param observer observer
+     * @param bgcolor bgcolor
+     * @return something
+     */
+
 
     protected boolean doImage (Image img,
     int x, int y, int width, int height,
@@ -1173,6 +1244,7 @@ public class PSGr extends java.awt.Graphics {
  * @param x the x coordinate
  * @param y the y coordinate
  * @param observer notifies if the image is complete or not
+     * @return something
  * @see Image
  * @see ImageObserver
  */
@@ -1194,6 +1266,7 @@ public class PSGr extends java.awt.Graphics {
  * @param width the width of the rectangle
  * @param height the height of the rectangle
  * @param observer notifies if the image is complete or not
+     * @return something
  * @see Image
  * @see ImageObserver
  */
@@ -1214,6 +1287,7 @@ public class PSGr extends java.awt.Graphics {
  * @param y the y coordinate
  * @param bgcolor the background color
  * @param observer notifies if the image is complete or not
+     * @return something
  * @see Image
  * @see ImageObserver
  */
@@ -1236,6 +1310,7 @@ public class PSGr extends java.awt.Graphics {
  * @param height the height of the rectangle
  * @param bgcolor the background color
  * @param observer notifies if the image is complete or not
+     * @return something
  * @see Image
  * @see ImageObserver
  * NOTE: PSGr ignores the background color.
@@ -1260,6 +1335,7 @@ public class PSGr extends java.awt.Graphics {
  * @param bgcolor the background color
  * @param observer - object to be notified as more of the image is scaled and converted
  * NOTE: PSGr ignores the background color.
+     * @return something
  * @see Image
  * @see ImageObserver
  */
@@ -1290,6 +1366,7 @@ public class PSGr extends java.awt.Graphics {
  * @param sx2 - the x coordinate of the second corner of the source rectangle.
  * @param sy2 - the y coordinate of the second corner of the source rectangle.
  * @param observer - object to be notified as more of the image is scaled and converted
+     * @return something
  * @see Image
  * @see ImageObserver
  */
@@ -1350,6 +1427,7 @@ public class PSGr extends java.awt.Graphics {
 
 /**
  * Returns a String object representing this Graphic's value.
+     * @return something
  */
     public String toString () {
         return getClass ().getName() + "[font=" + getFont() + ",color=" + getColor() + "]";
@@ -1358,12 +1436,31 @@ public class PSGr extends java.awt.Graphics {
 /* Flip Y coords so Postscript looks like Java.
  * Leave X coords and distances (width and height) alone. */
 
+    /**
+     *
+     * @param y y
+     * @return something
+     */
+
+
     protected int yTrans (int y) {
         return -y;
     }
+
+    /**
+     *
+     * @param x x
+     * @return something
+     */
     protected int xTrans (int x) {
         return x;
     }
+
+    /**
+     *
+     * @param d d
+     * @return something
+     */
     protected int dTrans (int d) {
         return d;
     }
@@ -1540,16 +1637,27 @@ public class PSGr extends java.awt.Graphics {
         emitThis ("gsave");
     }
 
+    /**
+     *
+     */
     protected void grestore () {
         emitThis ("grestore");
     }
 
+    /**
+     *
+     * @param s s
+     */
     public void emitThisNext (String s) {
 	if (disposed)
 	    throw new IllegalStateException ("Graphics has been disposed");
         os.print (s);
     }
 
+    /**
+     *
+     * @param s s
+     */
     public void emitThis (String s) {
 	if (disposed)
 	    throw new IllegalStateException ("Graphics has been disposed");
@@ -1558,8 +1666,8 @@ public class PSGr extends java.awt.Graphics {
 
     /**
      *
-     * @param comp
-     * @param edge
+     * @param comp comp
+     * @param edge edge
      */
     protected void myBasicPaint (Component comp, boolean edge) {
         Dimension tb = comp.getSize ();
@@ -1589,7 +1697,8 @@ public class PSGr extends java.awt.Graphics {
  * Only reduce scale if needed -- do not ever magnify.
  * PostScript scale operator also changes text sizes.
  * Must allow for non-printing margins all around.
- * @param top */
+ * @param top top
+ */
 
     public void scalePaint (Component top) {
 

@@ -32,10 +32,26 @@ package com.cosylab.vdct.dbd;
  * This type was created in VisualAge.
  */
 public class DBDDeviceData {
-	protected String record_type;
-	protected String link_type;
-	protected String dset_name;
-	protected String choice_string;
+
+    /**
+     *
+     */
+    protected String record_type;
+
+    /**
+     *
+     */
+    protected String link_type;
+
+    /**
+     *
+     */
+    protected String dset_name;
+
+    /**
+     *
+     */
+    protected String choice_string;
 /**
  * Insert the method's description here.
  * Creation date: (9.12.2000 16:23:28)

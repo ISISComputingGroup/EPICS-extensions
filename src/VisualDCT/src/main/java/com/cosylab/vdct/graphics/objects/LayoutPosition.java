@@ -41,8 +41,8 @@ public class LayoutPosition {
 	private int posY = -1;
 
 	/**
-	 * @param posX
-	 * @param posY
+	 * @param posX posX
+	 * @param posY posY
 	 */
 	public LayoutPosition(int posX, int posY) {
 		super();

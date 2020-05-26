@@ -35,21 +35,60 @@ package com.cosylab.vdct.graphics;
  */
 public interface DsManagerInterface {
 
+    /**
+     *
+     * @param id id
+     * @param displayer displayer
+     * @return something
+     */
     public VisualComponent addDrawingSurface(Object id, InternalFrameInterface displayer);
 
+    /**
+     *
+     * @param id id
+     */
     public void removeDrawingSurface(Object id);
 
+    /**
+     *
+     * @param id id
+     * @return something
+     */
     public DrawingSurfaceInterface getDrawingSurfaceById(Object id);
 	
+    /**
+     *
+     * @return something
+     */
     public DrawingSurfaceInterface getFocusedDrawingSurface();
 
+    /**
+     *
+     * @param id id
+     */
     public void setFocusedDrawingSurface(Object id);
 	
+    /**
+     *
+     * @return something
+     */
     public DrawingSurfaceInterface[] getDrawingSurfaces();
 	
+    /**
+     *
+     * @param id id
+     */
     public void closeDrawingSurface(Object id);
 	
+    /**
+     *
+     * @param listener listener
+     */
     public void addDsEventListener(DsEventListener listener);
 
+    /**
+     *
+     * @param listener listener
+     */
     public void removeDsEventListener(DsEventListener listener);
 }

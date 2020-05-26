@@ -13,7 +13,7 @@ import javax.swing.tree.TreeSelectionModel;
 // Tree Display for IOCs and Epics Groups
 public class RdbDataTree extends JTree implements TreeSelectionListener {
     
-	public static final boolean debug=false;
+    public static final boolean debug=false;
     private Vector listeners;
     
     public RdbDataTree() {
@@ -24,10 +24,18 @@ public class RdbDataTree extends JTree implements TreeSelectionListener {
         setPreferredSize(new Dimension(500, 500));
     }
 
+    /**
+     *
+     * @param l l
+     */
     public void addListener(RdbDataTreeListener l) {
     	listeners.add(l);
     }
 
+    /**
+     *
+     * @param l l
+     */
     public void removeListener(RdbDataTreeListener l) {
     	listeners.remove(l);
     }

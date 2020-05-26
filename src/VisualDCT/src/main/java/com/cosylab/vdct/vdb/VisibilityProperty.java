@@ -38,7 +38,7 @@ public class VisibilityProperty extends NameValueInfoProperty {
 	boolean visible = true;
 	
 	/**
-	 * @param visible
+	 * @param visible visible
 	 */
 	public VisibilityProperty(boolean visible) {
 		super("", "");

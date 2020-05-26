@@ -34,16 +34,31 @@ import com.cosylab.vdct.inspector.InspectorManager;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 16:26:04)
- * @author 
+ * @author cosylab
  */
 public class CreateTemplatePropertyAction extends ActionObject {
-	protected Template object;
-	protected String name;
-	protected String value;
+
+    /**
+     *
+     */
+    protected Template object;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected String value;
 
 /**
  * Insert the method's description here.
  * Creation date: (3.5.2001 16:27:58)
+     * @param object object
+     * @param name name
+     * @param value value
  */
 public CreateTemplatePropertyAction(Template object, String name, String value) {
 	this.object=object;

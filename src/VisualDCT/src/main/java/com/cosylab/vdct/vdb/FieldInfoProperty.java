@@ -42,6 +42,7 @@ public class FieldInfoProperty implements InspectableProperty {
 	private VDBFieldData field;
 /**
  * DTYPInfoProperty constructor comment.
+     * @param field field
  */
 public FieldInfoProperty(VDBFieldData field) {
 	this.field=field;
@@ -162,8 +163,8 @@ public int getVisibility()
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y)
 {
@@ -172,12 +173,24 @@ public void popupEvent(Component component, int x, int y)
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasDefaultValue() {
 	return false;
 }
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasValidity() {
 	return false;
 }

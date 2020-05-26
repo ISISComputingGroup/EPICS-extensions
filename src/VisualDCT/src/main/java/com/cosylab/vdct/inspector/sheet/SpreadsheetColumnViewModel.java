@@ -62,11 +62,11 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
     private Color background = null;
 	
 	/**
-     * @param dsId
-	 * @param dataType
-	 * @param displayData
-	 * @param loadedData
-	 * @throws IllegalArgumentException
+     * @param dsId dsId
+	 * @param dataType dataType
+	 * @param displayData displayData
+	 * @param loadedData loadedData
+	 * @throws IllegalArgumentException foo
 	 */
 	public SpreadsheetColumnViewModel(Object dsId, String dataType, Vector displayData,
 			Vector loadedData) throws IllegalArgumentException {
@@ -83,13 +83,21 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 		this.renderer = renderer;
 	}
 
-	public void onColumnWidthChange() {
+    /**
+     *
+     */
+    public void onColumnWidthChange() {
 		storeView();
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#recallView()
 	 */
+
+    /**
+     *
+     */
+
 	public void recallView() {
 		super.recallView();
 		refreshColumns();
@@ -100,6 +108,11 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#storeView()
 	 */
+
+    /**
+     *
+     */
+
 	public void storeView() {
 		super.storeView();
 		storeTableColor();
@@ -109,6 +122,11 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#refreshAll()
 	 */
+
+    /**
+     *
+     */
+
 	protected void refreshAll() {
 		super.refreshAll();
 		refreshColumns();
@@ -117,6 +135,13 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#repositionColumn(int, int)
 	 */
+
+    /**
+     *
+     * @param startIndex startIndex
+     * @param destIndex destIndex
+     */
+
 	public void repositionColumn(int startIndex, int destIndex) {
 		super.repositionColumn(startIndex, destIndex);
 		refreshColumns();
@@ -125,6 +150,12 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#setColumnOrder(java.lang.String)
 	 */
+
+    /**
+     *
+     * @param modeName modeName
+     */
+
 	public void setColumnOrder(String modeName) {
 		super.setColumnOrder(modeName);
 		refreshColumns();
@@ -133,6 +164,13 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#setColumnsVisibility(int[], boolean)
 	 */
+
+    /**
+     *
+     * @param columns columns
+     * @param visible visible
+     */
+
 	public void setColumnsVisibility(int[] columns, boolean visible) {
 		super.setColumnsVisibility(columns, visible);
 		refreshColumns();
@@ -141,6 +179,13 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#setPropertyColumnsVisibility(int[], boolean)
 	 */
+
+    /**
+     *
+     * @param columns columns
+     * @param visible visible
+     */
+
 	public void setPropertyColumnsVisibility(int[] columns, boolean visible) {
 		super.setPropertyColumnsVisibility(columns, visible);
 		refreshColumns();
@@ -149,6 +194,11 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#setDefaultColumnVisibility()
 	 */
+
+    /**
+     *
+     */
+
 	public void setDefaultColumnVisibility() {
 		super.setDefaultColumnVisibility();
 		refreshColumns();
@@ -157,6 +207,13 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#setRowsVisibility(int[], boolean)
 	 */
+
+    /**
+     *
+     * @param rows rows
+     * @param visible visible
+     */
+
 	public void setRowsVisibility(int[] rows, boolean visible) {
 		super.setRowsVisibility(rows, visible);
 		refreshColumns();
@@ -165,6 +222,12 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#setShowAllRows(boolean)
 	 */
+
+    /**
+     *
+     * @param showAllRows showAllRows
+     */
+
 	public void setShowAllRows(boolean showAllRows) {
 		super.setShowAllRows(showAllRows);
 		refreshColumns();
@@ -173,6 +236,12 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#setGroupColumnsByGuiGroup(boolean)
 	 */
+
+    /**
+     *
+     * @param groupColumnsByGuiGroup groupColumnsByGuiGroup
+     */
+
 	public void setGroupColumnsByGuiGroup(boolean groupColumnsByGuiGroup) {
 		super.setGroupColumnsByGuiGroup(groupColumnsByGuiGroup);
 		refreshColumns();
@@ -181,6 +250,12 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#sortRowsByColumn(int)
 	 */
+
+    /**
+     *
+     * @param column column
+     */
+
 	public void sortRowsByColumn(int column) {
 		super.sortRowsByColumn(column);
 		refreshColumns();
@@ -189,24 +264,47 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetSplitViewModel#splitColumn(com.cosylab.vdct.inspector.SplitData, int)
 	 */
+
+    /**
+     *
+     * @param splitData splitData
+     * @param column column
+     */
+
 	public void splitColumn(DBSheetSplitCol splitData, int column) {
 		super.splitColumn(splitData, column);
 		refreshColumns();
 	}
 
-	public Color getBackground() {
+    /**
+     *
+     * @return something
+     */
+    public Color getBackground() {
 		return background;
 	}
 	
-	public void setBackground(Color background) {
+    /**
+     *
+     * @param background background
+     */
+    public void setBackground(Color background) {
 		this.background = background;
 	}
 	
-	public Color getDefaultBackground() {
+    /**
+     *
+     * @return something
+     */
+    public Color getDefaultBackground() {
 		return defaultBackground;
 	}
 
-	public void setDefaultBackground(Color defaultBackground) {
+    /**
+     *
+     * @param defaultBackground defaultBackground
+     */
+    public void setDefaultBackground(Color defaultBackground) {
 		this.defaultBackground = defaultBackground;
 	}
 	
@@ -352,6 +450,12 @@ public class SpreadsheetColumnViewModel extends SpreadsheetSplitViewModel implem
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#isColumsDefault()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	protected boolean isColumsDefault() {
 		// Default when all widths default.
 		int columnCount = getColumnCount();

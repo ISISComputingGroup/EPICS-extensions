@@ -109,12 +109,12 @@ private String getAvailableHashId()
 
     /**
      *
-     * @param parName
-     * @param parentGroup
-     * @param posX
-     * @param posY
-     * @param posX2
-     * @param posY2
+     * @param parName parName
+     * @param parentGroup parentGroup
+     * @param posX posX
+     * @param posY posY
+     * @param posX2 posX2
+     * @param posY2 posY2
      */
     public Box(String parName, Group parentGroup, int posX, int posY, int posX2, int posY2)
 {
@@ -284,7 +284,11 @@ protected void draw(Graphics g, boolean hilited)
 		g.drawRect(posX, posY, posX2 - posX, posY2 - posY);
 }
 
-public Vertex getEndVertex()
+    /**
+     *
+     * @return something
+     */
+    public Vertex getEndVertex()
 {
 	return endVertex;
 }
@@ -294,7 +298,11 @@ public String getFlexibleName()
 	return name;
 }
 
-public boolean getIsDashed()
+    /**
+     *
+     * @return something
+     */
+    public boolean getIsDashed()
 {
 	return dashed;
 }
@@ -322,12 +330,20 @@ public Vector getItems()
 	return items;
 }
 
-public String getName()
+    /**
+     *
+     * @return something
+     */
+    public String getName()
 {
 	return name;
 }
 
-public Vertex getStartVertex()
+    /**
+     *
+     * @return something
+     */
+    public Vertex getStartVertex()
 {
 	return startVertex;
 }
@@ -420,7 +436,11 @@ public void revalidatePosition()
 	setRy((int)(getY() * rscale));
 }
 
-public void setIsDashed(boolean parIsDashed)
+    /**
+     *
+     * @param parIsDashed parIsDashed
+     */
+    public void setIsDashed(boolean parIsDashed)
 {
 	dashed = parIsDashed;
 }

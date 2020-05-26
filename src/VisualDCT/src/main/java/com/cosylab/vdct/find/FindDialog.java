@@ -45,8 +45,8 @@ public class FindDialog extends JDialog implements WindowListener {
     private FindPanel panel;
     
     /**
-     * @param owner
-     * @throws java.awt.HeadlessException
+     * @param owner owner
+     * @throws java.awt.HeadlessException foo
      */
     public FindDialog(Frame owner) throws HeadlessException {
         super(owner);
@@ -76,7 +76,7 @@ public class FindDialog extends JDialog implements WindowListener {
 
     /**
      * Main (for testing).
-     * @param args
+     * @param args args
      */
     public static void main(String[] args)
     {

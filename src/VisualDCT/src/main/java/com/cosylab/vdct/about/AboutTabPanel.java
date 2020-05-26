@@ -31,7 +31,7 @@ package com.cosylab.vdct.about;
 import javax.swing.JPanel;
 
 /**
- * @author 
+ * @author cosylab
  *
  * To change this generated comment edit the template variable "typecomment":
  * Window&gt;Preferences&gt;Java&gt;Templates.
@@ -40,14 +40,20 @@ import javax.swing.JPanel;
  */
 public abstract class AboutTabPanel extends JPanel implements AboutTab {
 
+    /**
+     *
+     */
+    protected AboutTabModel model = null;
 
-protected AboutTabModel model = null;
-	protected String name = "Tab";
+    /**
+     *
+     */
+    protected String name = "Tab";
 	
 
 	/**
 	 * Constructor for AboutTabPanel.
-     * @param tabModel
+     * @param tabModel tabModel
 	 */
 	public AboutTabPanel(AboutTabModel tabModel) {
 		super();
@@ -59,14 +65,20 @@ protected AboutTabModel model = null;
 
 	}
 	
+    /**
+     *
+     */
     protected abstract void initializePanel();
 	
+    /**
+     *
+     */
     protected abstract void processData();
 
 
 
 	/**
-     * @return 
+     * @return something
 	 * @see com.cosylab.vdct.about.AboutTab#getPanel()
 	 */
 	public JPanel getPanel() {

@@ -72,7 +72,15 @@ public class RdbDbContext {
 	private static final String dtypString = "DTYP";
 	*/
 	
-	public RdbDbContext(Object dsId, RdbDataId dataId, RdbConnection connection)
+    /**
+     *
+     * @param dsId dsId
+     * @param dataId dataId
+     * @param connection connection
+     * @throws SQLException foo
+     * @throws IllegalArgumentException foo
+     */
+    public RdbDbContext(Object dsId, RdbDataId dataId, RdbConnection connection)
 	throws SQLException, IllegalArgumentException {
 		
 		super();
@@ -87,7 +95,12 @@ public class RdbDbContext {
 		loadDefinitions();
 	}
 	
-	public DBData load() throws SQLException {
+    /**
+     *
+     * @return something
+     * @throws SQLException foo
+     */
+    public DBData load() throws SQLException {
 
 		String fileName = dataId.getFileName();
 		File file = new File(fileName);
@@ -105,7 +118,11 @@ public class RdbDbContext {
 		return data;
 	}
 	
-	public void save() throws SQLException {
+    /**
+     *
+     * @throws SQLException foo
+     */
+    public void save() throws SQLException {
 		
 		deleteDb();
 				

@@ -37,8 +37,16 @@ import java.awt.*;
  */
 
 public class PreviewContainer extends javax.swing.JPanel {
-	protected int H_GAP = 16;
-	protected int V_GAP = 10;
+
+    /**
+     *
+     */
+    protected int H_GAP = 16;
+
+    /**
+     *
+     */
+    protected int V_GAP = 10;
 
 /**
  * Insert the method's description here.
@@ -82,6 +90,7 @@ public void doLayout() {
 /**
  * Insert the method's description here.
  * Creation date: (12.5.2001 16:43:10)
+     * @return something
  */
 public Dimension getMainimumSize()
 {
@@ -90,6 +99,7 @@ public Dimension getMainimumSize()
 /**
  * Insert the method's description here.
  * Creation date: (12.5.2001 16:43:10)
+     * @return something
  */
 public Dimension getMaximumSize()
 {
@@ -98,6 +108,7 @@ public Dimension getMaximumSize()
 /**
  * Insert the method's description here.
  * Creation date: (12.5.2001 16:43:10)
+     * @return something
  */
 public Dimension getPreferredSize()
 {

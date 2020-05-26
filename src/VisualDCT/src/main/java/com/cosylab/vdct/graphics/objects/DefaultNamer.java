@@ -41,21 +41,38 @@ import com.cosylab.vdct.vdb.VDBTemplateInstance;
  */
 public class DefaultNamer implements NameManipulator {
 
-	protected File file;
-	protected String removedPrefix;
-	protected String addedPrefix;
-	protected Map properties;
-	protected Map ports;
+    /**
+     *
+     */
+    protected File file;
+
+    /**
+     *
+     */
+    protected String removedPrefix;
+
+    /**
+     *
+     */
+    protected String addedPrefix;
+
+    /**
+     *
+     */
+    protected Map properties;
+
+    /**
+     *
+     */
+    protected Map ports;
 
 	/**
 	 *
-     * @param file
-     * @param removedPrefix
-     * @param removedPrefix
-     * @param addedPrefix
-     * @param properties
-     * @param ports
-     * @param ports
+     * @param file file
+     * @param removedPrefix removedPrefix
+     * @param addedPrefix addedPrefix
+     * @param properties properties
+     * @param ports ports
 	 */
 	public DefaultNamer(File file, String removedPrefix, String addedPrefix, Map properties, Map ports)
 	{

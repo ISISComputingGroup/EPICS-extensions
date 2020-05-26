@@ -42,18 +42,18 @@ public class DBSheetRowOrder {
     private static final String descendingString = "Descending";
 
     /**
-	 * @param columnName
-	 * @param columnSplitIndex
-	 * @param ascending
+	 * @param columnName columnName
+	 * @param columnSplitIndex columnSplitIndex
+	 * @param ascending ascending
 	 */
 	public DBSheetRowOrder(String columnName, int columnSplitIndex, String ascending) {
 		this(columnName, columnSplitIndex, isAscending(ascending));
 	}
     
     /**
-	 * @param columnName
-	 * @param columnSplitIndex
-	 * @param ascending
+	 * @param columnName columnName
+	 * @param columnSplitIndex columnSplitIndex
+	 * @param ascending ascending
 	 */
 	public DBSheetRowOrder(String columnName, int columnSplitIndex, boolean ascending) {
 		super();
@@ -91,8 +91,8 @@ public class DBSheetRowOrder {
 	}
 
 	/**
-     * @param orderAscendingString
-     * @return 
+     * @param orderAscendingString orderAscendingString
+     * @return something
 	 */
 	public static boolean isAscending(String orderAscendingString) {
 		return orderAscendingString.equals(ascendingString);

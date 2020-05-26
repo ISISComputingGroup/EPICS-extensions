@@ -33,7 +33,7 @@ import java.awt.*;
 /**
  * Insert the type's description here.
  * Creation date: (10.12.2000 13:07:53)
- * @author 
+ * @author cosylab
  */
 public class BorderDecorator extends Decorator {
 /**
@@ -44,7 +44,7 @@ public BorderDecorator() {}
 /**
  * Default implementation
  * Creation date: (10.12.2000 11:25:20)
- * @param g
+ * @param g g
  */
 public void draw(Graphics g) {
 	g.setColor(Color.gray);
@@ -60,7 +60,7 @@ public void draw(Graphics g) {
 /**
  * Insert the method's description here.
  * Creation date: (11.12.2000 16:23:31)
- * @return 
+ * @return something
  */
 public int getComponentHeight() {
 	if (getComponent()==null) return 0;
@@ -78,10 +78,10 @@ public int getComponentWidth() {
 /**
  * Default implementation
  * Creation date: (10.12.2000 11:26:54)
- * @param x0
- * @param y0
- * @param height
- * @param width
+ * @param x0 x0
+ * @param y0 y0
+ * @param height height
+ * @param width width
  */
 public void resize(int x0, int y0, int width, int height) {
 	getComponent().resize(x0+5, y0+5, width-10, height-10);

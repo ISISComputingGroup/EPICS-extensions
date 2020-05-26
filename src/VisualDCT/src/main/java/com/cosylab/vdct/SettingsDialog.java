@@ -39,8 +39,9 @@ import com.cosylab.vdct.util.UniversalFileFilter;
 public class SettingsDialog extends javax.swing.JDialog {
     
     /** Creates new form SettingsDialog
-     * @param parent
-     * @param modal */
+     * @param parent parent
+     * @param modal modal
+     */
     public SettingsDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
