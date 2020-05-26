@@ -36,20 +36,55 @@ import com.cosylab.vdct.inspector.InspectableProperty;
  */
 public class DBMacro extends DBComment
 {
-	protected String name = null;
-	protected String description = null;
 
-	protected boolean hasVisual = false;
-	protected int x = -1;			// used for layout
-	protected int y = -1;
-	protected boolean isNamePositionNorth = true;
-	protected int mode = InLink.INPUT_MACRO_MODE;
-	protected int defaultVisibility = InspectableProperty.UNDEFINED_VISIBILITY;
-	protected java.awt.Color color = java.awt.Color.black;
+    /**
+     *
+     */
+    protected String name = null;
+
+    /**
+     *
+     */
+    protected String description = null;
+
+    /**
+     *
+     */
+    protected boolean hasVisual = false;
+
+    /**
+     *
+     */
+    protected int x = -1;			// used for layout
+
+    /**
+     *
+     */
+    protected int y = -1;
+
+    /**
+     *
+     */
+    protected boolean isNamePositionNorth = true;
+
+    /**
+     *
+     */
+    protected int mode = InLink.INPUT_MACRO_MODE;
+
+    /**
+     *
+     */
+    protected int defaultVisibility = InspectableProperty.UNDEFINED_VISIBILITY;
+
+    /**
+     *
+     */
+    protected java.awt.Color color = java.awt.Color.black;
 	
 	/**
 	 * Insert the method's description here.
-     * @param name
+     * @param name name
 	 */
 	public DBMacro(String name)
 	{
@@ -205,7 +240,7 @@ public class DBMacro extends DBComment
     /**
      * Sets the position of the text (if namePositionNorth is true, text is on the top
      * of the macro otherwise it is on the side).
-     * @param namePositionNorth
+     * @param namePositionNorth namePositionNorth
      */
     public void setNamePositionNorth(boolean namePositionNorth) {
         this.isNamePositionNorth = namePositionNorth;
@@ -215,7 +250,7 @@ public class DBMacro extends DBComment
     /**
      * 
      * Returns the position of the text.
-     * @return
+     * @return something
      */
     public boolean isNamePositionNorth() {
         return isNamePositionNorth;

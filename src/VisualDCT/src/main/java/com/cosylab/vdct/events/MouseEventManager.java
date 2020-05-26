@@ -39,7 +39,11 @@ import com.cosylab.vdct.util.DoubleClickProxy;
  * @author Matej Sekoranja
  */
 public class MouseEventManager extends EventManager {
-	protected static MouseEventManager instance = null;
+
+    /**
+     *
+     */
+    protected static MouseEventManager instance = null;
 /**
  * Insert the method's description here.
  * Creation date: (18.12.2000 15:30:35)

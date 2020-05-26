@@ -57,7 +57,7 @@ import com.cosylab.vdct.util.UniversalFileFilter;
 /**
  * Insert the type's description here.
  * Creation date: (7/17/2002 3:21:44 PM)
- * @author: 
+ * @author cosylab
  */
 public class DBDDialog extends JDialog {
 
@@ -98,7 +98,7 @@ class CellRenderer extends DefaultTableCellRenderer {
 	
 	/**
 	 * getColumnCount method comment.
-         * @return 
+         * @return something
 	 */
 	public int getColumnCount() {
 		return columnClasses.length;
@@ -270,7 +270,7 @@ public DBDDialog(java.awt.Frame owner, boolean modal) {
 }
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void addDBDButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	ComboBoxFileChooser chooser = ((VisualDCT)getParent()).getComboBoxFileChooser();
@@ -312,7 +312,11 @@ public void addDBDButton_ActionPerformed(java.awt.event.ActionEvent actionEvent)
 	}
 }
 
-public void addStringButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
+    /**
+     *
+     * @param actionEvent actionEvent
+     */
+    public void addStringButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	Frame frame = (Frame)SwingUtilities.getAncestorOfClass(Frame.class, this);
 	String str = new StringWriterDialog(frame, true).showDialog();
 	if (str!=null) {
@@ -712,7 +716,7 @@ public static void main(java.lang.String[] args) {
 }
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void removeDBDButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	int[] selected = getScrollPaneTable().getSelectedRows();

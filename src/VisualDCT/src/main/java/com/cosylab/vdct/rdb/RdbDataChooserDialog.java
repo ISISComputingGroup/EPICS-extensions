@@ -44,8 +44,15 @@ public class RdbDataChooserDialog extends JDialog implements ActionListener {
 	
 	private JPopupMenu popupMenu = null; 
 	
-	protected RdbDataTreeModel model;
-	public RdbDataTree tree;
+    /**
+     *
+     */
+    protected RdbDataTreeModel model;
+
+    /**
+     *
+     */
+    public RdbDataTree tree;
 	private JButton groupAction = null;
 
 	private static final String addNewString = "Add new";
@@ -57,9 +64,9 @@ public class RdbDataChooserDialog extends JDialog implements ActionListener {
 	private static final String cancelString = "Cancel";
 	
 	/**
-     * @param mapper
-     * @param guiContext
-	 * @throws HeadlessException
+     * @param mapper mapper
+     * @param guiContext guiContext
+	 * @throws HeadlessException foo
 	 */
 	public RdbDataChooserDialog(RdbDataMapper mapper, JFrame guiContext) {
 		super(guiContext, true);
@@ -95,15 +102,27 @@ public class RdbDataChooserDialog extends JDialog implements ActionListener {
 		super.setVisible(arg0);
 	}
 
-	public void setDsId(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     */
+    public void setDsId(Object dsId) {
 		this.dsId = dsId;
 	}
 	
-	public void setRdbDataId(RdbDataId rdbDataId) {
+    /**
+     *
+     * @param rdbDataId rdbDataId
+     */
+    public void setRdbDataId(RdbDataId rdbDataId) {
 		this.rdbDataId = rdbDataId;
 	}
 	
-	public boolean isSuccess() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isSuccess() {
 		return success;
 	}
 
@@ -270,7 +289,10 @@ public class RdbDataChooserDialog extends JDialog implements ActionListener {
 		} 
 	}
 	
-	public void createTableModel() {
+    /**
+     *
+     */
+    public void createTableModel() {
         
 		model = new RdbDataTreeModel(mapper);
 		tree.setModel(model);

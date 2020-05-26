@@ -34,13 +34,13 @@ import com.cosylab.vdct.graphics.objects.*;
 /**
  * Insert the type's description here.
  * Creation date: (4.2.2001 15:36:01)
- * @author 
+ * @author cosylab
  */
 public interface VDBInterface {
 /**
  * Returns error message or null if OK
  * Creation date: (3.2.2001 22:11:01)
- * @param relative
+ * @param relative relative
  * @return java.lang.String
  * @param name java.lang.String
  */
@@ -48,8 +48,8 @@ java.lang.String checkGroupName(String name, boolean relative);
 /**
  * Returns error message or null if OK. oldName can be null if not applicable.
  * Creation date: (3.2.2001 22:11:01)
- * @param oldName
- * @param relative
+ * @param oldName oldName
+ * @param relative relative
  * @return java.lang.String
  * @param name java.lang.String
  */
@@ -57,21 +57,35 @@ java.lang.String checkRecordName(String name, String oldName, boolean relative);
 /**
  * Insert the method's description here.
  * Creation date: (3.2.2001 23:27:30)
- * @return 
+ * @return something
  */
 Box createBox();
 
-Line createLine();
+    /**
+     *
+     * @return something
+     */
+    Line createLine();
 
-TextBox createTextBox();
+    /**
+     *
+     * @return something
+     */
+    TextBox createTextBox();
 
-void createRecord(String name, String type, boolean relative);
+    /**
+     *
+     * @param name name
+     * @param type type
+     * @param relative relative
+     */
+    void createRecord(String name, String type, boolean relative);
 
 /**
  * Returns true if the string returned by checkGroupName(...) and checkRecordName(...) is an error
  * message and false when it is a warning.
- * @param message
- * @return 
+ * @param message message
+ * @return something
  */
 public boolean isErrorMessage(String message);
 }

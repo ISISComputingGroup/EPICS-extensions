@@ -40,7 +40,11 @@ public class SaveCommand extends Command {
 	private VisualDCT visualDCT;
 	private boolean success;
 
-	public SaveCommand(VisualDCT visualDCT) {
+    /**
+     *
+     * @param visualDCT visualDCT
+     */
+    public SaveCommand(VisualDCT visualDCT) {
 		this.visualDCT=visualDCT;
 	}
 
@@ -48,7 +52,11 @@ public class SaveCommand extends Command {
 		success = visualDCT.saveMenuItem_ActionPerformed();
 	}
 	
-	public boolean isSuccess() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isSuccess() {
 		return success;
 	}
 	

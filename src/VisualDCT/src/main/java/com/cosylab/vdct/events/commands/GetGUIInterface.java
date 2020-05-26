@@ -33,7 +33,7 @@ import com.cosylab.vdct.graphics.*;
 /**
  * Insert the type's description here.
  * Creation date: (3.2.2001 22:05:51)
- * @author 
+ * @author cosylab
  */
 public class GetGUIInterface extends com.cosylab.vdct.events.Command {
 	GUIMenuInterface guiinterface;

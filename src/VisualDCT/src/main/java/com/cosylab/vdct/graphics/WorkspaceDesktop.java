@@ -87,25 +87,36 @@ implements ComponentListener, DesktopInterface {
     	}
 	}
 
-	public DsManagerInterface getDrawingSurfaceManager() {
+    /**
+     *
+     * @return something
+     */
+    public DsManagerInterface getDrawingSurfaceManager() {
 		return drawingSurfaceManager;
 	}
 
-	public void setDrawingSurfaceManager(
+    /**
+     *
+     * @param drawingSurfaceManager drawingSurfaceManager
+     */
+    public void setDrawingSurfaceManager(
 			DsManagerInterface drawingSurfaceManager) {
 		this.drawingSurfaceManager = drawingSurfaceManager;
 	}
 
 	/**
 	 * Invoked when the component has been made invisible.
+     * @param e e
 	 */
 	public void componentHidden(ComponentEvent e) {}
 	/**
 	 * Invoked when the component's position changes.
+     * @param e e
 	 */
 	public void componentMoved(ComponentEvent e) {}
 	/**
 	 * Invoked when the component's size changes.
+     * @param e e
 	 */
 	public void componentResized(ComponentEvent e) {
 		VisualComponent component = getComponent();
@@ -115,15 +126,23 @@ implements ComponentListener, DesktopInterface {
 	}
 	/**
 	 * Invoked when the component has been made visible.
+     * @param e e
 	 */
 	public void componentShown(ComponentEvent e) {
 	}
 
-	public void setComponent(VisualComponent newComponent) {
+    /**
+     *
+     * @param newComponent newComponent
+     */
+    public void setComponent(VisualComponent newComponent) {
 		super.setComponent(newComponent);
 	}
 
-	public void createNewInternalFrame() {
+    /**
+     *
+     */
+    public void createNewInternalFrame() {
 		Object id = new Object();
 		WorkspaceInternalFrame frame = new WorkspaceInternalFrame(id, this, drawingSurfaceManager);
 		frame.setVisible(true);
@@ -152,11 +171,18 @@ implements ComponentListener, DesktopInterface {
 		}
 	}
 	
-	public void onInternalFrameClosed() {
+    /**
+     *
+     */
+    public void onInternalFrameClosed() {
 		selectFirstInternalFrame();
 	}
 
-	public void setFocused(InternalFrameInterface frame) {
+    /**
+     *
+     * @param frame frame
+     */
+    public void setFocused(InternalFrameInterface frame) {
 		frame.setFocused();
 	}
 

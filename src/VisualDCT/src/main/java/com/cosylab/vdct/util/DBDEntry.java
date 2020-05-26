@@ -31,7 +31,11 @@ public class DBDEntry {
 	private boolean savesToFile = true;
 	private boolean relative = false;
 
-	public DBDEntry(String value) {
+    /**
+     *
+     * @param value value
+     */
+    public DBDEntry(String value) {
 		this.value = value;
 		relativityTest();
 	}
@@ -47,7 +51,7 @@ public class DBDEntry {
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public String getValue() {
 		if (relative) return PathSpecification.getRelativeName(new File(value), getBaseDir()).getPath();
@@ -55,14 +59,18 @@ public class DBDEntry {
 	}
 
 	/**
-	 * @param string
+	 * @param string string
 	 */
 	public void setValue(String string) {
 		value = string;
 		relativityTest();
 	}
 
-	public File getFile() {
+    /**
+     *
+     * @return something
+     */
+    public File getFile() {
 		File f = new File( matchAndReplace(value) );
 		
 		// if not absolute, make relatove to DB file
@@ -81,20 +89,25 @@ public class DBDEntry {
 		return getFile().toString();
 	}
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean getSavesToFile() {
 		return savesToFile;
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setSavesToFile(boolean b) {
 		savesToFile = b;
 	}
 
-	public static String matchAndReplace(String value) {
+    /**
+     *
+     * @param value value
+     * @return something
+     */
+    public static String matchAndReplace(String value) {
 		if (value==null || value.indexOf('$')<0) return value;
 		
 		Pattern macrop = Pattern.compile("\\$\\(([^\\$]+)\\)");
@@ -124,7 +137,7 @@ public class DBDEntry {
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public static File getBaseDir() {
 		if (baseDir == null) baseDir = new File(Settings.getDefaultDir());
@@ -132,7 +145,7 @@ public class DBDEntry {
 	}
 
 	/**
-     * @param file
+     * @param file file
 	 */
 	public static void setBaseDir(File file) {
 		baseDir = file;
@@ -151,7 +164,11 @@ public class DBDEntry {
 
 	private static Properties properties = null;
 
-	public static Properties getProperties() {
+    /**
+     *
+     * @return something
+     */
+    public static Properties getProperties() {
 		if (properties==null) {
 			properties = new Properties(System.getProperties());
 			
@@ -186,14 +203,14 @@ public class DBDEntry {
 		return properties;
 	}
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean isRelative() {
 		return relative;
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setRelative(boolean b) {
 		if (value.indexOf('$')==-1 || !b) relative = b;

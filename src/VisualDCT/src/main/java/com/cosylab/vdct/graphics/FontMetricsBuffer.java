@@ -91,7 +91,7 @@ public Font getAppropriateFont(String fontName, int style, String str, int maxWi
 /**
  * Insert the method's description here.
  * Creation date: (25.12.2000 12:47:03)
- * @param maxSize
+ * @param maxSize maxSize
  * @return java.awt.Font
  * @param fontName java.lang.String
  * @param style int
@@ -157,7 +157,7 @@ private FontData getFontData(String name, int size, int style) {
 /**
  * Insert the method's description here.
  * Creation date: (25.12.2000 12:32:57)
- * @param font
+ * @param font font
  * @return java.awt.FontMetrics
  */
 public FontMetrics getFontMetrics(Font font) {
@@ -208,6 +208,10 @@ private void setGraphics(Graphics g) {
 	graphics = g;
 }
 
+    /**
+     *
+     * @param fmb fmb
+     */
     public static void setInstance(FontMetricsBuffer fmb) {
 	instance = fmb;
 }

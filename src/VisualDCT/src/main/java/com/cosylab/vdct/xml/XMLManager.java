@@ -43,17 +43,17 @@ import javax.xml.transform.stream.StreamResult;
 /**
 * Insert the class' description here.
 * Creation date: (6.12.2001 21:54:33)
-* @author 
+* @author cosylab
 */
 public final class XMLManager
 {
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 21:54:51)
- * @param doc
- * @param parentNode
- * @param newNodeName
- * @param newNodeData
+ * @param doc doc
+ * @param parentNode parentNode
+ * @param newNodeName newNodeName
+ * @param newNodeData newNodeData
  */
 public static void addDataNodeTo(Document doc, Element parentNode, String newNodeName, String newNodeData)
 {
@@ -65,9 +65,9 @@ public static void addDataNodeTo(Document doc, Element parentNode, String newNod
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 21:54:51)
- * @param node
- * @param name
- * @return
+ * @param node node
+ * @param name name
+ * @return something
  */
 public static Node findNode(Node node, String name)
 {
@@ -93,7 +93,7 @@ public static Node findNode(Node node, String name)
  * Insert the method's description here.
  * Creation date: (6.12.2001 21:56:40)
  * @param
- * @return
+ * @return something
  */
 private static DocumentBuilder getDocumentBuilder(final String dtdSymbol, final URL dtdUrl)
 {
@@ -147,9 +147,9 @@ private static DocumentBuilder getDocumentBuilder(final String dtdSymbol, final 
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:00:32)
- * @param node
- * @param name
- * @return
+ * @param node node
+ * @param name name
+ * @return something
  */
 public static String getNodeAttribute(Node node, String name)
 {
@@ -161,8 +161,8 @@ public static String getNodeAttribute(Node node, String name)
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:00:48)
- * @param node
- * @return
+ * @param node node
+ * @return something
  */
 public static String getNodeValue(Node node)
 {
@@ -174,7 +174,7 @@ public static String getNodeValue(Node node)
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:01:39)
- * @return
+ * @return something
  */
 public static Document newDocument()
 {
@@ -192,11 +192,11 @@ public static Document newDocument()
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:02:24)
- * @param filename
- * @return
- * @throws java.io.IOException
- * @throws org.xml.sax.SAXException
- * @throws javax.xml.parsers.ParserConfigurationException
+ * @param filename filename
+ * @return something
+ * @throws java.io.IOException foo
+ * @throws org.xml.sax.SAXException foo
+ * @throws javax.xml.parsers.ParserConfigurationException foo
  */
 public static Document readFileDocument(String filename) throws IOException, SAXException, ParserConfigurationException
 {
@@ -205,13 +205,13 @@ public static Document readFileDocument(String filename) throws IOException, SAX
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:02:24)
- * @param fileName
- * @param dtdSymbol
- * @param dtdUrl
- * @return
- * @throws java.io.IOException
- * @throws org.xml.sax.SAXException
- * @throws javax.xml.parsers.ParserConfigurationException
+ * @param fileName fileName
+ * @param dtdSymbol dtdSymbol
+ * @param dtdUrl dtdUrl
+ * @return something
+ * @throws java.io.IOException foo
+ * @throws org.xml.sax.SAXException foo
+ * @throws javax.xml.parsers.ParserConfigurationException foo
  */
 public static Document readFileDocument(String fileName, String dtdSymbol, URL dtdUrl) throws IOException, SAXException, ParserConfigurationException
 {
@@ -220,11 +220,11 @@ public static Document readFileDocument(String fileName, String dtdSymbol, URL d
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:03:02)
- * @param resource
- * @return
- * @throws java.io.IOException
- * @throws javax.xml.parsers.ParserConfigurationException
- * @throws org.xml.sax.SAXException
+ * @param resource resource
+ * @return something
+ * @throws java.io.IOException foo
+ * @throws javax.xml.parsers.ParserConfigurationException foo
+ * @throws org.xml.sax.SAXException foo
  */
 public static Document readResourceDocument(String resource) throws IOException, SAXException, ParserConfigurationException
 {
@@ -233,13 +233,13 @@ public static Document readResourceDocument(String resource) throws IOException,
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:03:15)
- * @param resource
- * @param dtdSymbol
- * @param dtdUrl
- * @return
- * @throws java.io.IOException
- * @throws org.xml.sax.SAXException
- * @throws javax.xml.parsers.ParserConfigurationException
+ * @param resource resource
+ * @param dtdSymbol dtdSymbol
+ * @param dtdUrl dtdUrl
+ * @return something
+ * @throws java.io.IOException foo
+ * @throws org.xml.sax.SAXException foo
+ * @throws javax.xml.parsers.ParserConfigurationException foo
  */
 public static Document readResourceDocument(String resource, String dtdSymbol, URL dtdUrl) throws IOException, SAXException, ParserConfigurationException
 {
@@ -247,13 +247,13 @@ public static Document readResourceDocument(String resource, String dtdSymbol, U
 }
 /**
  * Insert the method's description here.
- * Creation date: (6.12.2001 22:03:47)@return
- * @param fileName
- * @param doc
- * @param publicId
- * @param systemId
- * @param dtd
- * @throws java.io.IOException
+ * Creation date: (6.12.2001 22:03:47)
+ * @param fileName fileName
+ * @param doc doc
+ * @param publicId publicId
+ * @param systemId systemId
+ * @param dtd dtd
+ * @throws java.io.IOException foo
  */
 public static void writeDocument(String fileName, Document doc, String publicId, String systemId, String dtd) throws IOException
 {

@@ -79,9 +79,20 @@ public class EPICSVarOutLink extends EPICSVarLink implements OutLink
 		}
 	}
 	
-	protected InLink inlink = null;
-	protected boolean disconnected = true;
-	protected LinkProperties properties = null;
+    /**
+     *
+     */
+    protected InLink inlink = null;
+
+    /**
+     *
+     */
+    protected boolean disconnected = true;
+
+    /**
+     *
+     */
+    protected LinkProperties properties = null;
 	private boolean hasEndpoint = false;
 
 	//private static final String colorString = "Color...";
@@ -153,6 +164,7 @@ private com.cosylab.vdct.graphics.objects.EPICSVarOutLink.PopupMenuHandler creat
 	}
 
 	/**
+     * @param input input
 	 * @see com.cosylab.vdct.graphics.objects.OutLink#setInput(InLink)
 	 */
 	public void setInput(InLink input)
@@ -182,7 +194,7 @@ private com.cosylab.vdct.graphics.objects.EPICSVarOutLink.PopupMenuHandler creat
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (29.1.2001 21:23:04)
-     * @param disconnector
+     * @param disconnector disconnector
 	 */
 	public void disconnect(Linkable disconnector) {
 		if (/*!disconnected &&*/ (outlinks.contains(disconnector) || disconnector==inlink)) {
@@ -446,7 +458,7 @@ public java.util.Vector getItems() {
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 12:50:51)
- * @return 
+ * @return something
  */
 public Connector addConnector() {
 	if (inlink instanceof Connector)

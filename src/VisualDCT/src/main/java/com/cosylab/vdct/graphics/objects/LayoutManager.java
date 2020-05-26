@@ -47,12 +47,12 @@ public class LayoutManager {
 	private LayoutPosition defaultPosition = null;
 
 	/**
-	 * @param width
-	 * @param height
-	 * @param positionWidth
-	 * @param positionHeight
-	 * @param offsetX
-	 * @param offsetY
+	 * @param width width
+	 * @param height height
+	 * @param positionWidth positionWidth
+	 * @param positionHeight positionHeight
+	 * @param offsetX offsetX
+	 * @param offsetY offsetY
 	 */
 	public LayoutManager(int width, int height, int positionWidth,
 			int positionHeight, int offsetX, int offsetY) {
@@ -85,7 +85,7 @@ public class LayoutManager {
 	
     /**
      *
-     * @return
+     * @return something
      */
     public LayoutPosition getVacantPosition() {
 		return (firstVacant != null) ? firstVacant : defaultPosition;
@@ -93,8 +93,8 @@ public class LayoutManager {
 	
     /**
      *
-     * @param posX
-     * @param posY
+     * @param posX posX
+     * @param posY posY
      */
     public void fillPosition(int posX, int posY) {
 		

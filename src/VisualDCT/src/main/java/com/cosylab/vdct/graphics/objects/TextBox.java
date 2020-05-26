@@ -136,25 +136,76 @@ private static boolean currentBorder = false;
 
 private static final String nullString = "";
 private static final String htmlString = "<html>";
-protected String description = null;
-protected JLabel label = null;
-protected boolean htmlMode = false;
 
-protected Hashtable map;
-protected AttributedString attText = null;
-protected AttributedCharacterIterator paragraph = null;
-protected int paragraphStart = 0;
-protected int paragraphEnd = 0;
-protected LineBreakMeasurer lineMeasurer = null;
-protected int[] breaks = null;
-protected FontRenderContext frc = null;
+    /**
+     *
+     */
+    protected String description = null;
 
-protected double fontScale = 0.0;
-protected Font rfont = null;
+    /**
+     *
+     */
+    protected JLabel label = null;
 
+    /**
+     *
+     */
+    protected boolean htmlMode = false;
 
+    /**
+     *
+     */
+    protected Hashtable map;
 
-public void showChangeTextDialog()
+    /**
+     *
+     */
+    protected AttributedString attText = null;
+
+    /**
+     *
+     */
+    protected AttributedCharacterIterator paragraph = null;
+
+    /**
+     *
+     */
+    protected int paragraphStart = 0;
+
+    /**
+     *
+     */
+    protected int paragraphEnd = 0;
+
+    /**
+     *
+     */
+    protected LineBreakMeasurer lineMeasurer = null;
+
+    /**
+     *
+     */
+    protected int[] breaks = null;
+
+    /**
+     *
+     */
+    protected FontRenderContext frc = null;
+
+    /**
+     *
+     */
+    protected double fontScale = 0.0;
+
+    /**
+     *
+     */
+    protected Font rfont = null;
+
+    /**
+     *
+     */
+    public void showChangeTextDialog()
 {
 	JTextArea textArea = new JTextArea(getDescription());
 		
@@ -196,7 +247,16 @@ private String getAvailableHashId()
 	return testHashId;
 }
 
-public TextBox(String parName, Group parentGroup, int posX, int posY, int posX2, int posY2)
+    /**
+     *
+     * @param parName parName
+     * @param parentGroup parentGroup
+     * @param posX posX
+     * @param posY posY
+     * @param posX2 posX2
+     * @param posY2 posY2
+     */
+    public TextBox(String parName, Group parentGroup, int posX, int posY, int posX2, int posY2)
 {
 	super(parentGroup);
 
@@ -256,8 +316,14 @@ public TextBox(String parName, Group parentGroup, int posX, int posY, int posX2,
 
 }
 
-
-protected void drawMultiLineText(Graphics g, float drawPosX, float drawPosY, float formatWidth)
+    /**
+     *
+     * @param g g
+     * @param drawPosX drawPosX
+     * @param drawPosY drawPosY
+     * @param formatWidth formatWidth
+     */
+    protected void drawMultiLineText(Graphics g, float drawPosX, float drawPosY, float formatWidth)
 {
 	if (formatWidth<4 || lineMeasurer==null)
 		return;
@@ -442,7 +508,12 @@ protected void draw(Graphics g, boolean hilited)
 	
 }
 
-public void drawDashedBorder(Graphics g, boolean hilited)
+    /**
+     *
+     * @param g g
+     * @param hilited hilited
+     */
+    public void drawDashedBorder(Graphics g, boolean hilited)
 {
 	ViewState view = ViewState.getInstance(getDsId());
 
@@ -507,12 +578,20 @@ private void drawDashedBorder(Graphics g, boolean hilited,
 	}
 }
 
-public static boolean getCurrentBorder()
+    /**
+     *
+     * @return something
+     */
+    public static boolean getCurrentBorder()
 {
 	return currentBorder;
 }
 
-public Vertex getEndVertex()
+    /**
+     *
+     * @return something
+     */
+    public Vertex getEndVertex()
 {
 	return endVertex;
 }
@@ -552,12 +631,20 @@ public Vector getItems()
 	return items;
 }
 
-public String getName()
+    /**
+     *
+     * @return something
+     */
+    public String getName()
 {
 	return name;
 }
 
-public Vertex getStartVertex()
+    /**
+     *
+     * @return something
+     */
+    public Vertex getStartVertex()
 {
 	return startVertex;
 }
@@ -662,7 +749,11 @@ public void revalidatePosition()
 	setRy((int)(getY() * rscale));
 }
 
-public void setBorder(boolean parBorder)
+    /**
+     *
+     * @param parBorder parBorder
+     */
+    public void setBorder(boolean parBorder)
 {
 	border = parBorder;
 }

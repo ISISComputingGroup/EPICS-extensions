@@ -44,7 +44,7 @@ public abstract class Decorator implements VisualComponent {
 public Decorator() {}
 /**
  * ComponentManager constructor comment.
-     * @param component
+     * @param component component
  */
 public Decorator(VisualComponent component) {
 	this.component=component;
@@ -52,7 +52,7 @@ public Decorator(VisualComponent component) {
 /**
  * Default implementation
  * Creation date: (10.12.2000 11:25:20)
-     * @param g
+     * @param g g
  */
 public void draw(Graphics g) {
 	component.draw(g);
@@ -68,7 +68,7 @@ public VisualComponent getComponent() {
 /**
  * Insert the method's description here.
  * Creation date: (11.12.2000 16:23:31)
-     * @return 
+     * @return something
  */
 public int getComponentHeight() {
 	if (component==null) return 0;
@@ -86,10 +86,10 @@ public int getComponentWidth() {
 /**
  * Default implementation
  * Creation date: (10.12.2000 11:26:54)
- * @param x0
- * @param y0
- * @param width
- * @param height
+ * @param x0 x0
+ * @param y0 y0
+ * @param width width
+ * @param height height
  */
 public void resize(int x0, int y0, int width, int height) {
 	component.resize(x0, y0, width, height);

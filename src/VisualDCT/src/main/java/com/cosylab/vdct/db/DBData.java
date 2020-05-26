@@ -38,24 +38,77 @@ import java.util.*;
 public class DBData {
 	
 	// also this file is a template
+
+    /**
+     *
+     */
 	protected DBTemplate templateData = null;
 
+    /**
+     *
+     */
+    protected Hashtable lines = null;
 
-	protected Hashtable lines = null;
-	protected Hashtable boxes = null;
-	protected Hashtable textboxes = null;
-	protected Hashtable records = null;
-	protected Vector recordsV = null;			// ordered
-	protected Hashtable groups = null;
-	protected Hashtable links = null;
-	protected Hashtable connectors = null;
-	protected Hashtable templates = null;		// templates loaded by the way
-	protected Vector templatesV = null;		// templates loaded by the way
-	protected Hashtable templateInstances = null;
+    /**
+     *
+     */
+    protected Hashtable boxes = null;
+
+    /**
+     *
+     */
+    protected Hashtable textboxes = null;
+
+    /**
+     *
+     */
+    protected Hashtable records = null;
+
+    /**
+     *
+     */
+    protected Vector recordsV = null;			// ordered
+
+    /**
+     *
+     */
+    protected Hashtable groups = null;
+
+    /**
+     *
+     */
+    protected Hashtable links = null;
+
+    /**
+     *
+     */
+    protected Hashtable connectors = null;
+
+    /**
+     *
+     */
+    protected Hashtable templates = null;		// templates loaded by the way
+
+    /**
+     *
+     */
+    protected Vector templatesV = null;		// templates loaded by the way
+
+    /**
+     *
+     */
+    protected Hashtable templateInstances = null;
 	
-	protected DBView view = null;
+    /**
+     *
+     */
+    protected DBView view = null;
 	
 	// contains DB structure (entry (include, path, addpath statements), record, expand)
+
+    /**
+     *
+     */
 	protected Vector structure = null; 
 	
 /**
@@ -186,8 +239,8 @@ public void addTemplate(DBTemplate t) {
  * Check is DTYP field is defined before INP and OUT fields...
  * Insert the method's description here.
  * Creation date: (18.11.1999 18:26:27)
- * @param db
- * @param dbd
+ * @param db db
+ * @param dbd dbd
  */
 
 public static void checkDTYPfield(DBData db, DBDData dbd) {
@@ -335,14 +388,14 @@ public Vector getTemplatesV()
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public DBView getView() {
 		return view;
 	}
 
 	/**
-	 * @param view
+	 * @param view view
 	 */
 	public void setView(DBView view) {
 		this.view = view;

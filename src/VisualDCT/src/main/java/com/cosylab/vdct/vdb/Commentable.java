@@ -48,5 +48,9 @@ public interface Commentable {
 	 */
 	void setComment(String comment);
 
-	Object getDsId();
+    /**
+     *
+     * @return something
+     */
+    Object getDsId();
 }

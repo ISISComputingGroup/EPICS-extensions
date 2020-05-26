@@ -44,5 +44,9 @@ void inspectableObjectAdded(Inspectable object);
  */
 void inspectableObjectRemoved(Inspectable object);
 
-Object getDsId();
+    /**
+     *
+     * @return something
+     */
+    Object getDsId();
 }

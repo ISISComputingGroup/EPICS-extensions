@@ -37,11 +37,30 @@ import java.util.*;
 
 public abstract class QuickSort
 {
-public abstract boolean lessThan(Object oFirst, Object oSecond);      
-public void sort(Object[] table) {
+      
+    /**
+     *
+     * @param oFirst oFirst
+     * @param oSecond oSecond
+     * @return something
+     */
+    public abstract boolean lessThan(Object oFirst, Object oSecond);      
+
+    /**
+     *
+     * @param table table
+     */
+    public void sort(Object[] table) {
 	sort(table, 0, table.length - 1);
 }      
-public void sort(Object[] table, int nLow0, int nHigh0) {
+
+    /**
+     *
+     * @param table table
+     * @param nLow0 nLow0
+     * @param nHigh0 nHigh0
+     */
+    public void sort(Object[] table, int nLow0, int nHigh0) {
   int nLow = nLow0;
   int nHigh = nHigh0;
   Object pivot;
@@ -63,6 +82,7 @@ public void sort(Object[] table, int nLow0, int nHigh0) {
 /**
  * This method was created in VisualAge.
  * @param e Enumeration
+     * @return something
  */
 public Object[] sortEnumeration(Enumeration e) {
 	Vector tmp = new Vector();

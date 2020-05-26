@@ -189,7 +189,7 @@ public class EnhancedStreamTokenizer {
 	commentChar('/');
 	quoteChar('"');
 	quoteChar('\'');
-	parseNumbers();
+	parseNumbers(true);
     }
 
     /**
@@ -377,9 +377,9 @@ public class EnhancedStreamTokenizer {
     }
 
     /**
-     * Specifies that numbers should be parsed by this tokenizer. The
-     * syntax table of this tokenizer is modified so that each of the twelve
-     * characters:
+     * Specifies if numbers should be parsed by this tokenizer. If flag is set
+     * true, the syntax table of this tokenizer is modified so that each of
+     * the twelve characters:
      * <blockquote><pre>
      *      0 1 2 3 4 5 6 7 8 9 . -
      * </pre></blockquote>
@@ -392,15 +392,26 @@ public class EnhancedStreamTokenizer {
      * field to the value <code>TT_NUMBER</code> and putting the numeric
      * value of the token into the <code>nval</code> field.
      *
+     * @param flag  true = enable / false = disable number parsing
      * @see     java.io.StreamTokenizer#nval
      * @see     java.io.StreamTokenizer#TT_NUMBER
      * @see     java.io.StreamTokenizer#ttype
      */
-    public void parseNumbers() {
-	for (int i = '0'; i <= '9'; i++)
-	    ctype[i] |= CT_DIGIT;
-	ctype['.'] |= CT_DIGIT;
-	ctype['-'] |= CT_DIGIT;
+    public void parseNumbers(boolean flag) {
+        if (flag) {
+            for (int i = '0'; i <= '9'; i++) {
+                ctype[i] |= CT_DIGIT;
+            }
+            ctype['.'] |= CT_DIGIT;
+            ctype['-'] |= CT_DIGIT;
+
+        } else {
+            for (int i = '0'; i <= '9'; i++) {
+                ctype[i] &= ~CT_DIGIT;
+            }
+            ctype['.'] &= ~CT_DIGIT;
+            ctype['-'] &= ~CT_DIGIT;
+        }
     }
 
     /**
@@ -602,100 +613,113 @@ public class EnhancedStreamTokenizer {
 		v = v / denom;
 	    }
 	    nval = neg ? -v : v;
-	    return ttype = TT_NUMBER;
+            return ttype = TT_NUMBER;
 	}
 
-	if ((ctype & CT_ALPHA) != 0) {
-	    int i = 0;
-	    do {
-		if (i >= buf.length) {
-		    char nb[] = new char[buf.length * 2];
-		    System.arraycopy(buf, 0, nb, 0, buf.length);
-		    buf = nb;
-		}
-		buf[i++] = (char) c;
-		c = read();
-		ctype = c < 0 ? CT_WHITESPACE : c < 256 ? ct[c] : CT_ALPHA;
-	    } while ((ctype & (CT_ALPHA | CT_DIGIT)) != 0);
-	    peekc = c;
-	    sval = String.copyValueOf(buf, 0, i);
-	    if (forceLower)
-		sval = sval.toLowerCase();
-	    return ttype = TT_WORD;
-	}
+        if ((ctype & CT_ALPHA) != 0) {
+            int i = 0;
+            do {
+                if (i >= buf.length) {
+                    char nb[] = new char[buf.length * 2];
+                    System.arraycopy(buf, 0, nb, 0, buf.length);
+                    buf = nb;
+                }
 
-	if ((ctype & CT_QUOTE) != 0) {
-	    ttype = c;
-	    int i = 0;
-	    /* Invariants (because \Octal needs a lookahead):
+                buf[i++] = (char) c;
+                c = read();
+                ctype = c < 0 ? CT_WHITESPACE : c < 256 ? ct[c] : CT_ALPHA;
+            } while ((ctype & (CT_ALPHA | CT_DIGIT)) != 0);
+
+            peekc = c;
+            sval = String.copyValueOf(buf, 0, i);
+            sval = forceLower ? sval.toLowerCase() : sval;
+            return ttype = TT_WORD;
+        }
+
+        if ((ctype & CT_QUOTE) != 0) {
+            ttype = c;
+            int i = 0;
+            /* Invariants (because \Octal needs a lookahead):
 	     *   (i)  c contains char value
 	     *   (ii) d contains the lookahead
-	     */
-	    int d = read();
-	    while (d >= 0 && d != ttype && d != '\n' && d != '\r') {
-	        if (parseEscapeSequences && d == '\\') {
-   		    c = read();
-		    int first = c;   /* To allow \377, but not \477 */
-		    if (c >= '0' && c <= '7') {
-			c = c - '0';
-			int c2 = read();
-			if ('0' <= c2 && c2 <= '7') {
-			    c = (c << 3) + (c2 - '0');
-			    c2 = read();
-			    if ('0' <= c2 && c2 <= '7' && first <= '3') {
-				c = (c << 3) + (c2 - '0');
-				d = read();
-			    } else
-				d = c2;
-			} else
-			  d = c2;
-		    } else {
-  		        switch (c) {
-			case 'a':
-			    c = 0x7;
-			    break;
-			case 'b':
-			    c = '\b';
-			    break;
-			case 'f':
-			    c = 0xC;
-			    break;
-			case 'n':
-			    c = '\n';
-			    break;
-		        case 'r':
-			    c = '\r';
-			    break;
-			case 't':
-			    c = '\t';
-			    break;
-			case 'v':
-			    c = 0xB;
-			    break;
-			}
-			d = read();
-		    }
-		} else {
-		    c = d;
-		    d = read();
-		}
-		if (i >= buf.length) {
-		    char nb[] = new char[buf.length * 2];
-		    System.arraycopy(buf, 0, nb, 0, buf.length);
-		    buf = nb;
-		}
-		buf[i++] = (char)c;
-	    }
+             */
+            int d = read();
+            while (d >= 0 && d != ttype && d != '\n' && d != '\r') {
+                if (parseEscapeSequences && d == '\\') {
+                    c = read();
+                    int first = c;
+                    /* To allow \377, but not \477 */
+                    if (c >= '0' && c <= '7') {
+                        c = c - '0';
+                        int c2 = read();
+                        if ('0' <= c2 && c2 <= '7') {
+                            c = (c << 3) + (c2 - '0');
+                            c2 = read();
+                            if ('0' <= c2 && c2 <= '7' && first <= '3') {
+                                c = (c << 3) + (c2 - '0');
+                                d = read();
+                            } else {
+                                d = c2;
+                            }
+                        } else {
+                            d = c2;
+                        }
+                    } else {
+                        switch (c) {
+                            case 'a':
+                                c = 0x7;
+                                break;
+                            case 'b':
+                                c = '\b';
+                                break;
+                            case 'f':
+                                c = 0xC;
+                                break;
+                            case 'n':
+                                c = '\n';
+                                break;
+                            case 'r':
+                                c = '\r';
+                                break;
+                            case 't':
+                                c = '\t';
+                                break;
+                            case 'v':
+                                c = 0xB;
+                                break;
+                            case '"':
+                                c = '"';
+                                break;
+                            case '\'':
+                                c = '\'';
+                                break;
+                            case '\\':
+                                c = '\\';
+                                break;
+                        }
+                        d = read();
+                    }
+                } else {
+                    c = d;
+                    d = read();
+                }
+                if (i >= buf.length) {
+                    char nb[] = new char[buf.length * 2];
+                    System.arraycopy(buf, 0, nb, 0, buf.length);
+                    buf = nb;
+                }
+                buf[i++] = (char) c;
+            }
 
-	    /* If we broke out of the loop because we found a matching quote
-	     * character then arrange to read a new character next time
-	     * around; otherwise, save the character.
-	     */
-	    peekc = (d == ttype) ? NEED_CHAR : d;
+            /* If we broke out of the loop because we found a matching quote
+	         * character then arrange to read a new character next time
+	         * around; otherwise, save the character.
+             */
+            peekc = (d == ttype) ? NEED_CHAR : d;
 
-	    sval = String.copyValueOf(buf, 0, i);
-	    return ttype;
-	}
+            sval = String.copyValueOf(buf, 0, i);
+            return ttype;
+        }
 
 	if (c == '/' && (slashSlashCommentsP || slashStarCommentsP)) {
 	    c = read();
@@ -744,7 +768,7 @@ public class EnhancedStreamTokenizer {
 
 	return ttype = c;
     }
-
+    
     /**
      * Causes the next call to the <code>nextToken</code> method of this
      * tokenizer to return the current value in the <code>ttype</code>

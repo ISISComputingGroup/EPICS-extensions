@@ -60,10 +60,11 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
     private static final int recentSplitDataMaxCount = 8;
 
 	/**
-	 * @param dataType
-	 * @param displayData
-	 * @param loadedData
-	 * @throws IllegalArgumentException
+     * @param dsId dsId
+	 * @param dataType dataType
+	 * @param displayData displayData
+	 * @param loadedData loadedData
+	 * @throws IllegalArgumentException foo
 	 */
 	public SpreadsheetSplitViewModel(Object dsId, String dataType, Vector displayData,
 			Vector loadedData) throws IllegalArgumentException {
@@ -77,6 +78,11 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#recallView()
 	 */
+
+    /**
+     *
+     */
+
 	public void recallView() {
 		super.recallView();
 		refreshModel();
@@ -87,6 +93,11 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#storeView()
 	 */
+
+    /**
+     *
+     */
+
 	public void storeView() {
 		super.storeView();
 		storeSplitData();
@@ -96,6 +107,12 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#setShowAllRows(boolean)
 	 */
+
+    /**
+     *
+     * @param showAllRows showAllRows
+     */
+
 	public void setShowAllRows(boolean showAllRows) {
 		super.setShowAllRows(showAllRows);
 		refreshModel();
@@ -104,6 +121,12 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#setGroupColumnsByGuiGroup(boolean)
 	 */
+
+    /**
+     *
+     * @param groupColumnsByGuiGroup groupColumnsByGuiGroup
+     */
+
 	public void setGroupColumnsByGuiGroup(boolean groupColumnsByGuiGroup) {
 		super.setGroupColumnsByGuiGroup(groupColumnsByGuiGroup);
 		refreshModel();
@@ -112,6 +135,13 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#setRowsVisibility(int[], boolean)
 	 */
+
+    /**
+     *
+     * @param rows rows
+     * @param visible visible
+     */
+
 	public void setRowsVisibility(int[] rows, boolean visible) {
 		super.setRowsVisibility(rows, visible);
 		refreshModel();
@@ -120,6 +150,13 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#setColumnsVisibility(int[], boolean)
 	 */
+
+    /**
+     *
+     * @param columns columns
+     * @param visible visible
+     */
+
 	public void setColumnsVisibility(int[] columns, boolean visible) {
 
 		for (int c = 0; c < columns.length; c++) {
@@ -132,6 +169,13 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#setPropertyColumnVisibility(int, boolean)
 	 */
+
+    /**
+     *
+     * @param columns columns
+     * @param visible visible
+     */
+
 	public void setPropertyColumnsVisibility(int[] columns, boolean visible) {
 		super.setPropertyColumnsVisibility(columns, visible);
 		refreshModel();
@@ -140,6 +184,11 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#setDefaultColumnVisibility()
 	 */
+
+    /**
+     *
+     */
+
 	public void setDefaultColumnVisibility() {
 		super.setDefaultColumnVisibility();
 		refreshModel();
@@ -148,6 +197,13 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#moveColumn(int, int)
 	 */
+
+    /**
+     *
+     * @param startIndex startIndex
+     * @param destIndex destIndex
+     */
+
 	public void repositionColumn(int startIndex, int destIndex) {
 		super.repositionColumn(modelToPropertiesColumnIndex[startIndex], modelToPropertiesColumnIndex[destIndex]);
 		refreshModel();
@@ -156,6 +212,12 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#sortRowsByColumn(int)
 	 */
+
+    /**
+     *
+     * @param column column
+     */
+
 	public void sortRowsByColumn(int column) {
 
 		int visibleIndex = modelToPropertiesColumnIndex[column];
@@ -190,6 +252,13 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#getColumnId(int)
 	 */
+
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+
 	protected String getColumnId(int column) {
 		return super.getColumnId(modelToPropertiesColumnIndex[column]);
 	}
@@ -197,6 +266,12 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#getNamesColumn()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	protected int getNamesColumn() {
 		return propertiesToModelColumnIndex[super.getNamesColumn()];
 	}
@@ -211,6 +286,14 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* Returns the multi-line string associated with the cell at the given position, or null it there is
 	 * none. 
 	 */
+
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+
 	public String getMultilineString(int row, int column) { 
 		// Check if the cell is part of the comment, if so return it.
 		if (row >= 0 && column >= 0) {
@@ -230,40 +313,86 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 
     /* Returns true if this property should not be hidden. First column and name column must not be hidden. 
      */
+
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+
 	public boolean isSolidColumn(int column) {
 		return super.isSolidColumn(modelToPropertiesColumnIndex[column]);
 	}
 	
-	public boolean isSplit(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    public boolean isSplit(int column) {
 		return propertiesColumnSplitData[splitToBaseColumn(column)] != null;		
 	}
 
-	public int getSplitParts(int baseColumn) {
+    /**
+     *
+     * @param baseColumn baseColumn
+     * @return something
+     */
+    public int getSplitParts(int baseColumn) {
 		DBSheetSplitCol splitData = propertiesColumnSplitData[baseColumn];
 		return splitData != null ? splitData.getParts() : 1;		
 	}
 	
+    /**
+     *
+     * @param column column
+     * @return something
+     */
     public int getPropertyColumn(int column) {
     	return super.getPropertyColumn(modelToPropertiesColumnIndex[column]);
     }
 	
-	public int getModelToPropertiesColumnIndex(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    public int getModelToPropertiesColumnIndex(int column) {
 		return modelToPropertiesColumnIndex[column];
 	}
 	
-	public Vector getRecentSplitData() {
+    /**
+     *
+     * @return something
+     */
+    public Vector getRecentSplitData() {
 		return recentSplitData;
 	}
 	
-	public String getModelValue(int row, int column) {
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+    public String getModelValue(int row, int column) {
 		return model[row][column].getValue();
 	}
 
-	public int getRecentSplitDataMaxCount() {
+    /**
+     *
+     * @return something
+     */
+    public int getRecentSplitDataMaxCount() {
 		return recentSplitDataMaxCount;
 	}
 	
-	public void splitColumn(DBSheetSplitCol splitData, int column) {
+    /**
+     *
+     * @param splitData splitData
+     * @param column column
+     */
+    public void splitColumn(DBSheetSplitCol splitData, int column) {
 		int propertiesColumn = splitToBaseColumn(column); 
 		if (splitData != null) {
 			splitData.setName(getPropertiesColumnNames(propertiesColumn));
@@ -272,7 +401,12 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 		refreshModel();
 	}
 
-	public void splitColumnByRecentList(int recentIndex, int column) {
+    /**
+     *
+     * @param recentIndex recentIndex
+     * @param column column
+     */
+    public void splitColumnByRecentList(int recentIndex, int column) {
 		// Add the used item to the top of the list.
 		DBSheetSplitCol data = (DBSheetSplitCol)recentSplitData.remove(recentIndex);
 		recentSplitData.add(0, data);
@@ -282,7 +416,11 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 		splitColumn(split, column);
 	}
 	
-	public void setColumnOrder(String modeName) {
+    /**
+     *
+     * @param modeName modeName
+     */
+    public void setColumnOrder(String modeName) {
 		storeSplitData();
 		storeViewData();
 		super.setColumnOrder(modeName);
@@ -296,6 +434,13 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	
 	/* Returns -1 if the column at the index should not be dragged. 
 	 */
+
+    /**
+     *
+     * @param columnIndex columnIndex
+     * @return something
+     */
+
 	public int validateDraggedColumnIndex(int columnIndex) {
 		// The first empty column must not be dragged. 
 		return (columnIndex > 0) ? columnIndex : -1;
@@ -310,6 +455,15 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#internalSetValueAt(java.lang.Object, int, int)
 	 */
+
+    /**
+     *
+     * @param value value
+     * @param row row
+     * @param column column
+     * @return something
+     */
+
 	protected boolean internalSetValueAt(Object value, int row, int column) {
 		
 		boolean change = false;
@@ -375,7 +529,13 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 		return model[rowIndex][columnIndex].isEditable();
 	}
 
-	public InspectableProperty getPropertyAt(int row, int column) {
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+    public InspectableProperty getPropertyAt(int row, int column) {
 		return model[row][column];
 	}
 	
@@ -383,7 +543,12 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	    return super.getHeaderDisplayType(splitToBaseColumn(column));
 	}
 
-	public void extendCounters(int[] rows, int[] columns) {
+    /**
+     *
+     * @param rows rows
+     * @param columns columns
+     */
+    public void extendCounters(int[] rows, int[] columns) {
 		
 		UndoManager.getInstance(dsId).startMacroAction();
 		for (int c = 0; c < columns.length; c++) {
@@ -419,21 +584,41 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetViewModel#refreshAll()
 	 */
+
+    /**
+     *
+     */
+
 	protected void refreshAll() {
 		super.refreshAll();
 		refreshSplitData();
 		refreshModel();
 	}
 	
-	protected String getColumnHeaderValue(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    protected String getColumnHeaderValue(int column) {
 		return modelColumnNames[column];
 	}
 
-	protected final int splitToBaseColumn(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    protected final int splitToBaseColumn(int column) {
 		return super.visibleToBaseColumn(modelToPropertiesColumnIndex[column]);
 	}
 
-	protected final int baseToSplitColumn(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    protected final int baseToSplitColumn(int column) {
 		int visibleIndex = super.baseToVisibleColumn(column);
 		return visibleIndex >= 0 ? propertiesToModelColumnIndex[visibleIndex] : -1;
 	}
@@ -607,7 +792,10 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
         }
 	}
 
-	protected void storeSplitData() {
+    /**
+     *
+     */
+    protected void storeSplitData() {
 		DBSheetView record = getViewRecord();
 		
 		boolean defaultNoColumnSplit = true;
@@ -644,7 +832,10 @@ public class SpreadsheetSplitViewModel extends SpreadsheetViewModel {
         }
 	}
 	
-	protected void storeViewData() {
+    /**
+     *
+     */
+    protected void storeViewData() {
 		DBSheetView record = getViewRecord();
 
         boolean defaultNoSortOrder = (sortedColumn == -1);

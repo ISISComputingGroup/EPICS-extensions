@@ -38,8 +38,21 @@ package com.cosylab.vdct.about;
  */
 public interface AboutTabReceiver {
 
-public void addAboutTab(AboutTab tabToAdd);
-public void receiverPerform();
-public void setTitle(String title);
+    /**
+     *
+     * @param tabToAdd tabToAdd
+     */
+    public void addAboutTab(AboutTab tabToAdd);
+
+    /**
+     *
+     */
+    public void receiverPerform();
+
+    /**
+     *
+     * @param title title
+     */
+    public void setTitle(String title);
 
 }

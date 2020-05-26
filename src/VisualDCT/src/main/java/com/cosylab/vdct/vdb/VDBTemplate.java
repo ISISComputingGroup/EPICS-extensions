@@ -68,22 +68,23 @@ import com.cosylab.vdct.undo.UndoManager;
 
 public class VDBTemplate implements Inspectable, Commentable, Descriptable, MonitoredPropertyListener
 {
-	protected String id = null;
-	protected String fileName = null;
-	protected String description = null;
+    protected String id = null;
+    protected String fileName = null;
+    protected String description = null;
 	
-	protected long modificationTime = 0;
+    protected long modificationTime = 0;
 
-	protected String version = null;
-	protected String ioc = null;
+    protected String version = null;
+    protected String ioc = null;
 	
-	protected Hashtable ports = null;
-	protected Vector portsV = null;
+    protected Hashtable ports = null;
+    protected Vector portsV = null;
 
-	protected Hashtable macros = null;
-	protected Vector macrosV = null;
+    protected Hashtable macros = null;
 
-	protected Group group = null;
+    protected Vector macrosV = null;
+
+    protected Group group = null;
 	
 	private String comment = null;
 	private CommentProperty commentProperty = null;
@@ -100,7 +101,7 @@ public class VDBTemplate implements Inspectable, Commentable, Descriptable, Moni
 	
 	private long portsGeneratedID = 0;
 	private long macrosGeneratedID = 0;
-	protected static Random random = null;
+    protected static Random random = null;
 
 	static
 	{
@@ -266,6 +267,8 @@ public class VDBTemplate implements Inspectable, Commentable, Descriptable, Moni
 
 	/**
 	 * Constructor for VDBTemplate.
+     * @param id id
+     * @param fileName fileName
 	 */
 	public VDBTemplate(String id, String fileName)
 	{
@@ -628,6 +631,8 @@ public class VDBTemplate implements Inspectable, Commentable, Descriptable, Moni
 	}
 
 /**
+     * @param name name
+     * @return something
  */
 public VDBPort addPort(String name)
 {
@@ -648,6 +653,8 @@ public VDBPort addPort(String name)
 }
 
 /**
+     * @param name name
+     * @return something
  */
 public VDBMacro addMacro(String name)
 {
@@ -668,6 +675,7 @@ public VDBMacro addMacro(String name)
 }
 
 /**
+     * @param vdbPort vdbPort
  */
 public void addPort(VDBPort vdbPort)
 {
@@ -684,6 +692,7 @@ public void addPort(VDBPort vdbPort)
 }
 
 /**
+     * @param vdbMacro vdbMacro
  */
 public void addMacro(VDBMacro vdbMacro)
 {
@@ -700,6 +709,7 @@ public void addMacro(VDBMacro vdbMacro)
 }
 
 /**
+     * @param name name
  */
 public void removePort(String name)
 {
@@ -734,6 +744,7 @@ public void removePort(String name)
 }
 
 /**
+     * @param name name
  */
 public void removeMacro(String name)
 {
@@ -768,6 +779,7 @@ public void removeMacro(String name)
 }
 
 /**
+     * @param port port
  */
 public void removePort(VDBPort port)
 {
@@ -786,6 +798,7 @@ public void removePort(VDBPort port)
 }
 
 /**
+     * @param macro macro
  */
 public void removeMacro(VDBMacro macro)
 {
@@ -804,6 +817,8 @@ public void removeMacro(VDBMacro macro)
 }
 
 /**
+     * @param port port
+     * @param newName newName
  */
 public void renamePort(VDBPort port, String newName)
 {
@@ -830,6 +845,8 @@ public void renamePort(VDBPort port, String newName)
 }
 
 /**
+     * @param macro macro
+     * @param newName newName
  */
 public void renameMacro(VDBMacro macro, String newName)
 {
@@ -864,6 +881,7 @@ public void addProperty()
 }
 
 /**
+     * @return something
  */
 public VDBPort addPort()
 {
@@ -911,6 +929,7 @@ public VDBPort addPort()
 }
 
 /**
+     * @return something
  */
 public VDBMacro addMacro()
 {
@@ -958,6 +977,7 @@ public VDBMacro addMacro()
 }
 
 /**
+ * @param property property
  * @see com.cosylab.vdct.vdb.MonitoredPropertyListener#propertyChanged(InspectableProperty)
  */
 public void propertyChanged(InspectableProperty property)
@@ -973,6 +993,7 @@ public void propertyChanged(InspectableProperty property)
 }
 
 /**
+ * @param property property
  * @see com.cosylab.vdct.vdb.MonitoredPropertyListener#removeProperty(InspectableProperty)
  */
 public void removeProperty(InspectableProperty property)
@@ -984,6 +1005,7 @@ public void removeProperty(InspectableProperty property)
 }
 
 /**
+ * @param property property
  * @see com.cosylab.vdct.vdb.MonitoredPropertyListener#renameProperty(InspectableProperty)
  */
 public void renameProperty(InspectableProperty property)
@@ -995,6 +1017,7 @@ public void renameProperty(InspectableProperty property)
 }
 
 /**
+ * @param property property
  * @see com.cosylab.vdct.vdb.MonitoredPropertyListener#renameProperty(InspectableProperty)
  */
 public void renamePortProperty(InspectableProperty property)
@@ -1041,6 +1064,7 @@ public void renamePortProperty(InspectableProperty property)
 }
 
 /**
+ * @param property property
  * @see com.cosylab.vdct.vdb.MonitoredPropertyListener#renameProperty(InspectableProperty)
  */
 public void renameMacroProperty(InspectableProperty property)
@@ -1097,6 +1121,7 @@ public void renameMacroProperty(InspectableProperty property)
 
 	/**
 	 * Sets the id.
+     * @param dsId dsId
 	 * @param id The id to set
 	 */
 	public void setId(Object dsId, String id)
@@ -1129,23 +1154,43 @@ public void renameMacroProperty(InspectableProperty property)
 		return macrosGeneratedID;
 	}
 	
-	public String getVersion() {
+    /**
+     *
+     * @return something
+     */
+    public String getVersion() {
 		return version;
 	}
 
-	public void setVersion(String version) {
+    /**
+     *
+     * @param version version
+     */
+    public void setVersion(String version) {
 		this.version = version;
 	}
 
-	public String getIoc() {
+    /**
+     *
+     * @return something
+     */
+    public String getIoc() {
 		return ioc;
 	}
 
-	public void setIoc(String ioc) {
+    /**
+     *
+     * @param ioc ioc
+     */
+    public void setIoc(String ioc) {
 		this.ioc = ioc;
 	}
 
-	public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 		if (group != null) {
 			return group.getDsId();
 		} else {

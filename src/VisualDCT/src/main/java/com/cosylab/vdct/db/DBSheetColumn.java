@@ -41,9 +41,9 @@ public class DBSheetColumn implements Comparable {
 
     /**
      *
-     * @param columnName
-     * @param hidden
-     * @param sortIndex
+     * @param columnName columnName
+     * @param hidden hidden
+     * @param sortIndex sortIndex
      */
     public DBSheetColumn(String columnName, boolean hidden, int sortIndex) {
 		this(columnName, hidden, sortIndex, new DBSheetColWidth[0]);
@@ -51,10 +51,10 @@ public class DBSheetColumn implements Comparable {
 	
     /**
      *
-     * @param name
-     * @param hidden
-     * @param sortIndex
-     * @param splitIndices
+     * @param name name
+     * @param hidden hidden
+     * @param sortIndex sortIndex
+     * @param splitIndices splitIndices
      */
     public DBSheetColumn(String name, boolean hidden, int sortIndex,
 			DBSheetColWidth[] splitIndices) {
@@ -72,19 +72,35 @@ public class DBSheetColumn implements Comparable {
 		return sortIndex  - ((DBSheetColumn)o).sortIndex;
 	}
 
-	public String getName() {
+    /**
+     *
+     * @return something
+     */
+    public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+    /**
+     *
+     * @param name name
+     */
+    public void setName(String name) {
 		this.name = name;
 	}
 
-	public boolean isHidden() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isHidden() {
 		return hidden;
 	}
 
-	public void setHidden(boolean hidden) {
+    /**
+     *
+     * @param hidden hidden
+     */
+    public void setHidden(boolean hidden) {
 		this.hidden = hidden;
 	}
 

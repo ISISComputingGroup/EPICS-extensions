@@ -56,47 +56,54 @@ public class InspectorCellEditor implements TableCellEditor, TreeCellEditor {
 
 	/** Event listeners */
 	protected EventListenerList listenerList = new EventListenerList();
-	protected ChangeEvent changeEvent = null;
+    protected ChangeEvent changeEvent = null;
 
 	// intelli editor
 	protected boolean intelliEditor = false;
-	protected PropertyTableModel tableModel;
+    protected PropertyTableModel tableModel;
 
-	protected JComboBox intelliComboBox;
-	protected EditorDelegate comboDelegate;
+    protected JComboBox intelliComboBox;
+    protected EditorDelegate comboDelegate;
 
-	protected JTextField intelliTextField;
-	protected EditorDelegate textfieldDelegate;
+    protected JTextField intelliTextField;
+    protected EditorDelegate textfieldDelegate;
 
 	//protected JFormattedTextField intelliFormattedTextField;
 	//protected RegexFormatter formatter;
 	protected JTextField intelliFormattedTextField;
-	protected EditorDelegate formattedTextfieldDelegate;
-	protected Pattern pattern;
-	protected InspectableProperty property = null;
+    protected EditorDelegate formattedTextfieldDelegate;
+    protected Pattern pattern;
+    protected InspectableProperty property = null;
 
-	protected JComponent editorComponent;
-	protected EditorDelegate delegate;
-	protected int clickCountToStart = 1;
+    protected JComponent editorComponent;
+    protected EditorDelegate delegate;
+    protected int clickCountToStart = 1;
 
-	protected EditorDelegate emptyDelegate = null;
+    protected EditorDelegate emptyDelegate = null;
 
-	protected HelpDisplayer helpDisplayer = null;
+    protected HelpDisplayer helpDisplayer = null;
 
-	protected class EditorDelegate implements ActionListener, ItemListener {
+    protected class EditorDelegate implements ActionListener, ItemListener {
 
 		/** Not implemented. */
 		protected Object value;
 
-		/** Not implemented. */
+		/** Not implemented.
+         * @return something
+         */
 		public Object getCellEditorValue() {
 			return null;
 		}
 
-		/** Not implemented. */
+		/** Not implemented.
+         * @param value value
+         */
 		public void setValue(Object value) {}
 
-		/** Not implemented. */
+		/** Not implemented.
+         * @param anEvent anEvent
+         * @return something
+         */
 		public boolean isCellEditable(EventObject anEvent) {
 			return true;
 		}
@@ -109,12 +116,17 @@ public class InspectorCellEditor implements TableCellEditor, TreeCellEditor {
 		}
 
 
-		/** Not implemented. */
+		/** Not implemented.
+         * @param anEvent anEvent
+         * @return something
+         */
 		public boolean startCellEditing(EventObject anEvent) {
 			return true;
 		}
 
-		/** Not implemented. */
+		/** Not implemented.
+         * @return something
+         */
 		public boolean stopCellEditing() {
 			return true;
 		}
@@ -138,6 +150,8 @@ public class InspectorCellEditor implements TableCellEditor, TreeCellEditor {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (10.1.2001 16:03:29)
+     * @param tableModel tableModel
+     * @param helpDisplayer helpDisplayer
 	 */
 	public InspectorCellEditor(PropertyTableModel tableModel, HelpDisplayer helpDisplayer) {
 
@@ -379,6 +393,11 @@ public class InspectorCellEditor implements TableCellEditor, TreeCellEditor {
 	 * the fire method.
 	 * @see EventListenerList
 	 */
+
+    /**
+     *
+     */
+
 	protected void fireEditingCanceled() {
 		delegate.cancelCellEditing();
 		// Guaranteed to return a non-null array
@@ -401,6 +420,11 @@ public class InspectorCellEditor implements TableCellEditor, TreeCellEditor {
 	 * the fire method.
 	 * @see EventListenerList
 	 */
+
+    /**
+     *
+     */
+
 	protected void fireEditingStopped() {
 		delegate.stopCellEditing();
 		// Guaranteed to return a non-null array
@@ -423,6 +447,7 @@ public class InspectorCellEditor implements TableCellEditor, TreeCellEditor {
 	/**
 	 *  ClickCountToStart controls the number of clicks required to start
 	 *  editing.
+     * @return something
 	 */
 	public int getClickCountToStart() {
 		return clickCountToStart;
@@ -551,7 +576,11 @@ public class InspectorCellEditor implements TableCellEditor, TreeCellEditor {
 		return true;
 	}
 
-	public HelpDisplayer getHelpDisplayer() {
+    /**
+     *
+     * @return something
+     */
+    public HelpDisplayer getHelpDisplayer() {
 		return helpDisplayer;
 	}
 }

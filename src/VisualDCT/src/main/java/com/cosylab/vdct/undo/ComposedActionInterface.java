@@ -31,7 +31,7 @@ package com.cosylab.vdct.undo;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 20:42:25)
- * @author 
+ * @author cosylab
  */
 public interface ComposedActionInterface {
 /**

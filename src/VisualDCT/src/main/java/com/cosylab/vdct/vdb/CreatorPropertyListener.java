@@ -34,5 +34,12 @@ import com.cosylab.vdct.inspector.InspectableProperty;
  * @author ssah
  */
 public interface CreatorPropertyListener {
-	InspectableProperty addProperty(String key, String value);
+
+    /**
+     *
+     * @param key key
+     * @param value value
+     * @return something
+     */
+    InspectableProperty addProperty(String key, String value);
 }

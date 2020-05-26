@@ -32,34 +32,34 @@ import java.awt.Color;
 
 public class DBTextBox {
 
-	protected String name;
-	protected int x;
-	protected int y;
-	protected int x2;
-	protected int y2;
-	protected boolean border;
-	protected String fontName;
-	protected int fontSize;
-	protected int fontStyle;
-	protected Color color;
-	protected String description;
-	protected String parentBorderID;
+    protected String name;
+    protected int x;
+    protected int y;
+    protected int x2;
+    protected int y2;
+    protected boolean border;
+    protected String fontName;
+    protected int fontSize;
+    protected int fontStyle;
+    protected Color color;
+    protected String description;
+    protected String parentBorderID;
 	
 /**
  * Insert the method's description here.
  * Creation date: (23.4.2001 21:12:09)
- * @param name
- * @param x
- * @param y
- * @param fontStyle
- * @param color
- * @param border
- * @param x2
- * @param fontSize
- * @param y2
- * @param fontName
- * @param description
- * @param parentBorderID
+ * @param name name
+ * @param x x
+ * @param y y
+ * @param fontStyle fontStyle
+ * @param color color
+ * @param border border
+ * @param x2 x2
+ * @param fontSize fontSize
+ * @param y2 y2
+ * @param fontName fontName
+ * @param description description
+ * @param parentBorderID parentBorderID
  */
 public DBTextBox(String name, int x, int y, int x2, int y2, boolean border, String fontName, int fontSize, 
 				  int fontStyle, Color color, String description, String parentBorderID)
@@ -153,7 +153,7 @@ public DBTextBox(String name, int x, int y, int x2, int y2, boolean border, Stri
 
 	/**
 	 * Sets the border flag.
-     * @param border
+     * @param border border
 	 */
 	public void setBorder(boolean border)
 	{

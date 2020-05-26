@@ -29,7 +29,7 @@ package com.cosylab.vdct.about;
  */
 
 /**
- * @author 
+ * @author cosylab
  *
  * To change this generated comment edit the template variable "typecomment":
  * Window&gt;Preferences&gt;Java&gt;Templates.
@@ -38,5 +38,8 @@ package com.cosylab.vdct.about;
  */
 public interface AboutTabModel {
 
+    /**
+     *
+     */
     public void aquireData();
 }

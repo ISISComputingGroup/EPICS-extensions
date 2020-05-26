@@ -37,5 +37,10 @@ import com.cosylab.vdct.graphics.objects.VisibleObject;
  */
 public interface LinkCommandInterface {
 
-	public void linkCommand(VisibleObject linkObject, LinkSource linkData);
+    /**
+     *
+     * @param linkObject linkObject
+     * @param linkData linkData
+     */
+    public void linkCommand(VisibleObject linkObject, LinkSource linkData);
 }

@@ -40,5 +40,9 @@ import java.util.Properties;
  */
 public interface SystemTabModel extends AboutTabModel {
 	
-	public abstract Properties getSystemProperties();
+    /**
+     *
+     * @return something
+     */
+    public abstract Properties getSystemProperties();
 }

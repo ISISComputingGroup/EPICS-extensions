@@ -72,7 +72,7 @@ public static String color2string(java.awt.Color color) {
 /**
  * This method was created in VisualAge.
  * @param fileName java.lang.String
- * @return 
+ * @return something
  */
 public static String getFileName(String fileName) {
 	// fileName can contain path!
@@ -126,7 +126,7 @@ public static String quoteIfMacro(String str) {
  * This method was created in VisualAge.
  * @param str java.lang.String
  * @param beginning java.lang.String
- * @return 
+ * @return something
  */
 public static String removeBeginning(String str, String beginning) {
 	if (beginning.equals(nullString)) return str;
@@ -138,6 +138,7 @@ public static String removeBeginning(String str, String beginning) {
  * @param str java.lang.String
  * @param s1 java.lang.String
  * @param s2 java.lang.String
+     * @return something
  */
 public static String replaceEnding(String str, String s1, String s2) {
 	if (str.equals(s1)) return s2;
@@ -152,7 +153,7 @@ public static String replaceEnding(String str, String s1, String s2) {
  * @param source java.lang.String
  * @param from java.lang.String
  * @param to java.lang.String
- * @return 
+ * @return something
  */
 public static String replace(String source, String from, String to)
   {
@@ -171,7 +172,7 @@ public static String replace(String source, String from, String to)
  * This method was created in VisualAge.
  * @param fileName java.lang.String
  * @param newFN java.lang.String
- * @return 
+ * @return something
  */
 public static String replaceFileName(String fileName, String newFN) {
 	// fileName can contain path!
@@ -223,6 +224,12 @@ public static String removeQuotesAndLineBreaks(String str) {
 }
 
 // TASK:STRUTILOPT: implement more efficient algorithm
+
+    /**
+     *
+     * @param str str
+     * @return something
+     */
 public static String substituteTabsAndNewLinesWithSpaces(String str) {
 	return str.replaceAll("\\t", " ").replaceAll("\\n", " ");
 }
@@ -234,16 +241,16 @@ public static String substituteTabsAndNewLinesWithSpaces(String str) {
  */
 // TASK:STRUTILOPT: implement more efficient algorithm
 public static String removeQuotes(String str) {
-	if (str.indexOf('"')>=0)
-		str = str.replaceAll("\\\"", "\\\\\"");
-	return str;
-}
+    return str
+            .replaceAll("\\\\", "\\\\\\\\")
+            .replaceAll("\\\"", "\\\\\"");
+    }
 /**
  * Insert the method's description here.
  * Creation date: (23.4.2001 18:52:04)
- * @param newName
- * @param suffix
- * @return
+ * @param newName newName
+ * @param suffix suffix
+ * @return something
  */
 public static String incrementName(String newName, String suffix)
 {
@@ -298,6 +305,8 @@ public static String incrementName(String newName, String suffix)
  *  block2value1drop0,
  *  block3value2drop0,
  *  block3value1drop0}
+     * @param string string
+     * @return something
  */
 public static String[] expandMacros(String string) {
 	String expression = "\\[([\\d]+)-([\\d]+)\\]";
@@ -363,6 +372,14 @@ public static String[] expandMacros(String string) {
 
 /* Returns true if string1 equals string2, where the values of null and "" are considered the same.
  */
+
+    /**
+     *
+     * @param string1 string1
+     * @param string2 string2
+     * @return something
+     */
+
 public static boolean emptyEquals(String string1, String string2) {
     if (string1 == null) {
     	string1 = "";

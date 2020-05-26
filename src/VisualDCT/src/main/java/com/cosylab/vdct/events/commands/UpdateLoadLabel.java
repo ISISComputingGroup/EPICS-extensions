@@ -39,6 +39,10 @@ public class UpdateLoadLabel extends Command {
 
 	private VisualDCT visualDCT;
 
+    /**
+     *
+     * @param visualDCT visualDCT
+     */
     public UpdateLoadLabel(VisualDCT visualDCT) {
 		this.visualDCT = visualDCT;
 	}

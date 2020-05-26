@@ -38,10 +38,25 @@ import java.util.regex.Pattern;
  */
 public interface InspectableProperty {
 	
-	public static final int NON_DEFAULT_VISIBLE = 0; 
-	public static final int ALWAYS_VISIBLE = 1;
-	public static final int NEVER_VISIBLE = 2;
-	public static final int UNDEFINED_VISIBILITY = Integer.MAX_VALUE;
+    /**
+     *
+     */
+    public static final int NON_DEFAULT_VISIBLE = 0; 
+
+    /**
+     *
+     */
+    public static final int ALWAYS_VISIBLE = 1;
+
+    /**
+     *
+     */
+    public static final int NEVER_VISIBLE = 2;
+
+    /**
+     *
+     */
+    public static final int UNDEFINED_VISIBILITY = Integer.MAX_VALUE;
 
 /**
  * Insert the method's description here.
@@ -125,25 +140,33 @@ public int getVisibility();
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y);
 
-public boolean hasDefaultValue();
+    /**
+     *
+     * @return something
+     */
+    public boolean hasDefaultValue();
 
-public boolean hasValidity();
+    /**
+     *
+     * @return something
+     */
+    public boolean hasValidity();
 
 /**
  * Returns null if this value is valid, else the error message.
- * @param value
- * @return
+ * @param value value
+ * @return something
  */
 public String checkValueValidity(String value);
 
 /**
  * Returns the gui group index as an Integer or null if no gui group info available.
- * @return
+ * @return something
  */
 public Integer getGuiGroup();
 

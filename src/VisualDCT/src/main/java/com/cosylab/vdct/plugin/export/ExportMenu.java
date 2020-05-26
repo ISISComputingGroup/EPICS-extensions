@@ -75,8 +75,8 @@ public void actionPerformed(ActionEvent event)
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:05:28)
- * @param
- * @return
+ * @param newPlugin newPlugin 
+ * @return something
  */
 public void setPlugin(PluginObject newPlugin)
 {
@@ -107,7 +107,7 @@ public void propertyChange(PropertyChangeEvent evt)
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:05:42)
  * @param
- * @return
+ * @return something
  */
 private void updateStatus()
 {
@@ -121,7 +121,7 @@ private void updateStatus()
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:06:11)
  * @param
- * @return
+ * @return something
  */	
 public String getText()
 {
@@ -135,7 +135,7 @@ public String getText()
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:06:38)
  * @param
- * @return
+ * @return something
  */
 public Icon getIcon()
 {

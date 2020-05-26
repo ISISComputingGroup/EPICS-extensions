@@ -35,15 +35,23 @@ import com.cosylab.vdct.inspector.*;
 /**
  * Insert the type's description here.
  * Creation date: (12.1.2001 22:40:34)
- * @author 
+ * @author cosylab
  */
 public class ROProperty implements InspectableProperty, ChangableVisibility {
 	
-	protected boolean allowVisibilityChange = false;
-	protected InspectableProperty property = null;
+    /**
+     *
+     */
+    protected boolean allowVisibilityChange = false;
+
+    /**
+     *
+     */
+    protected InspectableProperty property = null;
 
 /**
  * GUISeparator constructor comment.
+     * @param property property
  */
 public ROProperty(InspectableProperty property) {
 	this(property, false);
@@ -51,6 +59,8 @@ public ROProperty(InspectableProperty property) {
 
 /**
  * GUISeparator constructor comment.
+     * @param property property
+     * @param allowVisibilityChange allowVisibilityChange
  */
 public ROProperty(InspectableProperty property, boolean allowVisibilityChange) {
 	this.property = property;
@@ -168,8 +178,8 @@ public int getVisibility()
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y)
 {
@@ -188,12 +198,24 @@ public void setVisibility(int visibility)
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasDefaultValue() {
 	return false;
 }
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasValidity() {
 	return false;
 }

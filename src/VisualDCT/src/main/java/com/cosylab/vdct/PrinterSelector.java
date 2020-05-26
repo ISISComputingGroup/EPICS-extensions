@@ -98,7 +98,7 @@ public class PrinterSelector extends JDialog implements ActionListener {
      * 
      * Shows the PrinterSelector and return the selected PrintService if SAVE button is pressed.
      * If the SKIP button is pressed method returns null.
-     * @param previousService
+     * @param previousService previousService
      * @return selected PrintService.
      */
     public PrintService getPrintService(PrintService previousService) {

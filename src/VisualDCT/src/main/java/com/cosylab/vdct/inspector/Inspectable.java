@@ -56,8 +56,8 @@ public Icon getIcon();
 public String getName();
 /**
  * 
- * @param mode
- * @param spreadsheet
+ * @param mode mode
+ * @param spreadsheet spreadsheet
  * @return com.cosylab.vdct.inspector.InspectableProperty[]
  */
 com.cosylab.vdct.inspector.InspectableProperty[] getProperties(int mode, boolean spreadsheet);
@@ -75,5 +75,9 @@ public java.util.ArrayList getModeNames();
  */
 public String toString();
 
-public Object getDsId();
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId();
 }

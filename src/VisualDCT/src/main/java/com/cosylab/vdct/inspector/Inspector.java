@@ -118,7 +118,7 @@ public Inspector() {
 /**
  * Inspector constructor comment.
  * @param owner java.awt.Frame
- * @param dsId
+ * @param dsId dsId
  */
 public Inspector(Frame owner, Object dsId) {
 	super(owner);
@@ -683,7 +683,7 @@ public void inspectObject(Inspectable object) {
  * Insert the method's description here.
  * Creation date: (8.1.2001 17:50:20)
  * @param object com.cosylab.vdct.inspector.Inspectable
- * @param raise
+ * @param raise raise
  */
 public void inspectObject(Inspectable object, boolean raise) {
 
@@ -797,7 +797,11 @@ public void setHelp(java.lang.String help) {
 	getHelpLabel().setText(help != null ? help : "");
 }
 
-public void setHelpColor(Color color) {
+    /**
+     *
+     * @param color color
+     */
+    public void setHelpColor(Color color) {
 	getHelpLabel().setForeground(color);
 }
 
@@ -857,6 +861,7 @@ public void updateProperty(InspectableProperty property) {
 	 * Invoked when the window is set to be the user's
 	 * active window, which means the window (or one of its
 	 * subcomponents) will receive keyboard events.
+     * @param e e
 	 */
 public void windowActivated(java.awt.event.WindowEvent e) {
 	InspectorManager.getInstance().fucusGained(this);
@@ -870,6 +875,7 @@ public void windowActivated(java.awt.event.WindowEvent e) {
 	/**
 	 * Invoked when a window has been closed as the result
 	 * of calling dispose on the window.
+     * @param e e
 	 */
 public void windowClosed(java.awt.event.WindowEvent e) {}
 	/**
@@ -877,12 +883,14 @@ public void windowClosed(java.awt.event.WindowEvent e) {}
 	 * from the window's system menu.  If the program does not 
 	 * explicitly hide or dispose the window while processing 
 	 * this event, the window close operation will be cancelled.
+     * @param e e
 	 */
 public void windowClosing(java.awt.event.WindowEvent e) {}
 	/**
 	 * Invoked when a window is no longer the user's active
 	 * window, which means that keyboard events will no longer
 	 * be delivered to the window or its subcomponents.
+     * @param e e
 	 */
 public void windowDeactivated(java.awt.event.WindowEvent e) {
     if (inspectedObject != null) {
@@ -895,6 +903,7 @@ public void windowDeactivated(java.awt.event.WindowEvent e) {
 	/**
 	 * Invoked when a window is changed from a minimized
 	 * to a normal state.
+     * @param e e
 	 */
 public void windowDeiconified(java.awt.event.WindowEvent e) {}
 	/**
@@ -902,11 +911,13 @@ public void windowDeiconified(java.awt.event.WindowEvent e) {}
 	 * minimized state. For many platforms, a minimized window 
 	 * is displayed as the icon specified in the window's 
 	 * iconImage property.
+     * @param e e
 	 * @see Frame#setIconImage
 	 */
 public void windowIconified(java.awt.event.WindowEvent e) {}
 	/**
 	 * Invoked the first time a window is made visible.
+     * @param e e
 	 */
 public void windowOpened(java.awt.event.WindowEvent e) {}
 
@@ -979,7 +990,11 @@ private void initializeTabs(ArrayList tabs)
 	}
 }
 
-public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
     return dsId;
 }
 

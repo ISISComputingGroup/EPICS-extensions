@@ -1,1 +1,47 @@
 language: java
+
+sudo: false
+
+cache:
+    directories:
+        - "$HOME/.m2"
+before_cache:
+    - rm -rf $HOME/.m2/repository/com/cosylab/vdct
+
+jobs:
+    include:
+        - stage: test
+          jdk: openjdk10
+          script: mvn verify -Dmaven.javadoc.skip=true
+        - stage: test
+          jdk: openjdk11
+          script: mvn verify -Dmaven.javadoc.skip=true
+        - stage: test
+          os: osx
+          jdk: openjdk10
+          script: mvn verify -Dmaven.javadoc.skip=true
+        - jdk: openjdk10
+          env: FULL=true
+          script:
+            - mvn verify site assembly:single
+
+deploy:
+    - provider: pages
+      skip-cleanup: true
+      github-token: $GITHUB_TOKEN
+      local-dir: target/site
+      on:
+          branch: master
+          repo: epics-extensions/VisualDCT
+          condition: $FULL = true
+    - provider: releases
+      skip-cleanup: true
+      api_key: $GITHUB_TOKEN
+      file_glob: true
+      file: target/VisualDCT-*-distribution.*
+      on:
+          branch: master
+          repo: epics-extensions/VisualDCT
+          tags: true
+          condition: $TRAVIS_TAG = v*
+          condition: $FULL = true

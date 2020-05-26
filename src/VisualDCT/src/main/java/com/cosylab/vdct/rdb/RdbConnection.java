@@ -51,26 +51,50 @@ public class RdbConnection {
 	private int insertCount = 0;
 	private int deleteCount = 0;
 	
-	public RdbConnection() throws Exception {
+    /**
+     *
+     * @throws Exception foo
+     */
+    public RdbConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 	}
 	
-	public void setParameters(String host, String database, String user, String password) {
+    /**
+     *
+     * @param host host
+     * @param database database
+     * @param user user
+     * @param password password
+     */
+    public void setParameters(String host, String database, String user, String password) {
 		this.host = host;
 		this.database = database;
 		this.user = user;
 		this.password = password;
 	}
 	
-	public boolean isConnection() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isConnection() {
 		return connection != null;
 	}
 	
-	public void commit() throws SQLException {
+    /**
+     *
+     * @throws SQLException foo
+     */
+    public void commit() throws SQLException {
 		connection.commit();
 	}
 	
-	public Connection createConnection() throws SQLException {
+    /**
+     *
+     * @return something
+     * @throws SQLException foo
+     */
+    public Connection createConnection() throws SQLException {
 		connection = null;
 		String connectionString = "jdbc:mysql://" + host + "/" + database
 		+ "?user=" + user + "&password=" + password;
@@ -80,15 +104,27 @@ public class RdbConnection {
 		return connection;
 	}
 
-	public Connection getConnection() {
+    /**
+     *
+     * @return something
+     */
+    public Connection getConnection() {
 		return connection;
 	}
 	
-	public void rollbackConnection() throws SQLException {
+    /**
+     *
+     * @throws SQLException foo
+     */
+    public void rollbackConnection() throws SQLException {
 		connection.rollback();
 	}
 	
-	public void closeConnection() throws SQLException {
+    /**
+     *
+     * @throws SQLException foo
+     */
+    public void closeConnection() throws SQLException {
 		connection.close();
 	}
 	
@@ -151,15 +187,42 @@ public class RdbConnection {
         }
 	}
 
-	public ResultSet loadRows(String table, Object[] columns, Object[][] keyPairs) throws SQLException {
+    /**
+     *
+     * @param table table
+     * @param columns columns
+     * @param keyPairs keyPairs
+     * @return something
+     * @throws SQLException foo
+     */
+    public ResultSet loadRows(String table, Object[] columns, Object[][] keyPairs) throws SQLException {
 		return loadRows(table, columns, keyPairs, null, null);
 	}
 	
-	public ResultSet loadRows(String table, Object[] columns, Object[][] keyPairs, String conditions) throws SQLException {
+    /**
+     *
+     * @param table table
+     * @param columns columns
+     * @param keyPairs keyPairs
+     * @param conditions conditions
+     * @return something
+     * @throws SQLException foo
+     */
+    public ResultSet loadRows(String table, Object[] columns, Object[][] keyPairs, String conditions) throws SQLException {
 		return loadRows(table, columns, keyPairs, conditions, null);
 	}
 	
-	public ResultSet loadRows(String table, Object[] columns, Object[][] keyPairs, String conditions, String orderBy) throws SQLException {
+    /**
+     *
+     * @param table table
+     * @param columns columns
+     * @param keyPairs keyPairs
+     * @param conditions conditions
+     * @param orderBy orderBy
+     * @return something
+     * @throws SQLException foo
+     */
+    public ResultSet loadRows(String table, Object[] columns, Object[][] keyPairs, String conditions, String orderBy) throws SQLException {
 
         String columnsString = columns != null ? getList(columns) : "*";
         String equalityConditions = getEqualityStatement(keyPairs[0]);
@@ -190,6 +253,14 @@ public class RdbConnection {
 	}
 
 	// Performs insert.
+
+    /**
+     *
+     * @param table table
+     * @param keyPairs keyPairs
+     * @param valuePairs valuePairs
+     * @throws SQLException foo
+     */
 	public void insertRow(String table, Object[][] keyPairs, Object[][] valuePairs) throws SQLException {
 		int keyLen = keyPairs[1].length;
 		int valueLen = valuePairs[1].length;
@@ -206,6 +277,14 @@ public class RdbConnection {
 	}
 
 	// Performs update.
+
+    /**
+     *
+     * @param table table
+     * @param keyPairs keyPairs
+     * @param valuePairs valuePairs
+     * @throws SQLException foo
+     */
 	public void updateRow(String table, Object[][] keyPairs, Object[][] valuePairs) throws SQLException {
 		if (valuePairs[0].length > 0) {
 			String condition = getEqualityStatement(keyPairs[0]);
@@ -220,6 +299,13 @@ public class RdbConnection {
 	}
 
 	// Performs delete.
+
+    /**
+     *
+     * @param table table
+     * @param keyPairs keyPairs
+     * @throws SQLException foo
+     */
 	public void deleteRows(String table, Object[][] keyPairs) throws SQLException {
 		String sqlString = "DELETE FROM " + table + " WHERE " + getEqualityStatement(keyPairs[0]);
 		PreparedStatement statement = connection.prepareStatement(sqlString);
@@ -230,6 +316,14 @@ public class RdbConnection {
 	}
 	
 	// Performs insert or update if the row already exist.
+
+    /**
+     *
+     * @param table table
+     * @param keyPairs keyPairs
+     * @param valuePairs valuePairs
+     * @throws SQLException foo
+     */
 	public void saveRow(String table, Object[][] keyPairs, Object[][] valuePairs) throws SQLException {
 		if (!isRowPresent(table, keyPairs)) {
 			insertRow(table, keyPairs, valuePairs);
@@ -239,13 +333,24 @@ public class RdbConnection {
 	}
 	
 	// Performs insert or does nothing if the row already exists.
+
+    /**
+     *
+     * @param table table
+     * @param keyPairs keyPairs
+     * @param valuePairs valuePairs
+     * @throws SQLException foo
+     */
 	public void appendRow(String table, Object[][] keyPairs, Object[][] valuePairs) throws SQLException {
 		if (!isRowPresent(table, keyPairs)) {
 			insertRow(table, keyPairs, valuePairs);
 		}
 	}
 	
-	public void displayStatistics() {
+    /**
+     *
+     */
+    public void displayStatistics() {
 		System.out.println("select statements " + selectCount);
 		System.out.println("update statements " + updateCount);
 		System.out.println("insert statements " + insertCount);
@@ -255,7 +360,10 @@ public class RdbConnection {
 		System.out.println(); 
 	}
 	
-	public void resetStatistics() {
+    /**
+     *
+     */
+    public void resetStatistics() {
 		selectCount = 0;
 		updateCount = 0;
 		insertCount = 0;

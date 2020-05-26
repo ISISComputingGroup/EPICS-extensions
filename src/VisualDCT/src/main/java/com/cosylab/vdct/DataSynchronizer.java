@@ -57,6 +57,10 @@ public class DataSynchronizer {
 	private Component dialogParent = null;
 	private DsManagerInterface dsManager = null;
 
+    /**
+     *
+     * @return something
+     */
     public static DataSynchronizer getInstance() {
 		if (instance == null) {
 			instance = new DataSynchronizer();
@@ -64,6 +68,9 @@ public class DataSynchronizer {
 		return instance;
 	}
 
+    /**
+     *
+     */
     public DataSynchronizer() {
 		super();
 		GetMainComponent command = (GetMainComponent)CommandManager.getInstance().getCommand("GetMainComponent");
@@ -75,9 +82,9 @@ public class DataSynchronizer {
 
     /**
      *
-     * @param dsId
-     * @param templateId
-     * @return
+     * @param dsId dsId
+     * @param templateId templateId
+     * @return something
      */
     public VDBTemplate getTemplate(Object dsId, String templateId) {
 
@@ -109,9 +116,9 @@ public class DataSynchronizer {
 
     /**
      *
-     * @param dsId
-     * @param exit
-     * @return
+     * @param dsId dsId
+     * @param exit exit
+     * @return something
      */
     public boolean confirmFileClose(Object dsId, boolean exit) {
 		boolean confirmed = true;
@@ -159,7 +166,7 @@ public class DataSynchronizer {
 
     /**
      *
-     * @param dsId
+     * @param dsId dsId
      */
     public void checkFilesystemChanges(Object dsId) {
 

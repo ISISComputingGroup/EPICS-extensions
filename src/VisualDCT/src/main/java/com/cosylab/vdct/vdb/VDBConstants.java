@@ -33,5 +33,8 @@ package com.cosylab.vdct.vdb;
  */
 public interface VDBConstants {
 	
-	public static final char quoteChar = '"';
+    /**
+     *
+     */
+    public static final char quoteChar = '"';
 }

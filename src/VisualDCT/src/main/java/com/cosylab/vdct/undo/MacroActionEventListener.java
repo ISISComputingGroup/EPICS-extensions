@@ -34,6 +34,13 @@ package com.cosylab.vdct.undo;
  */
 public interface MacroActionEventListener {
 
-	public void macroActionStarted();
-	public void macroActionStopped();
+    /**
+     *
+     */
+    public void macroActionStarted();
+
+    /**
+     *
+     */
+    public void macroActionStopped();
 }

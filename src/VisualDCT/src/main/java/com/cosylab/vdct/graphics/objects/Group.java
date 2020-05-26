@@ -32,14 +32,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -92,9 +92,20 @@ SaveObject, DsEventListener {
 	private static final String nullString = "";
 	private static Group root = null;
 
-	protected Object dsId = null; 
-	protected String name;
-	protected String namePrefix;
+    /**
+     *
+     */
+    protected Object dsId = null; 
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected String namePrefix;
 	// local view settings
 	ViewState localView = null;
 
@@ -102,13 +113,21 @@ SaveObject, DsEventListener {
 	private Hashtable lookupTable = null;
 
 	private static HashMap rootGroups = new HashMap();
-	protected boolean disposed = false;
+
+    /**
+     *
+     */
+    protected boolean disposed = false;
 
 	private VDBTemplate editingTemplateData = null;
 	private long openTemplateMacroID = 0;
 	private long openTemplatePortID = 0;
 
 	// contains DB structure (entry (include, path, addpath statements), record, expand)
+
+    /**
+     *
+     */
 	protected Vector structure = null;
 
 	/**
@@ -234,9 +253,9 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (4.2.2001 22:02:39)
-     * @param dsId
+     * @param dsId dsId
 	 * @param group java.lang.String
-     * @return 
+     * @return something
 	 */
 	public Flexible copyToGroup(Object dsId, String group) {
 
@@ -307,9 +326,9 @@ private void addSubObjectToLayout(VisibleObject object) {
 	 * Insert the method's description here.
 	 * IDs are relative
 	 * Creation date: (28.1.2001 17:10:46)
-     * @param dsId
+     * @param dsId dsId
 	 * @param name java.lang.String
-     * @return 
+     * @return something
 	 */
 	public static Group createGroup(Object dsId, String name) {
 		Group group = new Group(null);
@@ -715,9 +734,9 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (4.2.2001 22:02:39)
-     * @param dsId
+     * @param dsId dsId
 	 * @param group java.lang.String
-     * @return 
+     * @return something
 	 */
 	public boolean moveToGroup(Object dsId, String group) {
 		// move to itself
@@ -792,7 +811,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 	 * Creation date: (21.12.2000 21:58:56)
 	 * @param g java.awt.Graphics
 	 * @param hilited boolean
-     * @param flatten
+     * @param flatten flatten
 	 */
 	public void paintComponents(Graphics g, boolean hilited, boolean flatten) {
 		Enumeration e = subObjectsV.elements();
@@ -852,9 +871,9 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (2.5.2001 23:23:42)
-     * @param dsId
+     * @param dsId dsId
 	 * @param newName java.lang.String
-     * @return 
+     * @return something
 	 */
 	public boolean rename(Object dsId, String newName) {
 
@@ -997,8 +1016,8 @@ private void addSubObjectToLayout(VisibleObject object) {
 
     /**
      *
-     * @param dsId
-     * @param newRoot
+     * @param dsId dsId
+     * @param newRoot newRoot
      */
     public static void setRoot(Object dsId, Group newRoot) {
 		Group mappedRoot = (Group)rootGroups.get(dsId);
@@ -1035,9 +1054,9 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (28.1.2001 11:36:31)
-     * @param groupName
-     * @param objName
-     * @return 
+     * @param groupName groupName
+     * @param objName objName
+     * @return something
 	 */
 	public static String substractRelativeName(String groupName, String objName) {
 		if (!objName.startsWith(groupName)) return null;
@@ -1058,7 +1077,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (26.1.2001 17:19:47)
-     * @param flat
+     * @param flat flat
 	 */
 	public void unconditionalValidateSubObjects(boolean flat) {
 
@@ -1131,28 +1150,42 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (22.4.2001 21:51:25)
-	 * @param file java.io.DataOutputStream
-     * @param renamer
-     * @param export
+	 * @param writer java.io.DataOutputStream
+     * @param renamer renamer
+     * @param export export
 	 * @exception java.io.IOException The exception description.
 	 */
-	public void writeObjects(DataOutputStream file, NamingContext renamer, boolean export) throws java.io.IOException {
-		//writeObjects(getSubObjectsV(), file, namer, export);
-		writeObjects(getDsId(), Group.getRoot(getDsId()).getStructure(), file, renamer, export);
+	public void writeObjects(Writer writer, NamingContext renamer, boolean export) throws java.io.IOException {
+		//writeObjects(getSubObjectsV(), writer, namer, export);
+		writeObjects(getDsId(), Group.getRoot(getDsId()).getStructure(), writer, renamer, export);
+	}
+
+    /**
+     *
+     * @param dsId dsId
+     * @param elements elements
+     * @param stream stream
+     * @param renamer renamer
+     * @param export export
+     * @throws IOException foo
+     */
+    public static void writeObjects(Object dsId, Vector elements, DataOutputStream stream, NamingContext renamer, boolean export) throws java.io.IOException {
+		//writeObjects(getSubObjectsV(), writer, namer, export);
+        Writer writer = new OutputStreamWriter(stream);
+		writeObjects(dsId, elements, writer, renamer, export);
 	}
 
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (22.4.2001 21:51:25)
-     * @param dsId
-     * @param elements
-	 * @param file java.io.DataOutputStream
-     * @param export
-     * @param renamer
+     * @param dsId dsId
+     * @param elements elements
+	 * @param writer java.io.DataOutputStream
+     * @param export export
+     * @param renamer renamer
 	 * @exception java.io.IOException The exception description.
 	 */
-	public static void writeObjects(Object dsId, Vector elements, java.io.DataOutputStream file, NamingContext renamer, boolean export) throws java.io.IOException {
-
+	public static void writeObjects(Object dsId, Vector elements, Writer writer, NamingContext renamer, boolean export) throws java.io.IOException {
 
 		Object obj;
 		String name;
@@ -1202,11 +1235,11 @@ private void addSubObjectToLayout(VisibleObject object) {
 			 	if (comment!=null) {
 			 		// substitute any macros first
 			 		comment = renamer.matchAndReplace(comment);
-			 		file.writeBytes(nl+comment);
+			 		writer.write(nl+comment);
 			 	}
 				
 				// write "record" block
-				file.writeBytes(recordStart+recordData.getType()+comma+name+") {"+nl);
+				writer.write(recordStart+recordData.getType()+comma+name+") {"+nl);
 
 
 				// locate DTYP field
@@ -1242,7 +1275,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 					// write comment
 					if (fieldData.getComment()!=null)
-						file.writeBytes(fieldData.getComment()+nl);
+						writer.write(fieldData.getComment()+nl);
 
 					String value = StringUtils.removeQuotes(fieldData.getValue());
 
@@ -1274,7 +1307,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 					if (!fieldData.hasDefaultValue())
 					{
 						//						write field value						 		
-						file.writeBytes(fieldStart+fieldData.getName()+comma+"\""+value+"\")"+nl);
+						writer.write(fieldStart+fieldData.getName()+comma+"\""+value+"\")"+nl);
 
 					}
 					// write field value if has a comment
@@ -1283,11 +1316,11 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 						if (value.equals(nullString))
 							// comment it out if it has null value
-							file.writeBytes("  "+com.cosylab.vdct.db.DBConstants.commentString+
+							writer.write("  "+com.cosylab.vdct.db.DBConstants.commentString+
 									DBResolver.FIELD+"("+fieldData.getName()+comma+"\""+value+"\")"+nl);
 						else
 						{	  
-							file.writeBytes(fieldStart+fieldData.getName()+comma+"\""+value+"\")"+nl);
+							writer.write(fieldStart+fieldData.getName()+comma+"\""+value+"\")"+nl);
 						}								
 					}
 				}
@@ -1303,7 +1336,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 						// write comment
 						if (infoData.getComment()!=null)
-							file.writeBytes(infoData.getComment()+nl);
+							writer.write(infoData.getComment()+nl);
 							
 						String value = StringUtils.removeQuotes(infoData.getValue());
 						
@@ -1323,13 +1356,13 @@ private void addSubObjectToLayout(VisibleObject object) {
 						}
 												
 						// write field value						 		
-						file.writeBytes(infoStart+infoData.getName()+comma+"\""+value+"\")"+nl);
+						writer.write(infoStart+infoData.getName()+comma+"\""+value+"\")"+nl);
 	 				}
 				}
 				
 
 				
-				file.writeBytes("}"+nl);
+				writer.write("}"+nl);
 			}
 			/*else if (obj instanceof Group)
  	 		{
@@ -1342,12 +1375,12 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 				// skip templates on clipboard
 				if (!template.getTemplateData().getName().startsWith(Constants.CLIPBOARD_NAME))
-					template.writeObjects(file, renamer, export);
+					template.writeObjects(writer, renamer, export);
 
 			}
 			else if (!export && obj instanceof DBTemplateEntry)
 			{
-				writeTemplateData(dsId, file, renamer);
+				writeTemplateData(dsId, writer, renamer, null);
 				// !!! TBD multiple templates support
 			}	 		
 			else if (obj instanceof DBDataEntry)
@@ -1356,10 +1389,10 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 				// write comment
 				if (entry.getComment()!=null)
-					file.writeBytes(entry.getComment()+nl);
+					writer.write(entry.getComment()+nl);
 
 				//write data
-				file.writeBytes(entry.getData()+nl);
+				writer.write(entry.getData()+nl);
 			}
 		}
 
@@ -1370,15 +1403,14 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 */
-	private static void writeIncludes(java.io.DataOutputStream file) throws IOException
+	private static void writeIncludes(java.io.BufferedWriter writer) throws IOException
 	{
-
 	}
 
     /**
      *
-     * @param dsId
-     * @return
+     * @param dsId dsId
+     * @return something
      */
     public static String getVDCTData(Object dsId) {
 
@@ -1394,8 +1426,8 @@ private void addSubObjectToLayout(VisibleObject object) {
 		return writer.toString();
 	}
 
-	private static void writeVDCTViewData(Object dsId, DataOutputStream file) throws IOException {
-		Writer writer = new OutputStreamWriter(file);
+	private static void writeVDCTViewData(Object dsId, DataOutputStream stream) throws IOException {
+		Writer writer = new OutputStreamWriter(stream);
 		writeVDCTViewData(dsId, writer);
 		writer.flush();
 	}
@@ -1541,26 +1573,13 @@ private void addSubObjectToLayout(VisibleObject object) {
 			writer.write(ending);
 		}
 	}
-	/**
-	 * Insert the method's description here.
-	 * Creation date: (22.4.2001 21:51:25)
-	 * @param file java.io.DataOutputStream
-     * @param renamer
-     * @param export
-	 * @exception java.io.IOException The exception description.
-	 */
-	public void writeVDCTObjects(DataOutputStream file, NamingContext renamer, boolean export) throws java.io.IOException {
-		Writer writer = new OutputStreamWriter(file);
-		writeVDCTObjects(getSubObjectsV(), writer, renamer, export);
-		writer.flush();
-	}
 
     /**
      *
-     * @param writer
-     * @param renamer
-     * @param export
-     * @throws IOException
+     * @param writer writer
+     * @param renamer renamer
+     * @param export export
+     * @throws IOException foo
      */
     public void writeVDCTObjects(Writer writer, NamingContext renamer, boolean export) throws java.io.IOException {
 		writeVDCTObjects(getSubObjectsV(), writer, renamer, export);
@@ -1568,14 +1587,14 @@ private void addSubObjectToLayout(VisibleObject object) {
 
     /**
      *
-     * @param elements
-     * @param file
-     * @param renamer
-     * @param export
-     * @throws IOException
+     * @param elements elements
+     * @param stream stream
+     * @param renamer renamer
+     * @param export export
+     * @throws IOException foo
      */
-    public static void writeVDCTObjects(Vector elements, DataOutputStream file, NamingContext renamer, boolean export) throws java.io.IOException {
-		Writer writer = new OutputStreamWriter(file);
+    public static void writeVDCTObjects(Vector elements, DataOutputStream stream, NamingContext renamer, boolean export) throws java.io.IOException {
+		Writer writer = new OutputStreamWriter(stream);
 		writeVDCTObjects(elements, writer, renamer, export);
 		writer.flush();
 	}
@@ -1583,10 +1602,10 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (22.4.2001 21:51:25)
-     * @param elements
+     * @param elements elements
 	 * @param writer java.io.DataOutputStream
-     * @param renamer
-     * @param export
+     * @param renamer renamer
+     * @param export export
 	 * @exception java.io.IOException The exception description.
 	 */
 	public static void writeVDCTObjects(Vector elements, Writer writer, NamingContext renamer, boolean export) throws java.io.IOException {
@@ -1881,13 +1900,13 @@ private void addSubObjectToLayout(VisibleObject object) {
 	/**
 	 * Insert the method's description here.
 	 */
-	private static void writeUsedDBDs(File dbFile, DataOutputStream stream) throws IOException
+	private static void writeUsedDBDs(File dbFile, Writer writer) throws IOException
 	{
 		// write used DBDs
 		File relativeTo = dbFile.getParentFile();
 		DBDEntry.setBaseDir(relativeTo);	 
 
-		stream.writeBytes(DBResolver.DBD_START);
+		writer.write(DBResolver.DBD_START);
 		Enumeration edbd = DataProvider.getInstance().getCurrentDBDs().elements();
 		while (edbd.hasMoreElements())
 		{
@@ -1899,34 +1918,36 @@ private void addSubObjectToLayout(VisibleObject object) {
 				file = file.replace('\\', '/');
 
 				// replace back-slash separator
-				stream.writeBytes(DBResolver.DBD_ENTRY+file+"\")\n");
+				writer.write(DBResolver.DBD_ENTRY+file+"\")\n");
 			}
 		}
-		stream.writeBytes(DBResolver.DBD_END);
-		stream.writeBytes("\n");
+		writer.write(DBResolver.DBD_END);
+		writer.write("\n");
 	}
 
 	/**
 	 * Insert the method's description here.
-     * @param dsId
-     * @param stream
-     * @param renamer
-     * @throws java.io.IOException
+     * @param dsId dsId
+     * @param stream stream
+     * @param renamer renamer
+     * @param allowedPortMacroSet allowedPortMacroSet
+     * @throws java.io.IOException foo
 	 */
-	public static void writeTemplateData(Object dsId, DataOutputStream stream, NamingContext renamer) throws IOException
+	public static void writeTemplateData(Object dsId, DataOutputStream stream, NamingContext renamer, Vector allowedPortMacroSet) throws IOException
 	{
-		writeTemplateData(dsId, stream, renamer, null);
+        Writer writer = new OutputStreamWriter(stream);
+		writeTemplateData(dsId, writer, renamer, allowedPortMacroSet);
 	}
 
     /**
      *
-     * @param dsId
-     * @param stream
-     * @param renamer
-     * @param allowedPortMacroSet
-     * @throws IOException
+     * @param dsId dsId
+     * @param writer writer
+     * @param renamer renamer
+     * @param allowedPortMacroSet allowedPortMacroSet
+     * @throws IOException foo
      */
-    public static void writeTemplateData(Object dsId, DataOutputStream stream, NamingContext renamer, Vector allowedPortMacroSet) throws IOException
+    public static void writeTemplateData(Object dsId, Writer writer, NamingContext renamer, Vector allowedPortMacroSet) throws IOException
 	{
 		final String nl = "\n";
 
@@ -1942,7 +1963,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 		// write comment (even if not template definition is needed)
 		if (data.getComment()!=null)
-			stream.writeBytes(nl+data.getComment());
+			writer.write(nl+data.getComment());
 
 		// template block not needed
 		if ((data.getRealDescription()==null || data.getRealDescription().length()==0) && 
@@ -1950,12 +1971,12 @@ private void addSubObjectToLayout(VisibleObject object) {
 			return;
 
 		// template start
-		stream.writeBytes(nl+DBResolver.TEMPLATE+"(");
+		writer.write(nl+DBResolver.TEMPLATE+"(");
 
 		if (data.getRealDescription()!=null && data.getRealDescription().length()>0)
-			stream.writeBytes(quote + StringUtils.removeQuotes(data.getRealDescription()) + quote);
+			writer.write(quote + StringUtils.removeQuotes(data.getRealDescription()) + quote);
 
-		stream.writeBytes(") {"+nl);
+		writer.write(") {"+nl);
 
 		final String portStart = "  "+DBResolver.PORT+"(";
 
@@ -1967,14 +1988,14 @@ private void addSubObjectToLayout(VisibleObject object) {
 				continue;
 
 			if (port.getComment()!=null)
-				stream.writeBytes(port.getComment()+nl);
+				writer.write(port.getComment()+nl);
 
-			stream.writeBytes(portStart+
+			writer.write(portStart+
 					port.getName() +
 					comma + quote + StringUtils.removeQuotes(port.getTarget()) + quote);
 			if (port.getRealDescription()!=null && port.getRealDescription().length()>0)
-				stream.writeBytes(comma + quote + StringUtils.removeQuotes(port.getRealDescription()) + quote);
-			stream.writeBytes(ending);
+				writer.write(comma + quote + StringUtils.removeQuotes(port.getRealDescription()) + quote);
+			writer.write(ending);
 		}	
 
 		boolean first = true;
@@ -2004,22 +2025,22 @@ private void addSubObjectToLayout(VisibleObject object) {
 			// separate visual data
 			if (first)
 			{
-				stream.writeBytes(nl); first = false;
+				writer.write(nl); first = false;
 			}
 
 			switch (visiblePort.getMode())
 			{
 			case OutLink.CONSTANT_PORT_MODE:
-				stream.writeBytes(portPrefix);
-				stream.writeBytes(DBResolver.VDCT_CONSTANT_PORT);
+				writer.write(portPrefix);
+				writer.write(DBResolver.VDCT_CONSTANT_PORT);
 				break;
 			case OutLink.INPUT_PORT_MODE:
-				stream.writeBytes(portPrefix);
-				stream.writeBytes(DBResolver.VDCT_INPUT_PORT);
+				writer.write(portPrefix);
+				writer.write(DBResolver.VDCT_INPUT_PORT);
 				break;
 			case OutLink.OUTPUT_PORT_MODE:
-				stream.writeBytes(portPrefix);
-				stream.writeBytes(DBResolver.VDCT_OUTPUT_PORT);
+				writer.write(portPrefix);
+				writer.write(DBResolver.VDCT_OUTPUT_PORT);
 				break;
 			default:
 				// this should never happen
@@ -2027,21 +2048,21 @@ private void addSubObjectToLayout(VisibleObject object) {
 			continue;
 			}
 
-			stream.writeBytes(portPostfix);
+			writer.write(portPostfix);
 
 			String target = NULL;
 			if (visiblePort.getInput()!=null)
 				//target = namer.getResolvedName(visiblePort.getInput().getID());
 				target = renamer.resolveLink(visiblePort.getInput().getID());
 
-			stream.writeBytes(
+			writer.write(
 					visiblePort.getName() +
 					justComma + StringUtils.quoteIfMacro(target) +
 					justComma + visiblePort.getX() + justComma + visiblePort.getY() + 
 					justComma + StringUtils.color2string(visiblePort.getColor()) +
 					justComma + port.getVisibility() +
 					justComma + visiblePort.isTextPositionNorth());
-			stream.writeBytes(ending);
+			writer.write(ending);
 		}	
 
 		//
@@ -2063,18 +2084,18 @@ private void addSubObjectToLayout(VisibleObject object) {
 			// separate visual data
 			if (first)
 			{
-				stream.writeBytes(nl); first = false;
+				writer.write(nl); first = false;
 			}
 
 			switch (visibleMacro.getMode())
 			{
 			case InLink.INPUT_MACRO_MODE:
-				stream.writeBytes(macroPrefix);
-				stream.writeBytes(DBResolver.VDCT_INPUT_MACRO);
+				writer.write(macroPrefix);
+				writer.write(DBResolver.VDCT_INPUT_MACRO);
 				break;
 			case InLink.OUTPUT_MACRO_MODE:
-				stream.writeBytes(macroPrefix);
-				stream.writeBytes(DBResolver.VDCT_OUTPUT_MACRO);
+				writer.write(macroPrefix);
+				writer.write(DBResolver.VDCT_OUTPUT_MACRO);
 				break;
 			default:
 				// this should never happen
@@ -2082,20 +2103,20 @@ private void addSubObjectToLayout(VisibleObject object) {
 			continue;
 			}
 
-			stream.writeBytes(macroPostfix);
+			writer.write(macroPostfix);
 
-			stream.writeBytes(
+			writer.write(
 					visibleMacro.getName() +
 					justComma + quote + StringUtils.removeQuotes(macro.getDescription()) + quote +
 					justComma + visibleMacro.getX() + justComma + visibleMacro.getY() + 
 					justComma + StringUtils.color2string(visibleMacro.getColor()) +
 					justComma + macro.getVisibility() +
 					justComma + visibleMacro.isTextPositionNorth());
-			stream.writeBytes(ending);
+			writer.write(ending);
 		}	
 
 		// template end
-		stream.writeBytes("}"+nl);
+		writer.write("}"+nl);
 
 
 		/*	
@@ -2131,11 +2152,11 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 	/**
 	 * Insert the method's description here.
-     * @param dsId
-     * @param file
-     * @param group2save
-     * @param export
-     * @throws java.io.IOException
+     * @param dsId dsId
+     * @param file file
+     * @param group2save group2save
+     * @param export export
+     * @throws java.io.IOException foo
 	 */
 	public static void save(Object dsId, Group group2save, File file, boolean export) throws IOException
 	{
@@ -2160,25 +2181,25 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 	/**
 	 * Insert the method's description here.
-     * @param dsId
-     * @param group2save
-     * @param file
-     * @param renamer
-     * @param export
-     * @throws java.io.IOException
+     * @param dsId dsId
+     * @param group2save group2save
+     * @param file file
+     * @param renamer renamer
+     * @param export export
+     * @throws java.io.IOException foo
 	 */
 	public static void save(Object dsId, Group group2save, File file, NamingContext renamer, boolean export) throws IOException
 	{
-		DataOutputStream stream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-		stream.writeBytes("#! Generated by VisualDCT v"+Version.VERSION+"\n");
+		writer.write("#! Generated by VisualDCT v"+Version.VERSION+"\n");
 
 		if (!export)	
 		{
-			writeUsedDBDs(file, stream);
+			writeUsedDBDs(file, writer);
 		}
 
-		writeIncludes(stream);
+		writeIncludes(writer);
 
 		// if not already present
 		// optimize !!!
@@ -2207,12 +2228,12 @@ private void addSubObjectToLayout(VisibleObject object) {
 			Settings.getInstance().setHideLinks(false);
 			group2save.updateFields();
 
-			group2save.writeObjects(stream, renamer, export);	
+			group2save.writeObjects(writer, renamer, export);	
 			if (!export)	
 			{
-				stream.writeBytes("\n#! Further lines contain data used by VisualDCT\n");
-				writeVDCTViewData(dsId, stream);			
-				group2save.writeVDCTObjects(stream, renamer, export);
+				writer.write("\n#! Further lines contain data used by VisualDCT\n");
+				writeVDCTViewData(dsId, writer);			
+				group2save.writeVDCTObjects(writer, renamer, export);
 			}
 
 		} finally {
@@ -2221,9 +2242,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 			group2save.updateFields();
 		}
 
-
-		stream.flush();
-		stream.close();
+		writer.close();
 
 		// do the repaint (updateFields can cause some shifts)
 		com.cosylab.vdct.events.CommandManager.getInstance().execute("RepaintWorkspace");
@@ -2250,7 +2269,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 	/**
 	 * Returns the editingTemplateData.
-     * @param dsId
+     * @param dsId dsId
 	 * @return VDBTemplate
 	 */
 	public static VDBTemplate getEditingTemplateData(Object dsId) {
@@ -2259,7 +2278,7 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 	/**
 	 * Sets the editingTemplateData.
-     * @param dsId
+     * @param dsId dsId
 	 * @param editingTemplateData The editingTemplateData to set
 	 */
 	public static void setEditingTemplateData(Object dsId, VDBTemplate editingTemplateData) {
@@ -2277,7 +2296,12 @@ private void addSubObjectToLayout(VisibleObject object) {
 		}
 	}
 
-	public static boolean hasMacroPortsIDChanged(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     * @return something
+     */
+    public static boolean hasMacroPortsIDChanged(Object dsId) {
 		return getRoot(dsId).hasMacroPortsIDChanged();
 	}
 
@@ -2304,8 +2328,11 @@ private void addSubObjectToLayout(VisibleObject object) {
 		return structure;
 	}
 
-
-	public int getAbsoluteWidth() {
+    /**
+     *
+     * @return something
+     */
+    public int getAbsoluteWidth() {
 		if (subObjectsV.size() == 0) return getWidth();
 
 		int tempw;
@@ -2322,7 +2349,11 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 	}
 
-	public int getAbsoluteHeight() {
+    /**
+     *
+     * @return something
+     */
+    public int getAbsoluteHeight() {
 		if (subObjectsV.size() == 0) return getHeight();
 
 		int temph;
@@ -2340,8 +2371,8 @@ private void addSubObjectToLayout(VisibleObject object) {
 
 	}
 	/**
-	 * @param macros
-	 * @param deep
+	 * @param macros macros
+	 * @param deep deep
 	 */
 	public void generateMacros(HashMap macros, boolean deep) {
 
@@ -2375,7 +2406,12 @@ private void addSubObjectToLayout(VisibleObject object) {
 		}
 	}
 
-	public static Group getRoot(Object id) {
+    /**
+     *
+     * @param id id
+     * @return something
+     */
+    public static Group getRoot(Object id) {
 		Group group = (Group)rootGroups.get(id);
 		if (group == null) {
 			//System.err.println("Warning: Group.getRoot: instance with id does not exist, creating new one.");
@@ -2389,7 +2425,11 @@ private void addSubObjectToLayout(VisibleObject object) {
 		return group;
 	}
 
-	public static Vector getAllRoots() {
+    /**
+     *
+     * @return something
+     */
+    public static Vector getAllRoots() {
 		Vector vector = new Vector();
 		Iterator iterator = rootGroups.values().iterator();
 		Group group = null; 
@@ -2403,7 +2443,11 @@ private void addSubObjectToLayout(VisibleObject object) {
 		return vector;
 	}
 
-	public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 		Object rootId = getParent() != null ? getParent().getDsId() : dsId;
 		if (rootId == null) {
 			//System.out.println("Warning: returning null for root container id.");
@@ -2411,22 +2455,37 @@ private void addSubObjectToLayout(VisibleObject object) {
 		return rootId;
 	}
 
-	public void setDsId(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     */
+    public void setDsId(Object dsId) {
 		this.dsId = dsId;
 	}
 
-	public boolean isDisposed() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isDisposed() {
 		return disposed;
 	}
 
-	public static void registerDsListener() {
+    /**
+     *
+     */
+    public static void registerDsListener() {
 		GetDsManager command = (GetDsManager)CommandManager.getInstance().getCommand("GetDsManager");
 		if (command != null) {
 			command.getManager().addDsEventListener(getClipboard());
 		}
 	}
 
-	public void onDsAdded(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void onDsAdded(Object id) {
 		Group group = new Group(null);
 		group.setDsId(id);
 		group.setAbsoluteName("");
@@ -2438,10 +2497,20 @@ private void addSubObjectToLayout(VisibleObject object) {
 			group = ((Group)iterator.next());
 		}
 	}
-	public void onDsRemoved(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsRemoved(Object id) {
 		((Group)rootGroups.get(id)).disposed = true;
 	}
-	public void onDsFocused(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsFocused(Object id) {
 		root = (Group)rootGroups.get(id);
 	}
 }

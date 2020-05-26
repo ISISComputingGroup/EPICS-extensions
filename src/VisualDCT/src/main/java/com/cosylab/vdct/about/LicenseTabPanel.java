@@ -50,11 +50,14 @@ public class LicenseTabPanel extends AboutTabPanel {
 	private javax.swing.JScrollPane JScrollPaneLicense = null;
 	private javax.swing.JTextArea JTextAreaLicense = null;
 	
-	public String name = "License";
+    /**
+     *
+     */
+    public String name = "License";
 	
 	/**
 	 * Constructor for LicenseTab.
-	 * @param tabModel
+	 * @param tabModel tabModel
 	 */
 	public LicenseTabPanel(LicenseTabModel tabModel) {
 		super(tabModel);
@@ -246,7 +249,7 @@ private javax.swing.JTextArea getJTextAreaLicense() {
 	return JTextAreaLicense;
 }
 	/**
-     * @return 
+     * @return something
 	 * @see com.cosylab.vdct.about.AboutTab#getPanel()
 	 */
 	public JPanel getPanel() {

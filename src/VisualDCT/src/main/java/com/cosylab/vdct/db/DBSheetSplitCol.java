@@ -46,44 +46,44 @@ public class DBSheetSplitCol {
     private static final String patternString = "Pattern";
 
 	/**
-	 * @param delimiterType
-	 * @param pattern
+	 * @param delimiterType delimiterType
+	 * @param pattern pattern
 	 */
     public DBSheetSplitCol(boolean delimiterType, String pattern) {
     	this(delimiterType, pattern, -1);
 	}
     
 	/**
-	 * @param delimiterType
-	 * @param pattern
+	 * @param delimiterType delimiterType
+	 * @param pattern pattern
 	 */
     public DBSheetSplitCol(String delimiterType, String pattern) {
     	this(isDelimiterType(delimiterType), pattern, -1);
 	}
     
 	/**
-	 * @param delimiterType
-	 * @param pattern
-	 * @param parts
+	 * @param delimiterType delimiterType
+	 * @param pattern pattern
+	 * @param parts parts
 	 */
     public DBSheetSplitCol(boolean delimiterType, String pattern, int parts) {
 		this(null, delimiterType, pattern, parts);
 	}
 
 	/**
-	 * @param name
-	 * @param delimiterType
-	 * @param pattern
+	 * @param name name
+	 * @param delimiterType delimiterType
+	 * @param pattern pattern
 	 */
     public DBSheetSplitCol(String name, String delimiterType, String pattern) {
     	this(name, isDelimiterType(delimiterType), pattern, -1);
 	}
     
 	/**
-	 * @param name
-	 * @param delimiterType
-	 * @param pattern
-	 * @param parts
+	 * @param name name
+	 * @param delimiterType delimiterType
+	 * @param pattern pattern
+	 * @param parts parts
 	 */
     public DBSheetSplitCol(String name, boolean delimiterType, String pattern, int parts) {
 		super();
@@ -95,7 +95,7 @@ public class DBSheetSplitCol {
     
     /**
      *
-     * @return
+     * @return something
      */
     public static DBSheetSplitCol getWhitespaceSplitData() {
     	return new DBSheetSplitCol(true, "\\s+");
@@ -145,7 +145,7 @@ public class DBSheetSplitCol {
 	
     /**
      *
-     * @return
+     * @return something
      */
     public String getDelimiterTypeString() {
 		return delimiterType ? delimiterString : patternString;
@@ -178,8 +178,8 @@ public class DBSheetSplitCol {
 	
 	
 	/** Returns the number at the end of the given string. If there is no such number, it returns -1.
-     * @param string
-     * @return 
+     * @param string string
+     * @return something
 	 */
     public static int extractValueAtEnd(String string) {
 		int value = -1;
@@ -197,8 +197,8 @@ public class DBSheetSplitCol {
 		return value;
 	}
 	/** Returns the string without the trailing number, or the string itself if there is no number at the end.
-     * @param string
-     * @return 
+     * @param string string
+     * @return something
 	 */
     public static String removeValueAtEnd(String string) {
     	int j = string.length() - 1;

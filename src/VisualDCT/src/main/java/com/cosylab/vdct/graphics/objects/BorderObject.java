@@ -23,6 +23,10 @@ package com.cosylab.vdct.graphics.objects;
  */
 public interface BorderObject {
     
+    /**
+     *
+     * @return something
+     */
     public String getName();
     
 }

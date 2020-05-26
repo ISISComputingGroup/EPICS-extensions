@@ -31,7 +31,7 @@ package com.cosylab.vdct.about;
 /**
  * Insert the type's description here.
  * Creation date: (29.5.2002 15:57:44)
- * @author: 
+ * @author cosylab
  */
 public class AboutDialog extends javax.swing.JDialog implements AboutTabReceiver {
 	private javax.swing.JButton ivjJButtonClose = null;
@@ -306,7 +306,7 @@ public static void main(java.lang.String[] args) {
 	}
 }
 	/**
-     * @param tabToAdd
+     * @param tabToAdd tabToAdd
 	 * @see com.cosylab.vdct.about.AboutTabReceiver#addAboutTab(AboutTab)
 	 */
 	public void addAboutTab(AboutTab tabToAdd) {

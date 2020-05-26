@@ -31,7 +31,7 @@ package com.cosylab.vdct.graphics.objects;
 /**
  * Insert the type's description here.
  * Creation date: (9.4.2001 13:11:04)
- * @author 
+ * @author cosylab
  */
 public interface Descriptable {
 /**

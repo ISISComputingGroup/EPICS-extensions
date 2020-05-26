@@ -74,7 +74,11 @@ public void updateObject();
  */
 public void setHelp(String help);
 
-public void setHelpColor(Color color);
+    /**
+     *
+     * @param color color
+     */
+    public void setHelpColor(Color color);
 
 /**
  * Insert the method's description here.
@@ -98,9 +102,14 @@ public void updateObjectList();
  */
 void updateProperty(InspectableProperty property);
 /**
+     * @return something
  */
 int getMode();
 
-Object getDsId();
+    /**
+     *
+     * @return something
+     */
+    Object getDsId();
 }
 

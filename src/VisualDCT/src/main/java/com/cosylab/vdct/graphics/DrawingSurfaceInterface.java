@@ -39,13 +39,62 @@ import com.cosylab.vdct.vdb.VDBTemplate;
  */
 public interface DrawingSurfaceInterface {
 
-	public Object getDsId();
-	public boolean isModified();
-	public String getTitle();
-	public boolean reloadTemplate(VDBTemplate data);
-	public boolean open(File file, boolean importDB) throws IOException;
-	public boolean isTemplateChanged();
-	public boolean isTemplateAllowed(VDBTemplate template);
-	public VDBTemplate getTemplate();
-	public boolean close();
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId();
+
+    /**
+     *
+     * @return something
+     */
+    public boolean isModified();
+
+    /**
+     *
+     * @return something
+     */
+    public String getTitle();
+
+    /**
+     *
+     * @param data data
+     * @return something
+     */
+    public boolean reloadTemplate(VDBTemplate data);
+
+    /**
+     *
+     * @param file file
+     * @param importDB importDB
+     * @return something
+     * @throws IOException foo
+     */
+    public boolean open(File file, boolean importDB) throws IOException;
+
+    /**
+     *
+     * @return something
+     */
+    public boolean isTemplateChanged();
+
+    /**
+     *
+     * @param template template
+     * @return something
+     */
+    public boolean isTemplateAllowed(VDBTemplate template);
+
+    /**
+     *
+     * @return something
+     */
+    public VDBTemplate getTemplate();
+
+    /**
+     *
+     * @return something
+     */
+    public boolean close();
 }

@@ -49,7 +49,7 @@ public PanelDecorator() {
 }
 /**
  * ComponentManager constructor comment.
- * @param component
+ * @param component component
  */
 public PanelDecorator(VisualComponent component) {
 	this();
@@ -58,7 +58,7 @@ public PanelDecorator(VisualComponent component) {
 /**
  * Default implementation
  * Creation date: (10.12.2000 11:25:20)
- * @param g
+ * @param g g
  */
 public void draw(Graphics g) {
 	if (component != null) {
@@ -76,7 +76,7 @@ public VisualComponent getComponent() {
 /**
  * Insert the method's description here.
  * Creation date: (11.12.2000 16:23:31)
- * @return 
+ * @return something
  */
 public int getComponentHeight() {
 	if (component==null) return 0;
@@ -94,10 +94,10 @@ public int getComponentWidth() {
 /**
  * Default implementation
  * Creation date: (10.12.2000 11:26:54)
- * @param x0
- * @param y0
- * @param width
- * @param height
+ * @param x0 x0
+ * @param y0 y0
+ * @param width width
+ * @param height height
  */
 public void resize(int x0, int y0, int width, int height) {
 	if (component != null) {
@@ -116,14 +116,17 @@ public void setComponent(VisualComponent newComponent) {
 /**
 /**
  * Invoked when the component has been made invisible.
+     * @param e e
  */
 public void componentHidden(ComponentEvent e) {}
 /**
  * Invoked when the component's position changes.
+     * @param e e
  */
 public void componentMoved(ComponentEvent e) {}
 /**
  * Invoked when the component's size changes.
+     * @param e e
  */
 public void componentResized(ComponentEvent e) {
 	if (component != null) {
@@ -132,6 +135,7 @@ public void componentResized(ComponentEvent e) {
 }
 /**
  * Invoked when the component has been made visible.
+     * @param e e
  */
 public void componentShown(ComponentEvent e) {
 }

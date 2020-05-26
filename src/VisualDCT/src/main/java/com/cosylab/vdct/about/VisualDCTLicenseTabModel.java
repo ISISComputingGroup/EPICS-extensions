@@ -40,7 +40,7 @@ public class VisualDCTLicenseTabModel implements LicenseTabModel {
 
 	/**
 	 * Constructor for DefaultLicenseTabModel.
-     * @param toAbout
+     * @param toAbout toAbout
 	 */
 	public VisualDCTLicenseTabModel(Object toAbout) {
 		super();

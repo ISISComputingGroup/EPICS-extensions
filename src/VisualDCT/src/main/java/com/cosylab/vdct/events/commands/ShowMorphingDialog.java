@@ -45,7 +45,7 @@ public class ShowMorphingDialog extends Command {
 /**
  * Insert the method's description here.
  * Creation date: (29.12.2000 12:37:58)
- * @param visualDCT
+ * @param visualDCT visualDCT
  */
 public ShowMorphingDialog(VisualDCT visualDCT) {
 	this.visualDCT=visualDCT;
@@ -59,28 +59,28 @@ public void execute() {
 }
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public String getOldType() {
 		return oldType;
 	}
 
 	/**
-	 * @param string
+	 * @param string string
 	 */
 	public void setOldType(String string) {
 		oldType = string;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @param string
+	 * @param string string
 	 */
 	public void setName(String string) {
 		name = string;

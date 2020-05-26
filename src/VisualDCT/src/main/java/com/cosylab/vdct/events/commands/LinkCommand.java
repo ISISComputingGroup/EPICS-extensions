@@ -49,7 +49,7 @@ public class LinkCommand extends com.cosylab.vdct.events.Command {
 /**
  * Insert the method's description here.
  * Creation date: (21.12.2000 22:43:26)
- * @param linkCommandInterface 
+ * @param linkCommandInterface linkCommandInterface
  */
 public LinkCommand(LinkCommandInterface linkCommandInterface) {
 	this.linkCommandInterface=linkCommandInterface;

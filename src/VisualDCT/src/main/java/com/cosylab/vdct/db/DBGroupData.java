@@ -33,11 +33,31 @@ package com.cosylab.vdct.db;
  * Used only for layout data
  */
 public class DBGroupData {
-	protected int x = -1;			// used for layout
-	protected int y = -1;
-	protected java.awt.Color color;
-	protected String description;
-	protected String name;
+
+    /**
+     *
+     */
+    protected int x = -1;			// used for layout
+
+    /**
+     *
+     */
+    protected int y = -1;
+
+    /**
+     *
+     */
+    protected java.awt.Color color;
+
+    /**
+     *
+     */
+    protected String description;
+
+    /**
+     *
+     */
+    protected String name;
 /**
  * DBGroupData constructor comment.
  * @param name java.lang.String

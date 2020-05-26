@@ -60,17 +60,53 @@ import com.cosylab.vdct.util.StringUtils;
  * This type was created in VisualAge.
  */
 public class VDBFieldData implements InspectableProperty, Debuggable, ChangableVisibility, LinkSource {
-	protected int type;
-	protected DBDGuiGroupData gui_group;
-	protected String name;
-	protected String value;
-	protected String init_value;
-	protected String comment;
-	protected DBDFieldData dbdData;
-	protected VDBRecordData record = null;
+
+    /**
+     *
+     */
+    protected int type;
+
+    /**
+     *
+     */
+    protected DBDGuiGroupData gui_group;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected String value;
+
+    /**
+     *
+     */
+    protected String init_value;
+
+    /**
+     *
+     */
+    protected String comment;
+
+    /**
+     *
+     */
+    protected DBDFieldData dbdData;
+
+    /**
+     *
+     */
+    protected VDBRecordData record = null;
 
 	private static final String debugDefault = "###";
-	protected String debugValue = debugDefault;
+
+    /**
+     *
+     */
+    protected String debugValue = debugDefault;
 	
 	private int positionIndex = -1;
 	/**
@@ -80,12 +116,26 @@ public class VDBFieldData implements InspectableProperty, Debuggable, ChangableV
 	//	new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 		new SimpleDateFormat("HH:mm:ss.SSS");
 	
-	protected String debugValueTimeStamp = "n/a";
-	protected short severity = 0;
-	protected boolean connected = false;
+    /**
+     *
+     */
+    protected String debugValueTimeStamp = "n/a";
+
+    /**
+     *
+     */
+    protected short severity = 0;
+
+    /**
+     *
+     */
+    protected boolean connected = false;
 	private static final String NAME_VAL = "VAL";
 	
-	protected int visibility = NON_DEFAULT_VISIBLE;
+    /**
+     *
+     */
+    protected int visibility = NON_DEFAULT_VISIBLE;
 
 /**
  * Insert the method's description here.
@@ -330,6 +380,7 @@ public void setDbdData(com.cosylab.vdct.dbd.DBDFieldData newDbdData) {
 }
 
 /**
+     * @param newValue newValue
  * @see com.cosylab.vdct.graphics.objects.Debuggable#setDebugValue(java.lang.String, java.util.Date, short)
  */
 public void setDebugValue(String newValue, Date timeStamp, short severity)
@@ -514,8 +565,8 @@ public void setVisibility(int visibility)
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y)
 {
@@ -565,17 +616,31 @@ public boolean isConnected() {
 	return connected;
 }
 
-public void setPositionIndex(int index) {
+    /**
+     *
+     * @param index index
+     */
+    public void setPositionIndex(int index) {
     this.positionIndex = index;
 }
 
-public int getPositionIndex() {
+    /**
+     *
+     * @return something
+     */
+    public int getPositionIndex() {
     return positionIndex;
 }
 
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasValidity() {
 	return true;
 }
@@ -630,7 +695,11 @@ private String checkExpandedValues(String value) {
 	return null;
 }
 
-public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 	if (record != null) {
 		return record.getDsId();
 	} else {

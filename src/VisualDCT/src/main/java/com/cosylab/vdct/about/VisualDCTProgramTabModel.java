@@ -37,7 +37,7 @@ import javax.swing.ImageIcon;
 import com.cosylab.vdct.Version;
 
 /**
- * @author 
+ * @author cosylab
  *
  * To change this generated comment edit the template variable "typecomment":
  * Window&gt;Preferences&gt;Java&gt;Templates.
@@ -48,13 +48,14 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 
 	/**
 	 * Constructor for DefaultProgramTabModel.
-     * @param toAbout
+     * @param toAbout toAbout
 	 */
 	public VisualDCTProgramTabModel(Object toAbout) {
 		super();
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getProductBuildDate()
 	 */
 	public String getProductBuildDate()
@@ -63,13 +64,14 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getProductDocsURL()
 	 */
 	public URL getProductDocsURL()
 	{
 		try
 		{
-			return new URL("http://visualdct.cosylab.com/builds/VisualDCT/");
+			return new URL("http://epics-extensions.github.io/VisualDCT/");
 		} catch (MalformedURLException mue)
 		{
 			return null;
@@ -77,6 +79,7 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getProductLogoImage()
 	 */
 	public Icon getProductLogoImage()
@@ -91,6 +94,7 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getProductName()
 	 */
 	public String getProductName()
@@ -99,13 +103,14 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getProductURL()
 	 */
 	public URL getProductURL()
 	{
 		try
 		{
-			return new URL("http://visualdct.cosylab.com/");
+			return new URL("https://github.com/epics-extensions/VisualDCT");
 		} catch (MalformedURLException mue)
 		{
 			return null;
@@ -113,6 +118,7 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getProductVersion()
 	 */
 	public String getProductVersion()
@@ -121,14 +127,16 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getVendor()
 	 */
 	public String getVendor()
 	{
-		return "by Matej Sekoranja, Ivo List, Jaka Bobnar and Sunil Sah, Cosylab, Ltd.";
+		return "by Matej Sekoranja, Ivo List, Jaka Bobnar and Sunil Sah, Cosylab d.d.";
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getVendorEmail()
 	 */
 	public String getVendorEmail()
@@ -137,6 +145,7 @@ public class VisualDCTProgramTabModel implements ProgramTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.ProgramTabModel#getVendorURL()
 	 */
 	public URL getVendorURL()

@@ -17,9 +17,9 @@ import com.cosylab.vdct.graphics.objects.Connector;
 public class CreateConnectorAction extends DeleteConnectorAction {
 
 	/**
-	 * @param object
-	 * @param inlink
-	 * @param outlink
+	 * @param object object
+	 * @param inlink inlink
+	 * @param outlink outlink
 	 */
 	public CreateConnectorAction(Connector object, String inlink, String outlink) {
 		super(object, inlink, outlink);

@@ -10,7 +10,10 @@ package com.cosylab.vdct.vdb;
  */
 public class EmptyProperty extends NameValueInfoProperty {
 
-	public EmptyProperty() {
+    /**
+     *
+     */
+    public EmptyProperty() {
 		super("", "");
 	}
 

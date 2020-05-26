@@ -98,9 +98,9 @@ public PrintPreview() {
 }
 /**
  * PrintPreviewFrame constructor comment.
- * @param parent
+ * @param parent parent
  * @param title java.lang.String
- * @param target
+ * @param target target
  */
 public PrintPreview(Frame parent, Pageable target, String title) {
 	super(parent);
@@ -669,7 +669,7 @@ private void initialize() {
 }
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void jTextField1_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	try {
@@ -812,7 +812,7 @@ public static void main(java.lang.String[] args) {
 }
 /**
  * Comment
- * @param itemEvent
+ * @param itemEvent itemEvent
  */
 public void modeComboBox_ItemStateChanged(java.awt.event.ItemEvent itemEvent) {
 	if (Page.getPrintMode()==getModeComboBox().getSelectedIndex())
@@ -839,6 +839,7 @@ public void modeComboBox_ItemStateChanged(java.awt.event.ItemEvent itemEvent) {
 }
 /**
  * Comment
+     * @param windowEvent windowEvent
  */
 public void printPreviewFrame_WindowClosed(java.awt.event.WindowEvent windowEvent) {
 	loadingPreviews = false;
@@ -852,6 +853,7 @@ public void printToolBarButton_ActionEvents() {
 }
 /**
  * Comment
+     * @param actionEvent actionEvent
  */
 public void printToolBarButton1_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	PageFormat pf = Page.getPageFormat();
@@ -869,6 +871,7 @@ public void printToolBarButton1_ActionPerformed(java.awt.event.ActionEvent actio
 }
 /**
  * Comment
+     * @param actionEvent actionEvent
  */
 public void scaleComboBox_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 

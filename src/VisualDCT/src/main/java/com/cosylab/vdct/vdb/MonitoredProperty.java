@@ -54,6 +54,9 @@ public class MonitoredProperty implements InspectableProperty {
 	
 /**
  * DTYPInfoProperty constructor comment.
+     * @param name name
+     * @param listener listener
+     * @param value value
  */
 public MonitoredProperty(String name, String value, MonitoredPropertyListener listener) {
 	this.name=name;
@@ -174,8 +177,8 @@ public int getVisibility()
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y)
 {
@@ -209,6 +212,12 @@ public void popupEvent(Component component, int x, int y)
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasDefaultValue() {
 	return false;
 }
@@ -216,6 +225,12 @@ public boolean hasDefaultValue() {
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasValidity() {
 	return false;
 }

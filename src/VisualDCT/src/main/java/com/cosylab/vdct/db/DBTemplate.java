@@ -36,30 +36,73 @@ import java.util.Vector;
  */
 public class DBTemplate extends DBComment
 {
-	protected String id = null;
-	protected String fileName = null;
-	protected String description = null;
 
-	protected long modificationTime = 0; 
+    /**
+     *
+     */
+    protected String id = null;
+
+    /**
+     *
+     */
+    protected String fileName = null;
+
+    /**
+     *
+     */
+    protected String description = null;
+
+    /**
+     *
+     */
+    protected long modificationTime = 0; 
 	
-	protected String version = null;
-	protected String ioc = null;
+    /**
+     *
+     */
+    protected String version = null;
 
-	protected Hashtable ports = null;
-	protected Vector portsV = null;
+    /**
+     *
+     */
+    protected String ioc = null;
 
-	protected Hashtable macros = null;
-	protected Vector macrosV = null;
+    /**
+     *
+     */
+    protected Hashtable ports = null;
 
-	protected boolean initialized;
+    /**
+     *
+     */
+    protected Vector portsV = null;
+
+    /**
+     *
+     */
+    protected Hashtable macros = null;
+
+    /**
+     *
+     */
+    protected Vector macrosV = null;
+
+    /**
+     *
+     */
+    protected boolean initialized;
 
 	// data
+
+    /**
+     *
+     */
 	protected DBData data = null;
 
 	/**
 	 * Constructor.
-     * @param id
-     * @param fileName
+     * @param id id
+     * @param fileName fileName
 	 */
 	public DBTemplate(String id, String fileName)
 	{
@@ -190,7 +233,7 @@ public class DBTemplate extends DBComment
 	}
 
 	/**
-     * @param port
+     * @param port port
 	 */
 	public void addPort(DBPort port)
 	{
@@ -202,7 +245,7 @@ public class DBTemplate extends DBComment
 	}
 
 	/**
-     * @param macro
+     * @param macro macro
 	 */
 	public void addMacro(DBMacro macro)
 	{
@@ -240,19 +283,35 @@ public class DBTemplate extends DBComment
 		return macrosV;
 	}
 
-	public String getVersion() {
+    /**
+     *
+     * @return something
+     */
+    public String getVersion() {
 		return version;
 	}
 
-	public void setVersion(String version) {
+    /**
+     *
+     * @param version version
+     */
+    public void setVersion(String version) {
 		this.version = version;
 	}
 
-	public String getIoc() {
+    /**
+     *
+     * @return something
+     */
+    public String getIoc() {
 		return ioc;
 	}
 
-	public void setIoc(String ioc) {
+    /**
+     *
+     * @param ioc ioc
+     */
+    public void setIoc(String ioc) {
 		this.ioc = ioc;
 	}
 }

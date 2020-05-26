@@ -33,14 +33,23 @@ package com.cosylab.vdct.db;
  */
 public class DBView {
 
-	protected int rx, ry;
-	protected double scale;	
+	protected int rx,
+
+    /**
+     *
+     */
+    ry;
+	
+    /**
+     *
+     */
+    protected double scale;	
 	
 /**
  * FieldData constructor comment.
- * @param rx
- * @param ry
- * @param scale
+ * @param rx rx
+ * @param ry ry
+ * @param scale scale
  */
 public DBView(int rx, int ry, double scale) {
 	this.rx = rx;
@@ -48,42 +57,42 @@ public DBView(int rx, int ry, double scale) {
 	this.scale = scale;
 }
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getRx() {
 		return rx;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getRy() {
 		return ry;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public double getScale() {
 		return scale;
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setRx(int i) {
 		rx = i;
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setRy(int i) {
 		ry = i;
 	}
 
 	/**
-	 * @param d
+	 * @param d d
 	 */
 	public void setScale(double d) {
 		scale = d;

@@ -34,7 +34,11 @@ package com.cosylab.vdct.db;
  * @author Matej Sekoranja
  */
 public class DBComment {
-	protected String comment;
+
+    /**
+     *
+     */
+    protected String comment;
 
 	final static String nullString = "";
 	

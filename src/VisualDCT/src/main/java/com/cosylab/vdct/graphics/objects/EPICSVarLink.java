@@ -75,7 +75,11 @@ public class EPICSVarLink extends EPICSLink implements MultiInLink, Popupable, I
 			
 		}
 	}
-	protected Vector outlinks;
+
+    /**
+     *
+     */
+    protected Vector outlinks;
 	private static javax.swing.ImageIcon icon = null;
 	/*private static final String addConnectorString = "Add connector";
 	private static final String colorString = "Color...";*/
@@ -84,7 +88,10 @@ public class EPICSVarLink extends EPICSLink implements MultiInLink, Popupable, I
 	private static final String removeString = "Remove Link";
 	private static GUISeparator linkSeparator = null;
 	
-	protected boolean drawOnlyOneSided = false;
+    /**
+     *
+     */
+    protected boolean drawOnlyOneSided = false;
 	 
 /**
  * EPICSVarLink constructor comment.
@@ -131,7 +138,7 @@ public void destroy() {
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 21:23:04)
- * @param disconnector
+ * @param disconnector disconnector
  */
 public void disconnect(Linkable disconnector) {
 	if (!disconnected && outlinks.contains(disconnector)) {
@@ -487,8 +494,8 @@ public OutLink getOutput() {
 /**
  * Return properties to be inspected
  * Creation date: (1.2.2001 22:22:37)
- * @param mode
- * @param spreadsheet
+ * @param mode mode
+ * @param spreadsheet spreadsheet
  * @return com.cosylab.vdct.inspector.InspectableProperty[]
  */
 public com.cosylab.vdct.inspector.InspectableProperty[] getProperties(int mode, boolean spreadsheet) {
@@ -623,7 +630,10 @@ public void revalidatePosition() {
 	revalidateOutlinkConnectors();
 }
 
-public void revalidateOutlinkConnectors() {
+    /**
+     *
+     */
+    public void revalidateOutlinkConnectors() {
 	Enumeration e = outlinks.elements();
 	while (e.hasMoreElements()) {
 		Object obj = e.nextElement();		
@@ -649,6 +659,12 @@ public int getLeftX() {
 /* (non-Javadoc)
  * @see com.cosylab.vdct.graphics.objects.MultiInLink#getOutlinks()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public Vector getOutlinks() {
 	return outlinks;
 }

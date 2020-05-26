@@ -54,7 +54,13 @@ public RepaintCommand(RepaintInterface component) {
 	this(component, false, false);
 }
 
-public RepaintCommand(RepaintInterface component, boolean all, boolean highlighted) {
+    /**
+     *
+     * @param component component
+     * @param all all
+     * @param highlighted highlighted
+     */
+    public RepaintCommand(RepaintInterface component, boolean all, boolean highlighted) {
 	this.component=component;
 	this.all = all;
 	this.highlighted = highlighted;

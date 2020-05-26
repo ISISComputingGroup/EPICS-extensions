@@ -43,8 +43,16 @@ public abstract class VisibleObject implements Visitable {
 	private ContainerObject parent;
 	
 	// position & size
+
+    /**
+     *
+     */
 	protected int x;
-	protected int y;
+
+    /**
+     *
+     */
+    protected int y;
 	private int width;
 	private int height;
 	
@@ -78,7 +86,11 @@ public abstract class VisibleObject implements Visitable {
 
 	//used for blowing up the object on small zoom
 	private boolean isZoomRepaint = false;
-	protected Image zoomImage;
+
+    /**
+     *
+     */
+    protected Image zoomImage;
 	
 /**
  * Insert the method's description here.
@@ -134,7 +146,11 @@ public java.awt.Color getColor() {
 	return color;
 }
 
-public Color getVisibleColor() {
+    /**
+     *
+     * @return something
+     */
+    public Color getVisibleColor() {
 	Color c = getColor();
 	if (c.equals(Constants.BACKGROUND_COLOR))
 		if (c.equals(Color.black))
@@ -540,15 +556,18 @@ public int getMarkedY() {
 	return markedY;
 }
 
-
-public void setZoomRepaint(boolean zoomRepaint) {
+    /**
+     *
+     * @param zoomRepaint zoomRepaint
+     */
+    public void setZoomRepaint(boolean zoomRepaint) {
     isZoomRepaint = zoomRepaint;
 }
 
 /**
  * 
  * Returns true if the object is being repainted as blown up on small zoom.
- * @return
+ * @return something
  */
 public boolean isZoomRepaint() {
     return isZoomRepaint;
@@ -558,7 +577,7 @@ public boolean isZoomRepaint() {
  * 
  * Returns the offset in pixels(the length of additional objects (arrows, strings) drawn on
  * the left side of this object.
- * @return
+ * @return something
  */
 public int getLeftOffset() {
     return 0;
@@ -568,7 +587,7 @@ public int getLeftOffset() {
  * 
  * Returns the offset in pixels(the length of additional objects (arrows, strings) drawn on
  * the right side of this object.
- * @return
+ * @return something
  */
 public int getRightOffset() {
     return 0;
@@ -578,7 +597,7 @@ public int getRightOffset() {
  * 
  * Returns the offset in pixels(the length of additional objects (arrows, strings) drawn above
  * this object.
- * @return
+ * @return something
  */
 public int getTopOffset() {
     return 0;
@@ -586,7 +605,7 @@ public int getTopOffset() {
 
 /**
  * Returns ths smallest vector (dX, dY), which would move this inside the view defined by ViewState. 
- * @return
+ * @return something
  */
 public Point getMoveInsideView() {
 	ViewState view = ViewState.getInstance(getDsId());
@@ -601,11 +620,19 @@ public Point getMoveInsideView() {
     return new Point(horMargin, vertMargin);
 }
 
-public ContainerObject getRootContainer() {
+    /**
+     *
+     * @return something
+     */
+    public ContainerObject getRootContainer() {
 	return parent != null ? parent.getRootContainer() : null;
 }
 
-public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 	return parent != null ? parent.getDsId() : null;
 }
 

@@ -37,22 +37,43 @@ import com.cosylab.vdct.graphics.objects.OutLink;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 16:26:04)
- * @author 
+ * @author cosylab
  */
 public class DeleteConnectorAction extends ActionObject {
-	protected com.cosylab.vdct.graphics.objects.Connector object;
-	protected com.cosylab.vdct.graphics.objects.ContainerObject parent;
-	protected int x, y;
-	protected String inlinkStr;
-	protected String outlinkStr;
+
+    /**
+     *
+     */
+    protected com.cosylab.vdct.graphics.objects.Connector object;
+
+    /**
+     *
+     */
+    protected com.cosylab.vdct.graphics.objects.ContainerObject parent;
+	protected int x,
+
+    /**
+     *
+     */
+    y;
+
+    /**
+     *
+     */
+    protected String inlinkStr;
+
+    /**
+     *
+     */
+    protected String outlinkStr;
 	private String nullString="";
 	 
 /**
  * Insert the method's description here.
  * Creation date: (3.5.2001 16:27:58)
  * @param object com.cosylab.vdct.graphics.objects.VisibleObject
- * @param inlink
- * @param outlink
+ * @param inlink inlink
+ * @param outlink outlink
  */
 public DeleteConnectorAction(com.cosylab.vdct.graphics.objects.Connector object, String inlink, String outlink) {
 	this.object=object;
@@ -71,8 +92,8 @@ public String getDescription() {
 }
 /**
  * This method was created in VisualAge.
- * @param str
- * @return 
+ * @param str str
+ * @return something
  */
 public Object getSubObject(String str) {
 	int pos = str.indexOf(Constants.FIELD_SEPARATOR);

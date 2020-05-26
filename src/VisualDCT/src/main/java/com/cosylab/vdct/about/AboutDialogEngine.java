@@ -31,22 +31,36 @@ package com.cosylab.vdct.about;
 /**
  * Insert the type's description here.
  * Creation date: (29.5.2002 16:05:11)
- * @author: 
+ * @author cosylab
  */
 public abstract class AboutDialogEngine {
 
-	protected java.util.ArrayList tabs = new java.util.ArrayList();
-	protected Object aboutedObject = null;
-	protected AboutTabReceiver receiver = null;
+    /**
+     *
+     */
+    protected java.util.ArrayList tabs = new java.util.ArrayList();
 
-public AboutDialogEngine()
+    /**
+     *
+     */
+    protected Object aboutedObject = null;
+
+    /**
+     *
+     */
+    protected AboutTabReceiver receiver = null;
+
+    /**
+     *
+     */
+    public AboutDialogEngine()
 {
 	super();
 }
 
 /**
  * Default constructor with "abouted object" as parameter
- * @param toAbout
+ * @param toAbout toAbout
  */
 public AboutDialogEngine(Object toAbout) {
 	super();
@@ -107,11 +121,18 @@ protected abstract void perform() ;
 	public void setAboutedObject(Object aboutedObject) {
 		this.aboutedObject = aboutedObject;
 	}
-		public void triggerReceiver(){
+
+    /**
+     *
+     */
+    public void triggerReceiver(){
 	receiver.receiverPerform();
 	
 	}
 
+    /**
+     *
+     */
     protected void arrangeTabs(){
 	
 	

@@ -36,23 +36,62 @@ import com.cosylab.vdct.inspector.InspectableProperty;
  */
 public class DBPort extends DBComment
 {
-	protected String name = null;
-	protected String target = null;
-	protected String description = null;
 
-	protected boolean hasVisual = false;
-	protected int x = -1;			// used for layout
-	protected int y = -1;
-	protected int mode = OutLink.CONSTANT_PORT_MODE;
-	protected int defaultVisibility = InspectableProperty.UNDEFINED_VISIBILITY;
-	protected java.awt.Color color = java.awt.Color.black;
-	protected String inLinkID = null;
+    /**
+     *
+     */
+    protected String name = null;
+
+    /**
+     *
+     */
+    protected String target = null;
+
+    /**
+     *
+     */
+    protected String description = null;
+
+    /**
+     *
+     */
+    protected boolean hasVisual = false;
+
+    /**
+     *
+     */
+    protected int x = -1;			// used for layout
+
+    /**
+     *
+     */
+    protected int y = -1;
+
+    /**
+     *
+     */
+    protected int mode = OutLink.CONSTANT_PORT_MODE;
+
+    /**
+     *
+     */
+    protected int defaultVisibility = InspectableProperty.UNDEFINED_VISIBILITY;
+
+    /**
+     *
+     */
+    protected java.awt.Color color = java.awt.Color.black;
+
+    /**
+     *
+     */
+    protected String inLinkID = null;
     private boolean isNamePositionNorth = false;
 	
 	/**
 	 * Insert the method's description here.
-     * @param name
-     * @param target
+     * @param name name
+     * @param target target
 	 */
 	public DBPort(String name, String target)
 	{
@@ -241,7 +280,11 @@ public class DBPort extends DBComment
 		this.defaultVisibility = defaultVisibility;
 	}
 	
-	public void setNamePositionNorth(boolean namePositionNorth) {
+    /**
+     *
+     * @param namePositionNorth namePositionNorth
+     */
+    public void setNamePositionNorth(boolean namePositionNorth) {
         this.isNamePositionNorth = namePositionNorth;
         
     }
@@ -249,7 +292,7 @@ public class DBPort extends DBComment
     /**
      * 
      * Returns the position of the text.
-     * @return
+     * @return something
      */
     public boolean isNamePositionNorth() {
         return isNamePositionNorth;

@@ -32,7 +32,7 @@ import javax.swing.Icon;
 import javax.swing.JPanel;
 
 /**
- * @author 
+ * @author cosylab
  *
  * To change this generated comment edit the template variable "typecomment":
  * Window&gt;Preferences&gt;Java&gt;Templates.
@@ -83,6 +83,10 @@ private javax.swing.JLabel getJLabelCopyright1() {
 	return JLabelCopyright1;
 }
 
+    /**
+     *
+     * @return something
+     */
     public String getTitle(){
 	return ((ProgramTabModel)model).getProductName();
 }
@@ -470,7 +474,7 @@ private javax.swing.JPanel getJPanelURLs() {
 }
 	/**
 	 * Constructor for ProgramTabPanel.
-	 * @param tabModel
+	 * @param tabModel tabModel
 	 */
 	public ProgramTabPanel(ProgramTabModel tabModel) {
 		super(tabModel);
@@ -573,6 +577,7 @@ private javax.swing.JPanel getJPanelURLs() {
 }
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.AboutTab#getPanel()
 	 */
 	public JPanel getPanel() {

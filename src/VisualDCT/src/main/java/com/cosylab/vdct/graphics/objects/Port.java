@@ -121,9 +121,9 @@ public class Port extends VisibleObject implements Descriptable, Movable, OutLin
 		}
 	}
 	
-	protected InLink inlink = null;
-	protected boolean disconnected = true;
-	protected LinkProperties properties = null;
+    protected InLink inlink = null;
+    protected boolean disconnected = true;
+    protected LinkProperties properties = null;
 	private boolean hasEndpoint = false;
 
 	//private static final String descriptionString = "Description";
@@ -151,14 +151,14 @@ public class Port extends VisibleObject implements Descriptable, Movable, OutLin
 
 	private static javax.swing.ImageIcon icon = null;
 	private static GUISeparator portSeparator = null;
-	protected VDBPort data = null;
+    protected VDBPort data = null;
 	
-	protected int rightXtranslation = 0;
-	protected int rightYtranslation = 0;
-	protected int leftXtranslation = 0;
-	protected int leftYtranslation = 0;
-	protected Polygon leftPoly;
-	protected Polygon rightPoly;
+    protected int rightXtranslation = 0;
+    protected int rightYtranslation = 0;
+    protected int leftXtranslation = 0;
+    protected int leftYtranslation = 0;
+    protected Polygon leftPoly;
+    protected Polygon rightPoly;
 
 	/** if textPositionNorth=true text is positioned on the top of 
  	 * the macro, if false it is on the side */
@@ -166,10 +166,10 @@ public class Port extends VisibleObject implements Descriptable, Movable, OutLin
 /**
  * Insert the method's description here.
  * Creation date: (1.2.2001 17:22:29)
- * @param data
- * @param y
- * @param parent
- * @param x
+ * @param data data
+ * @param y y
+ * @param parent parent
+ * @param x x
  */
 public Port(VDBPort data, ContainerObject parent, int x, int y) {
 	super(parent);
@@ -258,7 +258,7 @@ public void removeLink() {
 /**
  * ...
  * Creation date: (29.1.2001 20:05:51)
- * @param disconnector
+ * @param disconnector disconnector
  */
 public void disconnect(Linkable disconnector) {
 	if (!disconnected && (inlink==disconnector) ) {
@@ -628,7 +628,7 @@ public void setDescription(java.lang.String description) {}
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 20:05:52)
- * @param input
+ * @param input input
  */
 public void setInput(InLink input) {
 	if (inlink==input) return;
@@ -817,7 +817,7 @@ public int getMode()
 }
 
 /**
-     * @param mode
+     * @param mode mode
  */
 public void setMode(int mode)
 {
@@ -963,6 +963,8 @@ public void setDestroyed(boolean newDestroyed)
 }
 
 /**
+     * @param oldName oldName
+     * @param newName newName
  */
 public void rename(String oldName, String newName)
 {
@@ -1000,12 +1002,24 @@ public void validateLink()
 /* (non-Javadoc)
  * @see com.cosylab.vdct.graphics.objects.OutLink#getMinX()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public int getLeftX() {
 	return getX();
 }
 /* (non-Javadoc)
  * @see com.cosylab.vdct.graphics.objects.OutLink#getMaxX()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public int getRightX() {
 	return getX()+getWidth();
 }
@@ -1015,7 +1029,11 @@ public int getTopOffset() {
     return fm.getAscent();
 }
 
-public Connector addConnector() {
+    /**
+     *
+     * @return something
+     */
+    public Connector addConnector() {
     if (inlink instanceof Connector)
 	{
         return ((Connector)inlink).addConnector();
@@ -1040,12 +1058,20 @@ public Connector addConnector() {
 	}
 }
 
-public void setTextPositionNorth(boolean isTextPositionNorth) {
+    /**
+     *
+     * @param isTextPositionNorth isTextPositionNorth
+     */
+    public void setTextPositionNorth(boolean isTextPositionNorth) {
     this.textPositionNorth = isTextPositionNorth;
     DsManager.getDrawingSurface(getDsId()).repaint();
 }
 
-public boolean isTextPositionNorth() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isTextPositionNorth() {
     return this.textPositionNorth;
 }
 

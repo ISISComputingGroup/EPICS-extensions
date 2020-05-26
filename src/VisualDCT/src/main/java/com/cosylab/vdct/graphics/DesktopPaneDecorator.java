@@ -40,9 +40,16 @@ public abstract class DesktopPaneDecorator extends JDesktopPane implements Visua
 
 	private VisualComponent component;
 
-	public DesktopPaneDecorator() {}
+    /**
+     *
+     */
+    public DesktopPaneDecorator() {}
 
-	public DesktopPaneDecorator(VisualComponent component) {
+    /**
+     *
+     * @param component component
+     */
+    public DesktopPaneDecorator(VisualComponent component) {
 		this.component=component;
 	}
 	
@@ -78,11 +85,19 @@ public abstract class DesktopPaneDecorator extends JDesktopPane implements Visua
 		}
 	}
 	
-	public VisualComponent getComponent() {
+    /**
+     *
+     * @return something
+     */
+    public VisualComponent getComponent() {
 		return component;
 	}
 
-	public void setComponent(VisualComponent newComponent) {
+    /**
+     *
+     * @param newComponent newComponent
+     */
+    public void setComponent(VisualComponent newComponent) {
 		component = newComponent;
 	}
 	

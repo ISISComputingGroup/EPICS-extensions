@@ -80,7 +80,11 @@ public abstract class EPICSLinkOut extends EPICSLink implements OutLink, Popupab
 		}
 	}
 	private static javax.swing.ImageIcon icon = null;
-	public static final char LINK_SEPARATOR = '/';
+
+    /**
+     *
+     */
+    public static final char LINK_SEPARATOR = '/';
 	private static final String nullString = "";
 	private static final String selectTitle = "Select link color...";
 	private static final String addConnectorString = "Add connector";
@@ -90,15 +94,47 @@ public abstract class EPICSLinkOut extends EPICSLink implements OutLink, Popupab
 	private static final String removeString = "Remove Link";
 	private static GUISeparator recordSeparator = null;
 	private static GUISeparator fieldSeparator = null;
-	protected InLink inlink = null;
-	protected LinkProperties properties;
+
+    /**
+     *
+     */
+    protected InLink inlink = null;
+
+    /**
+     *
+     */
+    protected LinkProperties properties;
 	private final static String maxLenStr = "NPP NMS";
-	protected String label2;
-	protected Font font2 = null;
-	protected int realLabelLen = Constants.LINK_LABEL_LENGTH;
-	protected int labelLen = Constants.LINK_LABEL_LENGTH;
-	protected int realHalfHeight = Constants.FIELD_HEIGHT/2;
-	protected boolean hasEndpoint = false;
+
+    /**
+     *
+     */
+    protected String label2;
+
+    /**
+     *
+     */
+    protected Font font2 = null;
+
+    /**
+     *
+     */
+    protected int realLabelLen = Constants.LINK_LABEL_LENGTH;
+
+    /**
+     *
+     */
+    protected int labelLen = Constants.LINK_LABEL_LENGTH;
+
+    /**
+     *
+     */
+    protected int realHalfHeight = Constants.FIELD_HEIGHT/2;
+
+    /**
+     *
+     */
+    protected boolean hasEndpoint = false;
 
 /**
  * EPICSOutLink constructor comment.
@@ -114,7 +150,7 @@ protected EPICSLinkOut(ContainerObject parent, VDBFieldData fieldData) {
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 12:50:51)
- * @return 
+ * @return something
  */
 public Connector addConnector() {
 	String id = generateConnectorID(this);
@@ -178,7 +214,7 @@ public static void destroyChain(Linkable link, OutLink out) {
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 21:44:32)
- * @param disconnector
+ * @param disconnector disconnector
  */
 public void disconnect(Linkable disconnector) {
 	if (!disconnected && (disconnector==inlink)) {
@@ -362,8 +398,8 @@ public int getOutY() {
 /**
  * Return properties to be inspected
  * Creation date: (1.2.2001 22:22:37)
- * @param mode
- * @param spreadsheet
+ * @param mode mode
+ * @param spreadsheet spreadsheet
  * @return com.cosylab.vdct.inspector.InspectableProperty[]
  */
 public com.cosylab.vdct.inspector.InspectableProperty[] getProperties(int mode, boolean spreadsheet) {
@@ -404,20 +440,33 @@ public static OutLink getStartPoint(Linkable link) {
 	return (OutLink)link;
 }
 
-public static InLink getTarget(Object dsId, LinkProperties link) {
+    /**
+     *
+     * @param dsId dsId
+     * @param link link
+     * @return something
+     */
+    public static InLink getTarget(Object dsId, LinkProperties link) {
 	return getTarget(dsId, link, false, false);
 }
 
-public static InLink getTarget(Object dsId, LinkProperties link, boolean allowLinkOutAsTarget) {
+    /**
+     *
+     * @param dsId dsId
+     * @param link link
+     * @param allowLinkOutAsTarget allowLinkOutAsTarget
+     * @return something
+     */
+    public static InLink getTarget(Object dsId, LinkProperties link, boolean allowLinkOutAsTarget) {
 	return getTarget(dsId, link, allowLinkOutAsTarget, false);
 }
 
 /**
  * get/create target link field
  * Creation date: (30.1.2001 13:40:51)
- * @param dsId
- * @param doNotSearchRecordFields
- * @param allowLinkOutAsTarget
+ * @param dsId dsId
+ * @param doNotSearchRecordFields doNotSearchRecordFields
+ * @param allowLinkOutAsTarget allowLinkOutAsTarget
  * @return com.cosylab.vdct.graphics.objects.InLink
  * @param link com.cosylab.vdct.vdb.LinkProperties
  */
@@ -534,7 +583,7 @@ public void setColor(Color newColor) {
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 22:22:13)
- * @param input
+ * @param input input
  */
 public void setInput(InLink input) {
 	if (inlink==input) return;
@@ -595,7 +644,13 @@ private void updateLink() {
 	setLabel(properties.getOptions());
 }
 
-protected void validateFontAndDimension(double Rscale, int rwidth, int rheight) {
+    /**
+     *
+     * @param Rscale Rscale
+     * @param rwidth rwidth
+     * @param rheight rheight
+     */
+    protected void validateFontAndDimension(double Rscale, int rwidth, int rheight) {
     label2 = properties.getOptions();
 	labelLen = (int)(Constants.LINK_LABEL_LENGTH*Rscale);
 	
@@ -654,16 +709,22 @@ public void validateLink()
 {
 }
 
-
-
-public int getRightX() {
+    /**
+     *
+     * @return something
+     */
+    public int getRightX() {
 	if (inlink==null || !getLayerID().equals(inlink.getLayerID()))
 		return getX()+getWidth()+Constants.TAIL_LENGTH;	 
 	else	
 		return getX()+getWidth()+Constants.TAIL_LENGTH + getVerticalPosition()*Constants.LINK_SLOT_WIDTH;
 }
 
-public int getLeftX() {
+    /**
+     *
+     * @return something
+     */
+    public int getLeftX() {
 	if (inlink==null || !getLayerID().equals(inlink.getLayerID()))
 		return getX()-Constants.TAIL_LENGTH;
 	else

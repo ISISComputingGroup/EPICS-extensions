@@ -63,20 +63,46 @@ public class DsManager
 implements DsManagerInterface, GUIMenuInterface, VDBInterface,
 LinkCommandInterface, RepaintInterface, Pageable {
 	
-	protected static DsManager instance = null;
+    /**
+     *
+     */
+    protected static DsManager instance = null;
 
-	protected DSGUIInterface dsInterface = null;  
+    /**
+     *
+     */
+    protected DSGUIInterface dsInterface = null;  
 
-	protected static HashMap drawingSurfaces = new HashMap();
+    /**
+     *
+     */
+    protected static HashMap drawingSurfaces = new HashMap();
 	
-	protected DesktopInterface desktopInterface = null;
-	protected CopyContext copyContext = null;
-	
-	protected Vector dsEventListeners = null;
-	
-	protected int dsCount = 0;
+    /**
+     *
+     */
+    protected DesktopInterface desktopInterface = null;
 
-	public DsManager(DesktopInterface desktopInterface) {
+    /**
+     *
+     */
+    protected CopyContext copyContext = null;
+	
+    /**
+     *
+     */
+    protected Vector dsEventListeners = null;
+	
+    /**
+     *
+     */
+    protected int dsCount = 0;
+
+    /**
+     *
+     * @param desktopInterface desktopInterface
+     */
+    public DsManager(DesktopInterface desktopInterface) {
 		instance = this;
 		
 		this.desktopInterface = desktopInterface;
@@ -97,18 +123,31 @@ LinkCommandInterface, RepaintInterface, Pageable {
 		createDummyDrawingSurface();			
 	}
 	
-	public static DrawingSurface getDrawingSurface() {
+    /**
+     *
+     * @return something
+     */
+    public static DrawingSurface getDrawingSurface() {
 		if (instance.dsInterface == null) {
 			return null;
 		}
 		return instance.dsInterface.getDrawingSurface();
 	}
 
-	public static DrawingSurface getDrawingSurface(Object id) {
+    /**
+     *
+     * @param id id
+     * @return something
+     */
+    public static DrawingSurface getDrawingSurface(Object id) {
 		return (DrawingSurface)drawingSurfaces.get(id);
 	}
 
-	public static Vector getAllDrawingSurfaces() {
+    /**
+     *
+     * @return something
+     */
+    public static Vector getAllDrawingSurfaces() {
 		Vector vector = new Vector();
 		Iterator iterator = drawingSurfaces.values().iterator();
 		DrawingSurface surface = null; 
@@ -121,14 +160,23 @@ LinkCommandInterface, RepaintInterface, Pageable {
 		return vector;
 	}
 	
-	public void createDummyDrawingSurface() {
+    /**
+     *
+     */
+    public void createDummyDrawingSurface() {
 		DrawingSurface drawingSurface = new DrawingSurface(Constants.DEFAULT_NAME, 0, null, copyContext);
 		drawingSurface.setDisposed(true);
 		drawingSurfaces.put(Constants.DEFAULT_NAME, drawingSurface);
 		drawingSurface.initializeWorkspace();
 	}
 	
-	public VisualComponent addDrawingSurface(Object id, InternalFrameInterface displayer) {
+    /**
+     *
+     * @param id id
+     * @param displayer displayer
+     * @return something
+     */
+    public VisualComponent addDrawingSurface(Object id, InternalFrameInterface displayer) {
 
 		DrawingSurface drawingSurface = new DrawingSurface(id, dsCount, displayer, copyContext);
 		dsCount++;
@@ -148,11 +196,20 @@ LinkCommandInterface, RepaintInterface, Pageable {
 		return drawingSurface;
 	}
 
-	public DrawingSurfaceInterface getDrawingSurfaceById(Object id) {
+    /**
+     *
+     * @param id id
+     * @return something
+     */
+    public DrawingSurfaceInterface getDrawingSurfaceById(Object id) {
 		return getDrawingSurface(id);
 	}
 
-	public void removeDrawingSurface(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void removeDrawingSurface(Object id) {
 		DrawingSurface drawingSurface = getDrawingSurface(id);
 		if (drawingSurface != null) {
 			drawingSurface.setDisposed(true);
@@ -168,14 +225,22 @@ LinkCommandInterface, RepaintInterface, Pageable {
 		}
 	}
 
-	public DrawingSurfaceInterface getFocusedDrawingSurface() {
+    /**
+     *
+     * @return something
+     */
+    public DrawingSurfaceInterface getFocusedDrawingSurface() {
 		if (dsInterface != null) {
 			return dsInterface.getDrawingSurface(); 
 		}
 		return null;
 	}
 	
-	public void setFocusedDrawingSurface(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void setFocusedDrawingSurface(Object id) {
 		if (id != null) {
 			DrawingSurface drawingSurface = getDrawingSurface(id);
 			if (drawingSurface != null && !drawingSurface.isDisposed()) {
@@ -202,14 +267,22 @@ LinkCommandInterface, RepaintInterface, Pageable {
 		}
 	}
 
-	public DrawingSurfaceInterface[] getDrawingSurfaces() {
+    /**
+     *
+     * @return something
+     */
+    public DrawingSurfaceInterface[] getDrawingSurfaces() {
 		Vector vector = getAllDrawingSurfaces();
 		DrawingSurfaceInterface[] array = new DrawingSurfaceInterface[vector.size()];
 		vector.copyInto(array);
 		return array;
 	}
 
-	public void closeDrawingSurface(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void closeDrawingSurface(Object id) {
 		DrawingSurfaceInterface surface = getDrawingSurfaceById(id);
 		if (surface != null) {
 			if (DataSynchronizer.getInstance().confirmFileClose(surface.getDsId(), false)) {
@@ -218,17 +291,32 @@ LinkCommandInterface, RepaintInterface, Pageable {
 		}
 	}
 	
-	public void addDsEventListener(DsEventListener listener) {
+    /**
+     *
+     * @param listener listener
+     */
+    public void addDsEventListener(DsEventListener listener) {
 		dsEventListeners.add(listener);
 	}
 	
-	public void removeDsEventListener(DsEventListener listener) {
+    /**
+     *
+     * @param listener listener
+     */
+    public void removeDsEventListener(DsEventListener listener) {
 		dsEventListeners.remove(listener);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.graphics.LinkCommandInterface#linkCommand(com.cosylab.vdct.graphics.objects.VisibleObject, com.cosylab.vdct.graphics.objects.LinkSource)
 	 */
+
+    /**
+     *
+     * @param linkObject linkObject
+     * @param linkData linkData
+     */
+
 	public void linkCommand(VisibleObject linkObject, LinkSource linkData) {
 		if (dsInterface != null) {
 			dsInterface.getDrawingSurface().linkCommand(linkObject, linkData);
@@ -268,6 +356,12 @@ LinkCommandInterface, RepaintInterface, Pageable {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.graphics.VDBInterface#createLine()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public Line createLine() {
 		if (dsInterface != null) {
 			return dsInterface.createLine();
@@ -278,6 +372,14 @@ LinkCommandInterface, RepaintInterface, Pageable {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.graphics.VDBInterface#createRecord(java.lang.String, java.lang.String, boolean)
 	 */
+
+    /**
+     *
+     * @param name name
+     * @param type type
+     * @param relative relative
+     */
+
 	public void createRecord(String name, String type, boolean relative) {
 		if (dsInterface != null) {
 			dsInterface.createRecord(name, type, relative);
@@ -287,6 +389,12 @@ LinkCommandInterface, RepaintInterface, Pageable {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.graphics.VDBInterface#createTextBox()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public TextBox createTextBox() {
 		if (dsInterface != null) {
 			return dsInterface.createTextBox();
@@ -724,20 +832,33 @@ LinkCommandInterface, RepaintInterface, Pageable {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.graphics.RepaintInterface#repaint()
 	 */
+
+    /**
+     *
+     * @param highlighted highlighted
+     */
+
 	public void repaint(boolean highlighted) {
 		if (dsInterface != null) {
 			dsInterface.getDrawingSurface().repaint(highlighted);
 		}
 	}
 
-	public void repaintAll(boolean highlighted) {
+    /**
+     *
+     * @param highlighted highlighted
+     */
+    public void repaintAll(boolean highlighted) {
 		Iterator iterator = getAllDrawingSurfaces().iterator();
 		while (iterator.hasNext()) {
 			((DrawingSurface)iterator.next()).repaint(highlighted);
 		}
 	}
 	
-	public void reset() {
+    /**
+     *
+     */
+    public void reset() {
 		Iterator iterator = getAllDrawingSurfaces().iterator();
 		while (iterator.hasNext()) {
 			((DrawingSurface)iterator.next()).reset();
@@ -774,14 +895,21 @@ LinkCommandInterface, RepaintInterface, Pageable {
 		throw new IndexOutOfBoundsException();
 	}
 	
-	public void close() {
+    /**
+     *
+     */
+    public void close() {
 		if (dsInterface != null) {
 			if (DataSynchronizer.getInstance().confirmFileClose(dsInterface.getDsId(), false)) {
     			dsInterface.getDrawingSurface().close();
 			}
 		}
 	}
-	public void closeAll() {
+
+    /**
+     *
+     */
+    public void closeAll() {
 		if (DataSynchronizer.getInstance().confirmFileClose(null, false)) {
 			Iterator iterator = getAllDrawingSurfaces().iterator();
 			while (iterator.hasNext()) {

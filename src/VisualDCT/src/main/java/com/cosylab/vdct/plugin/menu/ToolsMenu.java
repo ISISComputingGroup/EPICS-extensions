@@ -61,7 +61,7 @@ public void init()
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:09:23)
- * @param plugin
+ * @param plugin plugin
  */
 public void pluginAdded(PluginObject plugin)
 {
@@ -83,7 +83,7 @@ public void pluginAdded(PluginObject plugin)
 /**
  * Insert the method's description here.
  * Creation date: (7.12.2001 17:10:37)
- * @param plugin
+ * @param plugin plugin
  */
 public void pluginRemoved(PluginObject plugin)
 {

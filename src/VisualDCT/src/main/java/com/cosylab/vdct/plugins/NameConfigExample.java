@@ -63,8 +63,15 @@ import com.cosylab.vdct.xml.XMLManager;
  */
 public class NameConfigExample implements NameConfigPlugin {
 
-	public static final String VDCT_NAME_CONFIG_FILE = ".vdctname.xml";
-	public static final String VDCT_NAME_CONFIG_FILE_ENV = "VDCT_LINK_CONFIG";
+    /**
+     *
+     */
+    public static final String VDCT_NAME_CONFIG_FILE = ".vdctname.xml";
+
+    /**
+     *
+     */
+    public static final String VDCT_NAME_CONFIG_FILE_ENV = "VDCT_LINK_CONFIG";
 	
 	private boolean running = false;
 	

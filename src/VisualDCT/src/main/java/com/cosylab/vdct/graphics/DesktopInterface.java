@@ -34,7 +34,19 @@ package com.cosylab.vdct.graphics;
  */
 public interface DesktopInterface {
 
-	public void createNewInternalFrame();
-	public void onInternalFrameClosed();
-	public void setFocused(InternalFrameInterface frame);
+    /**
+     *
+     */
+    public void createNewInternalFrame();
+
+    /**
+     *
+     */
+    public void onInternalFrameClosed();
+
+    /**
+     *
+     * @param frame frame
+     */
+    public void setFocused(InternalFrameInterface frame);
 }

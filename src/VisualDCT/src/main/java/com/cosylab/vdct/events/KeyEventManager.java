@@ -37,7 +37,11 @@ import java.awt.event.KeyListener;
  * @author Matej Sekoranja
  */
 public class KeyEventManager extends EventManager {
-	protected static KeyEventManager instance = null;
+
+    /**
+     *
+     */
+    protected static KeyEventManager instance = null;
 /**
  * Insert the method's description here.
  * Creation date: (18.12.2000 15:30:35)

@@ -44,21 +44,40 @@ import com.cosylab.vdct.graphics.VDBInterface;
  */
 public class NameChecker implements DocumentListener {
 
-	protected JTextField nameField = null;
-	protected JLabel oldNameLabel = null;
-	protected boolean group = false;
-	protected JButton confirmButton = null;
-	protected JLabel description = null;
+    /**
+     *
+     */
+    protected JTextField nameField = null;
+
+    /**
+     *
+     */
+    protected JLabel oldNameLabel = null;
+
+    /**
+     *
+     */
+    protected boolean group = false;
+
+    /**
+     *
+     */
+    protected JButton confirmButton = null;
+
+    /**
+     *
+     */
+    protected JLabel description = null;
 	
 	/**
 	 * If group is true, the name is checked as a group name, otherwise it is
 	 * checked as a record name.
 	 * 
-	 * @param nameField
-     * @param oldNameLabel
-	 * @param group
-	 * @param confirmButton
-	 * @param description
+	 * @param nameField nameField
+     * @param oldNameLabel oldNameLabel
+	 * @param group group
+	 * @param confirmButton confirmButton
+	 * @param description description
 	 */
 	public NameChecker(JTextField nameField, JLabel oldNameLabel,
 			boolean group, JButton confirmButton, JLabel description) {
@@ -72,7 +91,10 @@ public class NameChecker implements DocumentListener {
 		nameField.getDocument().addDocumentListener(this);
 	}
 
-	public void check() {
+    /**
+     *
+     */
+    public void check() {
 		VDBInterface vDBInterface =
 			((GetVDBManager)CommandManager.getInstance().getCommand("GetVDBManager")).getManager();
 		

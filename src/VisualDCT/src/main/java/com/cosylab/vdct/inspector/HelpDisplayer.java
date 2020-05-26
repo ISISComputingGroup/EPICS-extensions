@@ -36,6 +36,15 @@ import java.awt.Color;
  */
 public interface HelpDisplayer {
 
-	public void setHelpText(String text);
-	public void setHelpTextColor(Color color);
+    /**
+     *
+     * @param text text
+     */
+    public void setHelpText(String text);
+
+    /**
+     *
+     * @param color color
+     */
+    public void setHelpTextColor(Color color);
 }

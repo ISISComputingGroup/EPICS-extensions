@@ -55,8 +55,15 @@ public class MenuPluginExample implements MenuPlugin {
 		}
 	}
 
-	protected MenuPluginExample.MenuItemHandler menuitemHandler = null;
-	protected JMenu menu = null;
+    /**
+     *
+     */
+    protected MenuPluginExample.MenuItemHandler menuitemHandler = null;
+
+    /**
+     *
+     */
+    protected JMenu menu = null;
 /**
  * Insert the method's description here.
  * Creation date: (2.2.2001 23:00:51)
