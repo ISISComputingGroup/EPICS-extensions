@@ -35,23 +35,43 @@ import com.cosylab.vdct.inspector.*;
 /**
  * Insert the type's description here.
  * Creation date: (12.1.2001 22:40:34)
- * @author 
+ * @author cosylab
  */
 public class GUIHeader implements InspectableProperty {
-	protected String title;
-	protected String name;
-	protected int visibility;
+
+    /**
+     *
+     */
+    protected String title;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected int visibility;
 	
-	protected static GUIHeader defaultHeader = new GUIHeader("Value", "Name", InspectableProperty.ALWAYS_VISIBLE);
+    /**
+     *
+     */
+    protected static GUIHeader defaultHeader = new GUIHeader("Value", "Name", InspectableProperty.ALWAYS_VISIBLE);
 
 /**
  * GUISeparator constructor comment.
+     * @param title title
+     * @param name name
  */
 public GUIHeader(String title, String name) {
 	this(title, name, InspectableProperty.UNDEFINED_VISIBILITY);
 }
 /**
  * GUISeparator constructor comment.
+     * @param title title
+     * @param name name
+     * @param visibility visibility
  */
 public GUIHeader(String title, String name, int visibility) {
 	this.title=title;
@@ -169,8 +189,8 @@ public int getVisibility()
  * Insert the method's description here.
  * Creation date: (11.1.2001 21:30:04)
  * @param component java.awt.Component
- * @param x
- * @param y
+ * @param x x
+ * @param y y
  */
 public void popupEvent(Component component, int x, int y)
 {
@@ -188,6 +208,12 @@ public static GUIHeader getDefaultHeader()
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasDefaultValue() {
 	return false;
 }
@@ -195,6 +221,12 @@ public boolean hasDefaultValue() {
 /* (non-Javadoc)
  * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public boolean hasValidity() {
 	return false;
 }

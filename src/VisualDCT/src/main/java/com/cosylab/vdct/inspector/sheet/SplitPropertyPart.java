@@ -47,12 +47,12 @@ public class SplitPropertyPart implements InspectableProperty {
 	private boolean editable = true;
 
 	/**
-	 * @param partIndex
-	 * @param owner
-	 * @param value
-	 * @param initValue
-	 * @param lead
-	 * @param editable
+	 * @param partIndex partIndex
+	 * @param owner owner
+	 * @param value value
+	 * @param initValue initValue
+	 * @param lead lead
+	 * @param editable editable
 	 */
 	public SplitPropertyPart(int partIndex, SplitPropertyGroup owner, String value, String initValue, String lead,
 			boolean editable) {
@@ -187,12 +187,24 @@ public class SplitPropertyPart implements InspectableProperty {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public boolean hasDefaultValue() {
 		return owner.getOwner().hasDefaultValue();
 	}
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public boolean hasValidity() {
 		return owner.getOwner().hasValidity();
 	}

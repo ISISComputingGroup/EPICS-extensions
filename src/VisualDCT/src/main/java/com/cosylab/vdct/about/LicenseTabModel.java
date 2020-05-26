@@ -38,6 +38,10 @@ package com.cosylab.vdct.about;
  */
 public interface LicenseTabModel extends AboutTabModel {
 
-public abstract String getLicense();
+    /**
+     *
+     * @return something
+     */
+    public abstract String getLicense();
 
 }

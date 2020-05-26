@@ -41,7 +41,10 @@ import com.cosylab.vdct.graphics.DsEventListener;
  */
 public class DBSheetData implements DsEventListener {
 
-	protected static HashMap instances = new HashMap();
+    /**
+     *
+     */
+    protected static HashMap instances = new HashMap();
 	
 	private Map map = null;
 
@@ -50,7 +53,12 @@ public class DBSheetData implements DsEventListener {
 		map = new HashMap();
 	}
 	
-	public static DBSheetData getInstance(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     * @return something
+     */
+    public static DBSheetData getInstance(Object dsId) {
 
 		DBSheetData dbSheetData = (DBSheetData)instances.get(dsId);
 		if (dbSheetData == null) {
@@ -63,31 +71,38 @@ public class DBSheetData implements DsEventListener {
 	}
 	
     /** Adds a record.
-     * @param record
+     * @param record record
      */
     public void add(DBSheetView record) {
 		map.put(record.getKey(), record);
 	}
 
     /** Returns the record with the given key, or null if there is no such record.
-     * @param key
-     * @return 
+     * @param key key
+     * @return something
      */
 	public DBSheetView get(String key) {
 		return (DBSheetView)map.get(key);
 	}
 
     /** Removes the record with the given key.
-     * @param key
+     * @param key key
      */
     public void remove(String key) {
 		map.remove(key);
 	}
 	
+    /**
+     *
+     * @return something
+     */
     public Iterator getRecords() {
 		return map.values().iterator();
 	}
 
+    /**
+     *
+     */
     public static void registerDsListener() {
 		
 		DBSheetData data = new DBSheetData();
@@ -99,11 +114,25 @@ public class DBSheetData implements DsEventListener {
 		}
 	}
 
-	public void onDsAdded(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void onDsAdded(Object id) {
 	    instances.put(id, new DBSheetData());
 	}
-	public void onDsRemoved(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsRemoved(Object id) {
 	}
-	public void onDsFocused(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsFocused(Object id) {
 	}
 }

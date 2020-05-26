@@ -24,8 +24,9 @@ public class StringWriterDialog extends javax.swing.JDialog {
 	private String returnValue = null;
     
     /** Creates new form StringWriterDialog
-     * @param parent
-     * @param modal */
+     * @param parent parent
+     * @param modal modal
+     */
     public StringWriterDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -294,6 +295,10 @@ public class StringWriterDialog extends javax.swing.JDialog {
         new StringWriterDialog(new javax.swing.JFrame(), true).setVisible(true);
     }
     
+    /**
+     *
+     * @return something
+     */
     public String showDialog() {
 		returnValue = null;    	
     	setModal(true);

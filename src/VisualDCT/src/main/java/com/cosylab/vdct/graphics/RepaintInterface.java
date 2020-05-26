@@ -34,6 +34,15 @@ package com.cosylab.vdct.graphics;
  */
 public interface RepaintInterface {
 
-	public void repaint(boolean highlighted);
-	public void repaintAll(boolean highlighted);
+    /**
+     *
+     * @param highlighted highlighted
+     */
+    public void repaint(boolean highlighted);
+
+    /**
+     *
+     * @param highlighted highlighted
+     */
+    public void repaintAll(boolean highlighted);
 }

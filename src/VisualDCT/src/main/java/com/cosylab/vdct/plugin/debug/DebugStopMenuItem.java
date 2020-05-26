@@ -48,6 +48,7 @@ public DebugStopMenuItem()
 }
 /**
  * Invoked when an action occurs.
+     * @param e e
  */
 public void actionPerformed(java.awt.event.ActionEvent e)
 {

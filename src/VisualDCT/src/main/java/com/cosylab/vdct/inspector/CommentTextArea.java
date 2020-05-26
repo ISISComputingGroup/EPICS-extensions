@@ -40,7 +40,7 @@ public class CommentTextArea extends JTextArea implements java.awt.event.FocusLi
 	HelpDisplayer helpDisplayer = null;
 /**
  * CommentTextArea constructor comment.
- * @param helpDisplayer
+ * @param helpDisplayer helpDisplayer
  */
 public CommentTextArea(HelpDisplayer helpDisplayer) {
 	this.helpDisplayer = helpDisplayer;
@@ -48,12 +48,14 @@ public CommentTextArea(HelpDisplayer helpDisplayer) {
 }
 	/**
 	 * Invoked when a component gains the keyboard focus.
+     * @param e e
 	 */
 public void focusGained(java.awt.event.FocusEvent e) {
 	helpDisplayer.setHelpText(property.getHelp());
 }
 	/**
 	 * Invoked when a component loses the keyboard focus.
+     * @param e e
 	 */
 public void focusLost(java.awt.event.FocusEvent e) {
 	property.setValue(getText());

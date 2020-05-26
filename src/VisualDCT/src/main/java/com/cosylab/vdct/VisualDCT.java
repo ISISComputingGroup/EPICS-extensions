@@ -554,7 +554,10 @@ public void books_OnlineMenuItem_ActionPerformed() {
 	return;
 }
 
-public void boxButton_ActionPerformed()
+    /**
+     *
+     */
+    public void boxButton_ActionPerformed()
 {
 	if(boxButtonEnabled)
 		setBoxButtonEnabled(false);
@@ -1815,12 +1818,18 @@ private void connEtoM3(java.awt.event.ActionEvent arg1) {
 	}
 }
 
-public void systemCopy() {
+    /**
+     *
+     */
+    public void systemCopy() {
     GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
     cmd.getGUIMenuInterface().systemCopy();
 }
 	
-public void systemPaste() {
+    /**
+     *
+     */
+    public void systemPaste() {
     GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
     cmd.getGUIMenuInterface().systemPaste();
 }
@@ -2087,7 +2096,11 @@ private javax.swing.JButton getBoxButton() {
 	return boxButton;
 }
 
-public boolean getBoxButtonEnabled()
+    /**
+     *
+     * @return something
+     */
+    public boolean getBoxButtonEnabled()
 {
 	return boxButtonEnabled;
 }
@@ -2876,7 +2889,11 @@ private javax.swing.JTextField getGroupNameTextField() {
 	return ivjgroupNameTextField;
 }
 
-protected NameChecker getNewGroupNameChecker() {
+    /**
+     *
+     * @return something
+     */
+    protected NameChecker getNewGroupNameChecker() {
 	if (newGroupNameChecker == null) {
 		newGroupNameChecker = new NameChecker(getGroupNameTextField(), null, true, getGroupOKButton(), getGroupWarningLabel());
 	}
@@ -3087,6 +3104,11 @@ private javax.swing.JMenuItem getImportBorderMenuItem() {
 }
 
 // shp: not final solution
+
+    /**
+     *
+     * @return something
+     */
 public static VisualDCT getInstance()
 {
 	return instance;
@@ -3697,7 +3719,11 @@ private javax.swing.JButton getLineButton() {
 	return lineButton;
 }
 
-public boolean getLineButtonEnabled()
+    /**
+     *
+     * @return something
+     */
+    public boolean getLineButtonEnabled()
 {
 	return lineButtonEnabled;
 }
@@ -3764,7 +3790,11 @@ private javax.swing.JMenuItem getFindMenuItem() {
 }
 
 private FindDialog findDialog = null;
-public void findActionPerformed()
+
+    /**
+     *
+     */
+    public void findActionPerformed()
 {
     if (findDialog == null)
         findDialog = new FindDialog(this);
@@ -3965,7 +3995,7 @@ private javax.swing.JComboBox getNameTextField() {
 
 /**
  * Returns new record name checker or null if there isn't one.
- * @return 
+ * @return something
  */
 protected NameChecker getNewRecordNameChecker() {
 	if (newRecordNameChecker == null) {
@@ -4045,7 +4075,11 @@ private javax.swing.JTextField getNewNameTextField() {
 	return ivjNewNameTextField;
 }
 
-protected NameChecker getRenameNameChecker() {
+    /**
+     *
+     * @return something
+     */
+    protected NameChecker getRenameNameChecker() {
 	if (renameNameChecker == null) {
 		renameNameChecker = new NameChecker(getNewNameTextField(), getOldNameLabel(), false, getRenameOKButton(), getRenameWarningLabel());
 	}
@@ -5148,7 +5182,11 @@ private javax.swing.JButton getTextBoxButton() {
 	return textBoxButton;
 }
 
-public boolean getTextBoxButtonEnabled()
+    /**
+     *
+     * @return something
+     */
+    public boolean getTextBoxButtonEnabled()
 {
 	return textBoxButtonEnabled;
 }
@@ -5764,7 +5802,7 @@ private javax.swing.JSlider getZoomSlider() {
 }
 /**
  * Comment
-     * @param windowEvent
+     * @param windowEvent windowEvent
  */
 public void groupDialog_WindowOpened(java.awt.event.WindowEvent windowEvent) {
 	String groupName = getStatusMsg2().getText().trim();
@@ -5786,7 +5824,7 @@ public void groupMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void groupOKButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	if (getGroupOKButton().isEnabled()) {
@@ -6095,7 +6133,10 @@ public void level_UpMenuItem_ActionPerformed() {
     cmd.getGUIMenuInterface().levelUp();
 }
 
-public void lineButton_ActionPerformed()
+    /**
+     *
+     */
+    public void lineButton_ActionPerformed()
 {
 	if(lineButtonEnabled)
 		setLineButtonEnabled(false);
@@ -6276,13 +6317,17 @@ public void move_RenameMenuItem_ActionPerformed() {
 	GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
  	cmd.getGUIMenuInterface().rename();
 }
-public void morphMenuItem_ActionPerformed() {
+
+    /**
+     *
+     */
+    public void morphMenuItem_ActionPerformed() {
 	GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
 	cmd.getGUIMenuInterface().morph();
 }
 /**
  * Comment
- * @param itemEvent
+ * @param itemEvent itemEvent
  */
 public void navigatorMenuItem_ItemStateChanged(java.awt.event.ItemEvent itemEvent) {
 	GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
@@ -6291,7 +6336,11 @@ public void navigatorMenuItem_ItemStateChanged(java.awt.event.ItemEvent itemEven
 	Settings.getInstance().setNavigator(getNavigatorMenuItem().isSelected());
 }
 
-public void windowsPanMenuItem_ItemStateChanged(java.awt.event.ItemEvent itemEvent) {
+    /**
+     *
+     * @param itemEvent itemEvent
+     */
+    public void windowsPanMenuItem_ItemStateChanged(java.awt.event.ItemEvent itemEvent) {
 	/*GetGUIInterface cmd = (GetGUIInterface)*/CommandManager.getInstance().getCommand("GetGUIMenuInterface");
 	/*if (cmd!=null)
 		cmd.getGUIMenuInterface().???(getWindowsPanMenuItem().isSelected());*/
@@ -6309,7 +6358,7 @@ public void newMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @param windowEvent
+ * @param windowEvent windowEvent
  */
 public void newRecordDialog_WindowOpened(
     java.awt.event.WindowEvent windowEvent) {
@@ -6362,7 +6411,11 @@ public void newRecordDialog_WindowOpened(
     getNameTextField().requestFocus();
 }
 
-public void morphingDialog_WindowOpened(
+    /**
+     *
+     * @param windowEvent windowEvent
+     */
+    public void morphingDialog_WindowOpened(
 	java.awt.event.WindowEvent windowEvent) {
 /*
 	// there can be no less types (for now)
@@ -6390,7 +6443,7 @@ public void morphingDialog_WindowOpened(
 
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void oKButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 
@@ -6464,7 +6517,11 @@ private static void updateComboBoxHistory(JComboBox cb, Object item)
 		cb.removeItem(item);
 }
 
-public void morphingOKButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
+    /**
+     *
+     * @param actionEvent actionEvent
+     */
+    public void morphingOKButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
 	cmd.getGUIMenuInterface().morph(getNameTextLabel().getText(), getTypeComboBox2().getSelectedItem().toString());
 	getMorphingDialog().dispose();
@@ -6508,8 +6565,8 @@ public void openDB(String fileName) {
 /**
  * Insert the method's description here.
  * Creation date: (8.1.2001 20:30:58)
- * @param fileName
- * @return 
+ * @param fileName fileName
+ * @return something
  */
 public boolean openDBD(String fileName) {
 	return openDBD(fileName, false);
@@ -6518,9 +6575,9 @@ public boolean openDBD(String fileName) {
 /**
  * Insert the method's description here.
  * Creation date: (8.1.2001 20:30:58)
- * @param fileName
- * @param allowDB
- * @return 
+ * @param fileName fileName
+ * @param allowDB allowDB
+ * @return something
  */
 public boolean openDBD(String fileName, boolean allowDB) {
 	if (fileName!=null && fileName.indexOf(java.io.File.separatorChar)<0)
@@ -6640,7 +6697,7 @@ public void openMenuItem_ActionPerformed() {
 
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void pageSetupMenuItem_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 //	new Thread() {
@@ -6716,7 +6773,7 @@ public void pasteMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void pluginManagerMenuItem_ActionPerformed(java.awt.event.ActionEvent actionEvent)
 {
@@ -6752,7 +6809,11 @@ public void spreadsheetMenuItemActionPerformed() {
 	spreadsheet.setVisible(true);
 }
 
-public SpreadsheetInspector getSpreadsheetInspector() {
+    /**
+     *
+     * @return something
+     */
+    public SpreadsheetInspector getSpreadsheetInspector() {
 	
 	if (spreadsheet == null) {
 		spreadsheet = new SpreadsheetInspector(this, true);
@@ -6760,7 +6821,14 @@ public SpreadsheetInspector getSpreadsheetInspector() {
 	return spreadsheet;
 }
 
-public byte[] printGrid(PageFormat pageFormat, StringBuffer stringBuffer, ViewState view) {
+    /**
+     *
+     * @param pageFormat pageFormat
+     * @param stringBuffer stringBuffer
+     * @param view view
+     * @return something
+     */
+    public byte[] printGrid(PageFormat pageFormat, StringBuffer stringBuffer, ViewState view) {
 						
 		int pageWidth = (int)pageFormat.getImageableWidth();
 		int pageHeight = (int)pageFormat.getImageableHeight();
@@ -7136,7 +7204,7 @@ public void printMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void printPreviewMenuItem_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	final GetPrintableInterface pi = (GetPrintableInterface)CommandManager.getInstance().getCommand("GetPrintableInterface");
@@ -7162,7 +7230,7 @@ public void redoMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @param windowEvent
+ * @param windowEvent windowEvent
  */
 public void renameDialog_WindowOpened(java.awt.event.WindowEvent windowEvent) {
 	getNewNameTextField().setText(getOldNameLabel().getText());
@@ -7170,7 +7238,7 @@ public void renameDialog_WindowOpened(java.awt.event.WindowEvent windowEvent) {
 }
 /**
  * Comment
- * @param actionEvent
+ * @param actionEvent actionEvent
  */
 public void renameOKButton_ActionPerformed(java.awt.event.ActionEvent actionEvent) {
 	if (getRenameOKButton().isEnabled()) {
@@ -7305,7 +7373,7 @@ public void generateAsGroupMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @return 
+ * @return something
  */
 public boolean save_AsMenuItem_ActionPerformed() {
 	JFileChooser chooser = getfileChooser();
@@ -7484,7 +7552,7 @@ public void generateMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @return 
+ * @return something
  */
 public boolean saveMenuItem_ActionPerformed() {
 
@@ -7512,7 +7580,11 @@ public void select_AllMenuItem_ActionPerformed() {
     cmd.getGUIMenuInterface().selectAll();
 }
 
-public void setBoxButtonEnabled(boolean parBoxButtonEnabled)
+    /**
+     *
+     * @param parBoxButtonEnabled parBoxButtonEnabled
+     */
+    public void setBoxButtonEnabled(boolean parBoxButtonEnabled)
 {
 	if(parBoxButtonEnabled != boxButtonEnabled)
 	{
@@ -7538,7 +7610,7 @@ public void setCurrentGroup(String groupName) {
 /**
  * Insert the method's description here.
  * Creation date: (29.4.2001 11:17:11)
- * @param mode
+ * @param mode mode
  */
 public void setMode(String mode) {
 	getModeStatus().setText(" "+mode+" ");
@@ -7569,8 +7641,11 @@ public void setFileInTitle(String fileName) {
 	setTitle("VisualDCT " + addedToTitle);
 }
 	
-
-public void setLineButtonEnabled(boolean parLineButtonEnabled)
+    /**
+     *
+     * @param parLineButtonEnabled parLineButtonEnabled
+     */
+    public void setLineButtonEnabled(boolean parLineButtonEnabled)
 {
 	if(parLineButtonEnabled != lineButtonEnabled)
 	{
@@ -7595,7 +7670,11 @@ public void setScale(double scale) {
 	zoomSlider_updateLabel();
 }
 
-public void setTextBoxButtonEnabled(boolean parTextBoxButtonEnabled)
+    /**
+     *
+     * @param parTextBoxButtonEnabled parTextBoxButtonEnabled
+     */
+    public void setTextBoxButtonEnabled(boolean parTextBoxButtonEnabled)
 {
 	if(parTextBoxButtonEnabled != textBoxButtonEnabled)
 	{
@@ -7612,7 +7691,7 @@ public void setTextBoxButtonEnabled(boolean parTextBoxButtonEnabled)
 }
 /**
  * Comment
- * @param itemEvent
+ * @param itemEvent itemEvent
  */
 public void show_PointsMenuItem_ItemStateChanged(java.awt.event.ItemEvent itemEvent) {
 	GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
@@ -7620,7 +7699,11 @@ public void show_PointsMenuItem_ItemStateChanged(java.awt.event.ItemEvent itemEv
 		cmd.getGUIMenuInterface().showGrid(getShow_PointsMenuItem().isSelected());
 	Settings.getInstance().setShowGrid(getShow_PointsMenuItem().isSelected());
 }
-public void showAboutBox() {
+
+    /**
+     *
+     */
+    public void showAboutBox() {
 	/* Create the AboutBox dialog */
 	new VisualDCTAboutDialogEngine(this).triggerReceiver();
 }
@@ -7641,7 +7724,13 @@ public void showNewDialog() {
 	getNewRecordDialog().setVisible(true);
 }
 
-public void showMorphingDialog(String name, String oldType, Object[] targets) {
+    /**
+     *
+     * @param name name
+     * @param oldType oldType
+     * @param targets targets
+     */
+    public void showMorphingDialog(String name, String oldType, Object[] targets) {
 	morphingDialog_WindowOpened(null);
 	
 	getTypeComboBox2().removeAllItems();
@@ -7657,7 +7746,7 @@ public void showMorphingDialog(String name, String oldType, Object[] targets) {
 /**
  * Insert the method's description here.
  * Creation date: (2.5.2001 10:30:28)
- * @param oldName
+ * @param oldName oldName
  */
 public void showRenameDialog(String oldName) {
 	getOldNameLabel().setText(oldName);
@@ -7673,7 +7762,7 @@ public void smart_ZoomMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @param itemEvent
+ * @param itemEvent itemEvent
  */
 public void snapToGridMenuItem_ItemStateChanged(java.awt.event.ItemEvent itemEvent) {
 	Settings.getInstance().setSnapToGrid(getSnapToGridMenuItem().isSelected());
@@ -7688,7 +7777,10 @@ public void statusbarMenuItem_ActionPerformed() {
 	Settings.getInstance().setStatusbar(getStatusbarMenuItem().isSelected());
 }
 
-public void textBoxButton_ActionPerformed()
+    /**
+     *
+     */
+    public void textBoxButton_ActionPerformed()
 {
 	if(textBoxButtonEnabled)
 		setTextBoxButtonEnabled(false);
@@ -7726,11 +7818,18 @@ private void validateGraphicsButtons(JButton clickedButton)
 		setTextBoxButtonEnabled(false);
 }
 
-public void viewStatusBar() {
+    /**
+     *
+     */
+    public void viewStatusBar() {
 	/* Hide or show the statusbar */
 	getStatusBarPane().setVisible(getStatusbarMenuItem().isSelected());
 }
-public void viewToolBar() {
+
+    /**
+     *
+     */
+    public void viewToolBar() {
 	/* Hide or show the toolbar */
 	getToolBarPane().setVisible(getToolbarMenuItem().isSelected());
 }
@@ -7750,14 +7849,14 @@ public void zoom_OutMenuItem_ActionPerformed() {
 }
 /**
  * Comment
- * @param mouseEvent
+ * @param mouseEvent mouseEvent
  */
 public void zoomSlider_MouseReleased(java.awt.event.MouseEvent mouseEvent) {
 	zoomSlider_updateLabel();
 }
 /**
  * Comment
- * @param propertyChangeEvent
+ * @param propertyChangeEvent propertyChangeEvent
  */
 public void zoomSlider_PropertyChange(java.beans.PropertyChangeEvent propertyChangeEvent) {
 	zoomSlider_updateLabel();
@@ -7774,7 +7873,7 @@ public void zoomSlider_updateLabel() {
 }
 /**
  * Comment
- * @param direction
+ * @param direction direction
  */
 public void moveOrigin(int direction) {
     GetGUIInterface cmd = (GetGUIInterface)CommandManager.getInstance().getCommand("GetGUIMenuInterface");
@@ -7875,7 +7974,7 @@ public void updateLoadLabel() {
 	/**
 	 * Sets the openedFile.
 	 * @param openedFile The openedFile to set
-     * @param title
+     * @param title title
 	 */
 	public void setOpenedFile(File openedFile, String title)
 	{
@@ -7893,7 +7992,7 @@ public void updateLoadLabel() {
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public ComboBoxFileChooser getComboBoxFileChooser() {
 		if (comboBoxFileChooser == null) 
@@ -7901,20 +8000,36 @@ public void updateLoadLabel() {
 		return comboBoxFileChooser;
 	}
 	
-	public void setDefaultFocus() {
+    /**
+     *
+     */
+    public void setDefaultFocus() {
     	getJFrameContentPane().requestFocusInWindow();
 	}
 
-	public void onDsAdded(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void onDsAdded(Object id) {
 		DsManagerInterface dsManager = ((GetDsManager)CommandManager.getInstance().getCommand("GetDsManager")).getManager();
 		setDsCommandsState(dsManager.getDrawingSurfaces().length > 0);
 		updateLoadLabel();
 	}
 	
-	public void onDsFocused(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void onDsFocused(Object id) {
 		updateLoadLabel();
 	}
-	public void onDsRemoved(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsRemoved(Object id) {
 		DsManagerInterface dsManager = ((GetDsManager)CommandManager.getInstance().getCommand("GetDsManager")).getManager();
 		setDsCommandsState(dsManager.getDrawingSurfaces().length > 0);
 		updateLoadLabel();

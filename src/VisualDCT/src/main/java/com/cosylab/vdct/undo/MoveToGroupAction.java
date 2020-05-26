@@ -33,7 +33,7 @@ import com.cosylab.vdct.graphics.objects.Flexible;
 /**
  * Insert the type's description here.
  * Creation date: (4.5.2001 11:37:23)
- * @author 
+ * @author cosylab
  */
 public class MoveToGroupAction extends ActionObject {
 	private Flexible object;
@@ -46,7 +46,7 @@ public class MoveToGroupAction extends ActionObject {
  * @param object com.cosylab.vdct.graphics.objects.Flexible
  * @param oldGroup java.lang.String
  * @param newGroup java.lang.String
- * @param dsId
+ * @param dsId dsId
  */
 public MoveToGroupAction(Flexible object, String oldGroup, String newGroup, Object dsId) {
 	this.object=object;

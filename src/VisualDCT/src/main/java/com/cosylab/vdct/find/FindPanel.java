@@ -116,12 +116,24 @@ public class FindPanel extends JPanel
      */
     static public final String ACTION_CLOSE = "Close";
     
+    /**
+     *
+     */
     protected Dialog owner = null; 
     
+    /**
+     *
+     */
     protected FindAction actionStart = null;
 
+    /**
+     *
+     */
     protected FindAction actionStop = null;
 
+    /**
+     *
+     */
     protected FindAction actionClose = null;
 
     /**
@@ -167,7 +179,7 @@ public class FindPanel extends JPanel
     /**
      * Construct a search panel with start and stop actions, option panes and a
      * results list pane that can display up to DEFAULT_MAX_SEARCH_HITS items.
-     * @param owner
+     * @param owner owner
      */
     public FindPanel(Dialog owner) {
         super();
@@ -190,7 +202,7 @@ public class FindPanel extends JPanel
      * Sets maximum capacity of the results list. Find stops when max number of
      * items found.
      *
-     * @param max
+     * @param max max
      *            Max capacity of results list.
      */
     public void setMaxFindHits(int max)
@@ -290,7 +302,7 @@ public class FindPanel extends JPanel
      * equals <b>maxMatches </b>.
      *
      * @param base	base group where to start search
-     * @param filters
+     * @param filters filters
      *            matches must pass each filters in array
      * @exception InterruptedException
      *                if thread is interrupted
@@ -333,9 +345,9 @@ public class FindPanel extends JPanel
 
     /**
      * Match check.
-     * @param candidate
+     * @param candidate candidate
      *            candidate to pass to each filter's accept method
-     * @param filters
+     * @param filters filters
      *            array of selection criteria
      *
      * @return true if specified candidate matches each filter's selection criteria
@@ -358,13 +370,13 @@ public class FindPanel extends JPanel
      * report. This really should be implemented as a property change listener.
      * Percentage completion = (current/total)*100.
      *
-     * @param filter
+     * @param filter filter
      *            FindFilter reporting progress
-     * @param searchee
+     * @param searchee searchee
      *            object being searched
-     * @param current
+     * @param current current
      *            current "location" of search
-     * @param total
+     * @param total total
      *            expected maximum value of current
      *
      * @return true to continue search, false to abort
@@ -413,7 +425,7 @@ public class FindPanel extends JPanel
 
     /**
      * Invoked by FindAction objects to start and stop searches.
-     * @param command
+     * @param command command
      */
     public void action(String command)
     {
@@ -438,9 +450,9 @@ public class FindPanel extends JPanel
          * Construct a search control action currently implements
          * <code>FindAccesory.ACTION_START</code> and <code>FindPanel.ACTION_STOP</code>.
          *
-         * @param text
+         * @param text text
          *            command
-         * @param icon
+         * @param icon icon
          *            button icon
          */
         FindAction(String text, Icon icon) {
@@ -450,7 +462,7 @@ public class FindPanel extends JPanel
         /**
          * Invoke FindAction's action() method.
          *
-         * @param e
+         * @param e e
          *            action event
          */
         public void actionPerformed(ActionEvent e)
@@ -527,9 +539,9 @@ public class FindPanel extends JPanel
          * Display search progress as a text field "no. of matches / total
          * searched".
          *
-         * @param matches
+         * @param matches matches
          *            number of items found
-         * @param total
+         * @param total total
          *            number of items investigated
          */
         public void showProgress(int matches, int total)
@@ -621,7 +633,7 @@ public class FindPanel extends JPanel
         /**
          * Adds the specified file to the results list.
          *
-         * @param match
+         * @param match match
          *            object to add to results list
          */
         public void addMatch(Object match)
@@ -762,7 +774,7 @@ public class FindPanel extends JPanel
         /**
          * Add a match to the results list.
          *
-         * @param match
+         * @param match match
          *            match found
          */
         public void append(Object match)
@@ -807,13 +819,13 @@ interface FindProgressCallback {
      * interval. Allows the search controller to report progress and to abort
      * the search in a clean and timely way.
      *
-     * @param filter
+     * @param filter filter
      *            FindFilter reporting the progress
-     * @param searchee
+     * @param searchee searchee
      *            the object being searched
-     * @param current
+     * @param current current
      *            current "location" of search
-     * @param total
+     * @param total total
      *            maximum value
      * @return true if search should continue, false to abort
      */

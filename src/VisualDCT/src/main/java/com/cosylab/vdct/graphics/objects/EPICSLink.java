@@ -36,9 +36,21 @@ import com.cosylab.vdct.Constants;
  * @author Matej Sekoranja 
  */
 public abstract class EPICSLink extends Field implements Descriptable, Linkable, Rotatable {
-	protected int r = Constants.LINK_RADIOUS;
-	protected boolean disconnected = false;
-	protected int rtailLen = Constants.TAIL_LENGTH;
+
+    /**
+     *
+     */
+    protected int r = Constants.LINK_RADIOUS;
+
+    /**
+     *
+     */
+    protected boolean disconnected = false;
+
+    /**
+     *
+     */
+    protected int rtailLen = Constants.TAIL_LENGTH;
 	private boolean right = true;
 /**
  * EPICSLink constructor comment.
@@ -65,7 +77,7 @@ public void destroy() {
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 21:23:04)
-     * @param disconnector
+     * @param disconnector disconnector
  */
 public void disconnect(Linkable disconnector) {
 	disconnected=true;
@@ -163,6 +175,10 @@ public void validate() {
 }
 
 /// Called after chaning value silently (fixLinks)
+
+    /**
+     *
+     */
 public abstract void fixLinkProperties();
 
 }

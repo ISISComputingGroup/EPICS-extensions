@@ -34,7 +34,7 @@ import com.cosylab.vdct.vdb.VDBRecordData;
 /**
  * Insert the type's description here.
  * Creation date: (4.5.2001 11:37:23)
- * @author 
+ * @author cosylab
  */
 public class MorphAction extends ActionObject {
 	private VDBRecordData oldRecordData;

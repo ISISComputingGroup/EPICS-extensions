@@ -98,7 +98,7 @@ public static boolean isDebugState() {
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:23:57)
- * @param plugin
+ * @param plugin plugin
  */
 public void pluginAdded(PluginObject plugin)
 {
@@ -115,7 +115,7 @@ public void pluginAdded(PluginObject plugin)
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:23:57)
- * @param plugin
+ * @param plugin plugin
  */
 public void pluginRemoved(PluginObject plugin)
 {

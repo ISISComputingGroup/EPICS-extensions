@@ -41,6 +41,7 @@ public class InspectorTableModel extends javax.swing.table.AbstractTableModel
 	private InspectorInterface inspector = null;
 /**
  * InspactorTableModel constructor comment.
+     * @param inspector inspector
  */
 public InspectorTableModel(InspectorInterface inspector) {
 	super();
@@ -57,7 +58,7 @@ public Class getColumnClass(int column) {
 }
 /**
  * getColumnCount method comment.
- * @return 
+ * @return something
  */
 public int getColumnCount() {
 	return 3;			// visibility & name & value
@@ -73,6 +74,7 @@ public Inspectable getDataObject() {
 /**
  * Insert the method's description here.
  * Creation date: (11.1.2001 22:17:39)
+     * @param column column
  * @return com.cosylab.vdct.inspector.InspectableProperty
  * @param row int
  */
@@ -97,6 +99,7 @@ public int getHeaderDisplayType(int column) {
 
 /**
  * getRowCount method comment.
+     * @return something
  */
 public int getRowCount() {
 	if (data!=null)
@@ -106,6 +109,9 @@ public int getRowCount() {
 }
 /**
  * getValueAt method comment.
+     * @param row row
+     * @param column column
+     * @return something
  */
 public Object getValueAt(int row, int column) {
 	switch (column)

@@ -34,7 +34,21 @@ package com.cosylab.vdct.graphics;
  */
 public interface DsEventListener {
 	
-	public void onDsAdded(Object id);
-	public void onDsRemoved(Object id);
-	public void onDsFocused(Object id);
+    /**
+     *
+     * @param id id
+     */
+    public void onDsAdded(Object id);
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsRemoved(Object id);
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsFocused(Object id);
 }

@@ -45,8 +45,8 @@ public class NameProperty extends NameValueInfoProperty {
 	private Flexible namedObject = null;
 	private boolean flexible = false;
 	/**
-	 * @param name
-	 * @param namedObject
+	 * @param name name
+	 * @param namedObject namedObject
 	 */
 	public NameProperty(String name, Inspectable namedObject) {
 		super(name, namedObject.getName());
@@ -103,6 +103,12 @@ public class NameProperty extends NameValueInfoProperty {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	public boolean hasValidity() {
 		return true;
 	}

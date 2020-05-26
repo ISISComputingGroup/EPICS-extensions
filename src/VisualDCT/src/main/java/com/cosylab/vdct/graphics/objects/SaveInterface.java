@@ -39,19 +39,19 @@ public interface SaveInterface {
 /**
  * Insert the method's description here.
  * Creation date: (22.4.2001 21:46:41)
- * @param file java.io.DataOutputStream
+ * @param writer writer
  * @param renamer NamingContext
- * @param export
+ * @param export export
  * @exception java.io.IOException The exception description.
  */
-void writeObjects(DataOutputStream file, NamingContext renamer, boolean export) throws java.io.IOException;
+void writeObjects(Writer writer, NamingContext renamer, boolean export) throws java.io.IOException;
 /**
  * Insert the method's description here.
  * Creation date: (22.4.2001 21:47:00)
- * @param file java.io.DataOutputStream
+ * @param writer writer
  * @param renamer NamingContext
- * @param export
+ * @param export export
  * @exception java.io.IOException The exception description.
  */
-void writeVDCTObjects(DataOutputStream file, NamingContext renamer, boolean export) throws java.io.IOException;
+void writeVDCTObjects(Writer writer, NamingContext renamer, boolean export) throws java.io.IOException;
 }

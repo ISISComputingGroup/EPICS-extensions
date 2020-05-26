@@ -39,14 +39,23 @@ public class RdbInstance {
 	private static RdbInstance rdbInstance = null;
 	private Rdb rdb = null;
 	
-	public static RdbInstance getInstance(JFrame guiContext) {
+    /**
+     *
+     * @param guiContext guiContext
+     * @return something
+     */
+    public static RdbInstance getInstance(JFrame guiContext) {
 		if (rdbInstance == null) {
 			rdbInstance = new RdbInstance(guiContext);
 		}
 		return rdbInstance;
 	}
 	
-	public RdbInterface getRdbInterface() {
+    /**
+     *
+     * @return something
+     */
+    public RdbInterface getRdbInterface() {
 		return rdb; 
 	}
 	

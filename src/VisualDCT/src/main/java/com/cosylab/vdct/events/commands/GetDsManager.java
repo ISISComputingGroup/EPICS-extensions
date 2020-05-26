@@ -39,14 +39,22 @@ public class GetDsManager extends Command {
 	
 	private DsManagerInterface manager = null;
 
-	public GetDsManager(DsManagerInterface manager) {
+    /**
+     *
+     * @param manager manager
+     */
+    public GetDsManager(DsManagerInterface manager) {
 		this.manager = manager;
 	}
 	
 	public void execute() {
 	}
 
-	public DsManagerInterface getManager() {
+    /**
+     *
+     * @return something
+     */
+    public DsManagerInterface getManager() {
 		return manager;
 	}
 }

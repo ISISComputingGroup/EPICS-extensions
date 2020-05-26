@@ -31,7 +31,7 @@ package com.cosylab.vdct.graphics;
 /**
  * Insert the type's description here.
  * Creation date: (2.5.2001 8:25:44)
- * @author 
+ * @author cosylab
  */
 public class TransparentTextField extends javax.swing.JTextField {
 	private com.cosylab.vdct.graphics.objects.VisibleObject owner = null;
@@ -48,6 +48,8 @@ public TransparentTextField() {
  * Insert the method's description here.
  * Creation date: (2.5.2001 9:47:36)
  * @param owner com.cosylab.vdct.graphics.objects.VisibleObject
+     * @param offsetX offsetX
+     * @param offsetY offsetY
  */
 public TransparentTextField(com.cosylab.vdct.graphics.objects.VisibleObject owner, int offsetX, int offsetY)
 {
@@ -82,6 +84,7 @@ public com.cosylab.vdct.graphics.objects.VisibleObject getOwner() {
 /**
  * Insert the method's description here.
  * Creation date: (2.5.2001 9:48:17)
+     * @return something
  */
 public int getX() {
 	ViewState view = ViewState.getInstance(owner.getDsId());

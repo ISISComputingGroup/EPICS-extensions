@@ -50,13 +50,40 @@ public final class LinkProperties {
 	private static final String defaultProcess	= "NPP";			
 	private static final String defaultMaximize	= "NMS";
 
-	public final static int NOT_VALID = -1;
-	public final static int INLINK_FIELD = 0;
-	public final static int OUTLINK_FIELD = 1;
-	public final static int FWDLINK_FIELD = 2;
-	public final static int VARIABLE_FIELD = 3;
-	public final static int PORT_FIELD = 4;
-	public final static int TEMPLATE_MACRO = 5;
+    /**
+     *
+     */
+    public final static int NOT_VALID = -1;
+
+    /**
+     *
+     */
+    public final static int INLINK_FIELD = 0;
+
+    /**
+     *
+     */
+    public final static int OUTLINK_FIELD = 1;
+
+    /**
+     *
+     */
+    public final static int FWDLINK_FIELD = 2;
+
+    /**
+     *
+     */
+    public final static int VARIABLE_FIELD = 3;
+
+    /**
+     *
+     */
+    public final static int PORT_FIELD = 4;
+
+    /**
+     *
+     */
+    public final static int TEMPLATE_MACRO = 5;
 
 	private int type;
 	private String varName;
@@ -68,6 +95,7 @@ public final class LinkProperties {
 /**
  * Insert the method's description here.
  * Creation date: (30.1.2001 9:53:33)
+     * @param fd fd
  */
 public LinkProperties(LinkSource fd) {
 	setDefaults();
@@ -240,7 +268,12 @@ public static String getTargetFromString(String value) {
 	return target;
 }
 
-public static String getRecordFromString(String value) {
+    /**
+     *
+     * @param value value
+     * @return something
+     */
+    public static String getRecordFromString(String value) {
 	
 	if (value == null || value.length() == 0 || //value.equals(nullString) ||
 		// check all tokenizer separators 
@@ -413,6 +446,7 @@ public void setVarName(java.lang.String newVarName) {
 /**
  * Insert the method's description here.
  * Creation date: (30.1.2001 12:38:32)
+     * @param fd fd
  */
 public void update(LinkSource fd) {
 	setProperties(fd);

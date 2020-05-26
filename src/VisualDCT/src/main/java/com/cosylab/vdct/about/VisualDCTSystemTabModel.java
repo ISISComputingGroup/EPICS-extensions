@@ -48,6 +48,7 @@ public class VisualDCTSystemTabModel implements SystemTabModel {
 	}
 
 	/**
+     * @return something
 	 * @see com.cosylab.vdct.about.SystemTabModel#getSystemProperties()
 	 */
 	public Properties getSystemProperties() {

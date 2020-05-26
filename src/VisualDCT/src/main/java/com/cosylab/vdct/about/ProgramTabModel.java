@@ -42,13 +42,58 @@ import javax.swing.Icon;
  */
 public interface ProgramTabModel extends AboutTabModel 
 {
-	public Icon getProductLogoImage();
-	public String getProductName();
-	public String getProductVersion();
-	public String getProductBuildDate();
-	public URL	getProductURL();
-	public URL getProductDocsURL();
-	public String getVendorEmail();
-	public URL getVendorURL();
-	public String getVendor();
+
+    /**
+     *
+     * @return something
+     */
+    public Icon getProductLogoImage();
+
+    /**
+     *
+     * @return something
+     */
+    public String getProductName();
+
+    /**
+     *
+     * @return something
+     */
+    public String getProductVersion();
+
+    /**
+     *
+     * @return something
+     */
+    public String getProductBuildDate();
+
+    /**
+     *
+     * @return something
+     */
+    public URL	getProductURL();
+
+    /**
+     *
+     * @return something
+     */
+    public URL getProductDocsURL();
+
+    /**
+     *
+     * @return something
+     */
+    public String getVendorEmail();
+
+    /**
+     *
+     * @return something
+     */
+    public URL getVendorURL();
+
+    /**
+     *
+     * @return something
+     */
+    public String getVendor();
 }

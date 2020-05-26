@@ -48,19 +48,41 @@ import com.cosylab.vdct.events.commands.SetWorkspaceFile;
 public class WorkspaceInternalFrame extends JInternalFrame
 implements InternalFrameInterface, InternalFrameListener {
 
-	protected Object dsId = null; 
-	protected PanelDecorator contentPanel = null;
-	protected DsManagerInterface drawingSurfaceManager = null;
-	protected DesktopInterface desktop = null;
-	protected File file = null;
-
-	protected static final String defaultName = "Name";
+    /**
+     *
+     */
+    protected Object dsId = null; 
 
     /**
      *
-     * @param dsId
-     * @param desktop
-     * @param drawingSurfaceManager
+     */
+    protected PanelDecorator contentPanel = null;
+
+    /**
+     *
+     */
+    protected DsManagerInterface drawingSurfaceManager = null;
+
+    /**
+     *
+     */
+    protected DesktopInterface desktop = null;
+
+    /**
+     *
+     */
+    protected File file = null;
+
+    /**
+     *
+     */
+    protected static final String defaultName = "Name";
+
+    /**
+     *
+     * @param dsId dsId
+     * @param desktop desktop
+     * @param drawingSurfaceManager drawingSurfaceManager
      */
     public WorkspaceInternalFrame(Object dsId, DesktopInterface desktop, DsManagerInterface drawingSurfaceManager) {
 		super(defaultName, true, true, true, true);
@@ -82,10 +104,19 @@ implements InternalFrameInterface, InternalFrameListener {
 		setContentPane(contentPanel);
 	}
 
+    /**
+     *
+     * @return something
+     */
     public JComponent getDisplayingComponent() {
 		return contentPanel;
 	}
 
+    /**
+     *
+     * @param file file
+     * @param title title
+     */
     public void setFile(File file, String title) {
 		this.file = file;
 		setTitle(title);
@@ -94,12 +125,19 @@ implements InternalFrameInterface, InternalFrameListener {
 		}
 	}
 
-	public boolean onClose() {
+    /**
+     *
+     * @return something
+     */
+    public boolean onClose() {
 		dispose();
 		return true;
 	}
 
-	public void setFocused() {
+    /**
+     *
+     */
+    public void setFocused() {
 		if (!isSelected()) {
 			try {
 				setSelected(true);

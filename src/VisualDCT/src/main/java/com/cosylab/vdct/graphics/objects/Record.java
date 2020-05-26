@@ -63,40 +63,40 @@ public class Record
 	private final static String fieldMaxStr = "01234567890123456789012345";
 	private final static int tailSizeOfR = 4;
 	private static javax.swing.ImageIcon icon = null;
-	protected VDBRecordData recordData = null;
+    protected VDBRecordData recordData = null;
 	private CommentProperty commentProperty = null;
 	// type label
 	protected int rtypeLabelX;
-	protected int rtypeLabelY;
-	protected String label2;
-	protected Font typeFont = null;
+    protected int rtypeLabelY;
+    protected String label2;
+    protected Font typeFont = null;
 	// changed fields label
 	protected int rfieldLabelX;
-	protected int rfieldLabelY;
-	protected double rfieldRowHeight;
-	protected Font fieldFont = null;
-	protected Vector changedFields;
-	protected Vector outlinks;
-	protected boolean disconnected = false;
+    protected int rfieldLabelY;
+    protected double rfieldRowHeight;
+    protected Font fieldFont = null;
+    protected Vector changedFields;
+    protected Vector outlinks;
+    protected boolean disconnected = false;
 	private boolean right = true;
 
 	private boolean inDebugMode = false;
 	private boolean debugConnected = false;
 	private int debugTimeoutHour = -1;
 	private int debugTimeoutMinute = -1;
-	protected Color debugValueColor = null; 
+    protected Color debugValueColor = null; 
 	
 	// timestamp label
 	protected int timestampX;
-	protected int timestampY;
-	protected String timestamp;
-	protected Font timestampFont = null;
+    protected int timestampY;
+    protected String timestamp;
+    protected Font timestampFont = null;
 	
 	// value label
 	protected int valueX;
-	protected int valueY;
-	protected String value;
-	protected Font valueFont = null;
+    protected int valueY;
+    protected String value;
+    protected Font valueFont = null;
 	
 	private static final String VAL_FIELD = "VAL";
 	
@@ -105,9 +105,9 @@ public class Record
 
 	private static ArrayList modes = null;
 
-	public final static int GUI_GROUP_ORDER = 0;  
-	public final static int SORT_ORDER = 1;
-	public final static int DBD_ORDER = 2;
+    public final static int GUI_GROUP_ORDER = 0;  
+    public final static int SORT_ORDER = 1;
+    public final static int DBD_ORDER = 2;
 
 	private int oldNumOfFields = 0;
 
@@ -115,7 +115,7 @@ public class Record
 /**
  * Group constructor comment.
  * @param parent com.cosylab.vdct.graphics.objects.ContainerObject
- * @param recordData
+ * @param recordData recordData
  * @param x int
  * @param y int
  */
@@ -233,9 +233,9 @@ public boolean checkMove(int dx, int dy) {
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 22:02:29)
- * @param dsId
+ * @param dsId dsId
  * @param group java.lang.String
- * @return 
+ * @return something
  */
 public Flexible copyToGroup(Object dsId, java.lang.String group) {
 
@@ -367,7 +367,7 @@ public void destroy() {
 /**
  * Insert the method's description here.
  * Creation date: (30.1.2001 11:47:53)
- * @param disconnector
+ * @param disconnector disconnector
  */
 public void disconnect(Linkable disconnector) {
 	if (!disconnected && outlinks.contains(disconnector)) {
@@ -577,13 +577,13 @@ protected void draw(Graphics g, boolean hilited) {
 
 /**
  * Draws a timeout clock.
- * @param g
- * @param hour
- * @param minute
- * @param x0
- * @param y0
- * @param w
- * @param h
+ * @param g g
+ * @param hour hour
+ * @param minute minute
+ * @param x0 x0
+ * @param y0 y0
+ * @param w w
+ * @param h h
  */
 protected static void drawDebugTimeout(Graphics g, int hour, int minute, int x0, int y0, int w, int h)
 {
@@ -671,7 +671,12 @@ public void fieldChanged(VDBFieldData field) {
 	}
 }
 
-public boolean isVisible(VDBFieldData field) {
+    /**
+     *
+     * @param field field
+     * @return something
+     */
+    public boolean isVisible(VDBFieldData field) {
 	int visibility = field.getVisibility();
 	/*
 	boolean link = field.getDbdData().getGUI_type()==DBDConstants.GUI_LINKS ||
@@ -690,7 +695,12 @@ public boolean isVisible(VDBFieldData field) {
 	return true;
 }
 
-public boolean isOldVisible(VDBFieldData field) {
+    /**
+     *
+     * @param field field
+     * @return something
+     */
+    public boolean isOldVisible(VDBFieldData field) {
 	int visibility = field.getVisibility();
 	
 	if (visibility == VDBFieldData.NEVER_VISIBLE ||
@@ -914,8 +924,8 @@ public OutLink getOutput() {
 /**
  * Return properties to be inspected
  * Creation date: (11.1.2001 21:43:31)
- * @param mode
- * @param spreadsheet
+ * @param mode mode
+ * @param spreadsheet spreadsheet
  * @return com.cosylab.vdct.inspector.InspectableProperty[]
  */
 public com.cosylab.vdct.inspector.InspectableProperty[] getProperties(int mode, boolean spreadsheet) {
@@ -1058,7 +1068,7 @@ public VisibleObject hiliteComponentsCheck(int x, int y) {
  * Insert the method's description here.
  * Creation date: (30.1.2001 9:36:15)
  * @param field com.cosylab.vdct.vdb.VDBFieldData
- * @return 
+ * @return something
  */
 public EPICSLink initializeLinkField(VDBFieldData field) {
 
@@ -1204,7 +1214,7 @@ public void manageLinks() {
  * Insert the method's description here.
  * Creation date: (4.2.2001 21:58:46)
  * @param newType java.lang.String
- * @return 
+ * @return something
  */
 public boolean morph(java.lang.String newType) {
 	
@@ -1222,7 +1232,11 @@ public boolean morph(java.lang.String newType) {
 	return true;
 }
 
-public void setRecordData(VDBRecordData recordData) {
+    /**
+     *
+     * @param recordData recordData
+     */
+    public void setRecordData(VDBRecordData recordData) {
 		this.recordData = recordData;
 	
 		//	fix object links
@@ -1256,6 +1270,12 @@ public void setRecordData(VDBRecordData recordData) {
 /* (non-Javadoc)
  * @see com.cosylab.vdct.graphics.objects.Morphable#getTargets()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public Object[] getTargets() {
 	return DataProvider.getInstance().getRecordTypes();
 }
@@ -1281,9 +1301,9 @@ public boolean move(int dx, int dy) {
 }
 /**
  * NOTE: only dy &lt; 0 is checked
-     * @param dx
-     * @param dy
-     * @return 
+     * @param dx dx
+     * @param dy dy
+     * @return something
  */
 public boolean moveAsMuchAsPossibleTopUp(int dx, int dy) {
 
@@ -1297,9 +1317,9 @@ public boolean moveAsMuchAsPossibleTopUp(int dx, int dy) {
 /**
  * Insert the method's description here.
  * Creation date: (4.2.2001 22:02:29)
- * @param dsId
+ * @param dsId dsId
  * @param group java.lang.String
- * @return 
+ * @return something
  */
 public boolean moveToGroup(Object dsId, String group) {
 	String currentParent = Group.substractParentName(recordData.getName());
@@ -1419,9 +1439,9 @@ public void removeLink(Linkable link) {
 /**
  * Insert the method's description here.
  * Creation date: (2.5.2001 23:23:32)
- * @param dsId
+ * @param dsId dsId
  * @param newName java.lang.String
- * @return 
+ * @return something
  */
 public boolean rename(Object dsId, String newName) {
 	
@@ -1498,7 +1518,10 @@ public void revalidatePosition() {
   revalidateOutlinkConnectors();
 }
 
-public void revalidateOutlinkConnectors() {
+    /**
+     *
+     */
+    public void revalidateOutlinkConnectors() {
 	Enumeration e = outlinks.elements();
 	while (e.hasMoreElements()) {
 		Object obj = e.nextElement();		
@@ -1580,9 +1603,9 @@ public String toString() {
  * 
  * Validates the font size and position.
  * @see validate
- * @param scale 
- * @param rwidth 
- * @param rheight
+ * @param scale scale
+ * @param rwidth rwidth
+ * @param rheight rheight
  * @return the new rheight for the record
  */
 private int validateFont(double scale, int rwidth, int rheight) {
@@ -1683,7 +1706,10 @@ private int validateFont(double scale, int rwidth, int rheight) {
     return rheight;
 }
 
-public void resetValidationsCounter() {
+    /**
+     *
+     */
+    public void resetValidationsCounter() {
 //    firstValidation = true;
     validationsCounter = 0;
 }
@@ -1820,6 +1846,8 @@ private void validateFields() {
 }
 
 /**
+ * @param name name
+ * @return something
  */
 public VDBFieldData getField(String name) {
 	return recordData.getField(name);
@@ -1846,7 +1874,7 @@ private static ArrayList getModes()
 }
 
 /**
- * @param macros
+ * @param macros macros
  */
 public void generateMacros(HashMap macros) {
 	Enumeration e = recordData.getFieldsV().elements();
@@ -1869,17 +1897,32 @@ public int getRightX() {
 /* (non-Javadoc)
  * @see com.cosylab.vdct.graphics.objects.Morphable#getType()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public String getType() {
 	return getRecordData().getType();
 }
 /* (non-Javadoc)
  * @see com.cosylab.vdct.graphics.objects.MultiInLink#getOutlinks()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public Vector getOutlinks() {
 	return outlinks;
 }
 
-public void updateFields() {
+    /**
+     *
+     */
+    public void updateFields() {
 	Enumeration e = recordData.getFieldsV().elements();
 	while (e.hasMoreElements()) {
 		VDBFieldData field = (VDBFieldData)e.nextElement();

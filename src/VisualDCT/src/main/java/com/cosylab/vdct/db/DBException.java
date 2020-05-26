@@ -34,7 +34,11 @@ package com.cosylab.vdct.db;
  
 public class DBException extends Exception {
 	
-	public DBException(String msg)
+    /**
+     *
+     * @param msg msg
+     */
+    public DBException(String msg)
 	{
 		super(msg);
 	}

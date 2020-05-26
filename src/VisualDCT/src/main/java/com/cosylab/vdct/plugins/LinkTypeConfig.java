@@ -71,8 +71,15 @@ import com.cosylab.vdct.xml.XMLManager;
 public class LinkTypeConfig implements LinkTypeConfigPlugin
 {
 	
-	public static final String VDCT_LINK_CONFIG_FILE = ".vdctlinks.xml";
-	public static final String VDCT_LINK_CONFIG_FILE_ENV = "VDCT_LINK_CONFIG";
+    /**
+     *
+     */
+    public static final String VDCT_LINK_CONFIG_FILE = ".vdctlinks.xml";
+
+    /**
+     *
+     */
+    public static final String VDCT_LINK_CONFIG_FILE_ENV = "VDCT_LINK_CONFIG";
 	
 	/**
 	 * @see com.cosylab.vdct.plugin.config.LinkTypeConfigPlugin#getLinkTypeConfig()

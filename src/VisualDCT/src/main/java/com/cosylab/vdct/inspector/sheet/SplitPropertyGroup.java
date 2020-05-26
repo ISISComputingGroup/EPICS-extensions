@@ -57,8 +57,8 @@ public class SplitPropertyGroup {
 	private static final String defaultDelimiter = " ";
 	
 	/**
-	 * @param owner
-	 * @param splitData
+	 * @param owner owner
+	 * @param splitData splitData
 	 */
 	public SplitPropertyGroup(InspectableProperty owner, DBSheetSplitCol splitData) {
 		this(owner.getValue(), splitData);
@@ -66,8 +66,8 @@ public class SplitPropertyGroup {
 	}
 		
 	/**
-	 * @param value
-	 * @param splitData
+	 * @param value value
+	 * @param splitData splitData
 	 */
 	public SplitPropertyGroup(String value, DBSheetSplitCol splitData) {
 		super();
@@ -189,9 +189,9 @@ public class SplitPropertyGroup {
 
     /**
      *
-     * @param value
-     * @param splitData
-     * @return
+     * @param value value
+     * @param splitData splitData
+     * @return something
      */
     public static int getPartsCount(String value, DBSheetSplitCol splitData) {
 		
@@ -218,7 +218,7 @@ public class SplitPropertyGroup {
 	
     /**
      *
-     * @param part
+     * @param part part
      */
     public void setValuePart(SplitPropertyPart part) {
 		String value = "";
@@ -243,7 +243,12 @@ public class SplitPropertyGroup {
 		this.owner = owner;
 	}
 
-	public SplitPropertyPart getPart(int index) {
+    /**
+     *
+     * @param index index
+     * @return something
+     */
+    public SplitPropertyPart getPart(int index) {
 		return parts[index];
 	}
 

@@ -36,9 +36,16 @@ import java.util.*;
  * @author Matej Sekoranja
  */
 public class CommandManager {
-	protected Hashtable commands;
 
-	protected static CommandManager instance = null;
+    /**
+     *
+     */
+    protected Hashtable commands;
+
+    /**
+     *
+     */
+    protected static CommandManager instance = null;
 /**
  * CommandManager constructor comment.
  */

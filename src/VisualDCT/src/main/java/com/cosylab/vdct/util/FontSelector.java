@@ -57,7 +57,7 @@ public class FontSelector extends JPanel
                                "36", "48", 
                                "72"};
                                
-	public FontSelector()
+    public FontSelector()
 	{
 		super();
 		
@@ -196,7 +196,11 @@ public class FontSelector extends JPanel
             g2D.drawString(displayText, 16, dimension.height - 16);
         }
         
-		public void setDisplayText(String parDisplayText)
+        /**
+         *
+         * @param parDisplayText parDisplayText
+         */
+        public void setDisplayText(String parDisplayText)
 		{
 			displayText = parDisplayText;
 		}
@@ -247,7 +251,11 @@ public class FontSelector extends JPanel
 		return super.getFont();
 	}
 
-	public FontDisplayPanel getDisplayPanel()
+    /**
+     *
+     * @return something
+     */
+    public FontDisplayPanel getDisplayPanel()
 	{
 		return displayPanel;
 	}

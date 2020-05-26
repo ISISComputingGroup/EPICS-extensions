@@ -331,8 +331,8 @@ public static com.cosylab.vdct.vdb.GUISeparator getPortSeparator() {
 /**
  * Return properties to be inspected
  * Creation date: (1.2.2001 22:22:37)
-     * @param mode
-     * @param spreadsheet
+     * @param mode mode
+     * @param spreadsheet spreadsheet
  * @return com.cosylab.vdct.inspector.InspectableProperty[]
  */
 public com.cosylab.vdct.inspector.InspectableProperty[] getProperties(int mode, boolean spreadsheet) {
@@ -395,7 +395,7 @@ public String getDescription() {
 }
 
 /**
-     * @param visible
+     * @param visible visible
  */
 public void visilibityChanged(boolean visible)
 {
@@ -403,6 +403,7 @@ public void visilibityChanged(boolean visible)
 }
 
 /**
+     * @return something
  * @see com.cosylab.vdct.graphics.objects.VisibleObject#isVisible() 
  */
 public boolean isVisible() {
@@ -411,6 +412,7 @@ public boolean isVisible() {
 }
 
 /**
+     * @param isRight isRight
  * @see com.cosylab.vdct.graphics.objects.Rotatable#setRight(boolean)
  */
 public void setRight(boolean isRight)

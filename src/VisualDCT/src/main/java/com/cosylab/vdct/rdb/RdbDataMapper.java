@@ -43,15 +43,33 @@ public class RdbDataMapper {
 
 	private RdbConnection helper = null;
 
-	public RdbDataMapper() throws Exception {
+    /**
+     *
+     * @throws Exception foo
+     */
+    public RdbDataMapper() throws Exception {
 		helper = new RdbConnection();
 	}
 	
-	public void setConnectionParameters(String host, String database, String user, String password) {
+    /**
+     *
+     * @param host host
+     * @param database database
+     * @param user user
+     * @param password password
+     */
+    public void setConnectionParameters(String host, String database, String user, String password) {
 		helper.setParameters(host, database, user, password);
 	}
 
-	public DBData loadRdbData(Object dsId, RdbDataId dataId) throws Exception {
+    /**
+     *
+     * @param dsId dsId
+     * @param dataId dataId
+     * @return something
+     * @throws Exception foo
+     */
+    public DBData loadRdbData(Object dsId, RdbDataId dataId) throws Exception {
 
 		DBData data = null;
 		Exception exception = null;
@@ -71,7 +89,14 @@ public class RdbDataMapper {
 		return data;
 	}
 	
-	public boolean saveRdbData(Object dsId, RdbDataId dataId) throws Exception {
+    /**
+     *
+     * @param dsId dsId
+     * @param dataId dataId
+     * @return something
+     * @throws Exception foo
+     */
+    public boolean saveRdbData(Object dsId, RdbDataId dataId) throws Exception {
 		
 		boolean success = false;
 		Exception exception = null;
@@ -95,27 +120,45 @@ public class RdbDataMapper {
 		return success;
 	}
 	
-	public Connection createNewConnection() throws SQLException {
+    /**
+     *
+     * @return something
+     * @throws SQLException foo
+     */
+    public Connection createNewConnection() throws SQLException {
 		return helper.createConnection();
 	}
 
-	public boolean isConnection() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isConnection() {
 		return helper.isConnection();
 	}
 	
-	public void closeConnection() throws SQLException {
+    /**
+     *
+     * @throws SQLException foo
+     */
+    public void closeConnection() throws SQLException {
 		helper.closeConnection();
 	}
 	
-	public int createAnIoc() throws SQLException {
+    /**
+     *
+     * @return something
+     * @throws SQLException foo
+     */
+    public int createAnIoc() throws SQLException {
 		int iocId = saveIoc();
         helper.commit();
 		return iocId;
 	}
 	
 	/** Returns Vector of String objects representing IOCs.
-     * @return 
-     * @throws java.sql.SQLException
+     * @return something
+     * @throws java.sql.SQLException foo
 	 */ 
 	public Vector getIocs() throws SQLException {
 
@@ -131,9 +174,9 @@ public class RdbDataMapper {
 	}
 
 	/** Returns Vector of String objects representing db files under the given IOC.
-     * @param iocId
-     * @return 
-     * @throws java.sql.SQLException
+     * @param iocId iocId
+     * @return something
+     * @throws java.sql.SQLException foo
 	 */ 
 	public Vector getRdbDatas(String iocId) throws SQLException {
 
@@ -149,10 +192,10 @@ public class RdbDataMapper {
 	}
 
 	/** Returns Vector of String objects representing versions of the given group.
-     * @param group
-     * @param iocId
-     * @return 
-     * @throws java.sql.SQLException 
+     * @param group group
+     * @param iocId iocId
+     * @return something
+     * @throws java.sql.SQLException foo
 	 */ 
 	public Vector getVersions(String group, String iocId) throws SQLException {
 
@@ -167,7 +210,13 @@ public class RdbDataMapper {
         return versions;
 	}
 	
-	public void addRdbDataId(RdbDataId dataId, String desription) throws SQLException {
+    /**
+     *
+     * @param dataId dataId
+     * @param desription desription
+     * @throws SQLException foo
+     */
+    public void addRdbDataId(RdbDataId dataId, String desription) throws SQLException {
 
     	Object[][] keyPairs = {{"p_db_file_name", "ioc_id_FK", "p_db_version"},
     			{dataId.getFileName(), dataId.getIoc(), dataId.getVersion()}};

@@ -50,7 +50,10 @@ public class InspectorManager implements HelpDisplayer, DsEventListener {
 
 	private static InspectorManager instance = null;
 	
-	protected static HashMap instances = new HashMap();
+    /**
+     *
+     */
+    protected static HashMap instances = new HashMap();
 	
 	private static Frame parent = null;
 
@@ -79,6 +82,7 @@ private InspectorInterface createInspector(Object dsId) {
 /**
  * Insert the method's description here.
  * Creation date: (8.1.2001 21:39:00)
+     * @param dsId dsId
  */
 public void disposeAllInspectors(Object dsId) {
 	Inspector inspector;
@@ -113,7 +117,11 @@ public InspectorInterface getActiveInspector() {
 	return (InspectorInterface)inspectors.firstElement();
 }
 
-public static InspectorManager getInstance() {
+    /**
+     *
+     * @return something
+     */
+    public static InspectorManager getInstance() {
 	if (instance == null) {
 		instance = new InspectorManager();
 	}
@@ -255,19 +263,37 @@ public void updateProperty(Inspectable object, InspectableProperty property) {
 
 /**
  * Displays help text in the current active inspector. 
+     * @param text text
  */
 public void setHelpText(String text) {
 	getActiveInspector().setHelp(text);
 }
 
-public void setHelpTextColor(Color color) {
+    /**
+     *
+     * @param color color
+     */
+    public void setHelpTextColor(Color color) {
 	getActiveInspector().setHelpColor(color);
 }
 
-public void onDsAdded(Object id) {}
-public void onDsFocused(Object id) {}
+    /**
+     *
+     * @param id id
+     */
+    public void onDsAdded(Object id) {}
 
-public void onDsRemoved(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void onDsFocused(Object id) {}
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsRemoved(Object id) {
 	disposeAllInspectors(id);
 }
 

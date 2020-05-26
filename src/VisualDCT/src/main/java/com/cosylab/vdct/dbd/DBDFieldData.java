@@ -35,19 +35,50 @@ public class DBDFieldData {
 
 	private static String nullString = "";
 	
-	protected String name;	
-	protected DBDGuiGroupData gui_group;
-	protected int field_type = DBDConstants.NOT_DEFINED;
-	protected String init_value = nullString;
-	protected String prompt_value = nullString;
+    /**
+     *
+     */
+    protected String name;	
+
+    /**
+     *
+     */
+    protected DBDGuiGroupData gui_group;
+
+    /**
+     *
+     */
+    protected int field_type = DBDConstants.NOT_DEFINED;
+
+    /**
+     *
+     */
+    protected String init_value = nullString;
+
+    /**
+     *
+     */
+    protected String prompt_value = nullString;
 
 	// for integer fields
+
+    /**
+     *
+     */
 	protected int base_type = DBDConstants.DECIMAL;
 
 	// for DBF_STRINGS fields
+
+    /**
+     *
+     */
 	protected int size_value;
 
 	// for DBF_MENU fields
+
+    /**
+     *
+     */
 	protected String menu_name;
 /**
  * Insert the method's description here.

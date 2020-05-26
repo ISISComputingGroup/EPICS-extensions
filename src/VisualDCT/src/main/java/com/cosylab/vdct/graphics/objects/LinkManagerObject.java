@@ -68,15 +68,38 @@ public abstract class LinkManagerObject extends ContainerObject implements Hub, 
 		}
 	}
 
-	public final static String nullString = "";
+    /**
+     *
+     */
+    public final static String nullString = "";
 
 	// GUI linking support
     private LinkSource targetLink = null;
-	public final static String inlinkString = "INLINK";
-	public final static String outlinkString = "OUTLINK";
-	public final static String fwdlinkString = "FWDLINK";
-	public final static String varlinkString = "VARIABLE";
-	public final static String varlinkPortString = "VAR. to PORT/MACRO";
+
+    /**
+     *
+     */
+    public final static String inlinkString = "INLINK";
+
+    /**
+     *
+     */
+    public final static String outlinkString = "OUTLINK";
+
+    /**
+     *
+     */
+    public final static String fwdlinkString = "FWDLINK";
+
+    /**
+     *
+     */
+    public final static String varlinkString = "VARIABLE";
+
+    /**
+     *
+     */
+    public final static String varlinkPortString = "VAR. to PORT/MACRO";
 
 /**
  * LinkManagerObject constructor comment.
@@ -88,20 +111,22 @@ public LinkManagerObject(ContainerObject parent)
 }
 
 /**
- * @param field
+ * @param field field
  */
 public void addInvalidLink(EPICSLink field)
 {
 }
 
 /**
- * @param field
+ * @param field field
  */
 public void removeInvalidLink(EPICSLink field)
 {
 }
 
 /**
+     * @param name name
+     * @return something
  */
 public abstract VDBFieldData getField(String name);
 
@@ -225,7 +250,7 @@ public void fixLinks() {
 
     /**
      *
-     * @param varlink
+     * @param varlink varlink
      */
     public static void fixLink(EPICSVarLink varlink)
 {
@@ -267,7 +292,7 @@ public void fixLinks() {
 
 /**
  * !!!! duplication
- * @param macro
+ * @param macro macro
  */
 public static void fixMacroLink(Macro macro)
 {
@@ -309,7 +334,7 @@ public static void fixMacroLink(Macro macro)
 
     /**
      *
-     * @param linkoutin
+     * @param linkoutin linkoutin
      */
     public static void fixLink(EPICSLinkOutIn linkoutin)
 {
@@ -351,7 +376,7 @@ public static void fixMacroLink(Macro macro)
 
     /**
      *
-     * @param varlink
+     * @param varlink varlink
      */
     public static void fixLink_(EPICSVarLink varlink)
 {
@@ -635,7 +660,7 @@ public void postDraw(Graphics g, boolean hilited) {
 /**
  * Insert the method's description here.
  * Creation date: (2.2.2001 20:31:29)
- * @param vdbFields
+ * @param vdbFields vdbFields
  * @return java.util.Vector
  */
 public Vector getLinkMenus(Enumeration vdbFields) {
@@ -806,9 +831,9 @@ protected void destroyFields() {
 	}
 
 /**
- * @param dsId
- * @param field
- * @param macros
+ * @param dsId dsId
+ * @param field field
+ * @param macros macros
  */
 public static void checkIfMacroCandidate(Object dsId, VDBFieldData field, HashMap macros) {
 
@@ -884,7 +909,7 @@ public boolean isFirstField(Field field) {
  * Insert the method's description here.
  * Creation date: (3.5.2001 22:53:47)
  * @param field com.cosylab.vdct.graphics.objects.Field
- * @return 
+ * @return something
  */
 public boolean isLastField(Field field) {
 	for (int i= subObjectsV.size()-1; i>=0; i--)

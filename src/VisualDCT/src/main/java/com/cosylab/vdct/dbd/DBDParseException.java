@@ -38,7 +38,7 @@ public class DBDParseException extends Exception {
 /**
  * ParseException constructor comment.
  * @param s java.lang.String
- * @param t
+ * @param t t
  * @param fileName java.lang.String
  */
 public DBDParseException(String s, EnhancedStreamTokenizer t, String fileName) {

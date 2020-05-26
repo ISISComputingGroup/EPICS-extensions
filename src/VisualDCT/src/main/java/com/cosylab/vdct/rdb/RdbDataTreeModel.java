@@ -58,6 +58,9 @@ public class RdbDataTreeModel implements TreeModel {
     
     private RdbDataMapper mapper = null;
     
+    /**
+     *
+     */
     public static final boolean debug=false;
     
     class RootNode extends Vector
@@ -148,6 +151,10 @@ public class RdbDataTreeModel implements TreeModel {
         }
     };
     
+    /**
+     *
+     * @param mapper mapper
+     */
     public RdbDataTreeModel(RdbDataMapper mapper) {
         this.mapper = mapper;
     	

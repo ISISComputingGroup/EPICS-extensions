@@ -36,19 +36,31 @@ import javax.swing.table.TableColumn;
  */
 public class SpreadsheetColumn extends TableColumn {
 
-	protected boolean defaultWidth = true;
+    /**
+     *
+     */
+    protected boolean defaultWidth = true;
 	/**
-	 * @param defaultWidth
+	 * @param defaultWidth defaultWidth
 	 */
 	public SpreadsheetColumn(boolean defaultWidth) {
 		super();
 		this.defaultWidth = defaultWidth;
 	}
-	public boolean isDefaultWidth() {
+
+    /**
+     *
+     * @return something
+     */
+    public boolean isDefaultWidth() {
 		return defaultWidth;
 	}
 
-	public void setDefaultWidth(boolean defaultWidth) {
+    /**
+     *
+     * @param defaultWidth defaultWidth
+     */
+    public void setDefaultWidth(boolean defaultWidth) {
 		this.defaultWidth = defaultWidth;
 	}
 }

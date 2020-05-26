@@ -73,8 +73,14 @@ public class ApplicationRunnerPlugin implements MenuPlugin {
         }
     }
 
+    /**
+     *
+     */
     protected ApplicationRunnerPlugin.MenuItemHandler menuitemHandler = null;
 
+    /**
+     *
+     */
     protected JMenu menu = null;
 
     /**
@@ -118,7 +124,7 @@ public class ApplicationRunnerPlugin implements MenuPlugin {
 
     /**
      * Insert the method's description here. Creation date: (8.12.2001 13:29:26)
-     * @return
+     * @return something
      */
     public String getName()
     {
@@ -137,8 +143,8 @@ public class ApplicationRunnerPlugin implements MenuPlugin {
 
     /**
      * Insert the method's description here. Creation date: (8.12.2001 13:29:26)
-     * @param properties
-     * @param context
+     * @param properties properties
+     * @param context context
      */
     public void init(java.util.Properties properties,
             com.cosylab.vdct.plugin.PluginContext context)

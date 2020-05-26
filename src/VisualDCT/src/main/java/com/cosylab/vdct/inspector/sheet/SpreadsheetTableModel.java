@@ -58,10 +58,20 @@ import com.cosylab.vdct.vdb.VisibilityProperty;
  */
 public class SpreadsheetTableModel extends AbstractTableModel implements PropertyTableModel {
 
-	protected Object dsId = null;
+    /**
+     *
+     */
+    protected Object dsId = null;
 
-	protected String dataType = null;
-	protected String typeSign = null;
+    /**
+     *
+     */
+    protected String dataType = null;
+
+    /**
+     *
+     */
+    protected String typeSign = null;
 	
 	private Inspectable[] inspectables = null;
 	private Set loadedInspectablesNames = null;
@@ -76,9 +86,17 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 	private String[] propertiesColumnNames = null;
 
     // The name of the column that contains the row names.  
+
+    /**
+     *
+     */
     protected static final String propertiesNamesColumn = "Name";
     
     // The name of the column that contains the comments.  
+
+    /**
+     *
+     */
     protected static final String propertiesCommentsColumn = "Comment";
     
 	private static ArrayList defaultModes = null; 
@@ -87,7 +105,15 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 	private static final String templateType = "T"; 
 	private static final String unknownType = "U";
     
-	public SpreadsheetTableModel(Object dsId, String dataType, Vector displayData, Vector loadedData)
+    /**
+     *
+     * @param dsId dsId
+     * @param dataType dataType
+     * @param displayData displayData
+     * @param loadedData loadedData
+     * @throws IllegalArgumentException foo
+     */
+    public SpreadsheetTableModel(Object dsId, String dataType, Vector displayData, Vector loadedData)
 			throws IllegalArgumentException {
 			
   		if (displayData == null || displayData.size() == 0) {
@@ -112,17 +138,26 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
         refreshProperties();
 	}
 	
-	public void refresh() {
+    /**
+     *
+     */
+    public void refresh() {
 		storeView();
 		refreshAll();
 		recallView();
 	}
 	
-	public void recallView() {
+    /**
+     *
+     */
+    public void recallView() {
 		recallTableModelData();
 	}
 
-	public void storeView() {
+    /**
+     *
+     */
+    public void storeView() {
 		storeTableModelData();
 	}
 
@@ -140,7 +175,13 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 	    return (value != null) ? value : ""; 
 	}
 
-	public InspectableProperty getPropertyAt(int row, int column) {
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+    public InspectableProperty getPropertyAt(int row, int column) {
 		return properties[row][column];
 	}
 
@@ -158,7 +199,13 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
         UndoManager.getInstance(dsId).stopMacroAction();
 	}
 
-	protected void internalSetValueAtAndUpdate(Object aValue, int row, int column) {
+    /**
+     *
+     * @param aValue aValue
+     * @param row row
+     * @param column column
+     */
+    protected void internalSetValueAtAndUpdate(Object aValue, int row, int column) {
 		if (internalSetValueAt(aValue, row, column)) {
 			// Update the whole row as validity of this inspectable's fields can change on property value change. 
 			fireTableRowsUpdated(row, row);
@@ -167,6 +214,15 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 	
 	/* Returns true if there was a change in the property.
 	 */
+
+    /**
+     *
+     * @param aValue aValue
+     * @param row row
+     * @param column column
+     * @return something
+     */
+
 	protected boolean internalSetValueAt(Object aValue, int row, int column) {
 		
 		InspectableProperty property = properties[row][column];
@@ -213,11 +269,20 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 	    return (column > 0) ? PropertyTableModel.DISP_VALUE : PropertyTableModel.DISP_VISIBILITY;
 	}
 	
-	protected String getColumnId(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    protected String getColumnId(int column) {
 		return propertiesColumnNames[column]; 
 	}
 	
-	public void deleteRows(int[] rows) {
+    /**
+     *
+     * @param rows rows
+     */
+    public void deleteRows(int[] rows) {
 		try	{
 			UndoManager.getInstance(dsId).startMacroAction();
 
@@ -241,6 +306,14 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 	/* Returns the multi-line string associated with the cell at the given position, or null it there is
 	 * none. 
 	 */
+
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+
 	public String getMultilineString(int row, int column) { 
 		// Check if the cell is part of the comment, if so return it.
 		if (row >= 0 && column >= 0) {
@@ -255,20 +328,40 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 	
 	/* Refresh all data on the model. 
 	 */
+
+    /**
+     *
+     */
+
 	protected void refreshAll() {
         refreshProperties();
 	}
 	
-	protected int getNamesColumn() {
+    /**
+     *
+     * @return something
+     */
+    protected int getNamesColumn() {
 	    return nameToPropertiesColumnIndex(propertiesNamesColumn);
 	}
 	
-	protected Set getLoadedInspectablesNames() {
+    /**
+     *
+     * @return something
+     */
+    protected Set getLoadedInspectablesNames() {
 	    return loadedInspectablesNames;
 	}
 	
 	/* Returns -1 if none for this modeName.
 	 */
+
+    /**
+     *
+     * @param name name
+     * @return something
+     */
+
 	protected int getColumnOrderIndex(String name) {
     	ArrayList list = getColumnOrderNames();
     	for (int m = 0; m < list.size(); m++) {
@@ -279,44 +372,92 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
     	return -1;
 	}
 
-	protected void setColumnOrderIndex(int columnOrder) {
+    /**
+     *
+     * @param columnOrder columnOrder
+     */
+    protected void setColumnOrderIndex(int columnOrder) {
    		this.columnOrder = columnOrder;
    		refreshProperties();
 	}
 
-	public Inspectable getLastInspectable() {
+    /**
+     *
+     * @return something
+     */
+    public Inspectable getLastInspectable() {
 		return inspectables[propertiesRowCount - 1];
 	}
 
-	public final InspectableProperty getProperty(int row, int column) {
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+    public final InspectableProperty getProperty(int row, int column) {
 		return properties[row][column];
 	}
 	
-	public final String getPropertyValue(int row, int column) {
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+    public final String getPropertyValue(int row, int column) {
 		return properties[row][column].getValue();
 	}
 
-	public final int getPropertiesRowCount() {
+    /**
+     *
+     * @return something
+     */
+    public final int getPropertiesRowCount() {
 		return propertiesRowCount;
 	}
 
-	public final int getPropertiesColumnCount() {
+    /**
+     *
+     * @return something
+     */
+    public final int getPropertiesColumnCount() {
 		return propertiesColumnCount;
 	}
 	
-	public String getPropertiesColumnNames(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    public String getPropertiesColumnNames(int column) {
 		return propertiesColumnNames[column];
 	}
 	
-	public int getPropertiesColumnIndex(String name) {
+    /**
+     *
+     * @param name name
+     * @return something
+     */
+    public int getPropertiesColumnIndex(String name) {
 		return nameToPropertiesColumnIndex(name);
 	}
 
-	protected String getPropertiesRowNames(int row) {
+    /**
+     *
+     * @param row row
+     * @return something
+     */
+    protected String getPropertiesRowNames(int row) {
 		return properties[row][nameToPropertiesColumnIndex(propertiesNamesColumn)].getValue();
 	}
 	
-	protected int getPropertiesRowIndex(String name) {
+    /**
+     *
+     * @param name name
+     * @return something
+     */
+    protected int getPropertiesRowIndex(String name) {
 		return nameToPropertiesRowIndex(name);
 	}
     
@@ -324,14 +465,22 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 		return String.class;
 	}
 	
-	public void setColumnOrder(String modeName) {
+    /**
+     *
+     * @param modeName modeName
+     */
+    public void setColumnOrder(String modeName) {
 		int newMode = getColumnOrderIndex(modeName);
 		if (newMode != -1) {
 			setColumnOrderIndex(newMode);
 		}
 	}
 
-	protected ArrayList getColumnOrderNames() {
+    /**
+     *
+     * @return something
+     */
+    protected ArrayList getColumnOrderNames() {
 
 		ArrayList list = inspectables[0].getModeNames();
 		if (list == null) {
@@ -344,7 +493,11 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 		return list;
 	}
 	
-	protected final InspectableProperty[][] getProperties() {
+    /**
+     *
+     * @return something
+     */
+    protected final InspectableProperty[][] getProperties() {
 		return properties;
 	}
 	
@@ -447,7 +600,11 @@ public class SpreadsheetTableModel extends AbstractTableModel implements Propert
 		}
 	}
 
-	protected DBSheetView getViewRecord() {
+    /**
+     *
+     * @return something
+     */
+    protected DBSheetView getViewRecord() {
 		String typeSign = getTypeString(inspectables[0]);
 		DBSheetView record = DBSheetData.getInstance(dsId).get(typeSign + dataType);
 		if (record == null) {

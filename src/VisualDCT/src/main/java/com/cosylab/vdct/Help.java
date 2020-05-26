@@ -43,9 +43,12 @@ public class Help {
     public static final String DBD_FILE = "--dbd-file";
     public static final String ENABLE_GLOBAL_MACRO = "--enable-global-macros";
     public static final String DISABLE_GLOBAL_MACRO = "--disable-global-macros";
-    public static final String ENABLE_CAPFAST = "--enable-capfast";
+   public static final String ENABLE_CAPFAST = "--enable-capfast";
     public static final String DISABLE_CAPFAST ="--disable-capfast";
     
+    /**
+     *
+     */
     public static void printHelpAndExit() {
         System.out.println("VisualDCT help");
         System.out.println();

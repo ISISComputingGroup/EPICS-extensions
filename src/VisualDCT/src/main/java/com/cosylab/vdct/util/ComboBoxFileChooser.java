@@ -34,37 +34,37 @@ public class ComboBoxFileChooser extends JFileChooser {
 	}
 
 	/**
-	 * @param currentDirectory
+	 * @param currentDirectory currentDirectory
 	 */
 	public ComboBoxFileChooser(File currentDirectory) {
 		super(currentDirectory);
 	}
 
 	/**
-	 * @param currentDirectoryPath
+	 * @param currentDirectoryPath currentDirectoryPath
 	 */
 	public ComboBoxFileChooser(String currentDirectoryPath) {
 		super(currentDirectoryPath);
 	}
 
 	/**
-	 * @param fsv
+	 * @param fsv fsv
 	 */
 	public ComboBoxFileChooser(FileSystemView fsv) {
 		super(fsv);
 	}
 
 	/**
-	 * @param currentDirectory
-	 * @param fsv
+	 * @param currentDirectory currentDirectory
+	 * @param fsv fsv
 	 */
 	public ComboBoxFileChooser(File currentDirectory, FileSystemView fsv) {
 		super(currentDirectory, fsv);
 	}
 
 	/**
-	 * @param currentDirectoryPath
-	 * @param fsv
+	 * @param currentDirectoryPath currentDirectoryPath
+	 * @param fsv fsv
 	 */
 	public ComboBoxFileChooser(
 		String currentDirectoryPath,
@@ -100,7 +100,11 @@ public class ComboBoxFileChooser extends JFileChooser {
 			return dialog;
 	}
 	
-	public javax.swing.JCheckBox getJCheckBoxAbsoluteDBD() {
+    /**
+     *
+     * @return something
+     */
+    public javax.swing.JCheckBox getJCheckBoxAbsoluteDBD() {
 		return dialog.getJCheckBoxAbsoluteDBD();
 	}
 }

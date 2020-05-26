@@ -34,18 +34,38 @@ import com.cosylab.vdct.inspector.InspectorManager;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 16:26:04)
- * @author 
+ * @author cosylab
  */
 public class ChangeTemplatePropertyAction extends ActionObject {
-	protected Template object;
-	protected String name;
-	protected String oldValue;
-	protected String newValue;
+
+    /**
+     *
+     */
+    protected Template object;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected String oldValue;
+
+    /**
+     *
+     */
+    protected String newValue;
 
 	//private static final String nullString = "";	
 /**
  * Insert the method's description here.
  * Creation date: (3.5.2001 16:27:58)
+     * @param object object
+     * @param name name
+     * @param oldValue oldValue
+     * @param newValue newValue
  */
 public ChangeTemplatePropertyAction(Template object, String name, String oldValue, String newValue) {
 	this.object=object;

@@ -49,32 +49,92 @@ import com.cosylab.vdct.graphics.objects.VisibleObject;
 
 public class ViewState implements DsEventListener {
 
-	protected static HashMap instances = new HashMap();
-	protected Object dsId = null;
+    /**
+     *
+     */
+    protected static HashMap instances = new HashMap();
+
+    /**
+     *
+     */
+    protected Object dsId = null;
 	
-	protected int x0 = 0;				// origin
-	protected int y0 = 0;
+    /**
+     *
+     */
+    protected int x0 = 0;				// origin
 
-	protected double drx = 0.0;				// precise translation (from origin)
-	protected double dry = 0.0;
+    /**
+     *
+     */
+    protected int y0 = 0;
 
-	protected int rx = 0;				// translation (from origin)
-	protected int ry = 0;
+    /**
+     *
+     */
+    protected double drx = 0.0;				// precise translation (from origin)
 
-	protected double scale = 1.0;		// scale
+    /**
+     *
+     */
+    protected double dry = 0.0;
+
+    /**
+     *
+     */
+    protected int rx = 0;				// translation (from origin)
+
+    /**
+     *
+     */
+    protected int ry = 0;
+
+    /**
+     *
+     */
+    protected double scale = 1.0;		// scale
 	
  	// viewport size 
+
+    /**
+     *
+     */
  	protected int viewWidth = com.cosylab.vdct.Constants.VDCT_WIDTH;
-	protected int viewHeight = com.cosylab.vdct.Constants.VDCT_HEIGHT;
 
-	protected boolean flat = false;
+    /**
+     *
+     */
+    protected int viewHeight = com.cosylab.vdct.Constants.VDCT_HEIGHT;
+
+    /**
+     *
+     */
+    protected boolean flat = false;
 	
-	protected VisibleObject hilitedObject = null;
-	protected LinkedHashSet hilitedObjects = new LinkedHashSet(); 
-	protected Vector selectedObjects = null;
+    /**
+     *
+     */
+    protected VisibleObject hilitedObject = null;
+ 
+    /**
+     *
+     */
+    protected LinkedHashSet hilitedObjects = new LinkedHashSet(); 
 
-	protected Vector blinkingObjects = null;
-	protected boolean blinkState = false;
+    /**
+     *
+     */
+    protected Vector selectedObjects = null;
+
+    /**
+     *
+     */
+    protected Vector blinkingObjects = null;
+
+    /**
+     *
+     */
+    protected boolean blinkState = false;
 	
 	private boolean zoomOnHilited = false;
 
@@ -139,7 +199,7 @@ public boolean deselectAll() {
 /**
  * Insert the method's description here.
  * Creation date: (27.12.2000 11:54:42)
- * @param object
+ * @param object object
  */
 public void deselectObject(VisibleObject object) {
 	selectedObjects.remove(object);
@@ -178,15 +238,29 @@ public VisibleObject getHilitedObject() {
 	return hilitedObject;
 }
 
-public LinkedHashSet getHilitedObjects() {
+    /**
+     *
+     * @return something
+     */
+    public LinkedHashSet getHilitedObjects() {
 	return hilitedObjects;
 }
 
-public boolean isHilitedObject(VisibleObject object) {
+    /**
+     *
+     * @param object object
+     * @return something
+     */
+    public boolean isHilitedObject(VisibleObject object) {
 	return hilitedObjects.contains(object);
 }
 
-public static ViewState getInstance(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     * @return something
+     */
+    public static ViewState getInstance(Object dsId) {
 	ViewState viewState = (ViewState)instances.get(dsId);
     
     if (viewState == null) {
@@ -359,11 +433,20 @@ public void setAsBlinking(VisibleObject object) {
 		blinkingObjects.addElement(object);
 }
 
-public boolean isZoomOnHilited() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isZoomOnHilited() {
     return this.zoomOnHilited;
 }
 
-public boolean setAsHilited(VisibleObject object) {
+    /**
+     *
+     * @param object object
+     * @return something
+     */
+    public boolean setAsHilited(VisibleObject object) {
     return setAsHilited(object, false);
 }
 /**
@@ -466,7 +549,7 @@ public void setFlat(boolean newFlat) {
 /**
  * Insert the method's description here.
  * Creation date: (21.12.2000 21:02:40)
- * @param dsId
+ * @param dsId dsId
  * @param newInstance com.cosylab.vdct.graphics.ViewState
  */
 public static void setInstance(Object dsId, ViewState newInstance) {
@@ -584,10 +667,19 @@ public void setY0(int newY0) {
 		return dotSize;
 	}
 	
-	public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 		return dsId;
 	}
-	public void setDsId(Object dsId) {
+
+    /**
+     *
+     * @param dsId dsId
+     */
+    public void setDsId(Object dsId) {
 		this.dsId = dsId;
 	}
 	
@@ -605,15 +697,27 @@ public void setY0(int newY0) {
 		}
 	}
 	
+    /**
+     *
+     * @param id id
+     */
     public void onDsAdded(Object id) {
 		ViewState viewState = new ViewState();
 		viewState.setDsId(id);
 	    instances.put(id, viewState);
 	}
 
+    /**
+     *
+     * @param id id
+     */
     public void onDsRemoved(Object id) {
 	}
 
+    /**
+     *
+     * @param id id
+     */
     public void onDsFocused(Object id) {
 	}
 }

@@ -31,7 +31,7 @@ package com.cosylab.vdct.undo;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 15:23:26)
- * @author 
+ * @author cosylab
  */
 public class FieldValueChangeAction extends ActionObject {
 	private com.cosylab.vdct.vdb.VDBFieldData field;

@@ -34,8 +34,16 @@ import java.util.*;
  * This type was created in VisualAge.
  */
 public class DBDMenuData {
-	protected String name;
-	protected Hashtable choices;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     */
+    protected Hashtable choices;
 /**
  * MenuData constructor comment.
  */

@@ -41,12 +41,17 @@ import com.cosylab.vdct.vdb.*;
  */
  
 public class Field extends VisibleObject {
-	protected VDBFieldData fieldData = null;
+
+    /**
+     *
+     */
+    protected VDBFieldData fieldData = null;
 	private int verticalPosition = 0;
 	
 /**
  * Group constructor comment.
  * @param parent com.cosylab.vdct.graphics.objects.ContainerObject
+     * @param fieldData fieldData
  */
 public Field(ContainerObject parent, VDBFieldData fieldData) {
 	super(parent);
@@ -171,6 +176,7 @@ public void revalidatePosition() {
  * Creation date: (26.1.2001 17:24:36)
  * @param nx int
  * @param ny int
+     * @param n n
  */
 public void revalidatePosition(int nx, int ny, int n) {
 	setX(nx); setY(ny); verticalPosition=n;
@@ -221,14 +227,14 @@ protected void validate() {
 
 }
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getVerticalPosition() {
 	    return Settings.getInstance().isWireCrossingAvoidiance() ? verticalPosition : 0;
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setVerticalPosition(int i) {
 		verticalPosition = i;

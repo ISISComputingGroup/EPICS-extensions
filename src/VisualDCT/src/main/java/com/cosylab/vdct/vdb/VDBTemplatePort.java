@@ -42,12 +42,14 @@ import com.cosylab.vdct.inspector.InspectorManager;
  */
 public class VDBTemplatePort extends VDBFieldData implements Descriptable, ChangableVisibility
 {
-	protected VDBPort port = null;
-	protected VDBTemplateInstance templateInstance = null;
+    protected VDBPort port = null;
+    protected VDBTemplateInstance templateInstance = null;
 
-	protected int visibility = UNDEFINED_VISIBILITY;
+    protected int visibility = UNDEFINED_VISIBILITY;
 
 	/**
+     * @param templateInstance templateInstance
+     * @param port port
 	 */
 	public VDBTemplatePort(VDBTemplateInstance templateInstance, VDBPort port)
 	{
@@ -225,6 +227,7 @@ public class VDBTemplatePort extends VDBFieldData implements Descriptable, Chang
 /**
  * Insert the method's description here.
  * Creation date: (24/8/99 15:29:04)
+     * @return something
  */
 public String getToolTipText()
 {
@@ -261,6 +264,7 @@ public java.lang.String[] getSelectableValues() {
 }
 
 /**
+     * @return something
  * @see com.cosylab.vdct.inspector.InspectableProperty#isEditable()
  */
 public boolean isEditable() {
@@ -286,6 +290,7 @@ public boolean hasDefaultValue() {
 }
 
 /**
+     * @return something
  * @see com.cosylab.vdct.graphics.objects.LinkSource#getType()
  */
 public int getType()

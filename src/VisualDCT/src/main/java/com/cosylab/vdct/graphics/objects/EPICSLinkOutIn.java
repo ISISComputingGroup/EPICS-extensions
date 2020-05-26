@@ -42,12 +42,16 @@ public abstract class EPICSLinkOutIn extends EPICSLinkOut implements MultiInLink
 {
 
 	// list of all outlink connected to his inlink
+
+    /**
+     *
+     */
 	protected Vector outlinks = null;
 
 	/**
 	 * Constructor for EPICSLinkOutIn.
-	 * @param parent
-	 * @param fieldData
+	 * @param parent parent
+	 * @param fieldData fieldData
 	 */
 	public EPICSLinkOutIn(ContainerObject parent, VDBFieldData fieldData)
 	{
@@ -56,7 +60,7 @@ public abstract class EPICSLinkOutIn extends EPICSLinkOut implements MultiInLink
 
 	/**
 	 * Extra lasy initalization pattern for <code>outlinks</code> object.
-     * @return 
+     * @return something
 	 */
 	public Vector getOutlinks()
 	{
@@ -162,7 +166,7 @@ public abstract class EPICSLinkOutIn extends EPICSLinkOut implements MultiInLink
 		
 	}
 	/**
-     * @param disconnector
+     * @param disconnector disconnector
 	 */
 	public void disconnect(Linkable disconnector) {
 		if (!disconnected && outlinks!=null && outlinks.contains(disconnector)) {

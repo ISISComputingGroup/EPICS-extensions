@@ -41,17 +41,19 @@ import com.cosylab.vdct.util.StringUtils;
  */
 public class VDBTemplateInstance implements Commentable
 {
-	protected String name = null;
-	protected VDBTemplate template = null;
+    protected String name = null;
+   protected VDBTemplate template = null;
 	
-	protected Template visualTemplate = null; 
-	protected Vector propertiesV = null;
-	protected Hashtable properties = null;
+    protected Template visualTemplate = null; 
+    protected Vector propertiesV = null;
+    protected Hashtable properties = null;
 
 	private String comment = null;
 	
 	/**
 	 * Constructor.
+     * @param name name
+     * @param template template
 	 */
 	public VDBTemplateInstance(String name, VDBTemplate template)
 	{
@@ -78,6 +80,8 @@ public class VDBTemplateInstance implements Commentable
 	}
 
 	/**
+     * @param key key
+     * @param value value
 	 */
 	public void addProperty(Object key, String value)
 	{
@@ -89,6 +93,7 @@ public class VDBTemplateInstance implements Commentable
 	}
 
 	/**
+     * @param key key
 	 */
 	public void removeProperty(Object key)
 	{
@@ -108,7 +113,7 @@ public class VDBTemplateInstance implements Commentable
 	/**
 	 * Sets the properties.
 	 * @param properties The properties to set
-     * @param propertiesV
+     * @param propertiesV propertiesV
 	 */
 	public void setProperties(Hashtable properties, Vector propertiesV)
 	{
@@ -205,18 +210,30 @@ public void setName(java.lang.String newName) {
 		this.template = template;
 	}
 
-	public Template getVisualTemplate() {
+    /**
+     *
+     * @return something
+     */
+    public Template getVisualTemplate() {
 		if (visualTemplate == null) {
 			//System.err.println("Warning: VDBTemplateInstance.getVisualTemplate: returning null.");
 		}
 		return visualTemplate;
 	}
 
-	public void setVisualTemplate(Template visualTemplate) {
+    /**
+     *
+     * @param visualTemplate visualTemplate
+     */
+    public void setVisualTemplate(Template visualTemplate) {
 		this.visualTemplate = visualTemplate;
 	}
 	
-	public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 		return (visualTemplate != null) ? visualTemplate.getDsId() : null;
 	}
 }

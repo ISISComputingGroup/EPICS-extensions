@@ -1,11 +1,5 @@
 package com.cosylab.vdct;
 
-/**
- * @author ssah
- *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- */
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
@@ -19,6 +13,12 @@ import javax.swing.table.*;
 import com.cosylab.vdct.plugin.*;
 import com.cosylab.vdct.util.*;
 
+/**
+ * @author ssah
+ *
+ * To change this generated comment edit the template variable "typecomment":
+ * Window&gt;Preferences&gt;Java&gt;Templates.
+ */
 public class PluginManagerDialog extends JDialog implements PluginListener,
 	PropertyChangeListener
 {
@@ -357,7 +357,11 @@ private JFileChooser pluginChooser = null;
 
 private final int[] columnWidths = {64, 64, 192, 54, 320, 192};
 
-public PluginManagerDialog(Frame owner)
+    /**
+     *
+     * @param owner owner
+     */
+    public PluginManagerDialog(Frame owner)
 {
 	super(owner);
 

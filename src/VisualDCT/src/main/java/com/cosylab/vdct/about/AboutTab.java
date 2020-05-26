@@ -31,7 +31,7 @@ package com.cosylab.vdct.about;
 import javax.swing.JPanel;
 
 /**
- * @author 
+ * @author cosylab
  *
  * To change this generated comment edit the template variable "typecomment":
  * Window&gt;Preferences&gt;Java&gt;Templates.
@@ -40,8 +40,17 @@ import javax.swing.JPanel;
  */
 public interface AboutTab {
 
-public String getName();
-public JPanel getPanel();
+    /**
+     *
+     * @return something
+     */
+    public String getName();
+
+    /**
+     *
+     * @return something
+     */
+    public JPanel getPanel();
 
 }
 

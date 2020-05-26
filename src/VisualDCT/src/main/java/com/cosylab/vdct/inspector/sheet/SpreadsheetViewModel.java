@@ -51,7 +51,15 @@ import com.cosylab.vdct.vdb.VisibilityProperty;
 public class SpreadsheetViewModel extends SpreadsheetTableModel {
 
 	// The current row sorted state.
+
+    /**
+     *
+     */
     protected int sortedColumn = -1;
+
+    /**
+     *
+     */
     protected boolean sortedOrderAsc = true;     
 	
     private boolean[] rowVisibilities = null; 
@@ -70,7 +78,15 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
     private boolean showAllRows = true;
     private boolean groupColumnsByGuiGroup = true;    
 	
-	public SpreadsheetViewModel(Object dsId, String dataType, Vector displayData,
+    /**
+     *
+     * @param dsId dsId
+     * @param dataType dataType
+     * @param displayData displayData
+     * @param loadedData loadedData
+     * @throws IllegalArgumentException foo
+     */
+    public SpreadsheetViewModel(Object dsId, String dataType, Vector displayData,
 			Vector loadedData) throws IllegalArgumentException {
 		super(dsId, dataType, displayData, loadedData);
 		refreshTables();
@@ -79,6 +95,11 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#recallView()
 	 */
+
+    /**
+     *
+     */
+
 	public void recallView() {
 		super.recallView();
 		refreshTables();
@@ -89,6 +110,11 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#storelView()
 	 */
+
+    /**
+     *
+     */
+
 	public void storeView() {
 		super.storeView();
 	    storeRowsVisibilityAndOrder();
@@ -98,6 +124,11 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#refreshAll()
 	 */
+
+    /**
+     *
+     */
+
 	protected void refreshAll() {
 		super.refreshAll();
 		refreshTables();
@@ -226,19 +257,39 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		}
 	}
 
-	protected final int baseToVisibleRow(int row) {
+    /**
+     *
+     * @param row row
+     * @return something
+     */
+    protected final int baseToVisibleRow(int row) {
 		return allToVisibleRow[baseToOrderedRow[row]];
 	}
 	
-	protected final int visibleToBaseRow(int row) {
+    /**
+     *
+     * @param row row
+     * @return something
+     */
+    protected final int visibleToBaseRow(int row) {
 		return orderedToBaseRow[visibleToAllRow[row]];
 	}
 
-	protected final int baseToVisibleColumn(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    protected final int baseToVisibleColumn(int column) {
 		return allToVisibleColumn[baseToOrderedColumn[column]];
 	}
 
-	protected final int visibleToBaseColumn(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    protected final int visibleToBaseColumn(int column) {
 		return orderedToBaseColumn[visibleToAllColumn[column]];
 	}
 
@@ -541,7 +592,11 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		}
 	}
 	
-	protected boolean isColumsDefault() {
+    /**
+     *
+     * @return something
+     */
+    protected boolean isColumsDefault() {
 		// Default view is all columns in the starting order and default visibility.
         for (int c = 0; c < baseToOrderedColumn.length; c++) {
         	if (baseToOrderedColumn[c] != c) {
@@ -551,7 +606,11 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		return isDefaultColumnVisibility();
 	}
 	
-	public boolean isDefaultColumnVisibility() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isDefaultColumnVisibility() {
 		for (int c = 1; c < getPropertiesColumnCount(); c++) {
 			if (columnVisibilities[c] == hasColumnOnlyDefaultValues(c)) {
 				return false;
@@ -560,7 +619,10 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		return true;
 	}
 
-	public void setDefaultColumnVisibility() {
+    /**
+     *
+     */
+    public void setDefaultColumnVisibility() {
 		for (int c = 1; c < getPropertiesColumnCount(); c++) {
 			columnVisibilities[c] = !hasColumnOnlyDefaultValues(c);
 		}
@@ -579,22 +641,48 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	
     /* Returns true if this property should not be hidden. First column and name column must not be hidden. 
      */
+
+    /**
+     *
+     * @param baseColumn baseColumn
+     * @return something
+     */
+
 	public boolean isSolidBaseColumn(int baseColumn) {
 		return baseColumn == 0 || baseColumn == super.getNamesColumn();
 	}
 
-	public boolean isSolidColumn(int column) {
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+    public boolean isSolidColumn(int column) {
 		return isSolidBaseColumn(visibleToBaseColumn(column));
 	}
 	
+    /**
+     *
+     * @param row row
+     * @return something
+     */
     public int getPropertyRow(int row) {
     	return visibleToBaseRow(row);
     }
 
+    /**
+     *
+     * @param column column
+     * @return something
+     */
     public int getPropertyColumn(int column) {
     	return visibleToBaseColumn(column);
     }
     
+    /**
+     *
+     * @param modeName modeName
+     */
     public void setColumnOrder(String modeName) {
 		storeRowsVisibilityAndOrder();
 	    storeColumnsVisibilityAndOrder();
@@ -605,34 +693,65 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
    		refreshColumnGrouping();
     }
     
+    /**
+     *
+     * @param column column
+     * @return something
+     */
     public boolean isPropertiesColumnVisible(int column) {
     	return columnVisibilities[column]; 
     }
     
+    /**
+     *
+     * @param row row
+     * @return something
+     */
     public boolean isRowVisible(int row) {
 		return rowVisibilities[visibleToBaseRow(row)];
     }
 
+    /**
+     *
+     * @return something
+     */
     public boolean isShowAllRows() {
         return showAllRows;
     }
     
+    /**
+     *
+     * @param showAllRows showAllRows
+     */
     public void setShowAllRows(boolean showAllRows) {
     	this.showAllRows = showAllRows;
 		refreshAllToVisibleRow();
 		refreshVisibleToAllRow();
     }
 
+    /**
+     *
+     * @return something
+     */
     public boolean isGroupColumnsByGuiGroup() {
         return groupColumnsByGuiGroup;
     }
 
-	public void setGroupColumnsByGuiGroup(boolean groupColumnsByGuiGroup) {
+    /**
+     *
+     * @param groupColumnsByGuiGroup groupColumnsByGuiGroup
+     */
+    public void setGroupColumnsByGuiGroup(boolean groupColumnsByGuiGroup) {
     	this.groupColumnsByGuiGroup = groupColumnsByGuiGroup;
    		refreshColumnGrouping();
 	}
     
-	public void setRowsVisibility(int[] rows, boolean visible) {
+    /**
+     *
+     * @param rows rows
+     * @param visible visible
+     */
+    public void setRowsVisibility(int[] rows, boolean visible) {
 		for (int r = 0; r < rows.length; r++) {
 			int baseIndex = visibleToBaseRow(rows[r]);
 			rowVisibilities[baseIndex] = visible;
@@ -642,7 +761,12 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		refreshVisibleToAllRow();
 	}
 
-	public void setColumnsVisibility(int[] columns, boolean visible) {
+    /**
+     *
+     * @param columns columns
+     * @param visible visible
+     */
+    public void setColumnsVisibility(int[] columns, boolean visible) {
 		for (int c = 0; c < columns.length; c++) {
 			columnVisibilities[visibleToBaseColumn(columns[c])] = visible;
 		}
@@ -650,8 +774,12 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		refreshVisibleToAllColumn();
 	}
 
-	
-	public void setPropertyColumnsVisibility(int[] columns, boolean visible) {
+    /**
+     *
+     * @param columns columns
+     * @param visible visible
+     */
+    public void setPropertyColumnsVisibility(int[] columns, boolean visible) {
 		for (int c = 0; c < columns.length; c++) {
 			columnVisibilities[columns[c]] = visible;
 		}
@@ -659,7 +787,12 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		refreshVisibleToAllColumn();
 	}
 	
-	public void repositionColumn(int startIndex, int destIndex) {
+    /**
+     *
+     * @param startIndex startIndex
+     * @param destIndex destIndex
+     */
+    public void repositionColumn(int startIndex, int destIndex) {
 
 		boolean insertAfter = startIndex < destIndex;
 		
@@ -702,7 +835,12 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		refreshVisibleToAllColumn();
 	}
 
-	public void sortRows(int column, boolean ascending) {
+    /**
+     *
+     * @param column column
+     * @param ascending ascending
+     */
+    public void sortRows(int column, boolean ascending) {
 		column = visibleToBaseColumn(column);
 		orderedToBaseRow = PropertyComparator.getOrder(getProperties(), true, column, ascending);
 		refreshBaseToOrderedRow();
@@ -710,7 +848,12 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	    refreshVisibleToAllRow();
 	}
 
-	public void sortColumns(int row, boolean ascending) {
+    /**
+     *
+     * @param row row
+     * @param ascending ascending
+     */
+    public void sortColumns(int row, boolean ascending) {
 		row = visibleToBaseRow(row);
 		orderedToBaseColumn = PropertyComparator.getOrder(getProperties(), false, row, ascending);
 		refreshBaseToOrderedColumn();
@@ -718,7 +861,11 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 		refreshVisibleToAllColumn();
 	}
 
-	public void sortRowsByColumn(int column) {
+    /**
+     *
+     * @param column column
+     */
+    public void sortRowsByColumn(int column) {
 		int newSortedColumn = visibleToBaseColumn(column);
 		sortedOrderAsc = (sortedColumn == newSortedColumn) ? !sortedOrderAsc : true;
 		sortedColumn = newSortedColumn;
@@ -728,6 +875,12 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#deleteRows(int[])
 	 */
+
+    /**
+     *
+     * @param rows rows
+     */
+
 	public void deleteRows(int[] rows) {
 	    for (int r = 0; r < rows.length; r++) {
 	        rows[r] = visibleToBaseRow(rows[r]);
@@ -759,6 +912,13 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#getColumnId(int)
 	 */
+
+    /**
+     *
+     * @param column column
+     * @return something
+     */
+
 	protected String getColumnId(int column) {
 		return super.getColumnId(visibleToBaseColumn(column));
 	}
@@ -776,6 +936,14 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#getMultilineString(int, int)
 	 */
+
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+
 	public String getMultilineString(int row, int column) {
 		return super.getMultilineString(visibleToBaseRow(row), visibleToBaseColumn(column));
 	}
@@ -783,6 +951,12 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#getNamesColumn()
 	 */
+
+    /**
+     *
+     * @return something
+     */
+
 	protected int getNamesColumn() {
 		return baseToVisibleColumn(super.getNamesColumn());
 	}
@@ -790,6 +964,14 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#getPropertyAt(int, int)
 	 */
+
+    /**
+     *
+     * @param row row
+     * @param column column
+     * @return something
+     */
+
 	public InspectableProperty getPropertyAt(int row, int column) {
 		return super.getPropertyAt(visibleToBaseRow(row), visibleToBaseColumn(column));
 	}
@@ -811,11 +993,24 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	/* (non-Javadoc)
 	 * @see com.cosylab.vdct.inspector.SpreadsheetTableModel#internalSetValueAt(java.lang.Object, int, int)
 	 */
+
+    /**
+     *
+     * @param value value
+     * @param row row
+     * @param column column
+     * @return something
+     */
+
 	protected boolean internalSetValueAt(Object value, int row, int column) {
 		return super.internalSetValueAt(value, visibleToBaseRow(row), visibleToBaseColumn(column));
 	}
 
-	protected void setRowOrder(int[] sortOrder) {
+    /**
+     *
+     * @param sortOrder sortOrder
+     */
+    protected void setRowOrder(int[] sortOrder) {
 		// Expand sortOrder permutation to all rows, leaving hidden where they are.
 		int[] allSortOrder = new int[baseToOrderedRow.length]; 
 		setId(allSortOrder);
@@ -833,7 +1028,11 @@ public class SpreadsheetViewModel extends SpreadsheetTableModel {
 	    refreshVisibleToAllRow();
 	}
 	
-	protected void setColumnOrder(int[] sortOrder) {
+    /**
+     *
+     * @param sortOrder sortOrder
+     */
+    protected void setColumnOrder(int[] sortOrder) {
 		// Expand sortOrder permutation to all columns, leaving hidden where they are.
 		int[] allSortOrder = new int[baseToOrderedColumn.length]; 
 		setId(allSortOrder);

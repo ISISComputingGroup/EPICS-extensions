@@ -55,7 +55,11 @@ public class CommentDialog extends JDialog implements ActionListener {
 	private static final String okString = "OK";
 	private static final String cancelString = "Cancel";
 
-	public CommentDialog(Dialog dialog) {
+    /**
+     *
+     * @param dialog dialog
+     */
+    public CommentDialog(Dialog dialog) {
         super(dialog, true);
 		setTitle("Comment");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -120,10 +124,18 @@ public class CommentDialog extends JDialog implements ActionListener {
         return buttonPanel;
     }
     
+    /**
+     *
+     * @param comment comment
+     */
     public void setComment(String comment) {
     	textArea.setText(comment);
     }
 
+    /**
+     *
+     * @return something
+     */
     public String getComment() {
     	return textArea.getText();
     }

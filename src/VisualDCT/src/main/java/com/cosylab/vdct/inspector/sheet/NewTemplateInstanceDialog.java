@@ -67,7 +67,11 @@ public class NewTemplateInstanceDialog extends JDialog implements ActionListener
 	private static final String okString = "OK";
 	private static final String cancelString = "Cancel";
 	
-	public NewTemplateInstanceDialog(Dialog dialog) {
+    /**
+     *
+     * @param dialog dialog
+     */
+    public NewTemplateInstanceDialog(Dialog dialog) {
         super(dialog, true);
 		setTitle(titleString);
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -184,7 +188,11 @@ public class NewTemplateInstanceDialog extends JDialog implements ActionListener
 		}
 	}
 
-	public void setDsId(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     */
+    public void setDsId(Object dsId) {
 		this.dsId = dsId;
 	}
 }

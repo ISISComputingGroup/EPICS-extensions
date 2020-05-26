@@ -34,8 +34,27 @@ import javax.swing.JComponent;
 
 public interface InternalFrameInterface {
 
-	public JComponent getDisplayingComponent();
-	public void setFile(File file, String title);
-	public boolean onClose();
-	public void setFocused();
+    /**
+     *
+     * @return something
+     */
+    public JComponent getDisplayingComponent();
+
+    /**
+     *
+     * @param file file
+     * @param title title
+     */
+    public void setFile(File file, String title);
+
+    /**
+     *
+     * @return something
+     */
+    public boolean onClose();
+
+    /**
+     *
+     */
+    public void setFocused();
 }

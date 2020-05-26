@@ -38,20 +38,32 @@ import com.cosylab.vdct.inspector.InspectableProperty;
  */
 public class DBTemplateField {
 
-	protected String name;	
+    /**
+     *
+     */
+    protected String name;	
 	
-	protected Color color = java.awt.Color.black;
+    /**
+     *
+     */
+    protected Color color = java.awt.Color.black;
 
-	protected boolean isRight = false;
+    /**
+     *
+     */
+    protected boolean isRight = false;
 
-	protected int visibility = InspectableProperty.NON_DEFAULT_VISIBLE;       // = 0
+    /**
+     *
+     */
+    protected int visibility = InspectableProperty.NON_DEFAULT_VISIBLE;       // = 0
 	
 /**
  * FieldData constructor comment.
- * @param name
- * @param color
- * @param isRight
- * @param visibility
+ * @param name name
+ * @param color color
+ * @param isRight isRight
+ * @param visibility visibility
  */
 public DBTemplateField(String name, Color color, boolean isRight, int visibility) {
 	this.name=name;
@@ -60,56 +72,56 @@ public DBTemplateField(String name, Color color, boolean isRight, int visibility
 	this.visibility=visibility;
 }
 	/**
-	 * @return
+	 * @return something
 	 */
 	public Color getColor() {
 		return color;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public boolean isRight() {
 		return isRight;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public int getVisibility() {
 		return visibility;
 	}
 
 	/**
-	 * @param color
+	 * @param color color
 	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
 	/**
-	 * @param b
+	 * @param b b
 	 */
 	public void setRight(boolean b) {
 		isRight = b;
 	}
 
 	/**
-	 * @param string
+	 * @param string string
 	 */
 	public void setName(String string) {
 		name = string;
 	}
 
 	/**
-	 * @param i
+	 * @param i i
 	 */
 	public void setVisibility(int i) {
 		visibility = i;

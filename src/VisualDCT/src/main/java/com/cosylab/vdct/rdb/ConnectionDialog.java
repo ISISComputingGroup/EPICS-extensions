@@ -70,8 +70,8 @@ public class ConnectionDialog extends JDialog implements ActionListener {
 	private static final String passwordString = "Password:";
 
 	/**
-	 * @param arg0
-     * @param mapper
+	 * @param arg0 arg0
+     * @param mapper mapper
 	 */
 	public ConnectionDialog(JFrame arg0, RdbDataMapper mapper) {
         super(arg0, true);

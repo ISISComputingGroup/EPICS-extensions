@@ -35,7 +35,10 @@ package com.cosylab.vdct;
  */
 public class Console {
 
-	protected static ConsoleInterface instance = null;
+    /**
+     *
+     */
+    protected static ConsoleInterface instance = null;
 
 /**
  * Insert the method's description here.

@@ -108,7 +108,10 @@ public class Macro extends VisibleObject implements Descriptable, Movable, InLin
 		}
 	}
 	
-	protected boolean disconnected = true;
+    /**
+     *
+     */
+    protected boolean disconnected = true;
 
 	//private static final String descriptionString = "Description";
 	//private static final String selectTitle = "Select link color...";
@@ -133,17 +136,47 @@ public class Macro extends VisibleObject implements Descriptable, Movable, InLin
 
 	private int mode = InLink.INPUT_MACRO_MODE;
 
-	protected Vector outlinks;
+    /**
+     *
+     */
+    protected Vector outlinks;
 	private static javax.swing.ImageIcon icon = null;
 	private static GUISeparator macroSeparator = null;
-	protected VDBMacro data = null;
+
+    /**
+     *
+     */
+    protected VDBMacro data = null;
 	
-	protected int rightXtranslation = 0;
-	protected int rightYtranslation = 0;
-	protected int leftXtranslation = 0;
-	protected int leftYtranslation = 0;
-	protected Polygon leftPoly;
-	protected Polygon rightPoly;
+    /**
+     *
+     */
+    protected int rightXtranslation = 0;
+
+    /**
+     *
+     */
+    protected int rightYtranslation = 0;
+
+    /**
+     *
+     */
+    protected int leftXtranslation = 0;
+
+    /**
+     *
+     */
+    protected int leftYtranslation = 0;
+
+    /**
+     *
+     */
+    protected Polygon leftPoly;
+
+    /**
+     *
+     */
+    protected Polygon rightPoly;
 
 	private int r = 0;
 
@@ -156,10 +189,10 @@ public class Macro extends VisibleObject implements Descriptable, Movable, InLin
 /**
  * Insert the method's description here.
  * Creation date: (1.2.2001 17:22:29)
- * @param data
- * @param y
- * @param parent
- * @param x
+ * @param data data
+ * @param y y
+ * @param parent parent
+ * @param x x
  */
 public Macro(VDBMacro data, ContainerObject parent, int x, int y) {
 	super(parent);
@@ -271,7 +304,7 @@ public void destroy() {
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 21:23:04)
- * @param disconnector
+ * @param disconnector disconnector
  */
 public void disconnect(Linkable disconnector) {
 	if (!disconnected && outlinks.contains(disconnector)) {
@@ -752,6 +785,7 @@ protected void validate() {
 }
 
 /**
+     * @return something
  * @see com.cosylab.vdct.graphics.objects.OutLink#getMode()
  */
 public int getMode()
@@ -759,17 +793,25 @@ public int getMode()
 	return mode;
 }
 
-public void setTextPositionNorth(boolean isTextPositionNorth) {
+    /**
+     *
+     * @param isTextPositionNorth isTextPositionNorth
+     */
+    public void setTextPositionNorth(boolean isTextPositionNorth) {
     this.textPositionNorth = isTextPositionNorth;
     DsManager.getDrawingSurface(getDsId()).repaint();
 }
 
-public boolean isTextPositionNorth() {
+    /**
+     *
+     * @return something
+     */
+    public boolean isTextPositionNorth() {
     return this.textPositionNorth;
 }
 
 /**
- * @param mode
+ * @param mode mode
  */
 public void setMode(int mode)
 {
@@ -871,8 +913,8 @@ public void setDestroyed(boolean newDestroyed)
 }
 
 /**
- * @param oldName
- * @param newName
+ * @param oldName oldName
+ * @param newName newName
  */
 public void rename(String oldName, String newName)
 {
@@ -1030,6 +1072,12 @@ public int getLinkCount() {
 /* (non-Javadoc)
  * @see com.cosylab.vdct.graphics.objects.MultiInLink#getOutlinks()
  */
+
+    /**
+     *
+     * @return something
+     */
+
 public Vector getOutlinks() {
 	return outlinks;
 }

@@ -42,13 +42,36 @@ import com.cosylab.vdct.inspector.InspectorManager;
  */
 
 public class VDBRecordData implements Commentable {
-	protected String record_type;
-	protected String name;
+
+    /**
+     *
+     */
+    protected String record_type;
+
+    /**
+     *
+     */
+    protected String name;
 	
-	protected Record record = null;
-	protected Hashtable fields = null;
-	protected Vector fieldsV = null;
-	protected String comment;
+    /**
+     *
+     */
+    protected Record record = null;
+
+    /**
+     *
+     */
+    protected Hashtable fields = null;
+
+    /**
+     *
+     */
+    protected Vector fieldsV = null;
+
+    /**
+     *
+     */
+    protected String comment;
 /**
  * RecordData constructor comment.
  */
@@ -59,7 +82,7 @@ public VDBRecordData() {
 
 /**
  * This method was created in VisualAge.
- * @return 
+ * @return something
  */
 public String getDTYPLinkType() {
 
@@ -190,7 +213,10 @@ public String toString() {
 	return name+" ("+record_type+")";
 }
 
-protected Vector infoFieldsV = null;
+    /**
+     *
+     */
+    protected Vector infoFieldsV = null;
 /**
  * @return the infoFieldsV
  */
@@ -205,7 +231,11 @@ public void setInfoFields(Vector infoFieldsV) {
 	this.infoFieldsV = infoFieldsV;
 }
 
-public Record getRecord() {
+    /**
+     *
+     * @return something
+     */
+    public Record getRecord() {
 	if (record == null) {
 		// TASK:VISREPACT: uncomment when done
 		//System.err.println("Warning: VDBRecordData.getRecord: returning null.");
@@ -213,11 +243,19 @@ public Record getRecord() {
 	return record;
 }
 
-public void setRecord(Record record) {
+    /**
+     *
+     * @param record record
+     */
+    public void setRecord(Record record) {
 	this.record = record;
 }
 
-public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 	return (record != null) ? record.getDsId() : null;
 }
 

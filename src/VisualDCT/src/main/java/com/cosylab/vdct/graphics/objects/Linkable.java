@@ -37,7 +37,7 @@ public interface Linkable {
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 17:46:17)
- * @param disconnector
+ * @param disconnector disconnector
  */
 void disconnect(Linkable disconnector);
 /**

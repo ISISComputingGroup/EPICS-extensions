@@ -64,7 +64,10 @@ import com.cosylab.vdct.undo.UndoManager;
  */
 public class VDBData implements DsEventListener {
 	
-	protected static HashMap instances = new HashMap();
+    /**
+     *
+     */
+    protected static HashMap instances = new HashMap();
 	
 	private Vector records = null;
 	//private Hashtable templates = null;
@@ -87,7 +90,7 @@ private VDBData() {
 }
 /**
  * This method was created in VisualAge.
- * @param rd
+ * @param rd rd
  */
 public void addRecord(VDBRecordData rd) {
 	if (rd!=null)
@@ -102,7 +105,7 @@ public void addRecord(VDBRecordData rd) {
 
 /**
  * This method was created in VisualAge.
- * @param ed
+ * @param ed ed
  */
 public void addEntry(DBEntry ed) {
 	if (!structure.contains(ed))
@@ -111,7 +114,7 @@ public void addEntry(DBEntry ed) {
 
 /**
  * This method was created in VisualAge.
- * @param templ
+ * @param templ templ
  */
 public void addTemplate(VDBTemplate templ) {
 	if (templ != null && templ.getId() != null) {
@@ -124,7 +127,8 @@ public void addTemplate(VDBTemplate templ) {
 
 /**
  * This method was created in VisualAge.
-     * @param ti */
+ * @param ti ti
+ */
 public void addTemplateInstance(VDBTemplateInstance ti) {
 	if (ti!=null)
 		if (!templateInstances.contains(ti))
@@ -164,6 +168,7 @@ public static void copyVDBFieldData(VDBFieldData sourceField, VDBFieldData targe
 }
 /**
  * This method was created in VisualAge.
+     * @param source source
  * @return com.cosylab.vdct.vdb.VDBTemplateInstance
  */
 public static VDBTemplateInstance copyVDBTemplateInstance(VDBTemplateInstance source) {
@@ -229,7 +234,12 @@ public static VDBMacro copyVDBMacro(VDBMacro source) {
         
 }
 
-public static VDBPort copyVDBPort(VDBPort source) {
+    /**
+     *
+     * @param source source
+     * @return something
+     */
+    public static VDBPort copyVDBPort(VDBPort source) {
     
     VDBPort vdbPort = new VDBPort(source.getTemplate(), source.getName(), source.getTarget(), source.getDescription());
     vdbPort.setVisibility(source.getVisibility());
@@ -240,7 +250,7 @@ public static VDBPort copyVDBPort(VDBPort source) {
 /**
  * This method was created in VisualAge.
  * @return com.cosylab.vdct.vdb.VDBData
- * @param dsId
+ * @param dsId dsId
  * @param dbd com.cosylab.vdct.dbd.DBDData
  * @param db com.cosylab.vdct.db.DBData
  */
@@ -302,6 +312,11 @@ private void generateVDBDataInternal(Object dsId, DBDData dbd, DBData db) throws
 
 /**
  * 
+     * @param dsId dsId
+     * @param dbd dbd
+     * @param db db
+     * @param vdb vdb
+     * @throws DBException foo
  */
 public static void generateRecords(Object dsId, DBDData dbd, DBData db, VDBData vdb) throws DBException
 {
@@ -314,7 +329,13 @@ public static void generateRecords(Object dsId, DBDData dbd, DBData db, VDBData 
 	}
 }
 
-public VDBTemplateInstance generateVDBTemplateInstance(Object dsId, DBTemplateInstance dbTemplateInstance)
+    /**
+     *
+     * @param dsId dsId
+     * @param dbTemplateInstance dbTemplateInstance
+     * @return something
+     */
+    public VDBTemplateInstance generateVDBTemplateInstance(Object dsId, DBTemplateInstance dbTemplateInstance)
 {
 	VDBTemplate t = DataSynchronizer.getInstance().getTemplate(dsId, dbTemplateInstance.getTemplateId());
 	
@@ -334,7 +355,13 @@ public VDBTemplateInstance generateVDBTemplateInstance(Object dsId, DBTemplateIn
 	return vti;
 }
 
-public static VDBTemplateInstance generateNewVDBTemplateInstance(String name, VDBTemplate t)
+    /**
+     *
+     * @param name name
+     * @param t t
+     * @return something
+     */
+    public static VDBTemplateInstance generateNewVDBTemplateInstance(String name, VDBTemplate t)
 {
 	VDBTemplateInstance vti = new VDBTemplateInstance(name, t);
 	vti.setProperties(new Hashtable(), new Vector());		// empty properties
@@ -344,6 +371,9 @@ public static VDBTemplateInstance generateNewVDBTemplateInstance(String name, VD
 
 /**
  * 
+     * @param dsId dsId
+     * @param dbd dbd
+     * @param db db
  */
 public void extractTemplates(Object dsId, DBDData dbd, DBData db)
 {
@@ -422,11 +452,27 @@ private void generateTemplate(Object dsId, DBDData dbd, DBTemplate dbTemplate)
 
 // NOTE adds to root!!!
 
+    /**
+     *
+     * @param dsId dsId
+     * @param dbTemplate dbTemplate
+     * @param vt vt
+     * @param vdbData vdbData
+     */
+
 public static void addPortsAndMacros(Object dsId, DBTemplate dbTemplate, VDBTemplate vt, VDBData vdbData) {
 	addPortsAndMacros(dsId, dbTemplate, vt, vdbData, null);
 }
 
-public static void addPortsAndMacros(Object dsId, DBTemplate dbTemplate, VDBTemplate vt, VDBData vdbData, HashMap importedList) {
+    /**
+     *
+     * @param dsId dsId
+     * @param dbTemplate dbTemplate
+     * @param vt vt
+     * @param vdbData vdbData
+     * @param importedList importedList
+     */
+    public static void addPortsAndMacros(Object dsId, DBTemplate dbTemplate, VDBTemplate vt, VDBData vdbData, HashMap importedList) {
 	
 	// noop (importing into DB w/o editing template data)
 	if (importedList != null && Group.getEditingTemplateData(dsId) == null)
@@ -512,6 +558,8 @@ public static void addPortsAndMacros(Object dsId, DBTemplate dbTemplate, VDBTemp
 }
 /**
  * This method was created in VisualAge.
+     * @param dsId dsId
+     * @param vdbRecord vdbRecord
  * @return com.cosylab.vdct.vdb.VDBFieldData
  * @param dbd com.cosylab.vdct.dbd.DBDData
  * @param dbRecord com.cosylab.vdct.db.DBRecordData
@@ -587,10 +635,10 @@ public static VDBFieldData generateVDBFieldData(Object dsId, DBDData dbd, DBReco
 /**
  * This method was created in VisualAge.
  * @return com.cosylab.vdct.vdb.VDBRecordData
- * @param dsId
+ * @param dsId dsId
  * @param dbd com.cosylab.vdct.dbd.DBDData
  * @param dbRecord com.cosylab.vdct.db.DBRecordData
- * @throws com.cosylab.vdct.db.DBException
+ * @throws com.cosylab.vdct.db.DBException foo
  */
 public static VDBRecordData generateVDBRecordData(Object dsId, DBDData dbd, DBRecordData dbRecord) throws DBException {
 
@@ -642,7 +690,7 @@ public static VDBRecordData generateVDBRecordData(Object dsId, DBDData dbd, DBRe
 /**
  * This method was created in VisualAge.
  * @return epics.vdb.VDBRecordData
- * @param dsId
+ * @param dsId dsId
  * @param dbd epics.dbd.DBDData
  * @param recordType java.lang.String
  * @param recordName java.lang.String
@@ -681,11 +729,11 @@ public java.util.Vector getRecords() {
 /**
  * This method was created in VisualAge.
  * @return epics.vdb.VDBRecordData
- * @param dsId
+ * @param dsId dsId
  * @param dbd epics.dbd.DBDData
  * @param source epics.vdb.VDBRecordData
- * @param recordType
- * @param recordName
+ * @param recordType recordType
+ * @param recordName recordName
  */
 public static VDBRecordData morphVDBRecordData(Object dsId, DBDData dbd, VDBRecordData source, String recordType, String recordName) {
 
@@ -727,7 +775,15 @@ public static VDBRecordData morphVDBRecordData(Object dsId, DBDData dbd, VDBReco
 	return vdbRecord;
 }
 
-public VDBTemplateInstance morphVDBTemplateInstance(Object dsId, VDBTemplateInstance templateData, String templateType, String templateName) {
+    /**
+     *
+     * @param dsId dsId
+     * @param templateData templateData
+     * @param templateType templateType
+     * @param templateName templateName
+     * @return something
+     */
+    public VDBTemplateInstance morphVDBTemplateInstance(Object dsId, VDBTemplateInstance templateData, String templateType, String templateName) {
 	
     VDBTemplate template = DataSynchronizer.getInstance().getTemplate(dsId, templateType);		
 	if (template==null) return null;
@@ -803,7 +859,12 @@ public void removeTemplateInstance(VDBTemplateInstance templateInstance) {
 		return structure;
 	}
 	
-	public static VDBData getInstance(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     * @return something
+     */
+    public static VDBData getInstance(Object dsId) {
 
 		VDBData vdbData = (VDBData)instances.get(dsId);
 		if (vdbData == null) {
@@ -816,7 +877,10 @@ public void removeTemplateInstance(VDBTemplateInstance templateInstance) {
 		return vdbData;
 	}
 
-	public static void registerDsListener() {
+    /**
+     *
+     */
+    public static void registerDsListener() {
 
 		VDBData vdbData = new VDBData();
 		instances.put(Constants.DEFAULT_NAME, vdbData);
@@ -827,11 +891,25 @@ public void removeTemplateInstance(VDBTemplateInstance templateInstance) {
 		}
 	}
 
-	public void onDsAdded(Object id) {
+    /**
+     *
+     * @param id id
+     */
+    public void onDsAdded(Object id) {
 	    instances.put(id, new VDBData());
 	}
-	public void onDsRemoved(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsRemoved(Object id) {
 	}
-	public void onDsFocused(Object id) {
+
+    /**
+     *
+     * @param id id
+     */
+    public void onDsFocused(Object id) {
 	}
 }

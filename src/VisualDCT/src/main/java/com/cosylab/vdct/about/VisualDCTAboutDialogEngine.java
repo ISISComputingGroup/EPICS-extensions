@@ -17,7 +17,7 @@ public class VisualDCTAboutDialogEngine extends AboutDialogEngine {
 
 	/**
 	 * Constructor for DefaultAboutDialogEngine.
-	 * @param toAbout
+	 * @param toAbout toAbout
 	 */
 	public VisualDCTAboutDialogEngine(Object toAbout) {
 		super(toAbout);
@@ -87,7 +87,7 @@ public class VisualDCTAboutDialogEngine extends AboutDialogEngine {
 	
     /**
      *
-     * @param jf
+     * @param jf jf
      */
     protected void instanceOfJFrame(javax.swing.JFrame jf) {
 
@@ -106,7 +106,7 @@ public class VisualDCTAboutDialogEngine extends AboutDialogEngine {
 
     /**
      *
-     * @param c
+     * @param c c
      */
     protected void instanceOfComponent(Component c) {
 

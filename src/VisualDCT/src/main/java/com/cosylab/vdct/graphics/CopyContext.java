@@ -41,26 +41,58 @@ public class CopyContext {
 	
 	private boolean doOffsetAtPaste = false;
 	
-	public CopyContext() {
+    /**
+     *
+     */
+    public CopyContext() {
 		super();
 	}
 	
-	public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 		return dsId;
 	}
-	public void setDsId(Object dsId) {
+
+    /**
+     *
+     * @param dsId dsId
+     */
+    public void setDsId(Object dsId) {
 		this.dsId = dsId;
 	}
-	public int getPasteCount() {
+
+    /**
+     *
+     * @return something
+     */
+    public int getPasteCount() {
 		return pasteCount;
 	}
-	public void setPasteCount(int pasteCount) {
+
+    /**
+     *
+     * @param pasteCount pasteCount
+     */
+    public void setPasteCount(int pasteCount) {
 		this.pasteCount = pasteCount;
 	}
-	public boolean isDoOffsetAtPaste() {
+
+    /**
+     *
+     * @return something
+     */
+    public boolean isDoOffsetAtPaste() {
 		return doOffsetAtPaste;
 	}
-	public void setDoOffsetAtPaste(boolean doOffsetAtPaste) {
+
+    /**
+     *
+     * @param doOffsetAtPaste doOffsetAtPaste
+     */
+    public void setDoOffsetAtPaste(boolean doOffsetAtPaste) {
 		this.doOffsetAtPaste = doOffsetAtPaste;
 	}
 }

@@ -68,7 +68,7 @@ public static PluginPopupManager getInstance() {
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:23:57)
- * @param plugin
+ * @param plugin plugin
  */
 public void pluginAdded(PluginObject plugin)
 {
@@ -86,7 +86,7 @@ public void pluginAdded(PluginObject plugin)
 /**
  * Insert the method's description here.
  * Creation date: (6.12.2001 22:23:57)
- * @param plugin
+ * @param plugin plugin
  */
 public void pluginRemoved(PluginObject plugin)
 {
@@ -120,6 +120,7 @@ public void propertyChange(PropertyChangeEvent evt)
  * PluginPopupManager then queries all popup plugins, asking them to return list of menus
  * or menu items to be added to the default list of popup items.
  * Creation date: (8.12.2001 12:45:31)
+     * @param selectedObjects selectedObjects
  * @return java.util.Vector list of <code>javax.swing.JMenuItems</code>. This method never returns null.
  */
 public Vector getAllPluginItems(Vector selectedObjects)

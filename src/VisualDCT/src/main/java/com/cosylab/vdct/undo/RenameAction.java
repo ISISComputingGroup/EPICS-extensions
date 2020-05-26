@@ -33,7 +33,7 @@ import com.cosylab.vdct.graphics.objects.Flexible;
 /**
  * Insert the type's description here.
  * Creation date: (4.5.2001 11:37:23)
- * @author 
+ * @author cosylab
  */
 public class RenameAction extends ActionObject {
 	private Object dsId;
@@ -43,7 +43,7 @@ public class RenameAction extends ActionObject {
 /**
  * Insert the method's description here.
  * Creation date: (4.5.2001 11:40:19)
- * @param dsId
+ * @param dsId dsId
  * @param object com.cosylab.vdct.graphics.objects.Flexible
  * @param oldName java.lang.String
  * @param newName java.lang.String

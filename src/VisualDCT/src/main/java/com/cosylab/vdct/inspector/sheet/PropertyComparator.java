@@ -91,11 +91,11 @@ public class PropertyComparator implements Comparator {
 	
     /**
      *
-     * @param properties
-     * @param rows
-     * @param sortingIndex
-     * @param ascending
-     * @return
+     * @param properties properties
+     * @param rows rows
+     * @param sortingIndex sortingIndex
+     * @param ascending ascending
+     * @return something
      */
     public static int[] getOrder(InspectableProperty[][] properties, boolean rows,
 			int sortingIndex, boolean ascending) {
@@ -117,9 +117,9 @@ public class PropertyComparator implements Comparator {
 	}
 
 	/**
-	 * @param properties
-	 * @param rows
-	 * @param sortingIndex
+	 * @param properties properties
+	 * @param rows rows
+	 * @param sortingIndex sortingIndex
 	 */
 	private PropertyComparator(InspectableProperty[][] properties, boolean rows,
 			int sortingIndex, boolean ascending) {

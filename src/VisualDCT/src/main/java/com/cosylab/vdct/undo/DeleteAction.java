@@ -31,7 +31,7 @@ package com.cosylab.vdct.undo;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 20:32:44)
- * @author 
+ * @author cosylab
  */
 public class DeleteAction extends CreateAction {
 /**

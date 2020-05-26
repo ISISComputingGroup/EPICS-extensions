@@ -36,21 +36,55 @@ import java.util.Vector;
  */
 public class DBTemplateInstance extends DBComment
 {
-	protected String templateInstanceId;
-	protected String templateId;
-	protected Hashtable properties = null;
-	protected Vector propertiesV = null;
 
-	protected int x = -1;			// used for layout
-	protected int y = -1;
-	protected java.awt.Color color = java.awt.Color.black;
-	protected String description = null;
+    /**
+     *
+     */
+    protected String templateInstanceId;
 
-	protected Vector templateFields = null;
+    /**
+     *
+     */
+    protected String templateId;
+
+    /**
+     *
+     */
+    protected Hashtable properties = null;
+
+    /**
+     *
+     */
+    protected Vector propertiesV = null;
+
+    /**
+     *
+     */
+    protected int x = -1;			// used for layout
+
+    /**
+     *
+     */
+    protected int y = -1;
+
+    /**
+     *
+     */
+    protected java.awt.Color color = java.awt.Color.black;
+
+    /**
+     *
+     */
+    protected String description = null;
+
+    /**
+     *
+     */
+    protected Vector templateFields = null;
 	/**
 	 * Constructor.
-     * @param templateInstanceId
-     * @param templateId
+     * @param templateInstanceId templateInstanceId
+     * @param templateId templateId
 	 */
 	public DBTemplateInstance(String templateInstanceId, String templateId)
 	{
@@ -81,8 +115,8 @@ public class DBTemplateInstance extends DBComment
 
 	/**
 	 * Add a property.
-     * @param key
-     * @param value
+     * @param key key
+     * @param value value
 	 */
 	public void addProperty(Object key, String value)
 	{
@@ -184,7 +218,7 @@ public class DBTemplateInstance extends DBComment
 	}
 
 	/**
-	 * @return
+	 * @return something
 	 */
 	public Vector getTemplateFields() {
 		return templateFields;

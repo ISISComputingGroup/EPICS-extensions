@@ -34,6 +34,9 @@ package com.cosylab.vdct.util;
 public class IntegerQuickSort extends QuickSort {
 /**
  * lessThan method comment.
+     * @param oFirst oFirst
+     * @param oSecond oSecond
+     * @return something
  */
 public boolean lessThan(Object oFirst, Object oSecond) {
 	int i1 = ((Integer)oFirst).intValue();

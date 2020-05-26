@@ -31,7 +31,14 @@ package com.cosylab.vdct.dbd;
 
 public class DBDGuiGroupData {
 
+    /**
+     *
+     */
     protected String tag = null;
+
+    /**
+     *
+     */
     protected int index = 0;
 
     /**

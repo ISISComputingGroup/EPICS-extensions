@@ -44,6 +44,7 @@ public class MacroDescriptionProperty implements InspectableProperty {
 		
 		/**
 		 * Constructor
+     * @param macro macro
 		 */
 		public MacroDescriptionProperty(VDBMacro macro)
 		{
@@ -177,6 +178,12 @@ public class MacroDescriptionProperty implements InspectableProperty {
 		/* (non-Javadoc)
 		 * @see com.cosylab.vdct.inspector.InspectableProperty#hasDefaultValue()
 		 */
+
+    /**
+     *
+     * @return something
+     */
+
 		public boolean hasDefaultValue() {
 			return false;
 		}
@@ -184,6 +191,12 @@ public class MacroDescriptionProperty implements InspectableProperty {
 		/* (non-Javadoc)
 		 * @see com.cosylab.vdct.inspector.InspectableProperty#hasValidity()
 		 */
+
+    /**
+     *
+     * @return something
+     */
+
 		public boolean hasValidity() {
 			return false;
 		}

@@ -38,8 +38,8 @@ public class DBSheetColWidth {
 	private int width = 0;
 
 	/**
-	 * @param splitIndex
-	 * @param width
+	 * @param splitIndex splitIndex
+	 * @param width width
 	 */
 	public DBSheetColWidth(int splitIndex, int width) {
 		super();

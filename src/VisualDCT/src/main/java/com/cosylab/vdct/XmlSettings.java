@@ -53,7 +53,11 @@ public class XmlSettings {
 	private String rdbUser = "user"; 
 	private String rdbPassword = "password";
 	
-	public static XmlSettings getInstance() {
+    /**
+     *
+     * @return something
+     */
+    public static XmlSettings getInstance() {
 		if (xmlSettings == null) {
 			xmlSettings = new XmlSettings();
 			xmlSettings.load();
@@ -61,7 +65,10 @@ public class XmlSettings {
 		return xmlSettings;
 	}
 	
-	public void load() {
+    /**
+     *
+     */
+    public void load() {
 
 		Document doc = null;
 	    String fileName = Constants.getConfigFile(Constants.VDCT_SETTINGS_FILE_NAME, Constants.VDCT_SETTINGS_FILE);
@@ -107,7 +114,10 @@ public class XmlSettings {
 	    loadRdbSettings(doc);
 	}
 	
-	public void save() {
+    /**
+     *
+     */
+    public void save() {
 		Document doc = XMLManager.newDocument();
 		
 		Element root = (Element)doc.createElement("vdct");

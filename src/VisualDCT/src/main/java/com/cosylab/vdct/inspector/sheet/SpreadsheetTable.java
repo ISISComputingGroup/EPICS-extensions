@@ -148,7 +148,13 @@ public class SpreadsheetTable extends JTable implements ActionListener{
 	private static final String extendCountersToolTip = "Increase counters in selected region.";
 	private static final String colorChooserTitle = "Set the table background color";
 
-	public SpreadsheetTable(SpreadsheetInspector inspector, JScrollPane pane, Vector data) {
+    /**
+     *
+     * @param inspector inspector
+     * @param pane pane
+     * @param data data
+     */
+    public SpreadsheetTable(SpreadsheetInspector inspector, JScrollPane pane, Vector data) {
 		super();
 		setName("ScrollPaneTable");
 
@@ -245,13 +251,23 @@ public class SpreadsheetTable extends JTable implements ActionListener{
 		}
 	}
 
-	public SpreadsheetColumnViewModel getSpreadsheetModel() {
+    /**
+     *
+     * @return something
+     */
+    public SpreadsheetColumnViewModel getSpreadsheetModel() {
 		return sprModel;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.swing.JTable#setModel(javax.swing.table.TableModel)
 	 */
+
+    /**
+     *
+     * @param spreadsheetModel spreadsheetModel
+     */
+
 	public void setModel(SpreadsheetColumnViewModel spreadsheetModel) {
 		this.sprModel = spreadsheetModel;
 		setColumnModel(sprModel);
@@ -262,12 +278,18 @@ public class SpreadsheetTable extends JTable implements ActionListener{
 		refreshAll();
 	}
 
-	public void refresh() {
+    /**
+     *
+     */
+    public void refresh() {
 		sprModel.refresh();
 		refreshAll();
 	}
 
-	public void setDefaultWidthColumnsToFit() {
+    /**
+     *
+     */
+    public void setDefaultWidthColumnsToFit() {
 
 		int colCount = sprModel.getColumnCount();
 		TableColumnModel colModel = getColumnModel();
@@ -281,7 +303,11 @@ public class SpreadsheetTable extends JTable implements ActionListener{
 		}
 	}
 
-	public void setColumnSizeToFit(int columnIndex) {
+    /**
+     *
+     * @param columnIndex columnIndex
+     */
+    public void setColumnSizeToFit(int columnIndex) {
 
 		FontMetrics metrics = graphics.getFontMetrics(getFont());
 
@@ -301,11 +327,19 @@ public class SpreadsheetTable extends JTable implements ActionListener{
 		column.setDefaultWidth(true);
 	}
 
-	public JTable getThis() {
+    /**
+     *
+     * @return something
+     */
+    public JTable getThis() {
 		return this;
 	}
 
-	public JScrollPane getTableScrollPane() {
+    /**
+     *
+     * @return something
+     */
+    public JScrollPane getTableScrollPane() {
 		return pane;
 	}
 

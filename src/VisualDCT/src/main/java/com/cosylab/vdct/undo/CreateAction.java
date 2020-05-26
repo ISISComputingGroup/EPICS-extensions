@@ -31,12 +31,25 @@ package com.cosylab.vdct.undo;
 /**
  * Insert the type's description here.
  * Creation date: (3.5.2001 16:26:04)
- * @author 
+ * @author cosylab
  */
 public class CreateAction extends ActionObject {
-	protected com.cosylab.vdct.graphics.objects.VisibleObject object;
-	protected com.cosylab.vdct.graphics.objects.ContainerObject parent;
-	protected int x, y;
+
+    /**
+     *
+     */
+    protected com.cosylab.vdct.graphics.objects.VisibleObject object;
+
+    /**
+     *
+     */
+    protected com.cosylab.vdct.graphics.objects.ContainerObject parent;
+	protected int x,
+
+    /**
+     *
+     */
+    y;
 /**
  * Insert the method's description here.
  * Creation date: (3.5.2001 16:27:58)

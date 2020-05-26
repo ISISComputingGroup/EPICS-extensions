@@ -35,13 +35,40 @@ package com.cosylab.vdct.graphics.objects;
  */
 public interface OutLink extends Linkable {
 
-	public static final int NORMAL_MODE = 0;
-	public static final int INVISIBLE_MODE = 1;
-	public static final int EXTERNAL_OUTPUT_MODE = 2;
-	public static final int EXTERNAL_INPUT_MODE = 3;
-	public static final int CONSTANT_PORT_MODE = 4;
-	public static final int INPUT_PORT_MODE = 5;
-	public static final int OUTPUT_PORT_MODE = 6;
+    /**
+     *
+     */
+    public static final int NORMAL_MODE = 0;
+
+    /**
+     *
+     */
+    public static final int INVISIBLE_MODE = 1;
+
+    /**
+     *
+     */
+    public static final int EXTERNAL_OUTPUT_MODE = 2;
+
+    /**
+     *
+     */
+    public static final int EXTERNAL_INPUT_MODE = 3;
+
+    /**
+     *
+     */
+    public static final int CONSTANT_PORT_MODE = 4;
+
+    /**
+     *
+     */
+    public static final int INPUT_PORT_MODE = 5;
+
+    /**
+     *
+     */
+    public static final int OUTPUT_PORT_MODE = 6;
 
 /**
  * 
@@ -69,6 +96,7 @@ int getQueueCount();
 /**
  * Insert the method's description here.
  * Creation date: (29.1.2001 17:53:59)
+     * @param input input
  */
 void setInput(InLink input);
 /**
@@ -78,12 +106,27 @@ void setInput(InLink input);
  */
 int getMode();
 
-void validateLink();
+    /**
+     *
+     */
+    void validateLink();
 
-int getLeftX();
+    /**
+     *
+     * @return something
+     */
+    int getLeftX();
 
-int getRightX();
+    /**
+     *
+     * @return something
+     */
+    int getRightX();
 
-boolean isRight();
+    /**
+     *
+     * @return something
+     */
+    boolean isRight();
 
 }

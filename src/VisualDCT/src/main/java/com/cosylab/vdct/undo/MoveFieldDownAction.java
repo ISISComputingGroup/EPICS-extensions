@@ -31,7 +31,7 @@ package com.cosylab.vdct.undo;
 /**
  * Insert the type's description here.
  * Creation date: (5.5.2001 12:11:51)
- * @author 
+ * @author cosylab
  */
 public class MoveFieldDownAction extends MoveFieldUpAction {
 /**

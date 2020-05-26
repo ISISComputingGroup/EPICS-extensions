@@ -51,8 +51,8 @@ public class DBSheetView {
 	private DBSheetSplitCol[] recentSplits = null;
 	
 	/**
-	 * @param type
-	 * @param name
+	 * @param type type
+	 * @param name name
 	 */
 	public DBSheetView(String type, String name) {
 		super();
@@ -103,7 +103,11 @@ public class DBSheetView {
 		return splitColumns;
 	}
 
-	public String getKey() {
+    /**
+     *
+     * @return something
+     */
+    public String getKey() {
 		return type + name;
 	}
 
@@ -163,19 +167,35 @@ public class DBSheetView {
 		this.hiddenRows = rows;
 	}
 
-	public Boolean getShowAllRows() {
+    /**
+     *
+     * @return something
+     */
+    public Boolean getShowAllRows() {
 		return showAllRows;
 	}
 
-	public void setShowAllRows(Boolean showAllRows) {
+    /**
+     *
+     * @param showAllRows showAllRows
+     */
+    public void setShowAllRows(Boolean showAllRows) {
 		this.showAllRows = showAllRows;
 	}
 
-	public Integer getBackgroundColor() {
+    /**
+     *
+     * @return something
+     */
+    public Integer getBackgroundColor() {
 		return backgroundColor;
 	}
 
-	public void setBackgroundColor(Integer backgroundColor) {
+    /**
+     *
+     * @param backgroundColor backgroundColor
+     */
+    public void setBackgroundColor(Integer backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
 

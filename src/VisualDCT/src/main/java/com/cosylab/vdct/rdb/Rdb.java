@@ -44,7 +44,11 @@ public class Rdb implements RdbInterface {
 	private RdbDataChooserDialog groupDialog = null;
 	private JFrame guiContext = null;
 
-	public Rdb(JFrame guiContext) {
+    /**
+     *
+     * @param guiContext guiContext
+     */
+    public Rdb(JFrame guiContext) {
 		super();
 		this.guiContext = guiContext; 
 		try {
@@ -56,11 +60,19 @@ public class Rdb implements RdbInterface {
 		groupDialog = new RdbDataChooserDialog(mapper, guiContext);
 	}
 
-	public void connect() {
+    /**
+     *
+     */
+    public void connect() {
 		connectionDialog.setVisible(true);
 	}
 	
-	public DBData loadRdbData(Object dsId) {
+    /**
+     *
+     * @param dsId dsId
+     * @return something
+     */
+    public DBData loadRdbData(Object dsId) {
 		if (!mapper.isConnection()) {
 			connectionDialog.setVisible(true);
 		}
@@ -74,7 +86,14 @@ public class Rdb implements RdbInterface {
 		return null;
 	}
 	
-	public boolean saveRdbData(Object dsId, RdbDataId rdbId, boolean dialog) {
+    /**
+     *
+     * @param dsId dsId
+     * @param rdbId rdbId
+     * @param dialog dialog
+     * @return something
+     */
+    public boolean saveRdbData(Object dsId, RdbDataId rdbId, boolean dialog) {
 		boolean success = false;
 		if (!mapper.isConnection()) {
 			connectionDialog.setVisible(true);

@@ -38,6 +38,10 @@ public class SetWorkspaceFile extends Command {
 	private File file = null;
 	private String fileName = null;
 
+    /**
+     *
+     * @param visualDCT visualDCT
+     */
     public SetWorkspaceFile(VisualDCT visualDCT) {
         this.visualDCT=visualDCT;
     }
@@ -46,10 +50,18 @@ public class SetWorkspaceFile extends Command {
         visualDCT.setOpenedFile(file, fileName);
     }
 
+    /**
+     *
+     * @param file file
+     */
     public void setFile(File file) {
         this.file = file;
     }
 
+    /**
+     *
+     * @param fileName fileName
+     */
     public void setFilename(String fileName) {
     	this.fileName = fileName;
     }

@@ -38,21 +38,48 @@ import java.awt.Color;
 
 public class Constants {
 
+    /**
+     *
+     */
     public final static int VDCT_WIDTH = 1000;
+
+    /**
+     *
+     */
     public final static int VDCT_HEIGHT = 770;
 
 //    public final static String COPY_SUFFIX = "_copy";
 //    public final static String MOVE_SUFFIX = "_2";
+
+    /**
+     *
+     */
     public final static String COPY_SUFFIX = "2";
+
+    /**
+     *
+     */
     public final static String MOVE_SUFFIX = "2";
 
     // default config dir
+
+    /**
+     *
+     */
  	public final static String VDCT_DEFAULT_CONFIG_DIR = "/etc/vdct";
  	
  	// JVM parameter which can override VDCT_DEFAULT_CONFIG_DIR 
+
+    /**
+     *
+     */
  	public final static String VDCT_CONFIG_DIR_ENV = "VDCT_CONFIG_DIR";
 
  	// current config dir
+
+    /**
+     *
+     */
  	public final static String VDCT_CONFIG_DIR = System.getProperty(VDCT_CONFIG_DIR_ENV, VDCT_DEFAULT_CONFIG_DIR);
 
  	/**
@@ -79,74 +106,229 @@ public class Constants {
 		return VDCT_CONFIG_DIR + "/" + fileName;
  	}
  	
- 	public final static String VDCT_PLUGINS_FILE = "VDCT_PLUGINS_FILE";
- 	public final static String PLUGINS_FILE_NAME = ".vdctplugins.xml";
+    /**
+     *
+     */
+    public final static String VDCT_PLUGINS_FILE = "VDCT_PLUGINS_FILE";
+
+    /**
+     *
+     */
+    public final static String PLUGINS_FILE_NAME = ".vdctplugins.xml";
  	
- 	public final static String VDCT_SETTINGS_FILE = "VDCT_SETTINGS_FILE";
- 	public final static String VDCT_SETTINGS_FILE_NAME = ".vdct.xml";
+    /**
+     *
+     */
+    public final static String VDCT_SETTINGS_FILE = "VDCT_SETTINGS_FILE";
+
+    /**
+     *
+     */
+    public final static String VDCT_SETTINGS_FILE_NAME = ".vdct.xml";
  	
- 	public final static String TEMPLATE_FIELD_LOCATOR = "$";
+    /**
+     *
+     */
+    public final static String TEMPLATE_FIELD_LOCATOR = "$";
+
+    /**
+     *
+     */
     public /*final*/ static char GROUP_SEPARATOR = '\0';
-	public final static char HIERARCHY_SEPARATOR = ':';
+
+    /**
+     *
+     */
+    public final static char HIERARCHY_SEPARATOR = ':';
     //public /*final*/ static char GROUP_SEPARATOR = ':';
+
+    /**
+     *
+     */
     public final static char FIELD_SEPARATOR = '.';
+
+    /**
+     *
+     */
     public final static String HARDWARE_LINK = "#";
+
+    /**
+     *
+     */
     public final static String CONNECTOR_FIELD_SEPARATOR = "/";
     
+    /**
+     *
+     */
     public final static String UNTITLED = "Untitled";
+
+    /**
+     *
+     */
     public final static String MAIN_GROUP = "Main group";
+
+    /**
+     *
+     */
     public final static String TEMPLATE_GROUP = "Template";
 
+    /**
+     *
+     */
     public final static String CONFIG_DIR = "config/";
+
+    /**
+     *
+     */
     public final static String DTD_DIR = CONFIG_DIR + "dtd/";
 
+    /**
+     *
+     */
     public final static String NONE = "<none>";
-	public final static String MENU_DEFAULT_VALUE_INDICATOR = "*";
+
+    /**
+     *
+     */
+    public final static String MENU_DEFAULT_VALUE_INDICATOR = "*";
+
+    /**
+     *
+     */
     public final static String CLIPBOARD_NAME = "<clipboard>";
+
+    /**
+     *
+     */
     public final static String DEFAULT_NAME = "<default>";
 
 //    public final static int WARNING_RECORD_NAME_LENGTH = 40;
 
+    /**
+     *
+     */
+
     public final static int UNDO_STEPS_TO_REMEMBER = 25;
 
+    /**
+     *
+     */
     public final static int GRID_SIZE = 20;
 
+    /**
+     *
+     */
     public static final int RECORD_WIDTH = 160;
+
+    /**
+     *
+     */
     public static final int RECORD_HEIGHT = 45;
 
+    /**
+     *
+     */
     public static final int FIELD_WIDTH = RECORD_WIDTH - 30;
+
+    /**
+     *
+     */
     public static final int FIELD_HEIGHT = 20;
 
+    /**
+     *
+     */
     public static final int GROUP_FIELD_WIDTH = RECORD_WIDTH - 30;
+
+    /**
+     *
+     */
     public static final int GROUP_FIELD_HEIGHT = 20;
 
+    /**
+     *
+     */
     public static final int GROUP_WIDTH = 200;
+
+    /**
+     *
+     */
     public static final int GROUP_HEIGHT = 120;
 
+    /**
+     *
+     */
     public static final int TEMPLATE_WIDTH = 200;
+
+    /**
+     *
+     */
     public static final int TEMPLATE_INITIAL_HEIGHT = 120;
+
+    /**
+     *
+     */
     public static final int TEMPLATE_MIN_HEIGHT = 180;
 
+    /**
+     *
+     */
     public static final int INVISIBLE_CROSS_SIZE = 10;
 
+    /**
+     *
+     */
     public static final int LINK_STUB_SIZE = FIELD_HEIGHT - 4;
 
+    /**
+     *
+     */
     public static final int CONNECTOR_WIDTH = 6;
+
+    /**
+     *
+     */
     public static final int CONNECTOR_HEIGHT = 6;
+
+    /**
+     *
+     */
     public static final int LINK_RADIOUS = 5;
 
+    /**
+     *
+     */
     public static final int DOT_SIZE = 4;
 
+    /**
+     *
+     */
     public static final int TAIL_LENGTH = 50 + 3 * LINK_RADIOUS;
+
+    /**
+     *
+     */
     public static final int LINK_LABEL_LENGTH = TAIL_LENGTH - 3 * LINK_RADIOUS;
 
+    /**
+     *
+     */
     public static final String DEFAULT_FONT = "sansserif";
 
+    /**
+     *
+     */
     public static final int MAX_RECENT_FILES = 10;
     
-	public final static int LINK_SLOT_WIDTH = 5;
+    /**
+     *
+     */
+    public final static int LINK_SLOT_WIDTH = 5;
 	
-	public static final int MULTIPLE_PASTE_GAP = 10;
+    /**
+     *
+     */
+    public static final int MULTIPLE_PASTE_GAP = 10;
 /*
 	// white on black color scheme
     public static Color BACKGROUND_COLOR = Color.white;
@@ -162,23 +344,73 @@ public class Constants {
 */
 
 	// black on white color scheme
+
+    /**
+     *
+     */
     public static Color BACKGROUND_COLOR = Color.black;
+
+    /**
+     *
+     */
     public static Color PICK_COLOR = Color.red;
+
+    /**
+     *
+     */
     public static Color FRAME_COLOR = Color.white;
+
+    /**
+     *
+     */
     public static Color HILITE_COLOR = Color.yellow;
+
+    /**
+     *
+     */
     public static Color LINE_COLOR = Color.white;
+
+    /**
+     *
+     */
     public static Color RECORD_COLOR = Color.black;
+
+    /**
+     *
+     */
     public static Color SELECTION_COLOR = Color.red;
+
+    /**
+     *
+     */
     public static Color LINK_COLOR = Color.white;
 
+    /**
+     *
+     */
     public static Color GRID_COLOR = Color.lightGray;
 
+    /**
+     *
+     */
     public static final int DASHED_LINE_DENSITY = 8;
+
+    /**
+     *
+     */
     public static final int ARROW_SIZE = 16;
+
+    /**
+     *
+     */
     public static final double ARROW_SHARPNESS = Math.PI / 12;
 
     //public static final boolean WIRE_CROSSING_AVOIDIANCE = true;
     //public static boolean WIRE_CROSSING_AVOIDIANCE = Boolean.valueOf(System.getProperty("WIRE_CROSSING_AVOIDIANCE", "true")).booleanValue();
+
+    /**
+     *
+     */
 
     public static final int MAX_NAME_MACRO_EXPANSIONS = 1000;
 }

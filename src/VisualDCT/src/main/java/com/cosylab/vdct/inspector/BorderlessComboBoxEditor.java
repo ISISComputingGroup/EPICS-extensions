@@ -45,13 +45,14 @@ public BorderlessComboBoxEditor() {
 }
  /** Return the component that should be added to the tree hierarchy for
   * this editor
-  * @return 
+  * @return something
   */
 public java.awt.Component getEditorComponent() {
 	return this;
 }
  /** Return the edited item
-  * @return  **/
+  * @return something
+  */
 public Object getItem() {
 	return getText();
 }
@@ -61,7 +62,8 @@ public void selectAll() {
 	requestFocus();
 }
  /** Set the item that should be edited. Cancel any editing if necessary
-  * @param anObject **/
+  * @param anObject anObject 
+  */
 public void setItem(Object anObject) {
 	if ( anObject != null )
 		setText(anObject.toString());

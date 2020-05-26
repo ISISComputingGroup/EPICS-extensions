@@ -40,14 +40,22 @@ public class GetMainComponent extends Command {
 
 	private Component component;
 
-	public GetMainComponent(Component component) {
+    /**
+     *
+     * @param component component
+     */
+    public GetMainComponent(Component component) {
 		this.component = component;
 	}
 
 	public void execute() {
 	}
 
-	public Component getComponent() {
+    /**
+     *
+     * @return something
+     */
+    public Component getComponent() {
 		return component;
 	}
 }

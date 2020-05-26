@@ -31,7 +31,11 @@ package com.cosylab.vdct.graphics;
 import java.beans.*;
 
 public class WorkspacePanelBeanInfo extends SimpleBeanInfo {
-public WorkspacePanelBeanInfo() {
+
+    /**
+     *
+     */
+    public WorkspacePanelBeanInfo() {
 	super();
 }
 public PropertyDescriptor[] getPropertyDescriptors() {

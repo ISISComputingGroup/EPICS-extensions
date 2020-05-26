@@ -58,7 +58,10 @@ public class PopupPluginRecordHandlerExample implements ContextPopupPlugin {
 		}
 	}
 
-	protected PopupPluginRecordHandlerExample.PopupMenuHandler popupMenuHandler = null;
+    /**
+     *
+     */
+    protected PopupPluginRecordHandlerExample.PopupMenuHandler popupMenuHandler = null;
 
 /**
  * Insert the method's description here.
@@ -95,7 +98,7 @@ public String getDescription() {
 /**
  * Insert the method's description here.
  * Creation date: (8.12.2001 13:29:26)
- * @return
+ * @return something
  */
 public String getName() {
 	return "Popup Record Handler";
@@ -111,8 +114,8 @@ public String getVersion() {
 /**
  * Insert the method's description here.
  * Creation date: (8.12.2001 13:29:26)
- * @param properties
- * @param context
+ * @param properties properties
+ * @param context context
  */
 public void init(java.util.Properties properties, com.cosylab.vdct.plugin.PluginContext context) {}
 /**
@@ -121,7 +124,7 @@ public void init(java.util.Properties properties, com.cosylab.vdct.plugin.Plugin
 public void start() {}
 /**
  * Insert the method's description here.
- * Creation date: (8.12.2001 13:29:26)@return
+ * Creation date: (8.12.2001 13:29:26)
  */
 public void stop() {}
 

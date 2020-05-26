@@ -47,7 +47,13 @@ public class Vertex extends VisibleObject implements Movable, Popupable
 	//private static final String nullString = "";
 	private boolean hilited = false;
 
-public Vertex(VisibleObject owner, int parX, int parY)
+    /**
+     *
+     * @param owner owner
+     * @param parX parX
+     * @param parY parY
+     */
+    public Vertex(VisibleObject owner, int parX, int parY)
 {
 	//super(parentGroup);
 	super(null);
@@ -238,11 +244,19 @@ public VisibleObject intersects(int p1x, int p1y, int p2x, int p2y) {
 	else return null;
 }
 
-public ContainerObject getRootContainer() {
+    /**
+     *
+     * @return something
+     */
+    public ContainerObject getRootContainer() {
 	return owner != null ? owner.getRootContainer() : null;
 }
 
-public Object getDsId() {
+    /**
+     *
+     * @return something
+     */
+    public Object getDsId() {
 	return owner != null ? owner.getDsId() : null;
 }
 
