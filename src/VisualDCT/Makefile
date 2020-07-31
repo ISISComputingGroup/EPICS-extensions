@@ -1,4 +1,4 @@
-.PHONY: install clean uninstall distclean realclean
+.PHONY: install clean uninstall distclean realclean runtests
 
 MVNFLAGS=-T 4
 
@@ -9,3 +9,5 @@ clean distclean realclean:
 	mvn $(MVNFLAGS) clean
 
 uninstall:
+
+runtests:
