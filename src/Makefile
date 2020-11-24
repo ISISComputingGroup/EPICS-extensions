@@ -15,7 +15,7 @@ BURT = burt
 CAEX = caex
 CAMONITOR = camonitor
 CAOBJECT2 = caObject2
-#CASNOOPER = caSnooper2_1_2_3
+CASNOOPER = caSnooper2_1_2_3
 CASR = casr
 CATCL = caTCL
 CAU = cau
@@ -134,6 +134,8 @@ DIRS += $(SCOPEUTIL)
 DIRS += $(SDDSIDL)
 DIRS += $(STRIPTOOL)
 DIRS += $(VDCT)
+
+DIRS += $(EXTRADIRS)
 
 DIRS := $(wildcard $(DIRS))
 
